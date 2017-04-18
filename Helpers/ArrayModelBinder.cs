@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Library.API.Helpers
+namespace ESPL.KP.Helpers
 {
     public class ArrayModelBinder : IModelBinder
     {

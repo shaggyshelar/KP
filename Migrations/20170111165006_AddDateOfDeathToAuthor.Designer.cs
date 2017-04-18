@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Library.API.Entities;
+using ESPL.KP.Entities;
 
-namespace Library.API.Migrations
+namespace ESPL.KP.Migrations
 {
     [DbContext(typeof(LibraryContext))]
     [Migration("20170111165006_AddDateOfDeathToAuthor")]
@@ -17,7 +17,7 @@ namespace Library.API.Migrations
                 .HasAnnotation("ProductVersion", "1.0.1")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Library.API.Entities.Author", b =>
+            modelBuilder.Entity("ESPL.KP.Entities.Author", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -43,7 +43,7 @@ namespace Library.API.Migrations
                     b.ToTable("Authors");
                 });
 
-            modelBuilder.Entity("Library.API.Entities.Book", b =>
+            modelBuilder.Entity("ESPL.KP.Entities.Book", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -64,9 +64,9 @@ namespace Library.API.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("Library.API.Entities.Book", b =>
+            modelBuilder.Entity("ESPL.KP.Entities.Book", b =>
                 {
-                    b.HasOne("Library.API.Entities.Author", "Author")
+                    b.HasOne("ESPL.KP.Entities.Author", "Author")
                         .WithMany("Books")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade);

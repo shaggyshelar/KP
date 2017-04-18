@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
-using Library.API.Services;
-using Library.API.Entities;
+using ESPL.KP.Services;
+using ESPL.KP.Entities;
 using Microsoft.EntityFrameworkCore;
-using Library.API.Helpers;
+using ESPL.KP.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Diagnostics;
@@ -20,7 +20,7 @@ using AspNetCoreRateLimit;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using REST2.Entities;
+using ESPL.KP.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
@@ -191,23 +191,23 @@ namespace ESPL.KP
 
             AutoMapper.Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<Library.API.Entities.Author, Library.API.Models.AuthorDto>()
+                cfg.CreateMap<ESPL.KP.Entities.Author, ESPL.KP.Models.AuthorDto>()
                     .ForMember(dest => dest.Name, opt => opt.MapFrom(src =>
                     $"{src.FirstName} {src.LastName}"))
                     .ForMember(dest => dest.Age, opt => opt.MapFrom(src =>
                     src.DateOfBirth.GetCurrentAge(src.DateOfDeath)));
 
-                cfg.CreateMap<Library.API.Entities.Book, Library.API.Models.BookDto>();
+                cfg.CreateMap<ESPL.KP.Entities.Book, ESPL.KP.Models.BookDto>();
 
-                cfg.CreateMap<Library.API.Models.AuthorForCreationDto, Library.API.Entities.Author>();
+                cfg.CreateMap<ESPL.KP.Models.AuthorForCreationDto, ESPL.KP.Entities.Author>();
 
-                cfg.CreateMap<Library.API.Models.AuthorForCreationWithDateOfDeathDto, Library.API.Entities.Author>();
+                cfg.CreateMap<ESPL.KP.Models.AuthorForCreationWithDateOfDeathDto, ESPL.KP.Entities.Author>();
 
-                cfg.CreateMap<Library.API.Models.BookForCreationDto, Library.API.Entities.Book>();
+                cfg.CreateMap<ESPL.KP.Models.BookForCreationDto, ESPL.KP.Entities.Book>();
 
-                cfg.CreateMap<Library.API.Models.BookForUpdateDto, Library.API.Entities.Book>();
+                cfg.CreateMap<ESPL.KP.Models.BookForUpdateDto, ESPL.KP.Entities.Book>();
 
-                cfg.CreateMap<Library.API.Entities.Book, Library.API.Models.BookForUpdateDto>();
+                cfg.CreateMap<ESPL.KP.Entities.Book, ESPL.KP.Models.BookForUpdateDto>();
             });
 
             libraryContext.EnsureSeedDataForContext();

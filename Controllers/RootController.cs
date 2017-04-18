@@ -1,11 +1,11 @@
-﻿using Library.API.Models;
+﻿using ESPL.KP.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Library.API.Controllers
+namespace ESPL.KP.Controllers
 {
 
     [Route("api")]

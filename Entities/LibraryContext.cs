@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Library.API.Entities
+namespace ESPL.KP.Entities
 {
     public class LibraryContext : DbContext
     {

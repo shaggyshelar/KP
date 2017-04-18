@@ -1,11 +1,11 @@
-﻿using Library.API.Entities;
-using Library.API.Models;
+﻿using ESPL.KP.Entities;
+using ESPL.KP.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Library.API.Services
+namespace ESPL.KP.Services
 {
     public class PropertyMappingService : IPropertyMappingService
     {

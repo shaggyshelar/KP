@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace REST2.Entities
+namespace ESPL.KP.Entities
 {
     public class ESPLUser : IdentityUser
     {

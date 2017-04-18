@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Library.API.Services
+namespace ESPL.KP.Services
 {
     public class PropertyMapping<TSource, TDestination> : IPropertyMapping
     {
