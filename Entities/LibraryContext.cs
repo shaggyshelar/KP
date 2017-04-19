@@ -10,7 +10,7 @@ namespace ESPL.KP.Entities {
 
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
-        public DbSet<CFGRolePermission> CFGRolePermission { get; set; }
+        // public DbSet<CFGRolePermission> CFGRolePermission { get; set; }
 
         public DbSet<CFGUserDepartment> CFGUserDepartment { get; set; }
 
@@ -28,13 +28,13 @@ namespace ESPL.KP.Entities {
 
         public DbSet<MstPermission> MstPermission { get; set; }
 
-        public DbSet<MstRole> MstRole { get; set; }
+        // public DbSet<MstRole> MstRole { get; set; }
 
         public DbSet<MstShift> MstShift { get; set; }
 
-        public DbSet<MstUser> MstUser { get; set; }
+        // public DbSet<MstUser> MstUser { get; set; }
 
-        public DbSet<MstUserProfile> MstUserProfile { get; set; }
+        // public DbSet<MstUserProfile> MstUserProfile { get; set; }
 
         public DbSet<OccurrenceAssignment> OccurrenceAssignment { get; set; }
 

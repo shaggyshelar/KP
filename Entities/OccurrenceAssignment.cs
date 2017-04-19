@@ -17,7 +17,7 @@ namespace ESPL.KP.Entities {
         public System.Guid OBStatusID { get; set; }
 
         [ForeignKey ("AssignedTO")]
-        public MstUser MstUser { get; set; }
+        public ESPLUser ESPLUser { get; set; }
         public System.Guid AssignedTO { get; set; }
 
         [MaxLength (500)]

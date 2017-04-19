@@ -17,6 +17,7 @@ namespace ESPL.KP.Entities {
         [Required]
         public TimeSpan EndTime { get; set; }
 
-        public ICollection<MstUser> MstUsers { get; set; } = new List<MstUser> ();
+        public ICollection<ESPLUser> ESPLUser { get; set; }
+            = new List<ESPLUser>();
     }
 }
