@@ -10,7 +10,7 @@ namespace ESPL.KP.Entities {
 
         [ForeignKey ("UserID")]
         public ESPLUser ESPLUser { get; set; }
-        public Guid UserID { get; set; }
+        public string UserID { get; set; }
 
         [ForeignKey ("DepartmentID")]
         public MstDepartment MstDepartment { get; set; }
