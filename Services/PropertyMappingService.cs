@@ -18,12 +18,20 @@ namespace ESPL.KP.Services
                { "Name", new PropertyMappingValue(new List<string>() { "FirstName", "LastName" }) }
            };
 
+        private Dictionary<string, PropertyMappingValue> _departmentPropertyMapping =
+           new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+           {
+               { "DepartmentID", new PropertyMappingValue(new List<string>() { "DepartmentID" } ) },
+               { "DepartmentName", new PropertyMappingValue(new List<string>() { "DepartmentName" } )},
+               { "DepartmentDespcription", new PropertyMappingValue(new List<string>() { "DepartmentDespcription" } )}
+           };
+
         private IList<IPropertyMapping> propertyMappings = new List<IPropertyMapping>();
 
         public PropertyMappingService()
         {
             propertyMappings.Add(new PropertyMapping<AuthorDto, Author>(_authorPropertyMapping));
-            propertyMappings.Add(new PropertyMapping<DepartmentDto, MstDepartment>(_authorPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<DepartmentDto, MstDepartment>(_departmentPropertyMapping));
         }
         public Dictionary<string, PropertyMappingValue>  GetPropertyMapping
             <TSource, TDestination>()

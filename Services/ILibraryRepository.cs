@@ -3,6 +3,7 @@ using ESPL.KP.Helpers;
 using System;
 using System.Collections.Generic;
 using ESPL.KP.Helpers.Core;
+using ESPL.KP.Helpers.Department;
 
 namespace ESPL.KP.Services
 {
@@ -30,7 +31,7 @@ namespace ESPL.KP.Services
 
 
         #region Department
-        PagedList<MstDepartment> GetDepartments(BaseResourceParameters departmentResourceParameters);
+        PagedList<MstDepartment> GetDepartments(DepartmentsResourceParameters departmentResourceParameters);
         MstDepartment GetDepartment(Guid departmentId);
         IEnumerable<MstDepartment> GetDepartments(IEnumerable<Guid> departmentIds);
         void AddDepartment(MstDepartment department);

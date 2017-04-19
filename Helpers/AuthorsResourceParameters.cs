@@ -9,5 +9,6 @@ namespace ESPL.KP.Helpers
     public class AuthorsResourceParameters : BaseResourceParameters
     {
         public string Genre { get; set; }
+        public string OrderBy { get; set; } = "Name";
     }
 }

@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ESPL.KP.Models.Core;
 
 namespace ESPL.KP.Models
 {
-    public class DepartmentDto
+    public class DepartmentDto : BaseDto
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public int Age { get; set; }
-        public string Genre { get; set; }
+        public Guid DepartmentID { get; set; }
+        public string DepartmentName { get; set; }
+        public string DepartmentDespcription { get; set; }
     }
 }

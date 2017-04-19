@@ -23,7 +23,7 @@ namespace ESPL.KP.Controllers.Department
 
         [HttpPost]
         public IActionResult CreateDepartmentCollection(
-            [FromBody] IEnumerable<DepartmentForCreationDto> departmentCollection)
+            [FromBody] IEnumerable<DepartmentDto> departmentCollection)
         {
             if (departmentCollection == null)
             {
@@ -44,7 +44,7 @@ namespace ESPL.KP.Controllers.Department
 
             var departmentCollectionToReturn = Mapper.Map<IEnumerable<DepartmentDto>>(departmentEntities);
             var idsAsString = string.Join(",",
-                departmentCollectionToReturn.Select(a => a.Id));
+                departmentCollectionToReturn.Select(a => a.DepartmentID));
 
             return CreatedAtRoute("GetDepartmentCollection",
                 new { ids = idsAsString },

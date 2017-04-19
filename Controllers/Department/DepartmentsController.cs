@@ -9,6 +9,7 @@ using AutoMapper;
 using ESPL.KP.Entities;
 using Microsoft.AspNetCore.Http;
 using ESPL.KP.Helpers.Core;
+using ESPL.KP.Helpers.Department;
 
 namespace ESPL.KP.Controllers.Department
 {
@@ -33,7 +34,7 @@ namespace ESPL.KP.Controllers.Department
 
         [HttpGet(Name = "GetDepartments")]
         [HttpHead]
-        public IActionResult GetDepartments(BaseResourceParameters departmentsResourceParameters,
+        public IActionResult GetDepartments(DepartmentsResourceParameters departmentsResourceParameters,
             [FromHeader(Name = "Accept")] string mediaType)
         {
             if (!_propertyMappingService.ValidMappingExistsFor<DepartmentDto, MstDepartment>
@@ -117,7 +118,7 @@ namespace ESPL.KP.Controllers.Department
         }
 
         private string CreateDepartmentsResourceUri(
-            BaseResourceParameters departmentsResourceParameters,
+            DepartmentsResourceParameters departmentsResourceParameters,
             ResourceUriType type)
         {
             switch (type)
@@ -187,7 +188,7 @@ namespace ESPL.KP.Controllers.Department
         [HttpPost(Name = "CreateDepartment")]
         [RequestHeaderMatchesMediaType("Content-Type",
             new[] { "application/vnd.marvin.department.full+json" })]
-        public IActionResult CreateDepartment([FromBody] DepartmentForCreationDto department)
+        public IActionResult CreateDepartment([FromBody] DepartmentDto department)
         {
             if (department == null)
             {
@@ -206,7 +207,7 @@ namespace ESPL.KP.Controllers.Department
 
             var departmentToReturn = Mapper.Map<DepartmentDto>(departmentEntity);
 
-            var links = CreateLinksForDepartment(departmentToReturn.Id, null);
+            var links = CreateLinksForDepartment(departmentToReturn.DepartmentID, null);
 
             var linkedResourceToReturn = departmentToReturn.ShapeData(null)
                 as IDictionary<string, object>;
@@ -244,7 +245,7 @@ namespace ESPL.KP.Controllers.Department
 
             var departmentToReturn = Mapper.Map<DepartmentDto>(departmentEntity);
 
-            var links = CreateLinksForDepartment(departmentToReturn.Id, null);
+            var links = CreateLinksForDepartment(departmentToReturn.DepartmentID, null);
 
             var linkedResourceToReturn = departmentToReturn.ShapeData(null)
                 as IDictionary<string, object>;
@@ -324,7 +325,7 @@ namespace ESPL.KP.Controllers.Department
         }
 
         private IEnumerable<LinkDto> CreateLinksForDepartments(
-            BaseResourceParameters departmentsResourceParameters,
+            DepartmentsResourceParameters departmentsResourceParameters,
             bool hasNext, bool hasPrevious)
         {
             var links = new List<LinkDto>();
