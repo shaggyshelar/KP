@@ -2,10 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace ESPL.KP.Entities {
-    public class LibraryContext : IdentityDbContext<ESPLUser> {
-        public LibraryContext (DbContextOptions<LibraryContext> options) : base (options) {
-            Database.Migrate ();
+namespace ESPL.KP.Entities
+{
+    public class LibraryContext : IdentityDbContext<ESPLUser>
+    {
+        public LibraryContext(DbContextOptions<LibraryContext> options) : base(options)
+        {
+            Database.Migrate();
         }
 
         public DbSet<Author> Authors { get; set; }
@@ -16,7 +19,7 @@ namespace ESPL.KP.Entities {
 
         // public DbSet<MstArea> MstArea { get; set; }
 
-        // public DbSet<MstDepartment> MstDepartment { get; set; }
+        public DbSet<MstDepartment> MstDepartment { get; set; }
 
         // public DbSet<MstDesignation> MstDesignation { get; set; }
 
