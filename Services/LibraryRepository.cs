@@ -4,6 +4,7 @@ using ESPL.KP.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ESPL.KP.Helpers.Core;
 
 namespace ESPL.KP.Services
 {
@@ -140,5 +141,44 @@ namespace ESPL.KP.Services
         {
             return (_context.SaveChanges() >= 0);
         }
+
+        #region Department
+
+        public PagedList<MstDepartment> GetDepartments(BaseResourceParameters departmentResourceParameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public MstDepartment GetDepartment(Guid departmentId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<MstDepartment> GetDepartments(IEnumerable<Guid> departmentIds)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddDepartment(MstDepartment department)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteDepartment(MstDepartment department)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateDepartment(MstDepartment department)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DepartmentExists(Guid authorId)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion Department
     }
 }
