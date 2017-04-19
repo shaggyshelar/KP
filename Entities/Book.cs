@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Library.API.Entities
+namespace ESPL.KP.Entities
 {
     public class Book
     {

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Library.API.Entities;
-using Library.API.Helpers;
-using Library.API.Models;
-using Library.API.Services;
+using ESPL.KP.Entities;
+using ESPL.KP.Helpers;
+using ESPL.KP.Models;
+using ESPL.KP.Services;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Library.API.Controllers
+namespace ESPL.KP.Controllers
 {
     [Route("api/authors/{authorId}/books")]
     public class BooksController : Controller

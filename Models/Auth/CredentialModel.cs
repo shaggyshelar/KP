@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace REST2.Models.Auth
+namespace ESPL.KP.Models.Auth
 {
     public class CredentialModel
     {

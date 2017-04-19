@@ -1,11 +1,11 @@
-﻿using Library.API.Entities;
-using Library.API.Helpers;
-using Library.API.Models;
+﻿using ESPL.KP.Entities;
+using ESPL.KP.Helpers;
+using ESPL.KP.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Library.API.Services
+namespace ESPL.KP.Services
 {
     public class LibraryRepository : ILibraryRepository
     {

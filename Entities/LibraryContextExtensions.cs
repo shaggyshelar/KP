@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Library.API.Entities
+namespace ESPL.KP.Entities
 {
     public static class LibraryContextExtensions
     {

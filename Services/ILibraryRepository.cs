@@ -1,9 +1,9 @@
-﻿using Library.API.Entities;
-using Library.API.Helpers;
+﻿using ESPL.KP.Entities;
+using ESPL.KP.Helpers;
 using System;
 using System.Collections.Generic;
 
-namespace Library.API.Services
+namespace ESPL.KP.Services
 {
     public interface ILibraryRepository
     {

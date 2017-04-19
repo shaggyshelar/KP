@@ -1,16 +1,16 @@
-﻿using Library.API.Models;
-using Library.API.Services;
+﻿using ESPL.KP.Models;
+using ESPL.KP.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Library.API.Helpers;
+using ESPL.KP.Helpers;
 using AutoMapper;
-using Library.API.Entities;
+using ESPL.KP.Entities;
 using Microsoft.AspNetCore.Http;
 
-namespace Library.API.Controllers
+namespace ESPL.KP.Controllers
 {
     [Route("api/authors")]
     public class AuthorsController : Controller

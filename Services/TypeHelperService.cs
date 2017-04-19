@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Library.API.Services
+namespace ESPL.KP.Services
 {
     public class TypeHelperService : ITypeHelperService
     {

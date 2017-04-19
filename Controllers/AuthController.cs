@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using REST2.Entities;
-using REST2.Filters;
-using REST2.Models.Auth;
+using ESPL.KP.Entities;
+using ESPL.KP.Filters;
+using ESPL.KP.Models.Auth;
 
-namespace REST2.Controllers
+namespace ESPL.KP.Controllers
 {
     public class AuthController : Controller
     {

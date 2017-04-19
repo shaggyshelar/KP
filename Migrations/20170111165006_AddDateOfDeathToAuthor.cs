@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Library.API.Migrations
+namespace ESPL.KP.Migrations
 {
     public partial class AddDateOfDeathToAuthor : Migration
     {
