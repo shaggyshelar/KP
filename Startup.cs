@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using ESPL.KP.Services;
-using ESPL.KP.Entities;
 using Microsoft.EntityFrameworkCore;
 using ESPL.KP.Helpers;
 using Microsoft.AspNetCore.Http;
@@ -22,7 +21,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using ESPL.KP.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 
 namespace ESPL.KP
 {
@@ -45,13 +43,14 @@ namespace ESPL.KP
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(Configuration);
             // register the DbContext on the container, getting the connection string from
             // appSettings (note: use this during development; in a production environment,
             // it's better to store the connection string in an environment variable)
             var connectionString = Configuration["connectionStrings:libraryDBConnectionString"];
             services.AddDbContext<LibraryContext>(o => o.UseSqlServer(connectionString));
-            // .AddIdentity<ESPLUser, IdentityRole>();
-            // services.AddScoped<SignInManager<ESPLUser>, SignInManager<ESPLUser>>();
+            services.AddTransient<IdentityInitializer>();
+            services.AddIdentity<ESPLUser, IdentityRole>().AddEntityFrameworkStores<LibraryContext>();
 
             services.AddMvc(setupAction =>
             {
@@ -151,7 +150,8 @@ namespace ESPL.KP
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env,
-            ILoggerFactory loggerFactory, LibraryContext libraryContext)
+            ILoggerFactory loggerFactory, LibraryContext libraryContext,
+            IdentityInitializer identitySeeder)
         {
             loggerFactory.AddConsole();
 
@@ -215,6 +215,7 @@ namespace ESPL.KP
             app.UseHttpCacheHeaders();
             app.UseDefaultFiles();
             app.UseStaticFiles();
+            app.UseIdentity();
             app.UseJwtBearerAuthentication(new JwtBearerOptions()
             {
                 AutomaticAuthenticate = true,
@@ -234,6 +235,8 @@ namespace ESPL.KP
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
+
+            identitySeeder.Seed().Wait();
         }
     }
 }

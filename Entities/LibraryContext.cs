@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace ESPL.KP.Entities
 {
-    public class LibraryContext : DbContext
+    public class LibraryContext : IdentityDbContext<ESPLUser>
     {
         public LibraryContext(DbContextOptions<LibraryContext> options)
            : base(options)
