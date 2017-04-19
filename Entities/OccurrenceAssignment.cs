@@ -13,7 +13,7 @@ namespace ESPL.KP.Entities {
         public Guid OBID { get; set; }
 
         [ForeignKey ("OBStatusID")]
-        public MstOccurrenceStatus MstOccurrenceStatu { get; set; }
+        public MstOccurrenceStatus MstOccurrenceStatus { get; set; }
         public Guid OBStatusID { get; set; }
 
         [ForeignKey ("AssignedTO")]
