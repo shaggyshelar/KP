@@ -9,6 +9,7 @@ using ESPL.KP.Helpers.Department;
 using ESPL.KP.Helpers.Area;
 using ESPL.KP.Helpers.Designation;
 using ESPL.KP.Helpers.OccurrenceType;
+using ESPL.KP.Helpers.OccurrenceBook;
 
 namespace ESPL.KP.Services
 {
@@ -323,7 +324,7 @@ namespace ESPL.KP.Services
 
         #endregion Designation
 
-                #region OccurrenceType
+        #region OccurrenceType
 
         public PagedList<MstOccurrenceType> GetOccurrenceTypes(OccurrenceTypeResourceParameters occurrenceTypeResourceParameters)
         {
@@ -377,6 +378,70 @@ namespace ESPL.KP.Services
         public bool OccurrenceTypeExists(Guid occurrenceTypeId)
         {
             return _context.MstOccurrenceType.Any(a => a.OBTypeID == occurrenceTypeId);
+        }
+
+        #endregion
+
+
+        #region OccurrenceBook
+
+        public PagedList<MstOccurrenceBook> GetOccurrenceBooks(OccurrenceBookResourceParameters occurrenceBookResourceParameters)
+        {
+            var collectionBeforePaging =
+                _context.MstOccurrenceBook.ApplySort(occurrenceBookResourceParameters.OrderBy,
+                _propertyMappingService.GetPropertyMapping<OccurrenceBookDto, MstOccurrenceBook>());
+
+            if (!string.IsNullOrEmpty(occurrenceBookResourceParameters.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = occurrenceBookResourceParameters.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a =>
+                        a.OBNumber.ToLowerInvariant().Contains(searchQueryForWhereClause) ||
+                        a.CaseFileNumber.ToLowerInvariant().Contains(searchQueryForWhereClause) ||
+                        a.NatureOfOccurrence.ToLowerInvariant().Contains(searchQueryForWhereClause) ||
+                        a.Remark.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    );
+            }
+
+            return PagedList<MstOccurrenceBook>.Create(collectionBeforePaging,
+                occurrenceBookResourceParameters.PageNumber,
+                occurrenceBookResourceParameters.PageSize);
+        }
+
+        public MstOccurrenceBook GetOccurrenceBook(Guid occurrenceBookId)
+        {
+            return _context.MstOccurrenceBook.FirstOrDefault(a => a.OBID == occurrenceBookId);
+        }
+
+        public IEnumerable<MstOccurrenceBook> GetOccurrenceBooks(IEnumerable<Guid> occurrenceBookIds)
+        {
+            return _context.MstOccurrenceBook.Where(a => occurrenceBookIds.Contains(a.OBID))
+                .OrderBy(a => a.OBTime)
+                .ToList();
+        }
+
+        public void AddOccurrenceBook(MstOccurrenceBook occurrenceBook)
+        {
+            occurrenceBook.OBID = Guid.NewGuid();
+            _context.MstOccurrenceBook.Add(occurrenceBook);
+        }
+
+        public void DeleteOccurrenceBook(MstOccurrenceBook occurrenceBook)
+        {
+            _context.MstOccurrenceBook.Remove(occurrenceBook);
+        }
+
+        public void UpdateOccurrenceBook(MstOccurrenceBook occurrenceBook)
+        {
+            // no code in this implementation
+        }
+
+        public bool OccurrenceBookExists(Guid occurrenceBookId)
+        {
+            return _context.MstOccurrenceBook.Any(a => a.OBID == occurrenceBookId);
         }
 
         #endregion

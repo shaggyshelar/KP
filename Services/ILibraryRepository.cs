@@ -7,6 +7,8 @@ using ESPL.KP.Helpers.Department;
 using ESPL.KP.Helpers.Area;
 using ESPL.KP.Helpers.Designation;
 using ESPL.KP.Helpers.OccurrenceType;
+using ESPL.KP.Helpers.OccurrenceBook;
+using ESPL.KP.Helpers.OccurrenceBook;
 
 namespace ESPL.KP.Services
 {
@@ -74,6 +76,16 @@ namespace ESPL.KP.Services
         void DeleteOccurrenceType(MstOccurrenceType occurrenceType);
         void UpdateOccurrenceType(MstOccurrenceType occurrenceType);
         bool OccurrenceTypeExists(Guid occurrenceTypeId);
+        #endregion
+
+        #region OccurrenceBook
+        PagedList<MstOccurrenceBook> GetOccurrenceBooks(OccurrenceBookResourceParameters occurrenceTypeResourceParameters);
+        MstOccurrenceBook GetOccurrenceBook(Guid occurrenceTypeId);
+        IEnumerable<MstOccurrenceBook> GetOccurrenceBooks(IEnumerable<Guid> occurrenceTypeIds);
+        void AddOccurrenceBook(MstOccurrenceBook occurrenceType);
+        void DeleteOccurrenceBook(MstOccurrenceBook occurrenceType);
+        void UpdateOccurrenceBook(MstOccurrenceBook occurrenceType);
+        bool OccurrenceBookExists(Guid occurrenceTypeId);
         #endregion
 
         bool Save();

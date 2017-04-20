@@ -153,9 +153,6 @@ namespace ESPL.KP.Entities
             context.Authors.AddRange(authors);
             context.SaveChanges();
 
-
-
-
             #region Shift
             context.MstShift.RemoveRange(context.MstShift);
             context.SaveChanges();
@@ -192,6 +189,7 @@ namespace ESPL.KP.Entities
             UpdateArea(context);
             UpdateDesignation(context);
             UpdateOccurrenceType(context);
+            UpdateOccurrenceBooks(context);
         }
 
         private static void UpdateDesignation(LibraryContext context)
@@ -447,5 +445,42 @@ namespace ESPL.KP.Entities
             context.SaveChanges();
 
         }
+
+        private static void UpdateOccurrenceBooks(LibraryContext context)
+        {
+            context.MstOccurrenceBook.RemoveRange(context.MstOccurrenceBook);
+            context.SaveChanges();
+            var occurrenceBooks = new List<MstOccurrenceBook>() {
+                new MstOccurrenceBook() {
+                    OBID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
+                    AreaID= new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9579"),
+                    OBTypeID= new Guid("758b1995-7f92-4d87-9588-b90800abf111"),
+                    DepartmentID= new Guid("a1da1d8e-1111-4634-b538-a01709471111"),
+                    StatusID= new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9123"),
+                    OBNumber= "123",
+                    OBTime= Convert.ToDateTime("2017-04-20T19:23:14.9100866"),
+                    CaseFileNumber= "1",
+                    NatureOfOccurrence= "Nature 1",
+                    Remark= "Test Remark 1",
+                  },
+                new MstOccurrenceBook()  {
+                    OBID=new Guid( "411bfab2-0d44-4fb9-8835-184db90f5678"),
+                    AreaID=new Guid( "411bfab2-0d44-4fb9-8835-184db90f44fa"),
+                    OBTypeID=new Guid( "758b1995-7f92-4d87-9588-b90800abf222"),
+                    DepartmentID=new Guid("a1da1d8e-1111-4634-b538-a01709472222"),
+                    StatusID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9579"),
+                    OBNumber= "456",
+                    OBTime= Convert.ToDateTime("2017-04-10T19:25:14.9100866"),
+                    CaseFileNumber= "2",
+                    NatureOfOccurrence= "Nature 2",
+                    Remark= "Test Remark 2",
+                  }
+
+            };
+            context.MstOccurrenceBook.AddRange(occurrenceBooks);
+            context.SaveChanges();
+
+        }
+
     }
 }
