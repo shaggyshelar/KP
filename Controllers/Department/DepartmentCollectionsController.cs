@@ -23,7 +23,7 @@ namespace ESPL.KP.Controllers.Department
 
         [HttpPost]
         public IActionResult CreateDepartmentCollection(
-            [FromBody] IEnumerable<DepartmentDto> departmentCollection)
+            [FromBody] IEnumerable<DepartmentForCreationDto> departmentCollection)
         {
             if (departmentCollection == null)
             {

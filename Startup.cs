@@ -205,6 +205,7 @@ namespace ESPL.KP
 
 
                 cfg.CreateMap<ESPL.KP.Entities.MstDepartment, ESPL.KP.Models.DepartmentDto>();
+                cfg.CreateMap<ESPL.KP.Models.DepartmentForCreationDto, ESPL.KP.Entities.MstDepartment>();
             });
 
             libraryContext.EnsureSeedDataForContext();
@@ -233,7 +234,7 @@ namespace ESPL.KP
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-            identitySeeder.Seed().Wait();
+            //identitySeeder.Seed().Wait();
         }
     }
 }

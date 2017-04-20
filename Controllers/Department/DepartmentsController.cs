@@ -186,9 +186,7 @@ namespace ESPL.KP.Controllers.Department
         }
 
         [HttpPost(Name = "CreateDepartment")]
-        [RequestHeaderMatchesMediaType("Content-Type",
-            new[] { "application/vnd.marvin.department.full+json" })]
-        public IActionResult CreateDepartment([FromBody] DepartmentDto department)
+        public IActionResult CreateDepartment([FromBody] DepartmentForCreationDto department)
         {
             if (department == null)
             {
@@ -215,7 +213,7 @@ namespace ESPL.KP.Controllers.Department
             linkedResourceToReturn.Add("links", links);
 
             return CreatedAtRoute("GetDepartment",
-                new { id = linkedResourceToReturn["Id"] },
+                new { id = linkedResourceToReturn["DepartmentID"] },
                 linkedResourceToReturn);
         }
 
