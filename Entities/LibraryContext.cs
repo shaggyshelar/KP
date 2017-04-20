@@ -4,20 +4,23 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 
-namespace ESPL.KP.Entities
-{
-    public class LibraryContext : IdentityDbContext<ESPLUser>
-    {
-        public LibraryContext(DbContextOptions<LibraryContext> options) : base(options)
-        {
-            Database.Migrate();
+namespace ESPL.KP.Entities {
+    public class LibraryContext : IdentityDbContext<ESPLUser> {
+        public LibraryContext (DbContextOptions<LibraryContext> options) : base (options) {
+            Database.Migrate ();
         }
 
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
-        //public DbSet<CFGRolePermission> CFGRolePermission { get; set; }
 
-        public DbSet<CFGUserDepartment> CFGUserDepartment { get; set; }
+        public DbSet<CfgUserDepartment> CfgUserDepartment { get; set; }
+
+        public DbSet<CfgUserArea> CfgUserArea { get; set; }
+
+        public DbSet<CfgUserDesignation> CfgUserDesignation { get; set; }
+
+        public DbSet<CfgUserShift> CfgUserShift { get; set; }
+
 
         public DbSet<MstArea> MstArea { get; set; }
 
@@ -33,13 +36,7 @@ namespace ESPL.KP.Entities
 
         public DbSet<MstPermission> MstPermission { get; set; }
 
-        // public DbSet<MstRole> MstRole { get; set; }
-
         public DbSet<MstShift> MstShift { get; set; }
-
-        // public DbSet<MstUser> MstUser { get; set; }
-
-        // public DbSet<MstUserProfile> MstUserProfile { get; set; }
 
         public DbSet<OccurrenceAssignment> OccurrenceAssignment { get; set; }
 
