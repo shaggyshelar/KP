@@ -219,44 +219,6 @@ namespace ESPL.KP.Controllers.Department
                 linkedResourceToReturn);
         }
 
-
-        [HttpPost(Name = "CreateDepartmentWithDateOfDeath")]
-        [RequestHeaderMatchesMediaType("Content-Type",
-            new[] { "application/vnd.marvin.departmentwithdateofdeath.full+json",
-                    "application/vnd.marvin.departmentwithdateofdeath.full+xml" })]
-        // [RequestHeaderMatchesMediaType("Accept", new[] { "..." })]
-        public IActionResult CreateDepartmentWithDateOfDeath(
-            [FromBody] DepartmentForCreationWithDateOfDeathDto department)
-        {
-            if (department == null)
-            {
-                return BadRequest();
-            }
-
-            var departmentEntity = Mapper.Map<MstDepartment>(department);
-
-            _libraryRepository.AddDepartment(departmentEntity);
-
-            if (!_libraryRepository.Save())
-            {
-                throw new Exception("Creating an department failed on save.");
-                // return StatusCode(500, "A problem happened with handling your request.");
-            }
-
-            var departmentToReturn = Mapper.Map<DepartmentDto>(departmentEntity);
-
-            var links = CreateLinksForDepartment(departmentToReturn.DepartmentID, null);
-
-            var linkedResourceToReturn = departmentToReturn.ShapeData(null)
-                as IDictionary<string, object>;
-
-            linkedResourceToReturn.Add("links", links);
-
-            return CreatedAtRoute("GetDepartment",
-                new { id = linkedResourceToReturn["Id"] },
-                linkedResourceToReturn);
-        }
-
         [HttpPost("{id}")]
         public IActionResult BlockDepartmentCreation(Guid id)
         {
