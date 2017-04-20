@@ -4,6 +4,8 @@ using ESPL.KP.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ESPL.KP.Helpers.OccurrenceType;
+using ESPL.KP.Models.OccurrenceType;
 
 namespace ESPL.KP.Services
 {
@@ -12,13 +14,14 @@ namespace ESPL.KP.Services
         private LibraryContext _context;
         private IPropertyMappingService _propertyMappingService;
 
-        public LibraryRepository(LibraryContext context, 
+        public LibraryRepository(LibraryContext context,
             IPropertyMappingService propertyMappingService)
         {
             _context = context;
             _propertyMappingService = propertyMappingService;
         }
 
+        #region Author and books
         public void AddAuthor(Author author)
         {
             author.Id = Guid.NewGuid();
@@ -103,7 +106,7 @@ namespace ESPL.KP.Services
 
             return PagedList<Author>.Create(collectionBeforePaging,
                 authorsResourceParameters.PageNumber,
-                authorsResourceParameters.PageSize);               
+                authorsResourceParameters.PageSize);
         }
 
         public IEnumerable<Author> GetAuthors(IEnumerable<Guid> authorIds)
@@ -135,6 +138,66 @@ namespace ESPL.KP.Services
         {
             // no code in this implementation
         }
+        #endregion
+
+
+        #region OccurrenceType
+
+        public PagedList<MstOccurrenceType> GetOccurrenceTypes(OccurrenceTypeResourceParameters occurrenceTypeResourceParameters)
+        {
+            var collectionBeforePaging =
+                _context.MstOccurrenceType.ApplySort(occurrenceTypeResourceParameters.OrderBy,
+                _propertyMappingService.GetPropertyMapping<OccurrenceTypeDto, MstOccurrenceType>());
+
+            if (!string.IsNullOrEmpty(occurrenceTypeResourceParameters.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = occurrenceTypeResourceParameters.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.OBTypeName.ToLowerInvariant().Contains(searchQueryForWhereClause));
+            }
+
+            return PagedList<MstOccurrenceType>.Create(collectionBeforePaging,
+                occurrenceTypeResourceParameters.PageNumber,
+                occurrenceTypeResourceParameters.PageSize);
+        }
+
+        public MstOccurrenceType GetOccurrenceType(Guid occurrenceTypeId)
+        {
+            return _context.MstOccurrenceType.FirstOrDefault(a => a.OBTypeID == occurrenceTypeId);
+        }
+
+        public IEnumerable<MstOccurrenceType> GetOccurrenceType(IEnumerable<Guid> occurrenceTypeIds)
+        {
+            return _context.MstOccurrenceType.Where(a => occurrenceTypeIds.Contains(a.OBTypeID))
+                .OrderBy(a => a.OBTypeName)
+                .ToList();
+        }
+
+        public void AddOccurrenceType(MstOccurrenceType occurrenceType)
+        {
+            occurrenceType.OBTypeID = Guid.NewGuid();
+            _context.MstOccurrenceType.Add(occurrenceType);
+        }
+
+        public void DeleteOccurrenceType(MstOccurrenceType occurrenceType)
+        {
+            _context.MstOccurrenceType.Remove(occurrenceType);
+        }
+
+        public void UpdateOccurrenceType(MstOccurrenceType occurrenceType)
+        {
+            // no code in this implementation
+        }
+
+        public bool OccurrenceTypeExists(Guid occurrenceTypeId)
+        {
+            return _context.MstOccurrenceType.Any(a => a.OBTypeID == occurrenceTypeId);
+        }
+
+        #endregion
 
         public bool Save()
         {
