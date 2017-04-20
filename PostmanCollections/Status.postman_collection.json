@@ -1,0 +1,228 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Status",
+		"_postman_id": "ba8f5fcf-6416-614e-0a41-e1accfbc4cb3",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add New Status",
+			"request": {
+				"url": "http://localhost:6058/api/statuses",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.marvin.author.full+json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"statusName\" : \"Closed\"\n}"
+				},
+				"description": "Create Shift"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single Status",
+			"request": {
+				"url": "http://localhost:6058/api/statuses/ebeed096-ea34-43e2-948e-32bb98f31401",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Get Shift By ID"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Status",
+			"request": {
+				"url": "http://localhost:6058/api/statuses/1dd5458b-e136-4d03-b309-0089d4a9bd9d",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": "Delete Shift by ID"
+			},
+			"response": []
+		},
+		{
+			"name": "GET Statuses",
+			"request": {
+				"url": "http://localhost:6058/api/statuses",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Statuses (pageNumber = 2, pageSize = 2)",
+			"request": {
+				"url": "http://localhost:6058/api/statuses?pageNumber=2&pageSize=2",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Statuses (pageNumber = 1, pageSize = 100)",
+			"request": {
+				"url": "http://localhost:6058/api/statuses?pageNumber=1&pageSize=100",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Statuses (pageNumber = 2, pageSize = 1)",
+			"request": {
+				"url": "http://localhost:6058/api/statuses?pageNumber=2&pageSize=1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Statuses (searchQuery = clo)",
+			"request": {
+				"url": "http://localhost:6058/api/statuses?searchQuery=clo",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Statuses (orderBy = statusName)",
+			"request": {
+				"url": "http://localhost:6058/api/statuses?orderBy=statusName",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Statuses (orderBy = statusName desc)",
+			"request": {
+				"url": "http://localhost:6058/api/statuses?orderBy=statusName desc",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Statuses (orderBy = statusName desc, pageNumber = 2, pageSize = 2)",
+			"request": {
+				"url": "http://localhost:6058/api/statuses?orderBy=statusName desc&pageNumber=2&pageSize=2",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Statuses (fields = statusName )",
+			"request": {
+				"url": "http://localhost:6058/api/statuses?fields=statusName",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Statuses (fields = statusID)",
+			"request": {
+				"url": "http://localhost:6058/api/statuses?fields=statusID",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
