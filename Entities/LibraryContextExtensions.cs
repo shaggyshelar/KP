@@ -10,7 +10,7 @@ namespace ESPL.KP.Entities
             // first, clear the database.  This ensures we can always start 
             // fresh with each demo.  Not advised for production environments, obviously :-)
 
-                        context.Authors.RemoveRange(context.Authors);
+            context.Authors.RemoveRange(context.Authors);
             context.SaveChanges();
 
             // init seed data
@@ -154,7 +154,7 @@ namespace ESPL.KP.Entities
             context.SaveChanges();
 
 
-           
+
 
             #region Shift
             context.MstShift.RemoveRange(context.MstShift);
@@ -188,57 +188,77 @@ namespace ESPL.KP.Entities
             context.SaveChanges();
             #endregion
 
-            #region Designations
+            UpdateDepartments(context);
+            UpdateArea(context);
+            UpdateDesignation(context);
+            UpdateOccurrenceType(context);
+        }
+
+        private static void UpdateDesignation(LibraryContext context)
+        {
             context.MstDesignation.RemoveRange(context.MstDesignation);
             context.SaveChanges();
             var designations = new List<MstDesignation>()
             {
                 new MstDesignation()
                 {
-                    DesignationID = new Guid("B7F83929-EAAC-49F8-9A7A-5F5FFC2018C3"),
-                    DesignationName = "Inspector",
-                    DesignationCode = "INS"
+                    DesignationID = new Guid("2b72f829-5195-46c3-a6a4-06f817f11093"),
+                    DesignationName = "Director general of police",
+                    DesignationCode = "DGP"
                 },
                 new MstDesignation()
                 {
-                    DesignationID = new Guid("778E2940-0AB2-4988-90FB-245042A4E24B"),
-                    DesignationName = "SubInspector",
-                    DesignationCode = "INS"
+                    DesignationID = new Guid("f6b0d655-5afd-44e1-a1d4-5d6bec3a7c81"),
+                    DesignationName = "Inspector General of Police",
+                    DesignationCode = "IGP"
                 },
                 new MstDesignation()
                 {
-                    DesignationID = new Guid("95D1B726-6AE0-473F-AD6B-7FC3059AE472"),
-                    DesignationName = "Constable",
-                    DesignationCode = "INS"
+                    DesignationID = new Guid("aff1592e-ba8e-4791-831c-5df49da69054"),
+                    DesignationName = "Deputy Inspector General of Police",
+                    DesignationCode = "DIG"
+                },
+                new MstDesignation()
+                {
+                    DesignationID = new Guid("15251460-e145-4aef-a3da-6846e881ad11"),
+                    DesignationName = "Deputy Commissioner of Police",
+                    DesignationCode = "DCP"
+                },
+                new MstDesignation()
+                {
+                    DesignationID = new Guid("6aac273a-ab24-4959-8c93-6f52cfee56ff"),
+                    DesignationName = "Assistant Commissioner of Police",
+                    DesignationCode = "DCP"
+                },
+                new MstDesignation()
+                {
+                    DesignationID = new Guid("1d45922a-a4ea-4d81-ad46-7227891199b1"),
+                    DesignationName = "Superintendent of police",
+                    DesignationCode = "SP"
+                },
+                new MstDesignation()
+                {
+                    DesignationID = new Guid("836bf2d2-7eb2-454a-a298-72a9d6aea480"),
+                    DesignationName = "Police Inspector",
+                    DesignationCode = "PI"
+                },
+                new MstDesignation()
+                {
+                    DesignationID = new Guid("7e08300b-0888-4789-964c-a70686c63b1d"),
+                    DesignationName = "Police SubInspector",
+                    DesignationCode = "PSI"
+                },
+                new MstDesignation()
+                {
+                    DesignationID = new Guid("bf573249-6ee2-4506-97a6-cb0d9ce14ca8"),
+                    DesignationName = "Police Head Constable",
+                    DesignationCode = "HPC"
                 }
             };
 
             context.MstDesignation.AddRange(designations);
             context.SaveChanges();
-            #endregion
 
-
-            UpdateDepartments(context);
-            UpdateArea(context);
-            UpdateOccurrenceType(context);
-        }
-
-        private static void UpdateOccurrenceType(LibraryContext context)
-        {
-            context.MstOccurrenceType.RemoveRange(context.MstOccurrenceType);
-            context.SaveChanges();
-            var occurrenceTypes = new List<MstOccurrenceType>() {
-                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf111"),OBTypeName="Occurrence Type 1"},
-                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf222"),OBTypeName="Occurrence Type 2"},
-                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf333"),OBTypeName="Occurrence Type 3"},
-                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf444"),OBTypeName="Occurrence Type 4"},
-                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf555"),OBTypeName="Occurrence Type 5"},
-                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf666"),OBTypeName="Occurrence Type 6"},
-                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf777"),OBTypeName="Occurrence Type 7"}
-            };
-            context.MstOccurrenceType.AddRange(occurrenceTypes);
-            context.SaveChanges();
-            
         }
 
         private static void UpdateArea(LibraryContext context)
@@ -250,108 +270,108 @@ namespace ESPL.KP.Entities
             {
                 new MstArea()
                 {
-                    AreaID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9579"), 
-                    AreaName = "Area1",  
-                    AreaCode = "A1", 
+                    AreaID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9579"),
+                    AreaName = "Area1",
+                    AreaCode = "A1",
                     PinCode = "1000"
                 },
                 new MstArea()
                 {
-                    AreaID = new Guid("411bfab2-0d44-4fb9-8835-184db90f44fa"), 
-                    AreaName = "Area2",  
-                    AreaCode = "A2", 
+                    AreaID = new Guid("411bfab2-0d44-4fb9-8835-184db90f44fa"),
+                    AreaName = "Area2",
+                    AreaCode = "A2",
                     PinCode = "1001"
                 },
                 new MstArea()
                 {
                     AreaID = new Guid("89234f93-6a6a-4960-a7d3-20f98f2760a8"),
-                    AreaName = "Area3",  
-                    AreaCode = "A3", 
+                    AreaName = "Area3",
+                    AreaCode = "A3",
                     PinCode = "1002"
 
                 },
                 new MstArea()
                 {
-                    AreaID = new Guid("901d24f6-f13e-4788-82f8-2416b11fe3f3"), 
-                    AreaName = "Area4",  
-                    AreaCode = "A4", 
+                    AreaID = new Guid("901d24f6-f13e-4788-82f8-2416b11fe3f3"),
+                    AreaName = "Area4",
+                    AreaCode = "A4",
                     PinCode = "1003"
 
                 },
                 new MstArea()
                 {
-                   AreaID = new Guid("1d97702d-6d22-4256-a5ab-2844c2900fea"), 
-                   AreaName = "Area5",  
-                   AreaCode = "A5", 
+                   AreaID = new Guid("1d97702d-6d22-4256-a5ab-2844c2900fea"),
+                   AreaName = "Area5",
+                   AreaCode = "A5",
                    PinCode = "1004"
 
                 },
                 new MstArea()
                 {
-                  AreaID = new Guid("717fb309-5cc9-422e-9b6e-28942ea181fa"), 
-                  AreaName = "Area6",  
-                  AreaCode = "A6", 
+                  AreaID = new Guid("717fb309-5cc9-422e-9b6e-28942ea181fa"),
+                  AreaName = "Area6",
+                  AreaCode = "A6",
                   PinCode = "1005"
                 },
                 new MstArea()
                 {
-                   AreaID = new Guid("85d79042-0dc0-48f1-9e7a-2f39a5650290"), 
-                   AreaName = "Area7",  
-                   AreaCode = "A7", 
+                   AreaID = new Guid("85d79042-0dc0-48f1-9e7a-2f39a5650290"),
+                   AreaName = "Area7",
+                   AreaCode = "A7",
                    PinCode = "1006"
                 },
                 new MstArea()
                 {
-                   AreaID = new Guid("da00ca84-aff0-4b07-abd2-5777dd27be3d"), 
-                   AreaName = "Area8",  
-                   AreaCode = "A8", 
+                   AreaID = new Guid("da00ca84-aff0-4b07-abd2-5777dd27be3d"),
+                   AreaName = "Area8",
+                   AreaCode = "A8",
                    PinCode = "1007"
                 },
                 new MstArea()
                 {
-                   AreaID = new Guid("49ce5ab0-2025-4c50-aaf8-587a44d1941e"), 
-                   AreaName = "Area9", 
-                   AreaCode = "A9", 
+                   AreaID = new Guid("49ce5ab0-2025-4c50-aaf8-587a44d1941e"),
+                   AreaName = "Area9",
+                   AreaCode = "A9",
                    PinCode = "1008"
                 },
                 new MstArea()
                 {
-                    AreaID = new Guid("08372fff-ad0b-40c8-8eed-595eab744ee8"), 
-                    AreaName = "Area10",  
-                    AreaCode = "A10", 
+                    AreaID = new Guid("08372fff-ad0b-40c8-8eed-595eab744ee8"),
+                    AreaName = "Area10",
+                    AreaCode = "A10",
                     PinCode = "1009"
                 },
                 new MstArea()
                 {
-                  AreaID = new Guid("2b401a2c-26c2-489e-835d-7473bb734783"), 
-                  AreaName = "Area11",  
-                  AreaCode = "A11", 
+                  AreaID = new Guid("2b401a2c-26c2-489e-835d-7473bb734783"),
+                  AreaName = "Area11",
+                  AreaCode = "A11",
                   PinCode = "1010"
                 },
                 new MstArea()
                 {
-                   AreaID = new Guid("46529153-730c-4971-bb28-76c5d2698bd8"), 
-                   AreaName = "Area12",  
-                   AreaCode = "A12", 
+                   AreaID = new Guid("46529153-730c-4971-bb28-76c5d2698bd8"),
+                   AreaName = "Area12",
+                   AreaCode = "A12",
                    PinCode = "1011"
                 },
 
                 new MstArea()
                 {
-                   AreaID = new Guid("8d4f017f-a130-4970-9928-7b8c10e029a0"), 
-                   AreaName = "Area13",  
-                   AreaCode = "A13", 
+                   AreaID = new Guid("8d4f017f-a130-4970-9928-7b8c10e029a0"),
+                   AreaName = "Area13",
+                   AreaCode = "A13",
                    PinCode = "1012"
                 },
                 new MstArea()
                 {
-                   AreaID = new Guid("57c7f325-707b-4670-9afc-8a7707e47729"), 
-                   AreaName = "Area14", 
+                   AreaID = new Guid("57c7f325-707b-4670-9afc-8a7707e47729"),
+                   AreaName = "Area14",
                    AreaCode = "A14",
                     PinCode = "1013"
                 },
-                
-                
+
+
             };
 
             context.MstArea.AddRange(areas);
@@ -408,6 +428,24 @@ namespace ESPL.KP.Entities
 
             context.MstDepartment.AddRange(departments);
             context.SaveChanges();
+        }
+
+        private static void UpdateOccurrenceType(LibraryContext context)
+        {
+            context.MstOccurrenceType.RemoveRange(context.MstOccurrenceType);
+            context.SaveChanges();
+            var occurrenceTypes = new List<MstOccurrenceType>() {
+                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf111"),OBTypeName="Occurrence Type 1"},
+                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf222"),OBTypeName="Occurrence Type 2"},
+                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf333"),OBTypeName="Occurrence Type 3"},
+                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf444"),OBTypeName="Occurrence Type 4"},
+                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf555"),OBTypeName="Occurrence Type 5"},
+                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf666"),OBTypeName="Occurrence Type 6"},
+                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf777"),OBTypeName="Occurrence Type 7"}
+            };
+            context.MstOccurrenceType.AddRange(occurrenceTypes);
+            context.SaveChanges();
+
         }
     }
 }

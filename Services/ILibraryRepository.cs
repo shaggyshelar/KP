@@ -5,14 +5,14 @@ using System.Collections.Generic;
 using ESPL.KP.Helpers.Core;
 using ESPL.KP.Helpers.Department;
 using ESPL.KP.Helpers.Area;
+using ESPL.KP.Helpers.Designation;
 using ESPL.KP.Helpers.OccurrenceType;
-
 
 namespace ESPL.KP.Services
 {
     public interface ILibraryRepository
     {
-                #region Authors
+        #region Authors
         PagedList<Author> GetAuthors(AuthorsResourceParameters authorsResourceParameters);
         Author GetAuthor(Guid authorId);
         IEnumerable<Author> GetAuthors(IEnumerable<Guid> authorIds);
@@ -44,7 +44,7 @@ namespace ESPL.KP.Services
 
         #endregion
 
-          #region Area
+        #region Area
         PagedList<MstArea> GetAreas(AreasResourceParameters AreaResourceParameters);
         MstArea GetArea(Guid AreaId);
         IEnumerable<MstArea> GetAreas(IEnumerable<Guid> AreaIds);
@@ -55,6 +55,16 @@ namespace ESPL.KP.Services
 
         #endregion
 
+        #region Designation
+        PagedList<MstDesignation> GetDesignations(DesignationsResourceParameters DesignationResourceParameters);
+        MstDesignation GetDesignation(Guid DesignationId);
+        IEnumerable<MstDesignation> GetDesignations(IEnumerable<Guid> DesignationIds);
+        void AddDesignation(MstDesignation Designation);
+        void DeleteDesignation(MstDesignation Designation);
+        void UpdateDesignation(MstDesignation Designation);
+        bool DesignationExists(Guid authorId);
+
+        #endregion
 
         #region OccurrenceType
         PagedList<MstOccurrenceType> GetOccurrenceTypes(OccurrenceTypeResourceParameters occurrenceTypeResourceParameters);
@@ -65,6 +75,7 @@ namespace ESPL.KP.Services
         void UpdateOccurrenceType(MstOccurrenceType occurrenceType);
         bool OccurrenceTypeExists(Guid occurrenceTypeId);
         #endregion
+
         bool Save();
     }
 }

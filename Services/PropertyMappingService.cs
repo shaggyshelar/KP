@@ -33,6 +33,14 @@ namespace ESPL.KP.Services
                { "AreaName", new PropertyMappingValue(new List<string>() { "AreaName" } )},
                { "AreaCode", new PropertyMappingValue(new List<string>() { "AreaCode" } )}
            };
+        
+        private Dictionary<string, PropertyMappingValue> _designationPropertyMapping =
+           new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+           {
+               { "DesignationID", new PropertyMappingValue(new List<string>() { "DesignationID" } ) },
+               { "DesignationName", new PropertyMappingValue(new List<string>() { "DesignationName" } )},
+               { "DesignationCode", new PropertyMappingValue(new List<string>() { "DesignationCode" } )}
+           };
 
         private Dictionary<string, PropertyMappingValue> _occurrenctTypePropertyMapping =
         new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
@@ -49,6 +57,7 @@ namespace ESPL.KP.Services
             propertyMappings.Add(new PropertyMapping<DepartmentDto, MstDepartment>(_departmentPropertyMapping));
             propertyMappings.Add(new PropertyMapping<OccurrenceTypeDto, MstOccurrenceType>(_occurrenctTypePropertyMapping));
             propertyMappings.Add(new PropertyMapping<AreaDto, MstArea>(_areaPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<DesignationDto, MstDesignation>(_designationPropertyMapping));
         }
         public Dictionary<string, PropertyMappingValue> GetPropertyMapping
             <TSource, TDestination>()
