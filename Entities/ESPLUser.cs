@@ -12,15 +12,7 @@ namespace ESPL.KP.Entities {
         
         [Required]
         [MaxLength (50)]
-        public string LastName { get; set; }
-
-        [ForeignKey ("ShiftID")]
-        public MstShift MstShift { get; set; }
-        public Guid ShiftID { get; set; }
-
-        [ForeignKey ("AreaID")]
-        public MstArea MstArea { get; set; }
-        public Guid AreaID { get; set; }
+        public string LastName { get; set; }        
 
         public string Mobile { get; set; }
 
@@ -35,10 +27,16 @@ namespace ESPL.KP.Entities {
         [Required]
         public int FailedPasswordAttemptCount { get; set; }
 
-        public ICollection<CFGUserDepartment> CFGUserDepartments { get; set; } 
-            = new List<CFGUserDepartment> ();
+        public ICollection<CfgUserDepartment> CFGUserDepartments { get; set; } 
+            = new List<CfgUserDepartment> ();
         public virtual ICollection<OccurrenceAssignment> OccurrenceAssignments { get; set; } 
             = new List<OccurrenceAssignment> ();
+         public ICollection<CfgUserShift> CfgUserShift { get; set; } 
+            = new List<CfgUserShift> ();
+        public ICollection<CfgUserArea> CfgUserArea { get; set; } 
+            = new List<CfgUserArea> ();
+        public ICollection<CfgUserDesignation> CfgUserDesignation { get; set; } 
+            = new List<CfgUserDesignation> ();
 
     }
 }

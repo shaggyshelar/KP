@@ -4,18 +4,18 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ESPL.KP.Entities {
-    public class CfgUserDepartment : BaseEntity {
-        [Key]
-        public Guid UserDepartmentID { get; set; }
 
-        [ForeignKey ("UserID")]
+    public class CfgUserShift: BaseEntity
+    {
+        [Key]
+        public Guid UserShiftID { get; set; }
+
+        [ForeignKey("UserID")]
         public ESPLUser ESPLUser { get; set; }
         public string UserID { get; set; }
 
-        [ForeignKey ("DepartmentID")]
-        public MstDepartment MstDepartment { get; set; }
-        public Guid DepartmentID { get; set; }
-
-
+        [ForeignKey("ShiftID")]
+        public MstShift MstShift { get; set; }
+        public Guid ShiftID { get; set; }
     }
 }

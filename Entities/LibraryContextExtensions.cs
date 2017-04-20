@@ -152,6 +152,148 @@ namespace ESPL.KP.Entities
 
             context.Authors.AddRange(authors);
             context.SaveChanges();
+
+
+            #region Area
+            var areas = new List<MstArea>()
+            {
+                new MstArea()
+                {
+                    AreaID = new Guid("C8B91521-8578-401B-A638-B97476F28F3E"),
+                    AreaName = "Mumbai",
+                    AreaCode = "MUM",
+                    PinCode = "M001"
+                },
+                new MstArea()
+                {
+                    AreaID = new Guid("758B1995-7F92-4D87-9588-B90800ABF825"),
+                    AreaName = "Pune",
+                    AreaCode = "PU",
+                    PinCode = "P002"
+                },
+                new MstArea()
+                {
+                    AreaID = new Guid("497F75A9-8CCE-4085-A872-C14E26820A3F"),
+                    AreaName = "Nasik",
+                    AreaCode = "NAS",
+                    PinCode = "N003"
+                }
+            };
+
+            context.MstArea.AddRange(areas);
+            context.SaveChanges();
+            #endregion
+
+            #region Shift
+            var shifts = new List<MstShift>()
+            {
+                new MstShift()
+                {
+                    ShiftID = new Guid("318DC4DF-684A-444F-9E5A-18BB5EED1123"),
+                    ShiftName = "Shift1",
+                    StartTime = TimeSpan.FromMinutes(1),
+                    EndTime = TimeSpan.FromMinutes(1)
+                },
+                new MstShift()
+                {
+                    ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56285"),
+                    ShiftName = "Shift2",
+                    StartTime = TimeSpan.FromMinutes(1),
+                    EndTime = TimeSpan.FromMinutes(1)
+                },
+                new MstShift()
+                {
+                    ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE904CA"),
+                    ShiftName = "Shift3",
+                    StartTime =TimeSpan.FromMinutes(1),
+                    EndTime = TimeSpan.FromMinutes(1)
+                }
+            };
+
+            context.MstShift.AddRange(shifts);
+            context.SaveChanges();
+            #endregion
+
+            #region Designations
+            var designations = new List<MstDesignation>()
+            {
+                new MstDesignation()
+                {
+                    DesignationID = new Guid("B7F83929-EAAC-49F8-9A7A-5F5FFC2018C3"),
+                    DesignationName = "Inspector",
+                    DesignationCode = "INS"
+                },
+                new MstDesignation()
+                {
+                    DesignationID = new Guid("778E2940-0AB2-4988-90FB-245042A4E24B"),
+                    DesignationName = "SubInspector",
+                    DesignationCode = "INS"
+                },
+                new MstDesignation()
+                {
+                    DesignationID = new Guid("95D1B726-6AE0-473F-AD6B-7FC3059AE472"),
+                    DesignationName = "Constable",
+                    DesignationCode = "INS"
+                }
+            };
+
+            context.MstDesignation.AddRange(designations);
+            context.SaveChanges();
+            #endregion
+
+
+            UpdateDepartments(context);
+        }
+
+        public static void UpdateDepartments(this LibraryContext context)
+        {
+            context.MstDepartment.RemoveRange(context.MstDepartment);
+            context.SaveChanges();
+
+            var departments = new List<MstDepartment>(){
+                new MstDepartment(){
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709471111"),
+                    DepartmentName = "Department 1",
+                    DepartmentDespcription = "Description for department 1",
+                },
+                new MstDepartment(){
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709472222"),
+                    DepartmentName = "Department 2",
+                    DepartmentDespcription = "Description for department 2",
+                },
+                new MstDepartment(){
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),
+                    DepartmentName = "Department 3",
+                    DepartmentDespcription = "Description for department 3",
+                },
+                new MstDepartment(){
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709474444"),
+                    DepartmentName = "Department 4",
+                    DepartmentDespcription = "Description for department 4",
+                },new MstDepartment(){
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709475555"),
+                    DepartmentName = "Department 5",
+                    DepartmentDespcription = "Description for department 5",
+                },
+                new MstDepartment(){
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709476666"),
+                    DepartmentName = "Department 6",
+                    DepartmentDespcription = "Description for department 6",
+                },
+                new MstDepartment(){
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709477777"),
+                    DepartmentName = "Department 7",
+                    DepartmentDespcription = "Description for department 7",
+                },
+                new MstDepartment(){
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709478888"),
+                    DepartmentName = "Department 8",
+                    DepartmentDespcription = "Description for department 8",
+                }
+            };
+
+            context.MstDepartment.AddRange(departments);
+            context.SaveChanges();
         }
     }
 }
