@@ -8,6 +8,7 @@ using ESPL.KP.Helpers.Core;
 using ESPL.KP.Helpers.Department;
 using ESPL.KP.Helpers.Area;
 using ESPL.KP.Helpers.Designation;
+using ESPL.KP.Helpers.OccurrenceType;
 
 namespace ESPL.KP.Services
 {
@@ -321,5 +322,63 @@ namespace ESPL.KP.Services
         }
 
         #endregion Designation
+
+                #region OccurrenceType
+
+        public PagedList<MstOccurrenceType> GetOccurrenceTypes(OccurrenceTypeResourceParameters occurrenceTypeResourceParameters)
+        {
+            var collectionBeforePaging =
+                _context.MstOccurrenceType.ApplySort(occurrenceTypeResourceParameters.OrderBy,
+                _propertyMappingService.GetPropertyMapping<OccurrenceTypeDto, MstOccurrenceType>());
+
+            if (!string.IsNullOrEmpty(occurrenceTypeResourceParameters.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = occurrenceTypeResourceParameters.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.OBTypeName.ToLowerInvariant().Contains(searchQueryForWhereClause));
+            }
+
+            return PagedList<MstOccurrenceType>.Create(collectionBeforePaging,
+                occurrenceTypeResourceParameters.PageNumber,
+                occurrenceTypeResourceParameters.PageSize);
+        }
+
+        public MstOccurrenceType GetOccurrenceType(Guid occurrenceTypeId)
+        {
+            return _context.MstOccurrenceType.FirstOrDefault(a => a.OBTypeID == occurrenceTypeId);
+        }
+
+        public IEnumerable<MstOccurrenceType> GetOccurrenceType(IEnumerable<Guid> occurrenceTypeIds)
+        {
+            return _context.MstOccurrenceType.Where(a => occurrenceTypeIds.Contains(a.OBTypeID))
+                .OrderBy(a => a.OBTypeName)
+                .ToList();
+        }
+
+        public void AddOccurrenceType(MstOccurrenceType occurrenceType)
+        {
+            occurrenceType.OBTypeID = Guid.NewGuid();
+            _context.MstOccurrenceType.Add(occurrenceType);
+        }
+
+        public void DeleteOccurrenceType(MstOccurrenceType occurrenceType)
+        {
+            _context.MstOccurrenceType.Remove(occurrenceType);
+        }
+
+        public void UpdateOccurrenceType(MstOccurrenceType occurrenceType)
+        {
+            // no code in this implementation
+        }
+
+        public bool OccurrenceTypeExists(Guid occurrenceTypeId)
+        {
+            return _context.MstOccurrenceType.Any(a => a.OBTypeID == occurrenceTypeId);
+        }
+
+        #endregion
     }
 }

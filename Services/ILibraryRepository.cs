@@ -6,6 +6,7 @@ using ESPL.KP.Helpers.Core;
 using ESPL.KP.Helpers.Department;
 using ESPL.KP.Helpers.Area;
 using ESPL.KP.Helpers.Designation;
+using ESPL.KP.Helpers.OccurrenceType;
 
 namespace ESPL.KP.Services
 {
@@ -64,7 +65,17 @@ namespace ESPL.KP.Services
         bool DesignationExists(Guid authorId);
 
         #endregion
-        
+
+        #region OccurrenceType
+        PagedList<MstOccurrenceType> GetOccurrenceTypes(OccurrenceTypeResourceParameters occurrenceTypeResourceParameters);
+        MstOccurrenceType GetOccurrenceType(Guid occurrenceTypeId);
+        IEnumerable<MstOccurrenceType> GetOccurrenceType(IEnumerable<Guid> occurrenceTypeIds);
+        void AddOccurrenceType(MstOccurrenceType occurrenceType);
+        void DeleteOccurrenceType(MstOccurrenceType occurrenceType);
+        void UpdateOccurrenceType(MstOccurrenceType occurrenceType);
+        bool OccurrenceTypeExists(Guid occurrenceTypeId);
+        #endregion
+
         bool Save();
     }
 }
