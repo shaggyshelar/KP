@@ -152,6 +152,59 @@ namespace ESPL.KP.Entities
 
             context.Authors.AddRange(authors);
             context.SaveChanges();
+
+            UpdateDepartments(context);
+        }
+
+        public static void UpdateDepartments(this LibraryContext context)
+        {
+            context.MstDepartment.RemoveRange(context.MstDepartment);
+            context.SaveChanges();
+
+            var departments = new List<MstDepartment>(){
+                new MstDepartment(){
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709471111"),
+                    DepartmentName = "Department 1",
+                    DepartmentDespcription = "Description for department 1",
+                },
+                new MstDepartment(){
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709472222"),
+                    DepartmentName = "Department 2",
+                    DepartmentDespcription = "Description for department 2",
+                },
+                new MstDepartment(){
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),
+                    DepartmentName = "Department 3",
+                    DepartmentDespcription = "Description for department 3",
+                },
+                new MstDepartment(){
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709474444"),
+                    DepartmentName = "Department 4",
+                    DepartmentDespcription = "Description for department 4",
+                },new MstDepartment(){
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709475555"),
+                    DepartmentName = "Department 5",
+                    DepartmentDespcription = "Description for department 5",
+                },
+                new MstDepartment(){
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709476666"),
+                    DepartmentName = "Department 6",
+                    DepartmentDespcription = "Description for department 6",
+                },
+                new MstDepartment(){
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709477777"),
+                    DepartmentName = "Department 7",
+                    DepartmentDespcription = "Description for department 7",
+                },
+                new MstDepartment(){
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709478888"),
+                    DepartmentName = "Department 8",
+                    DepartmentDespcription = "Description for department 8",
+                }
+            };
+
+            context.MstDepartment.AddRange(departments);
+            context.SaveChanges();
         }
     }
 }

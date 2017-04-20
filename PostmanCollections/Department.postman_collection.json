@@ -1,0 +1,245 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Department",
+		"_postman_id": "1822bb58-e0e1-ad87-66d6-3fa8a8539d60",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add New Department",
+			"request": {
+				"url": "http://localhost:6058/api/departments",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.marvin.author.full+json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"departmentName\" : \"New Department Name\",\n\t\"departmentDespcription\" : \"New Department Description\"\n}"
+				},
+				"description": "Create Department"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single Department",
+			"request": {
+				"url": "http://localhost:6058/api/departments/e31b459f-5770-4a6e-9bfb-574474ae6862",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Get Department By ID"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Department",
+			"request": {
+				"url": "http://localhost:6058/api/departments/a1da1d8e-1111-4634-b538-a01709474444",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Departments",
+			"request": {
+				"url": "http://localhost:6058/api/departments",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Departments (pageNumber = 1, pageSize = 5)",
+			"request": {
+				"url": "http://localhost:6058/api/departments?pageNumber=1&pageSize=5",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Departments (pageNumber = 1, pageSize = 100)",
+			"request": {
+				"url": "http://localhost:6058/api/departments?pageNumber=1&pageSize=100",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Departments (pageNumber = 2, pageSize = 5)",
+			"request": {
+				"url": "http://localhost:6058/api/departments?pageNumber=2&pageSize=5",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Departments (searchQuery = 2)",
+			"request": {
+				"url": "http://localhost:6058/api/departments?searchQuery=2",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET departments (orderBy = departmentsName)",
+			"request": {
+				"url": "http://localhost:6058/api/departments?orderBy=departmentName",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Departments (orderBy = departmentName desc)",
+			"request": {
+				"url": "http://localhost:6058/api/departments?orderBy=departmentName desc",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Departments (orderBy = departmentName desc, pageNumber = 2, pageSize = 5)",
+			"request": {
+				"url": "http://localhost:6058/api/departments?orderBy=departmentName desc&pageNumber=2&pageSize=5",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Departments (fields = departmentName)",
+			"request": {
+				"url": "http://localhost:6058/api/departments?fields=departmentName",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Departments (fields = departmentID)",
+			"request": {
+				"url": "http://localhost:6058/api/departments?fields=departmentID",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Departments (fields = departmentDescription)",
+			"request": {
+				"url": "http://localhost:6058/api/departments?fields=departmentDespcription",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

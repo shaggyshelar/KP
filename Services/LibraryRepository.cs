@@ -4,6 +4,8 @@ using ESPL.KP.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ESPL.KP.Helpers.Core;
+using ESPL.KP.Helpers.Department;
 
 namespace ESPL.KP.Services
 {
@@ -12,7 +14,7 @@ namespace ESPL.KP.Services
         private LibraryContext _context;
         private IPropertyMappingService _propertyMappingService;
 
-        public LibraryRepository(LibraryContext context, 
+        public LibraryRepository(LibraryContext context,
             IPropertyMappingService propertyMappingService)
         {
             _context = context;
@@ -103,7 +105,7 @@ namespace ESPL.KP.Services
 
             return PagedList<Author>.Create(collectionBeforePaging,
                 authorsResourceParameters.PageNumber,
-                authorsResourceParameters.PageSize);               
+                authorsResourceParameters.PageSize);
         }
 
         public IEnumerable<Author> GetAuthors(IEnumerable<Guid> authorIds)
@@ -140,5 +142,64 @@ namespace ESPL.KP.Services
         {
             return (_context.SaveChanges() >= 0);
         }
+
+        #region Department
+
+        public PagedList<MstDepartment> GetDepartments(DepartmentsResourceParameters departmentResourceParameters)
+        {
+            var collectionBeforePaging =
+                _context.MstDepartment.ApplySort(departmentResourceParameters.OrderBy,
+                _propertyMappingService.GetPropertyMapping<DepartmentDto, MstDepartment>());
+
+            if (!string.IsNullOrEmpty(departmentResourceParameters.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = departmentResourceParameters.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.DepartmentName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.DepartmentDespcription.ToLowerInvariant().Contains(searchQueryForWhereClause));
+            }
+
+            return PagedList<MstDepartment>.Create(collectionBeforePaging,
+                departmentResourceParameters.PageNumber,
+                departmentResourceParameters.PageSize);
+        }
+
+        public MstDepartment GetDepartment(Guid departmentId)
+        {
+            return _context.MstDepartment.FirstOrDefault(a => a.DepartmentID == departmentId);
+        }
+
+        public IEnumerable<MstDepartment> GetDepartments(IEnumerable<Guid> departmentIds)
+        {
+            return _context.MstDepartment.Where(a => departmentIds.Contains(a.DepartmentID))
+                .OrderBy(a => a.DepartmentName)
+                .ToList();
+        }
+
+        public void AddDepartment(MstDepartment department)
+        {
+            department.DepartmentID = Guid.NewGuid();
+            _context.MstDepartment.Add(department);
+        }
+
+        public void DeleteDepartment(MstDepartment department)
+        {
+            _context.MstDepartment.Remove(department);
+        }
+
+        public void UpdateDepartment(MstDepartment department)
+        {
+            // no code in this implementation
+        }
+
+        public bool DepartmentExists(Guid departmentId)
+        {
+            return _context.MstDepartment.Any(a => a.DepartmentID == departmentId);
+        }
+
+        #endregion Department
     }
 }
