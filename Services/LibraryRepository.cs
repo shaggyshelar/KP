@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using ESPL.KP.Helpers.Core;
 using ESPL.KP.Helpers.Department;
+using ESPL.KP.Helpers.Area;
 using ESPL.KP.Helpers.OccurrenceType;
-using ESPL.KP.Models;
 
 namespace ESPL.KP.Services
 {
@@ -203,6 +203,65 @@ namespace ESPL.KP.Services
         }
 
         #endregion Department
+
+        #region Area
+
+        public PagedList<MstArea> GetAreas(AreasResourceParameters AreaResourceParameters)
+        {
+            var collectionBeforePaging =
+                _context.MstArea.ApplySort(AreaResourceParameters.OrderBy,
+                _propertyMappingService.GetPropertyMapping<AreaDto, MstArea>());
+
+            if (!string.IsNullOrEmpty(AreaResourceParameters.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = AreaResourceParameters.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.AreaName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.AreaCode.ToLowerInvariant().Contains(searchQueryForWhereClause));
+            }
+
+            return PagedList<MstArea>.Create(collectionBeforePaging,
+                AreaResourceParameters.PageNumber,
+                AreaResourceParameters.PageSize);
+        }
+
+        public MstArea GetArea(Guid AreaId)
+        {
+            return _context.MstArea.FirstOrDefault(a => a.AreaID == AreaId);
+        }
+
+        public IEnumerable<MstArea> GetAreas(IEnumerable<Guid> AreaIds)
+        {
+            return _context.MstArea.Where(a => AreaIds.Contains(a.AreaID))
+                .OrderBy(a => a.AreaName)
+                .ToList();
+        }
+
+        public void AddArea(MstArea Area)
+        {
+            Area.AreaID = Guid.NewGuid();
+            _context.MstArea.Add(Area);
+        }
+
+        public void DeleteArea(MstArea Area)
+        {
+            _context.MstArea.Remove(Area);
+        }
+
+        public void UpdateArea(MstArea Area)
+        {
+            // no code in this implementation
+        }
+
+        public bool AreaExists(Guid AreaId)
+        {
+            return _context.MstArea.Any(a => a.AreaID == AreaId);
+        }
+
+        #endregion Area
 
         #region OccurrenceType
 

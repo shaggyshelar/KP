@@ -51,7 +51,7 @@ namespace ESPL.KP
             services.AddDbContext<LibraryContext>(o => o.UseSqlServer(connectionString));
             services.AddTransient<IdentityInitializer>();
             services.AddIdentity<ESPLUser, IdentityRole>().AddEntityFrameworkStores<LibraryContext>();
-
+            services.AddCors();
             services.AddMvc(setupAction =>
             {
                 setupAction.ReturnHttpNotAcceptable = true;
@@ -161,7 +161,12 @@ namespace ESPL.KP
 
             loggerFactory.AddNLog();
 
-            //app.UseIdentity();
+            app.UseCors(cfg =>
+            {
+                cfg.AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin();
+            });
 
             if (env.IsDevelopment())
             {
@@ -209,6 +214,8 @@ namespace ESPL.KP
 
                 cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceType, ESPL.KP.Models.OccurrenceTypeDto>();
                 cfg.CreateMap<ESPL.KP.Models.OccurrenceTypeForCreationDto, ESPL.KP.Entities.MstOccurrenceType>();
+                cfg.CreateMap<ESPL.KP.Entities.MstArea, ESPL.KP.Models.AreaDto>();
+                cfg.CreateMap<ESPL.KP.Models.AreaForCreationDto, ESPL.KP.Entities.MstArea>();
             });
 
             libraryContext.EnsureSeedDataForContext();
