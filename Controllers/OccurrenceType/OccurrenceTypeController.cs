@@ -6,7 +6,6 @@ using ESPL.KP.Entities;
 using ESPL.KP.Helpers;
 using ESPL.KP.Helpers.OccurrenceType;
 using ESPL.KP.Models;
-using ESPL.KP.Models.OccurrenceType;
 using ESPL.KP.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -32,9 +31,9 @@ namespace ESPL.KP.Controllers.OccurrenceType
                 _typeHelperService = typeHelperService;
             }
 
-            [HttpGet(Name = "GetoccurrenceType")]
+            [HttpGet(Name = "GetOccurrenceTypes")]
             [HttpHead]
-            public IActionResult GetoccurrenceType(OccurrenceTypeResourceParameters occurrenceTypeResourceParameters,
+            public IActionResult GetOccurrenceTypes(OccurrenceTypeResourceParameters occurrenceTypeResourceParameters,
                 [FromHeader(Name = "Accept")] string mediaType)
             {
                 if (!_propertyMappingService.ValidMappingExistsFor<OccurrenceTypeDto, MstOccurrenceType>
@@ -71,15 +70,15 @@ namespace ESPL.KP.Controllers.OccurrenceType
 
                     var shapedoccurrenceType = occurrenceType.ShapeData(occurrenceTypeResourceParameters.Fields);
 
-                    var shapedoccurrenceTypeWithLinks = shapedoccurrenceType.Select(department =>
+                    var shapedoccurrenceTypeWithLinks = shapedoccurrenceType.Select(occType =>
                     {
-                        var departmentAsDictionary = department as IDictionary<string, object>;
-                        var departmentLinks = CreateLinksForDepartment(
-                            (Guid)departmentAsDictionary["Id"], occurrenceTypeResourceParameters.Fields);
+                        var occurrenceTypeAsDictionary = occType as IDictionary<string, object>;
+                        var occurrenceTypeLinks = CreateLinksForOccurrenceType(
+                            (Guid)occurrenceTypeAsDictionary["Id"], occurrenceTypeResourceParameters.Fields);
 
-                        departmentAsDictionary.Add("links", departmentLinks);
+                        occurrenceTypeAsDictionary.Add("links", occurrenceTypeLinks);
 
-                        return departmentAsDictionary;
+                        return occurrenceTypeAsDictionary;
                     });
 
                     var linkedCollectionResource = new
@@ -166,18 +165,18 @@ namespace ESPL.KP.Controllers.OccurrenceType
                     return BadRequest();
                 }
 
-                var departmentFromRepo = _libraryRepository.GetOccurrenceType(id);
+                var occurrenceTypeFromRepo = _libraryRepository.GetOccurrenceType(id);
 
-                if (departmentFromRepo == null)
+                if (occurrenceTypeFromRepo == null)
                 {
                     return NotFound();
                 }
 
-                var department = Mapper.Map<OccurrenceTypeDto>(departmentFromRepo);
+                var occurrenceType = Mapper.Map<OccurrenceTypeDto>(occurrenceTypeFromRepo);
 
-                var links = CreateLinksForDepartment(id, fields);
+                var links = CreateLinksForOccurrenceType(id, fields);
 
-                var linkedResourceToReturn = department.ShapeData(fields)
+                var linkedResourceToReturn = occurrenceType.ShapeData(fields)
                     as IDictionary<string, object>;
 
                 linkedResourceToReturn.Add("links", links);
@@ -185,44 +184,44 @@ namespace ESPL.KP.Controllers.OccurrenceType
                 return Ok(linkedResourceToReturn);
             }
 
-            [HttpPost(Name = "CreateDepartment")]
-            [RequestHeaderMatchesMediaType("Content-Type",
-                new[] { "application/vnd.marvin.department.full+json" })]
-            public IActionResult CreateDepartment([FromBody] OccurrenceTypeDto department)
+            [HttpPost(Name = "CreateOccurrenceType")]
+            // [RequestHeaderMatchesMediaType("Content-Type",
+            //     new[] { "application/vnd.marvin.occurrenceType.full+json" })]
+            public IActionResult CreateOccurrenceType([FromBody] OccurrenceTypeForCreationDto occurrenceType)
             {
-                if (department == null)
+                if (occurrenceType == null)
                 {
                     return BadRequest();
                 }
 
-                var departmentEntity = Mapper.Map<MstOccurrenceType>(department);
+                var occurrenceTypeEntity = Mapper.Map<MstOccurrenceType>(occurrenceType);
 
-                _libraryRepository.AddOccurrenceType(departmentEntity);
+                _libraryRepository.AddOccurrenceType(occurrenceTypeEntity);
 
                 if (!_libraryRepository.Save())
                 {
-                    throw new Exception("Creating an department failed on save.");
+                    throw new Exception("Creating an occurrenceType failed on save.");
                     // return StatusCode(500, "A problem happened with handling your request.");
                 }
 
-                var departmentToReturn = Mapper.Map<OccurrenceTypeDto>(departmentEntity);
+                var occurrenceTypeToReturn = Mapper.Map<OccurrenceTypeDto>(occurrenceTypeEntity);
 
-                var links = CreateLinksForDepartment(departmentToReturn.OccurrenceTypeID, null);
+                var links = CreateLinksForOccurrenceType(occurrenceTypeToReturn.OBTypeID , null);
 
-                var linkedResourceToReturn = departmentToReturn.ShapeData(null)
+                var linkedResourceToReturn = occurrenceTypeToReturn.ShapeData(null)
                     as IDictionary<string, object>;
 
                 linkedResourceToReturn.Add("links", links);
 
-                return CreatedAtRoute("GetDepartment",
-                    new { id = linkedResourceToReturn["Id"] },
+                return CreatedAtRoute("GetOccurrenceType",
+                    new { id = linkedResourceToReturn["OBTypeID"] },
                     linkedResourceToReturn);
             }
 
             [HttpPost("{id}")]
-            public IActionResult BlockDepartmentCreation(Guid id)
+            public IActionResult BlockOccurrenceTypeCreation(Guid id)
             {
-                if (_libraryRepository.DepartmentExists(id))
+                if (_libraryRepository.OccurrenceTypeExists(id))
                 {
                     return new StatusCodeResult(StatusCodes.Status409Conflict);
                 }
@@ -230,56 +229,56 @@ namespace ESPL.KP.Controllers.OccurrenceType
                 return NotFound();
             }
 
-            [HttpDelete("{id}", Name = "DeleteDepartment")]
-            public IActionResult DeleteDepartment(Guid id)
+            [HttpDelete("{id}", Name = "DeleteOccurrenceType")]
+            public IActionResult DeleteOccurrenceType(Guid id)
             {
-                var departmentFromRepo = _libraryRepository.GetDepartment(id);
-                if (departmentFromRepo == null)
+                var occurrenceTypeFromRepo = _libraryRepository.GetOccurrenceType(id);
+                if (occurrenceTypeFromRepo == null)
                 {
                     return NotFound();
                 }
 
-                _libraryRepository.DeleteDepartment(departmentFromRepo);
+                _libraryRepository.DeleteOccurrenceType(occurrenceTypeFromRepo);
 
                 if (!_libraryRepository.Save())
                 {
-                    throw new Exception($"Deleting department {id} failed on save.");
+                    throw new Exception($"Deleting occurrenceType {id} failed on save.");
                 }
 
                 return NoContent();
             }
 
-            private IEnumerable<LinkDto> CreateLinksForDepartment(Guid id, string fields)
+            private IEnumerable<LinkDto> CreateLinksForOccurrenceType(Guid id, string fields)
             {
                 var links = new List<LinkDto>();
 
                 if (string.IsNullOrWhiteSpace(fields))
                 {
                     links.Add(
-                      new LinkDto(_urlHelper.Link("GetDepartment", new { id = id }),
+                      new LinkDto(_urlHelper.Link("GetOccurrenceType", new { id = id }),
                       "self",
                       "GET"));
                 }
                 else
                 {
                     links.Add(
-                      new LinkDto(_urlHelper.Link("GetDepartment", new { id = id, fields = fields }),
+                      new LinkDto(_urlHelper.Link("GetOccurrenceType", new { id = id, fields = fields }),
                       "self",
                       "GET"));
                 }
 
                 links.Add(
-                  new LinkDto(_urlHelper.Link("DeleteDepartment", new { id = id }),
-                  "delete_department",
+                  new LinkDto(_urlHelper.Link("DeleteOccurrenceType", new { id = id }),
+                  "delete_occurrenceType",
                   "DELETE"));
 
                 links.Add(
-                  new LinkDto(_urlHelper.Link("CreateBookForDepartment", new { departmentId = id }),
-                  "create_book_for_department",
+                  new LinkDto(_urlHelper.Link("CreateBookForOccurrenceType", new { occurrenceTypeId = id }),
+                  "create_book_for_occurrenceType",
                   "POST"));
 
                 links.Add(
-                   new LinkDto(_urlHelper.Link("GetBooksForDepartment", new { departmentId = id }),
+                   new LinkDto(_urlHelper.Link("GetBooksForOccurrenceType", new { occurrenceTypeId = id }),
                    "books",
                    "GET"));
 

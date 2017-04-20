@@ -7,7 +7,7 @@ using System.Linq;
 using ESPL.KP.Helpers.Core;
 using ESPL.KP.Helpers.Department;
 using ESPL.KP.Helpers.OccurrenceType;
-using ESPL.KP.Models.OccurrenceType;
+using ESPL.KP.Models;
 
 namespace ESPL.KP.Services
 {

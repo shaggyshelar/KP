@@ -206,6 +206,9 @@ namespace ESPL.KP
 
                 cfg.CreateMap<ESPL.KP.Entities.MstDepartment, ESPL.KP.Models.DepartmentDto>();
                 cfg.CreateMap<ESPL.KP.Models.DepartmentForCreationDto, ESPL.KP.Entities.MstDepartment>();
+
+                cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceType, ESPL.KP.Models.OccurrenceTypeDto>();
+                cfg.CreateMap<ESPL.KP.Models.OccurrenceTypeForCreationDto, ESPL.KP.Entities.MstOccurrenceType>();
             });
 
             libraryContext.EnsureSeedDataForContext();

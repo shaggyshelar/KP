@@ -155,6 +155,8 @@ namespace ESPL.KP.Entities
 
 
             #region Area
+            context.MstArea.RemoveRange(context.MstArea);
+            context.SaveChanges();
             var areas = new List<MstArea>()
             {
                 new MstArea()
@@ -180,11 +182,13 @@ namespace ESPL.KP.Entities
                 }
             };
 
-            context.MstArea.AddRange(areas);
-            context.SaveChanges();
+            //context.MstArea.AddRange(areas);
+            //context.SaveChanges();
             #endregion
 
             #region Shift
+            context.MstShift.RemoveRange(context.MstShift);
+            context.SaveChanges();
             var shifts = new List<MstShift>()
             {
                 new MstShift()
@@ -215,6 +219,8 @@ namespace ESPL.KP.Entities
             #endregion
 
             #region Designations
+            context.MstDesignation.RemoveRange(context.MstDesignation);
+            context.SaveChanges();
             var designations = new List<MstDesignation>()
             {
                 new MstDesignation()
@@ -243,6 +249,24 @@ namespace ESPL.KP.Entities
 
 
             UpdateDepartments(context);
+            UpdateOccurrenceType(context);
+        }
+
+        private static void UpdateOccurrenceType(LibraryContext context)
+        {
+            context.MstOccurrenceType.RemoveRange(context.MstOccurrenceType);
+            context.SaveChanges();
+            var occurrenceTypes = new List<MstOccurrenceType>() {
+                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf111"),OBTypeName="Occurrence Type 1"},
+                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf222"),OBTypeName="Occurrence Type 2"},
+                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf333"),OBTypeName="Occurrence Type 3"},
+                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf444"),OBTypeName="Occurrence Type 4"},
+                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf555"),OBTypeName="Occurrence Type 5"},
+                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf666"),OBTypeName="Occurrence Type 6"},
+                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf777"),OBTypeName="Occurrence Type 7"}
+            };
+            context.MstOccurrenceType.AddRange(occurrenceTypes);
+            context.SaveChanges();
         }
 
         public static void UpdateDepartments(this LibraryContext context)

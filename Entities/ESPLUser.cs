@@ -27,7 +27,7 @@ namespace ESPL.KP.Entities {
         [Required]
         public int FailedPasswordAttemptCount { get; set; }
 
-        public ICollection<CfgUserDepartment> CFGUserDepartments { get; set; } 
+        public ICollection<CfgUserDepartment> CfgUserDepartments { get; set; } 
             = new List<CfgUserDepartment> ();
         public virtual ICollection<OccurrenceAssignment> OccurrenceAssignments { get; set; } 
             = new List<OccurrenceAssignment> ();
