@@ -20,9 +20,9 @@ namespace ESPL.KP.Entities {
         public MstDepartment MstDepartment { get; set; }
         public Guid DepartmentID { get; set; }
 
-        [ForeignKey ("OBStatusID")]
-        public MstOccurrenceStatus MstOccurrenceStatus { get; set; }
-        public Guid OBStatusID { get; set; }
+        [ForeignKey ("StatusID")]
+        public MstStatus MstStatus { get; set; }
+        public Guid StatusID { get; set; }
 
         [Required]
         [MaxLength (50)]

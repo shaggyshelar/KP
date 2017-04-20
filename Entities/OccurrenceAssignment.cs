@@ -11,11 +11,7 @@ namespace ESPL.KP.Entities {
         [ForeignKey ("OBID")]
         public MstOccurrenceBook MstOccurrenceBook { get; set; }
         public Guid OBID { get; set; }
-
-        // [ForeignKey ("OBStatusID")]
-        // public MstOccurrenceStatus MstOccurrenceStatus { get; set; }
-        // public Guid OBStatusID { get; set; }
-
+        
         [ForeignKey ("AssignedTO")]
         public ESPLUser ESPLUser { get; set; }
         public string AssignedTO { get; set; }

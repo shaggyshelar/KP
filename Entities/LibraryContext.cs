@@ -30,7 +30,7 @@ namespace ESPL.KP.Entities {
 
         public DbSet<MstOccurrenceBook> MstOccurrenceBook { get; set; }
 
-        public DbSet<MstOccurrenceStatus> MstOccurrenceStatus { get; set; }
+        public DbSet<MstStatus> MstStatus { get; set; }
 
         public DbSet<MstOccurrenceType> MstOccurrenceType { get; set; }
 
