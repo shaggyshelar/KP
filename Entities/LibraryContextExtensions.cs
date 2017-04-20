@@ -188,38 +188,79 @@ namespace ESPL.KP.Entities
             context.SaveChanges();
             #endregion
 
-            #region Designations
+            
+
+
+            UpdateDepartments(context);
+            UpdateArea(context);
+            UpdateDesignation(context);
+        }
+
+        private static void UpdateDesignation(LibraryContext context)
+        {
             context.MstDesignation.RemoveRange(context.MstDesignation);
             context.SaveChanges();
             var designations = new List<MstDesignation>()
             {
                 new MstDesignation()
                 {
-                    DesignationID = new Guid("B7F83929-EAAC-49F8-9A7A-5F5FFC2018C3"),
-                    DesignationName = "Inspector",
-                    DesignationCode = "INS"
+                    DesignationID = new Guid("2b72f829-5195-46c3-a6a4-06f817f11093"),
+                    DesignationName = "Director general of police",
+                    DesignationCode = "DGP"
                 },
                 new MstDesignation()
                 {
-                    DesignationID = new Guid("778E2940-0AB2-4988-90FB-245042A4E24B"),
-                    DesignationName = "SubInspector",
-                    DesignationCode = "INS"
+                    DesignationID = new Guid("f6b0d655-5afd-44e1-a1d4-5d6bec3a7c81"),
+                    DesignationName = "Inspector General of Police",
+                    DesignationCode = "IGP"
+                }, 
+                new MstDesignation()
+                {
+                    DesignationID = new Guid("aff1592e-ba8e-4791-831c-5df49da69054"),
+                    DesignationName = "Deputy Inspector General of Police",
+                    DesignationCode = "DIG"
                 },
                 new MstDesignation()
                 {
-                    DesignationID = new Guid("95D1B726-6AE0-473F-AD6B-7FC3059AE472"),
-                    DesignationName = "Constable",
-                    DesignationCode = "INS"
+                    DesignationID = new Guid("15251460-e145-4aef-a3da-6846e881ad11"),
+                    DesignationName = "Deputy Commissioner of Police",
+                    DesignationCode = "DCP"
+                },
+                new MstDesignation()
+                {
+                    DesignationID = new Guid("6aac273a-ab24-4959-8c93-6f52cfee56ff"),
+                    DesignationName = "Assistant Commissioner of Police",
+                    DesignationCode = "DCP"
+                },
+                new MstDesignation()
+                {
+                    DesignationID = new Guid("1d45922a-a4ea-4d81-ad46-7227891199b1"),
+                    DesignationName = "Superintendent of police",
+                    DesignationCode = "SP"
+                },
+                new MstDesignation()
+                {
+                    DesignationID = new Guid("836bf2d2-7eb2-454a-a298-72a9d6aea480"),
+                    DesignationName = "Police Inspector",
+                    DesignationCode = "PI"
+                },
+                new MstDesignation()
+                {
+                    DesignationID = new Guid("7e08300b-0888-4789-964c-a70686c63b1d"),
+                    DesignationName = "Police SubInspector",
+                    DesignationCode = "PSI"
+                },
+                new MstDesignation()
+                {
+                    DesignationID = new Guid("bf573249-6ee2-4506-97a6-cb0d9ce14ca8"),
+                    DesignationName = "Police Head Constable",
+                    DesignationCode = "HPC"
                 }
             };
 
             context.MstDesignation.AddRange(designations);
             context.SaveChanges();
-            #endregion
-
-
-            UpdateDepartments(context);
-            UpdateArea(context);
+            
         }
 
         private static void UpdateArea(LibraryContext context)
