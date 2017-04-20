@@ -7,6 +7,7 @@ using System.Linq;
 using ESPL.KP.Helpers.Core;
 using ESPL.KP.Helpers.Department;
 using ESPL.KP.Helpers.Area;
+using ESPL.KP.Helpers.Designation;
 
 namespace ESPL.KP.Services
 {
@@ -261,5 +262,64 @@ namespace ESPL.KP.Services
         }
 
         #endregion Area
+
+        #region Designation
+
+        public PagedList<MstDesignation> GetDesignations(DesignationsResourceParameters DesignationResourceParameters)
+        {
+            var collectionBeforePaging =
+                _context.MstDesignation.ApplySort(DesignationResourceParameters.OrderBy,
+                _propertyMappingService.GetPropertyMapping<DesignationDto, MstDesignation>());
+
+            if (!string.IsNullOrEmpty(DesignationResourceParameters.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = DesignationResourceParameters.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.DesignationName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.DesignationCode.ToLowerInvariant().Contains(searchQueryForWhereClause));
+            }
+
+            return PagedList<MstDesignation>.Create(collectionBeforePaging,
+                DesignationResourceParameters.PageNumber,
+                DesignationResourceParameters.PageSize);
+        }
+
+        public MstDesignation GetDesignation(Guid DesignationId)
+        {
+            return _context.MstDesignation.FirstOrDefault(a => a.DesignationID == DesignationId);
+        }
+
+        public IEnumerable<MstDesignation> GetDesignations(IEnumerable<Guid> DesignationIds)
+        {
+            return _context.MstDesignation.Where(a => DesignationIds.Contains(a.DesignationID))
+                .OrderBy(a => a.DesignationName)
+                .ToList();
+        }
+
+        public void AddDesignation(MstDesignation Designation)
+        {
+            Designation.DesignationID = Guid.NewGuid();
+            _context.MstDesignation.Add(Designation);
+        }
+
+        public void DeleteDesignation(MstDesignation Designation)
+        {
+            _context.MstDesignation.Remove(Designation);
+        }
+
+        public void UpdateDesignation(MstDesignation Designation)
+        {
+            // no code in this implementation
+        }
+
+        public bool DesignationExists(Guid DesignationId)
+        {
+            return _context.MstDesignation.Any(a => a.DesignationID == DesignationId);
+        }
+
+        #endregion Designation
     }
 }

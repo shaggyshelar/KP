@@ -214,6 +214,9 @@ namespace ESPL.KP
 
                 cfg.CreateMap<ESPL.KP.Entities.MstArea, ESPL.KP.Models.AreaDto>();
                 cfg.CreateMap<ESPL.KP.Models.AreaForCreationDto, ESPL.KP.Entities.MstArea>();
+
+                cfg.CreateMap<ESPL.KP.Entities.MstDesignation, ESPL.KP.Models.DesignationDto>();
+                cfg.CreateMap<ESPL.KP.Models.DesignationForCreationDto, ESPL.KP.Entities.MstDesignation>();
             });
 
             libraryContext.EnsureSeedDataForContext();

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using ESPL.KP.Helpers.Core;
 using ESPL.KP.Helpers.Department;
 using ESPL.KP.Helpers.Area;
+using ESPL.KP.Helpers.Designation;
 
 namespace ESPL.KP.Services
 {
@@ -52,6 +53,18 @@ namespace ESPL.KP.Services
         bool AreaExists(Guid authorId);
 
         #endregion
+
+        #region Designation
+        PagedList<MstDesignation> GetDesignations(DesignationsResourceParameters DesignationResourceParameters);
+        MstDesignation GetDesignation(Guid DesignationId);
+        IEnumerable<MstDesignation> GetDesignations(IEnumerable<Guid> DesignationIds);
+        void AddDesignation(MstDesignation Designation);
+        void DeleteDesignation(MstDesignation Designation);
+        void UpdateDesignation(MstDesignation Designation);
+        bool DesignationExists(Guid authorId);
+
+        #endregion
+        
         bool Save();
     }
 }
