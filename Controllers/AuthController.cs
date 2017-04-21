@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using ESPL.KP.Entities;
 using ESPL.KP.Filters;
 using ESPL.KP.Models.Auth;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ESPL.KP.Controllers
 {
@@ -76,5 +77,36 @@ namespace ESPL.KP.Controllers
 
             return BadRequest("Failed to generate token");
         }
+
+        [Authorize(Policy = "Auth.CanCreate")]
+        [HttpPost("api/auth/CanCreate")]
+        public IActionResult CanCreate()
+        {
+            return Ok("You Can Create");
+        }
+
+        [Authorize(Policy = "Auth.CanRead")]
+        [HttpPost("api/auth/CanRead")]
+
+        public IActionResult CanRead()
+        {
+            return Ok("You Can Read");
+        }
+
+        [Authorize(Policy = "Auth.CanUpdate")]
+        [HttpPost("api/auth/CanUpdate")]
+        public IActionResult CanUpdate()
+        {
+            return Ok("You Can Update");
+        }
+
+
+        [Authorize(Policy = "Auth.CanDelete")]
+        [HttpPost("api/auth/CanDelete")]
+        public IActionResult CanDelete()
+        {
+            return Ok("You Can Delete");
+        }
+
     }
 }
