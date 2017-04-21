@@ -10,266 +10,412 @@ using ESPL.KP.Models;
 using ESPL.KP.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.JsonPatch;
 
-namespace ESPL.KP.Controllerss.Designation {
+namespace ESPL.KP.Controllerss.Designation
+{
     [Route("api/Designations")]
-    public class DesignationsController : Controller {
+    public class DesignationsController : Controller
+    {
         private ILibraryRepository _libraryRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
 
-        public DesignationsController (ILibraryRepository libraryRepository,
+        public DesignationsController(ILibraryRepository libraryRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
-            ITypeHelperService typeHelperService) {
+            ITypeHelperService typeHelperService)
+        {
             _libraryRepository = libraryRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
         }
 
-        [HttpGet (Name = "GetDesignations")]
+        [HttpGet(Name = "GetDesignations")]
         [HttpHead]
-        public IActionResult GetDesignations (DesignationsResourceParameters DesignationsResourceParameters, [FromHeader (Name = "Accept")] string mediaType) {
+        public IActionResult GetDesignations(DesignationsResourceParameters DesignationsResourceParameters, [FromHeader(Name = "Accept")] string mediaType)
+        {
             if (!_propertyMappingService.ValidMappingExistsFor<DesignationDto, MstDesignation>
-                (DesignationsResourceParameters.OrderBy)) {
-                return BadRequest ();
+                (DesignationsResourceParameters.OrderBy))
+            {
+                return BadRequest();
             }
 
             if (!_typeHelperService.TypeHasProperties<DesignationDto>
-                (DesignationsResourceParameters.Fields)) {
-                return BadRequest ();
+                (DesignationsResourceParameters.Fields))
+            {
+                return BadRequest();
             }
 
-            var DesignationsFromRepo = _libraryRepository.GetDesignations (DesignationsResourceParameters);
+            var DesignationsFromRepo = _libraryRepository.GetDesignations(DesignationsResourceParameters);
 
-            var Designations = Mapper.Map<IEnumerable<DesignationDto>> (DesignationsFromRepo);
+            var Designations = Mapper.Map<IEnumerable<DesignationDto>>(DesignationsFromRepo);
 
-            if (mediaType == "application/vnd.marvin.hateoas+json") {
-                var paginationMetadata = new {
+            if (mediaType == "application/vnd.marvin.hateoas+json")
+            {
+                var paginationMetadata = new
+                {
                     totalCount = DesignationsFromRepo.TotalCount,
-                        pageSize = DesignationsFromRepo.PageSize,
-                        currentPage = DesignationsFromRepo.CurrentPage,
-                        totalPages = DesignationsFromRepo.TotalPages,
+                    pageSize = DesignationsFromRepo.PageSize,
+                    currentPage = DesignationsFromRepo.CurrentPage,
+                    totalPages = DesignationsFromRepo.TotalPages,
                 };
 
-                Response.Headers.Add ("X-Pagination",
-                    Newtonsoft.Json.JsonConvert.SerializeObject (paginationMetadata));
+                Response.Headers.Add("X-Pagination",
+                    Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
 
-                var links = CreateLinksForDesignations (DesignationsResourceParameters,
+                var links = CreateLinksForDesignations(DesignationsResourceParameters,
                     DesignationsFromRepo.HasNext, DesignationsFromRepo.HasPrevious);
 
-                var shapedDesignations = Designations.ShapeData (DesignationsResourceParameters.Fields);
+                var shapedDesignations = Designations.ShapeData(DesignationsResourceParameters.Fields);
 
-                var shapedDesignationsWithLinks = shapedDesignations.Select (Designation => {
+                var shapedDesignationsWithLinks = shapedDesignations.Select(Designation =>
+                {
                     var DesignationAsDictionary = Designation as IDictionary<string, object>;
-                    var DesignationLinks = CreateLinksForDesignation (
-                        (Guid) DesignationAsDictionary["Id"], DesignationsResourceParameters.Fields);
+                    var DesignationLinks = CreateLinksForDesignation(
+                        (Guid)DesignationAsDictionary["Id"], DesignationsResourceParameters.Fields);
 
-                    DesignationAsDictionary.Add ("links", DesignationLinks);
+                    DesignationAsDictionary.Add("links", DesignationLinks);
 
                     return DesignationAsDictionary;
                 });
 
-                var linkedCollectionResource = new {
+                var linkedCollectionResource = new
+                {
                     value = shapedDesignationsWithLinks,
-                        links = links
+                    links = links
                 };
 
-                return Ok (linkedCollectionResource);
-            } else {
-                var previousPageLink = DesignationsFromRepo.HasPrevious?
-                    CreateDesignationsResourceUri (DesignationsResourceParameters,
+                return Ok(linkedCollectionResource);
+            }
+            else
+            {
+                var previousPageLink = DesignationsFromRepo.HasPrevious ?
+                    CreateDesignationsResourceUri(DesignationsResourceParameters,
                         ResourceUriType.PreviousPage) : null;
 
-                var nextPageLink = DesignationsFromRepo.HasNext?
-                    CreateDesignationsResourceUri (DesignationsResourceParameters,
+                var nextPageLink = DesignationsFromRepo.HasNext ?
+                    CreateDesignationsResourceUri(DesignationsResourceParameters,
                         ResourceUriType.NextPage) : null;
 
-                var paginationMetadata = new {
+                var paginationMetadata = new
+                {
                     previousPageLink = previousPageLink,
-                        nextPageLink = nextPageLink,
-                        totalCount = DesignationsFromRepo.TotalCount,
-                        pageSize = DesignationsFromRepo.PageSize,
-                        currentPage = DesignationsFromRepo.CurrentPage,
-                        totalPages = DesignationsFromRepo.TotalPages
+                    nextPageLink = nextPageLink,
+                    totalCount = DesignationsFromRepo.TotalCount,
+                    pageSize = DesignationsFromRepo.PageSize,
+                    currentPage = DesignationsFromRepo.CurrentPage,
+                    totalPages = DesignationsFromRepo.TotalPages
                 };
 
-                Response.Headers.Add ("X-Pagination",
-                    Newtonsoft.Json.JsonConvert.SerializeObject (paginationMetadata));
+                Response.Headers.Add("X-Pagination",
+                    Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
 
-                return Ok (Designations.ShapeData (DesignationsResourceParameters.Fields));
+                return Ok(Designations.ShapeData(DesignationsResourceParameters.Fields));
             }
         }
 
-        private string CreateDesignationsResourceUri (
+        private string CreateDesignationsResourceUri(
             DesignationsResourceParameters DesignationsResourceParameters,
-            ResourceUriType type) {
-            switch (type) {
+            ResourceUriType type)
+        {
+            switch (type)
+            {
                 case ResourceUriType.PreviousPage:
-                    return _urlHelper.Link ("GetDesignations",
-                        new {
+                    return _urlHelper.Link("GetDesignations",
+                        new
+                        {
                             fields = DesignationsResourceParameters.Fields,
-                                orderBy = DesignationsResourceParameters.OrderBy,
-                                searchQuery = DesignationsResourceParameters.SearchQuery,
-                                pageNumber = DesignationsResourceParameters.PageNumber - 1,
-                                pageSize = DesignationsResourceParameters.PageSize
+                            orderBy = DesignationsResourceParameters.OrderBy,
+                            searchQuery = DesignationsResourceParameters.SearchQuery,
+                            pageNumber = DesignationsResourceParameters.PageNumber - 1,
+                            pageSize = DesignationsResourceParameters.PageSize
                         });
                 case ResourceUriType.NextPage:
-                    return _urlHelper.Link ("GetDesignations",
-                        new {
+                    return _urlHelper.Link("GetDesignations",
+                        new
+                        {
                             fields = DesignationsResourceParameters.Fields,
-                                orderBy = DesignationsResourceParameters.OrderBy,
-                                searchQuery = DesignationsResourceParameters.SearchQuery,
-                                pageNumber = DesignationsResourceParameters.PageNumber + 1,
-                                pageSize = DesignationsResourceParameters.PageSize
+                            orderBy = DesignationsResourceParameters.OrderBy,
+                            searchQuery = DesignationsResourceParameters.SearchQuery,
+                            pageNumber = DesignationsResourceParameters.PageNumber + 1,
+                            pageSize = DesignationsResourceParameters.PageSize
                         });
                 case ResourceUriType.Current:
                 default:
-                    return _urlHelper.Link ("GetDesignations",
-                        new {
+                    return _urlHelper.Link("GetDesignations",
+                        new
+                        {
                             fields = DesignationsResourceParameters.Fields,
-                                orderBy = DesignationsResourceParameters.OrderBy,
-                                searchQuery = DesignationsResourceParameters.SearchQuery,
-                                pageNumber = DesignationsResourceParameters.PageNumber,
-                                pageSize = DesignationsResourceParameters.PageSize
+                            orderBy = DesignationsResourceParameters.OrderBy,
+                            searchQuery = DesignationsResourceParameters.SearchQuery,
+                            pageNumber = DesignationsResourceParameters.PageNumber,
+                            pageSize = DesignationsResourceParameters.PageSize
                         });
             }
         }
 
-        [HttpGet ("{id}", Name = "GetDesignation")]
-        public IActionResult GetDesignation (Guid id, [FromQuery] string fields) {
+        [HttpGet("{id}", Name = "GetDesignation")]
+        public IActionResult GetDesignation(Guid id, [FromQuery] string fields)
+        {
             if (!_typeHelperService.TypeHasProperties<DesignationDto>
-                (fields)) {
-                return BadRequest ();
+                (fields))
+            {
+                return BadRequest();
             }
 
-            var DesignationFromRepo = _libraryRepository.GetDesignation (id);
+            var DesignationFromRepo = _libraryRepository.GetDesignation(id);
 
-            if (DesignationFromRepo == null) {
-                return NotFound ();
+            if (DesignationFromRepo == null)
+            {
+                return NotFound();
             }
 
-            var Designation = Mapper.Map<DesignationDto> (DesignationFromRepo);
+            var Designation = Mapper.Map<DesignationDto>(DesignationFromRepo);
 
-            var links = CreateLinksForDesignation (id, fields);
+            var links = CreateLinksForDesignation(id, fields);
 
-            var linkedResourceToReturn = Designation.ShapeData (fields)
+            var linkedResourceToReturn = Designation.ShapeData(fields)
             as IDictionary<string, object>;
 
-            linkedResourceToReturn.Add ("links", links);
+            linkedResourceToReturn.Add("links", links);
 
-            return Ok (linkedResourceToReturn);
+            return Ok(linkedResourceToReturn);
         }
 
-        [HttpPost (Name = "CreateDesignation")]
-        public IActionResult CreateDesignation ([FromBody] DesignationForCreationDto Designation) {
-            if (Designation == null) {
-                return BadRequest ();
+        [HttpPost(Name = "CreateDesignation")]
+        public IActionResult CreateDesignation([FromBody] DesignationForCreationDto Designation)
+        {
+            if (Designation == null)
+            {
+                return BadRequest();
             }
 
-            var DesignationEntity = Mapper.Map<MstDesignation> (Designation);
+            var DesignationEntity = Mapper.Map<MstDesignation>(Designation);
 
-            _libraryRepository.AddDesignation (DesignationEntity);
+            _libraryRepository.AddDesignation(DesignationEntity);
 
-            if (!_libraryRepository.Save ()) {
-                throw new Exception ("Creating an Designation failed on save.");
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception("Creating an Designation failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
             }
 
-            var DesignationToReturn = Mapper.Map<DesignationDto> (DesignationEntity);
+            var DesignationToReturn = Mapper.Map<DesignationDto>(DesignationEntity);
 
-            var links = CreateLinksForDesignation (DesignationToReturn.DesignationID, null);
+            var links = CreateLinksForDesignation(DesignationToReturn.DesignationID, null);
 
-            var linkedResourceToReturn = DesignationToReturn.ShapeData (null)
+            var linkedResourceToReturn = DesignationToReturn.ShapeData(null)
             as IDictionary<string, object>;
 
-            linkedResourceToReturn.Add ("links", links);
+            linkedResourceToReturn.Add("links", links);
 
-            return CreatedAtRoute ("GetDesignation",
+            return CreatedAtRoute("GetDesignation",
                 new { id = linkedResourceToReturn["DesignationID"] },
                 linkedResourceToReturn);
         }
 
-        [HttpPost ("{id}")]
-        public IActionResult BlockDesignationCreation (Guid id) {
-            if (_libraryRepository.DesignationExists (id)) {
-                return new StatusCodeResult (StatusCodes.Status409Conflict);
+        [HttpPost("{id}")]
+        public IActionResult BlockDesignationCreation(Guid id)
+        {
+            if (_libraryRepository.DesignationExists(id))
+            {
+                return new StatusCodeResult(StatusCodes.Status409Conflict);
             }
 
-            return NotFound ();
+            return NotFound();
         }
 
-        [HttpDelete ("{id}", Name = "DeleteDesignation")]
-        public IActionResult DeleteDesignation (Guid id) {
-            var DesignationFromRepo = _libraryRepository.GetDesignation (id);
-            if (DesignationFromRepo == null) {
-                return NotFound ();
+        [HttpDelete("{id}", Name = "DeleteDesignation")]
+        public IActionResult DeleteDesignation(Guid id)
+        {
+            var DesignationFromRepo = _libraryRepository.GetDesignation(id);
+            if (DesignationFromRepo == null)
+            {
+                return NotFound();
             }
 
-            _libraryRepository.DeleteDesignation (DesignationFromRepo);
+            _libraryRepository.DeleteDesignation(DesignationFromRepo);
 
-            if (!_libraryRepository.Save ()) {
-                throw new Exception ($"Deleting Designation {id} failed on save.");
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception($"Deleting Designation {id} failed on save.");
             }
 
-            return NoContent ();
+            return NoContent();
         }
 
-        private IEnumerable<LinkDto> CreateLinksForDesignation (Guid id, string fields) {
-            var links = new List<LinkDto> ();
+        [HttpPut("{id}", Name = "UpdateDesignation")]
+        public IActionResult UpdateDesignation(Guid id, [FromBody] DesignationForCreationDto designation)
+        {
+            if (designation == null)
+            {
+                return BadRequest();
+            }
+            // if (!_libraryRepository.OccurrenceBookExists(id))
+            // {
+            //     return NotFound();
+            // }
+            //Mapper.Map(source,destination);
+            var designationRepo = _libraryRepository.GetDesignation(id);
 
-            if (string.IsNullOrWhiteSpace (fields)) {
-                links.Add (
-                    new LinkDto (_urlHelper.Link ("GetDesignation", new { id = id }),
+            if (designationRepo == null)
+            {
+                var designationAdd = Mapper.Map<MstDesignation>(designation);
+                designationAdd.DesignationID = id;
+
+                _libraryRepository.AddDesignation(designationAdd);
+
+                if (!_libraryRepository.Save())
+                {
+                    throw new Exception($"Upserting designation {id} failed on save.");
+                }
+
+                var designationReturnVal = Mapper.Map<DesignationDto>(designationAdd);
+
+                return CreatedAtRoute("GetDesignation",
+                    new { DesignationID = designationReturnVal.DesignationID },
+                    designationReturnVal);
+            }
+
+            Mapper.Map(designation, designationRepo);
+            _libraryRepository.UpdateDesignation(designationRepo);
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception("Updating an designation failed on save.");
+                // return StatusCode(500, "A problem happened with handling your request.");
+            }
+
+
+            return Ok(designationRepo);
+        }
+
+        [HttpPatch("{id}", Name = "PartiallyUpdateDesignation")]
+        public IActionResult PartiallyUpdateDesignation(Guid id,
+                    [FromBody] JsonPatchDocument<DesignationForCreationDto> patchDoc)
+        {
+            if (patchDoc == null)
+            {
+                return BadRequest();
+            }
+
+            var designationFromRepo = _libraryRepository.GetDesignation(id);
+
+            if (designationFromRepo == null)
+            {
+                var designationDto = new DesignationForCreationDto();
+                patchDoc.ApplyTo(designationDto, ModelState);
+
+                TryValidateModel(designationDto);
+
+                if (!ModelState.IsValid)
+                {
+                    return new UnprocessableEntityObjectResult(ModelState);
+                }
+
+                var designationToAdd = Mapper.Map<MstDesignation>(designationDto);
+                designationToAdd.DesignationID = id;
+
+                _libraryRepository.AddDesignation(designationToAdd);
+
+                if (!_libraryRepository.Save())
+                {
+                    throw new Exception($"Upserting in designation {id} failed on save.");
+                }
+
+                var designationToReturn = Mapper.Map<DesignationDto>(designationToAdd);
+                return CreatedAtRoute("GetDesignation",
+                    new { DesignationID = designationToReturn.DesignationID },
+                    designationToReturn);
+            }
+
+            var designationToPatch = Mapper.Map<DesignationForCreationDto>(designationFromRepo);
+
+            patchDoc.ApplyTo(designationToPatch, ModelState);
+
+            // patchDoc.ApplyTo(designationToPatch);
+
+            TryValidateModel(designationToPatch);
+
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
+
+            Mapper.Map(designationToPatch, designationFromRepo);
+
+            _libraryRepository.UpdateDesignation(designationFromRepo);
+
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception($"Patching  designation {id} failed on save.");
+            }
+
+            return NoContent();
+        }
+
+        private IEnumerable<LinkDto> CreateLinksForDesignation(Guid id, string fields)
+        {
+            var links = new List<LinkDto>();
+
+            if (string.IsNullOrWhiteSpace(fields))
+            {
+                links.Add(
+                    new LinkDto(_urlHelper.Link("GetDesignation", new { id = id }),
                         "self",
                         "GET"));
-            } else {
-                links.Add (
-                    new LinkDto (_urlHelper.Link ("GetDesignation", new { id = id, fields = fields }),
+            }
+            else
+            {
+                links.Add(
+                    new LinkDto(_urlHelper.Link("GetDesignation", new { id = id, fields = fields }),
                         "self",
                         "GET"));
             }
 
-            links.Add (
-                new LinkDto (_urlHelper.Link ("DeleteDesignation", new { id = id }),
+            links.Add(
+                new LinkDto(_urlHelper.Link("DeleteDesignation", new { id = id }),
                     "delete_Designation",
                     "DELETE"));
 
-            links.Add (
-                new LinkDto (_urlHelper.Link ("CreateBookForDesignation", new { DesignationId = id }),
+            links.Add(
+                new LinkDto(_urlHelper.Link("CreateBookForDesignation", new { DesignationId = id }),
                     "create_book_for_Designation",
                     "POST"));
 
-            links.Add (
-                new LinkDto (_urlHelper.Link ("GetBooksForDesignation", new { DesignationId = id }),
+            links.Add(
+                new LinkDto(_urlHelper.Link("GetBooksForDesignation", new { DesignationId = id }),
                     "books",
                     "GET"));
 
             return links;
         }
 
-        private IEnumerable<LinkDto> CreateLinksForDesignations (
+        private IEnumerable<LinkDto> CreateLinksForDesignations(
             DesignationsResourceParameters DesignationsResourceParameters,
-            bool hasNext, bool hasPrevious) {
-            var links = new List<LinkDto> ();
+            bool hasNext, bool hasPrevious)
+        {
+            var links = new List<LinkDto>();
 
             // self 
-            links.Add (
-                new LinkDto (CreateDesignationsResourceUri (DesignationsResourceParameters,
+            links.Add(
+                new LinkDto(CreateDesignationsResourceUri(DesignationsResourceParameters,
                     ResourceUriType.Current), "self", "GET"));
 
-            if (hasNext) {
-                links.Add (
-                    new LinkDto (CreateDesignationsResourceUri (DesignationsResourceParameters,
+            if (hasNext)
+            {
+                links.Add(
+                    new LinkDto(CreateDesignationsResourceUri(DesignationsResourceParameters,
                             ResourceUriType.NextPage),
                         "nextPage", "GET"));
             }
 
-            if (hasPrevious) {
-                links.Add (
-                    new LinkDto (CreateDesignationsResourceUri (DesignationsResourceParameters,
+            if (hasPrevious)
+            {
+                links.Add(
+                    new LinkDto(CreateDesignationsResourceUri(DesignationsResourceParameters,
                             ResourceUriType.PreviousPage),
                         "previousPage", "GET"));
             }
@@ -278,9 +424,10 @@ namespace ESPL.KP.Controllerss.Designation {
         }
 
         [HttpOptions]
-        public IActionResult GetDesignationsOptions () {
-            Response.Headers.Add ("Allow", "GET,OPTIONS,POST");
-            return Ok ();
+        public IActionResult GetDesignationsOptions()
+        {
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST");
+            return Ok();
         }
     }
 }

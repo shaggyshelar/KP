@@ -10,6 +10,7 @@ using ESPL.KP.Entities;
 using Microsoft.AspNetCore.Http;
 using ESPL.KP.Helpers.Core;
 using ESPL.KP.Helpers.Status;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace ESPL.KP.Controllers.Status
 {
@@ -71,15 +72,15 @@ namespace ESPL.KP.Controllers.Status
 
                 var shapedStatuses = statuses.ShapeData(statusesResourceParameters.Fields);
 
-                var shapedStatusesWithLinks = shapedStatuses.Select(department =>
+                var shapedStatusesWithLinks = shapedStatuses.Select(status =>
                 {
-                    var departmentAsDictionary = department as IDictionary<string, object>;
-                    var departmentLinks = CreateLinksForStatus(
-                        (Guid)departmentAsDictionary["Id"], statusesResourceParameters.Fields);
+                    var statusAsDictionary = status as IDictionary<string, object>;
+                    var statusLinks = CreateLinksForStatus(
+                        (Guid)statusAsDictionary["Id"], statusesResourceParameters.Fields);
 
-                    departmentAsDictionary.Add("links", departmentLinks);
+                    statusAsDictionary.Add("links", statusLinks);
 
-                    return departmentAsDictionary;
+                    return statusAsDictionary;
                 });
 
                 var linkedCollectionResource = new
@@ -166,18 +167,18 @@ namespace ESPL.KP.Controllers.Status
                 return BadRequest();
             }
 
-            var departmentFromRepo = _libraryRepository.GetStatus(id);
+            var statusFromRepo = _libraryRepository.GetStatus(id);
 
-            if (departmentFromRepo == null)
+            if (statusFromRepo == null)
             {
                 return NotFound();
             }
 
-            var department = Mapper.Map<StatusDto>(departmentFromRepo);
+            var status = Mapper.Map<StatusDto>(statusFromRepo);
 
             var links = CreateLinksForStatus(id, fields);
 
-            var linkedResourceToReturn = department.ShapeData(fields)
+            var linkedResourceToReturn = status.ShapeData(fields)
                 as IDictionary<string, object>;
 
             linkedResourceToReturn.Add("links", links);
@@ -186,28 +187,28 @@ namespace ESPL.KP.Controllers.Status
         }
 
         [HttpPost(Name = "CreateStatus")]
-        public IActionResult CreateStatus([FromBody] StatusForCreationDto department)
+        public IActionResult CreateStatus([FromBody] StatusForCreationDto status)
         {
-            if (department == null)
+            if (status == null)
             {
                 return BadRequest();
             }
 
-            var departmentEntity = Mapper.Map<MstStatus>(department);
+            var statusEntity = Mapper.Map<MstStatus>(status);
 
-            _libraryRepository.AddStatus(departmentEntity);
+            _libraryRepository.AddStatus(statusEntity);
 
             if (!_libraryRepository.Save())
             {
-                throw new Exception("Creating an department failed on save.");
+                throw new Exception("Creating an status failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
             }
 
-            var departmentToReturn = Mapper.Map<StatusDto>(departmentEntity);
+            var statusToReturn = Mapper.Map<StatusDto>(statusEntity);
 
-            var links = CreateLinksForStatus(departmentToReturn.StatusID, null);
+            var links = CreateLinksForStatus(statusToReturn.StatusID, null);
 
-            var linkedResourceToReturn = departmentToReturn.ShapeData(null)
+            var linkedResourceToReturn = statusToReturn.ShapeData(null)
                 as IDictionary<string, object>;
 
             linkedResourceToReturn.Add("links", links);
@@ -231,17 +232,126 @@ namespace ESPL.KP.Controllers.Status
         [HttpDelete("{id}", Name = "DeleteStatus")]
         public IActionResult DeleteStatus(Guid id)
         {
-            var departmentFromRepo = _libraryRepository.GetStatus(id);
-            if (departmentFromRepo == null)
+            var statusFromRepo = _libraryRepository.GetStatus(id);
+            if (statusFromRepo == null)
             {
                 return NotFound();
             }
 
-            _libraryRepository.DeleteStatus(departmentFromRepo);
+            _libraryRepository.DeleteStatus(statusFromRepo);
 
             if (!_libraryRepository.Save())
             {
                 throw new Exception($"Deleting department {id} failed on save.");
+            }
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}", Name = "UpdateStatus")]
+        public IActionResult UpdateStatus(Guid id, [FromBody] StatusForCreationDto status)
+        {
+            if (status == null)
+            {
+                return BadRequest();
+            }
+            // if (!_libraryRepository.OccurrenceBookExists(id))
+            // {
+            //     return NotFound();
+            // }
+            //Mapper.Map(source,destination);
+            var statusRepo = _libraryRepository.GetStatus(id);
+
+            if (statusRepo == null)
+            {
+                var statusAdd = Mapper.Map<MstStatus>(status);
+                statusAdd.StatusID = id;
+
+                _libraryRepository.AddStatus(statusAdd);
+
+                if (!_libraryRepository.Save())
+                {
+                    throw new Exception($"Upserting status {id} failed on save.");
+                }
+
+                var statusReturnVal = Mapper.Map<StatusDto>(statusAdd);
+
+                return CreatedAtRoute("GetStatus",
+                    new { StatusID = statusReturnVal.StatusID },
+                    statusReturnVal);
+            }
+
+            Mapper.Map(status, statusRepo);
+            _libraryRepository.UpdateStatus(statusRepo);
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception("Updating an status failed on save.");
+                // return StatusCode(500, "A problem happened with handling your request.");
+            }
+
+
+            return Ok(statusRepo);
+        }
+
+        [HttpPatch("{id}", Name = "PartiallyUpdateStatus")]
+        public IActionResult PartiallyUpdateStatus(Guid id,
+                    [FromBody] JsonPatchDocument<StatusForCreationDto> patchDoc)
+        {
+            if (patchDoc == null)
+            {
+                return BadRequest();
+            }
+
+            var statusFromRepo = _libraryRepository.GetStatus(id);
+
+            if (statusFromRepo == null)
+            {
+                var statusDto = new StatusForCreationDto();
+                patchDoc.ApplyTo(statusDto, ModelState);
+
+                TryValidateModel(statusDto);
+
+                if (!ModelState.IsValid)
+                {
+                    return new UnprocessableEntityObjectResult(ModelState);
+                }
+
+                var statusToAdd = Mapper.Map<MstStatus>(statusDto);
+                statusToAdd.StatusID = id;
+
+                _libraryRepository.AddStatus(statusToAdd);
+
+                if (!_libraryRepository.Save())
+                {
+                    throw new Exception($"Upserting in status {id} failed on save.");
+                }
+
+                var statusToReturn = Mapper.Map<StatusDto>(statusToAdd);
+                return CreatedAtRoute("GetStatus",
+                    new { StatusID = statusToReturn.StatusID },
+                    statusToReturn);
+            }
+
+            var statusToPatch = Mapper.Map<StatusForCreationDto>(statusFromRepo);
+
+            patchDoc.ApplyTo(statusToPatch, ModelState);
+
+            // patchDoc.ApplyTo(statusToPatch);
+
+            TryValidateModel(statusToPatch);
+
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
+
+            Mapper.Map(statusToPatch, statusFromRepo);
+
+            _libraryRepository.UpdateStatus(statusFromRepo);
+
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception($"Patching  status {id} failed on save.");
             }
 
             return NoContent();
@@ -268,16 +378,16 @@ namespace ESPL.KP.Controllers.Status
 
             links.Add(
               new LinkDto(_urlHelper.Link("DeleteStatus", new { id = id }),
-              "delete_department",
+              "delete_status",
               "DELETE"));
 
             links.Add(
-              new LinkDto(_urlHelper.Link("CreateBookForStatus", new { departmentId = id }),
-              "create_book_for_department",
+              new LinkDto(_urlHelper.Link("CreateBookForStatus", new { statusId = id }),
+              "create_book_for_status",
               "POST"));
 
             links.Add(
-               new LinkDto(_urlHelper.Link("GetBooksForStatus", new { departmentId = id }),
+               new LinkDto(_urlHelper.Link("GetBooksForStatus", new { statusId = id }),
                "books",
                "GET"));
 
