@@ -16,7 +16,7 @@ namespace ESPL.KP.Entities {
         [MaxLength (500)]
         public string DepartmentDespcription { get; set; }
 
-        public ICollection<CfgUserDepartment> CfgUserDepartment { get; set; } = new List<CfgUserDepartment> ();
+        public ICollection<MstEmployee> MstEmployees { get; set; } = new List<MstEmployee> ();
         public ICollection<MstOccurrenceBook> MstOccurrenceBooks { get; set; } = new List<MstOccurrenceBook> ();
     }
 }

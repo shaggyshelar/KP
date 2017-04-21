@@ -5,14 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ESPL.KP.Entities {
 
-    public class CfgUserShift: BaseEntity
+    public class CfgEmployeeShift: BaseEntity
     {
         [Key]
-        public Guid UserShiftID { get; set; }
+        public Guid EmployeeShiftID { get; set; }
 
-        [ForeignKey("UserID")]
-        public ESPLUser ESPLUser { get; set; }
-        public string UserID { get; set; }
+        [ForeignKey ("EmployeeID")]
+        public MstEmployee MstEmployee { get; set; }
+        public Guid EmployeeID { get; set; }
 
         [ForeignKey("ShiftID")]
         public MstShift MstShift { get; set; }

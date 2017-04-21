@@ -12,31 +12,15 @@ namespace ESPL.KP.Entities {
         
         [Required]
         [MaxLength (50)]
-        public string LastName { get; set; }        
-
-        public string Mobile { get; set; }
-
-        [MaxLength (500)]
-        public string Address1 { get; set; }
-
-        [MaxLength (500)]
-        public string Address2 { get; set; }
-
+        public string LastName { get; set; }
+        
+        [Required]
         public DateTime LastLogin { get; set; }
 
         [Required]
         public int FailedPasswordAttemptCount { get; set; }
 
-        public ICollection<CfgUserDepartment> CfgUserDepartments { get; set; } 
-            = new List<CfgUserDepartment> ();
-        public virtual ICollection<OccurrenceAssignment> OccurrenceAssignments { get; set; } 
-            = new List<OccurrenceAssignment> ();
-         public ICollection<CfgUserShift> CfgUserShift { get; set; } 
-            = new List<CfgUserShift> ();
-        public ICollection<CfgUserArea> CfgUserArea { get; set; } 
-            = new List<CfgUserArea> ();
-        public ICollection<CfgUserDesignation> CfgUserDesignation { get; set; } 
-            = new List<CfgUserDesignation> ();
+       
 
     }
 }
