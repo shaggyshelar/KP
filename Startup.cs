@@ -222,6 +222,13 @@ namespace ESPL.KP
 
                 cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceBook, ESPL.KP.Models.OccurrenceBookDto>();
                 cfg.CreateMap<ESPL.KP.Models.OccurrenceBookForCreationDto, ESPL.KP.Entities.MstOccurrenceBook>();
+
+                cfg.CreateMap<ESPL.KP.Entities.MstShift, ESPL.KP.Models.ShiftDto>();
+                cfg.CreateMap<ESPL.KP.Models.ShiftForCreationDto, ESPL.KP.Entities.MstShift>();
+
+                cfg.CreateMap<ESPL.KP.Entities.MstStatus, ESPL.KP.Models.StatusDto>();
+                cfg.CreateMap<ESPL.KP.Models.StatusForCreationDto, ESPL.KP.Entities.MstStatus>();
+
             });
 
             libraryContext.EnsureSeedDataForContext();

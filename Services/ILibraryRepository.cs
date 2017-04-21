@@ -9,6 +9,8 @@ using ESPL.KP.Helpers.Designation;
 using ESPL.KP.Helpers.OccurrenceType;
 using ESPL.KP.Helpers.OccurrenceBook;
 using ESPL.KP.Helpers.OccurrenceBook;
+using ESPL.KP.Helpers.Shift;
+using ESPL.KP.Helpers.Status;
 
 namespace ESPL.KP.Services
 {
@@ -87,6 +89,28 @@ namespace ESPL.KP.Services
         void UpdateOccurrenceBook(MstOccurrenceBook occurrenceType);
         bool OccurrenceBookExists(Guid occurrenceTypeId);
         #endregion
+
+                #region Shift
+        PagedList<MstShift> GetShifts(ShiftsResourceParameters shiftResourceParameters);
+        MstShift GetShift(Guid shiftId);
+        IEnumerable<MstShift> GetShifts(IEnumerable<Guid> shiftIds);
+        void AddShift(MstShift shift);
+        void DeleteShift(MstShift shift);
+        void UpdateShift(MstShift shift);
+        bool ShiftExists(Guid authorId);
+
+        #endregion
+
+        #region Status
+        PagedList<MstStatus> GetStatuses(StatusesResourceParameters statusResourceParameters);
+        MstStatus GetStatus(Guid statusId);
+        IEnumerable<MstStatus> GetStatuses(IEnumerable<Guid> statusIds);
+        void AddStatus(MstStatus status);
+        void DeleteStatus(MstStatus status);
+        void UpdateStatus(MstStatus status);
+        bool StatusExists(Guid authorId);
+
+        #endregion 
 
         bool Save();
     }

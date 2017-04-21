@@ -153,6 +153,9 @@ namespace ESPL.KP.Entities
             context.Authors.AddRange(authors);
             context.SaveChanges();
 
+
+
+
             #region Shift
             context.MstShift.RemoveRange(context.MstShift);
             context.SaveChanges();
@@ -189,6 +192,8 @@ namespace ESPL.KP.Entities
             UpdateArea(context);
             UpdateDesignation(context);
             UpdateOccurrenceType(context);
+            UpdateShifts(context);
+            UpdateStatus(context);
             UpdateOccurrenceBooks(context);
         }
 
@@ -446,7 +451,74 @@ namespace ESPL.KP.Entities
 
         }
 
-        private static void UpdateOccurrenceBooks(LibraryContext context)
+           #region Shifts
+
+        public static void UpdateShifts(this LibraryContext context)
+        {
+            context.MstShift.RemoveRange(context.MstShift);
+            context.SaveChanges();
+            var shifts = new List<MstShift>()
+            {
+                new MstShift()
+                {
+                    ShiftID = new Guid("318DC4DF-684A-444F-9E5A-18BB5EED1123"),
+                    ShiftName = "Shift1",
+                    StartTime = TimeSpan.FromMinutes(1),
+                    EndTime = TimeSpan.FromMinutes(1)
+                },
+                new MstShift()
+                {
+                    ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56285"),
+                    ShiftName = "Shift2",
+                    StartTime = TimeSpan.FromMinutes(1),
+                    EndTime = TimeSpan.FromMinutes(1)
+                },
+                new MstShift()
+                {
+                    ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE904CA"),
+                    ShiftName = "Shift3",
+                    StartTime =TimeSpan.FromMinutes(1),
+                    EndTime = TimeSpan.FromMinutes(1)
+                }
+            };
+
+            context.MstShift.AddRange(shifts);
+            context.SaveChanges();
+        }
+        #endregion
+
+
+        #region Status
+
+        public static void UpdateStatus(this LibraryContext context)
+        {
+            context.MstStatus.RemoveRange(context.MstStatus);
+            context.SaveChanges();
+            var status = new List<MstStatus>()
+            {
+                new MstStatus()
+                {
+                    StatusID = new Guid("1DD5458B-E136-4D03-B309-0089D4A9BD9D"),
+                    StatusName = "New"
+                },
+                new MstStatus()
+                {
+                    StatusID = new Guid("EBEED096-EA34-43E2-948E-32BB98F31401"),
+                    StatusName = "Assigned"
+                },
+                new MstStatus()
+                {
+                    StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
+                    StatusName = "Reviewed"
+                }
+            };
+
+            context.MstStatus.AddRange(status);
+            context.SaveChanges();
+        }
+        #endregion
+
+private static void UpdateOccurrenceBooks(LibraryContext context)
         {
             context.MstOccurrenceBook.RemoveRange(context.MstOccurrenceBook);
             context.SaveChanges();
@@ -456,7 +528,7 @@ namespace ESPL.KP.Entities
                     AreaID= new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9579"),
                     OBTypeID= new Guid("758b1995-7f92-4d87-9588-b90800abf111"),
                     DepartmentID= new Guid("a1da1d8e-1111-4634-b538-a01709471111"),
-                    StatusID= new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9123"),
+                    StatusID= new Guid("1DD5458B-E136-4D03-B309-0089D4A9BD9D"),
                     OBNumber= "123",
                     OBTime= Convert.ToDateTime("2017-04-20T19:23:14.9100866"),
                     CaseFileNumber= "1",
@@ -468,12 +540,36 @@ namespace ESPL.KP.Entities
                     AreaID=new Guid( "411bfab2-0d44-4fb9-8835-184db90f44fa"),
                     OBTypeID=new Guid( "758b1995-7f92-4d87-9588-b90800abf222"),
                     DepartmentID=new Guid("a1da1d8e-1111-4634-b538-a01709472222"),
-                    StatusID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9579"),
+                    StatusID=new Guid("EBEED096-EA34-43E2-948E-32BB98F31401"),
                     OBNumber= "456",
                     OBTime= Convert.ToDateTime("2017-04-10T19:25:14.9100866"),
                     CaseFileNumber= "2",
                     NatureOfOccurrence= "Nature 2",
                     Remark= "Test Remark 2",
+                  },
+                  new MstOccurrenceBook()  {
+                    OBID=new Guid( "411bfab2-0d44-4fb9-8835-184db90f8878"),
+                    AreaID=new Guid( "411bfab2-0d44-4fb9-8835-184db90f44fa"),
+                    OBTypeID=new Guid( "758b1995-7f92-4d87-9588-b90800abf222"),
+                    DepartmentID=new Guid("a1da1d8e-1111-4634-b538-a01709473333"),
+                    StatusID=new Guid("EBEED096-EA34-43E2-948E-32BB98F31401"),
+                    OBNumber= "888",
+                    OBTime= Convert.ToDateTime("2017-04-11T19:25:14.9100866"),
+                    CaseFileNumber= "3",
+                    NatureOfOccurrence= "Nature 3",
+                    Remark= "Test Remark 3",
+                  },
+                  new MstOccurrenceBook()  {
+                    OBID=new Guid( "411bfab2-0d44-4fb9-8835-184db90f7878"),
+                    AreaID=new Guid( "411bfab2-0d44-4fb9-8835-184db90f44fa"),
+                    OBTypeID=new Guid( "758b1995-7f92-4d87-9588-b90800abf222"),
+                    DepartmentID=new Guid("a1da1d8e-1111-4634-b538-a01709472222"),
+                    StatusID=new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
+                    OBNumber= "911",
+                    OBTime= Convert.ToDateTime("2017-04-15T21:25:14.9100866"),
+                    CaseFileNumber= "4",
+                    NatureOfOccurrence= "Nature 4",
+                    Remark= "Test Remark 4",
                   }
 
             };

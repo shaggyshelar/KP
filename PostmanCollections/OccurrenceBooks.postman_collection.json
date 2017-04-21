@@ -245,22 +245,21 @@
 			"id": "ce5b8b05-0b40-8e28-7759-bcfe27eb0023",
 			"headers": "Content-Type: application/json\nAccept: application/json\n",
 			"url": "http://localhost:6058/api/occurrencebook",
-			"pathVariables": {},
 			"preRequestScript": null,
+			"pathVariables": {},
 			"method": "POST",
-			"collectionId": "27036d24-c240-a136-b4a2-eb8c8815e39e",
 			"data": [],
 			"dataMode": "raw",
-			"name": "Add new Occurrence Book",
-			"description": "",
-			"descriptionFormat": "html",
-			"time": 1492702346399,
 			"version": 2,
-			"responses": [],
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"rawModeData": "{\r\n    \"obid\": \"411bfab2-0d44-4fb9-8835-184db90a9999\",\r\n    \"areaID\": \"411bfab2-0d44-4fb9-8835-184db90f44fa\",\r\n    \"obTypeID\": \"758b1995-7f92-4d87-9588-b90800abf222\",\r\n    \"departmentID\": \"a1da1d8e-1111-4634-b538-a01709472222\",\r\n    \"mstStatus\": null,\r\n    \"statusID\": \"56c385ae-ce46-41d4-b7fe-08df9aef9579\",\r\n    \"obNumber\": \"987\",\r\n    \"obTime\": \"2017-04-22T17:23:14.9100866\",\r\n    \"caseFileNumber\": \"2\",\r\n    \"natureOfOccurrence\": \"Nature 3\",\r\n    \"remark\": \"Test Remark 3\",\r\n    \"createdOn\": \"2017-04-20T19:23:14.9100866\",\r\n    \"createdBy\": \"00000000-0000-0000-0000-000000000000\",\r\n    \"updatedOn\": \"0001-01-01T00:00:00\",\r\n    \"updatedBy\": \"00000000-0000-0000-0000-000000000000\",\r\n    \"isDelete\": false\r\n  }"
+			"time": 1492757335198,
+			"name": "Add new Occurrence Book",
+			"description": "",
+			"collectionId": "27036d24-c240-a136-b4a2-eb8c8815e39e",
+			"responses": [],
+			"rawModeData": "{\r\n    \"obid\": \"411bfab2-0d44-4fb9-8835-184db90a9999\",\r\n    \"areaID\": \"411bfab2-0d44-4fb9-8835-184db90f44fa\",\r\n    \"obTypeID\": \"758b1995-7f92-4d87-9588-b90800abf222\",\r\n    \"departmentID\": \"a1da1d8e-1111-4634-b538-a01709473333\",\r\n    \"mstStatus\": null,\r\n    \"statusID\": \"EBEED096-EA34-43E2-948E-32BB98F31401\",\r\n    \"obNumber\": \"987\",\r\n    \"obTime\": \"2017-04-22T17:23:14.9100866\",\r\n    \"caseFileNumber\": \"55\",\r\n    \"natureOfOccurrence\": \"Nature 55\",\r\n    \"remark\": \"Test Remark 55\",\r\n    \"createdOn\": \"2017-04-20T19:23:14.9100866\",\r\n    \"createdBy\": \"00000000-0000-0000-0000-000000000000\",\r\n    \"updatedOn\": \"0001-01-01T00:00:00\",\r\n    \"updatedBy\": \"00000000-0000-0000-0000-000000000000\",\r\n    \"isDelete\": false\r\n  }"
 		}
 	]
 }
