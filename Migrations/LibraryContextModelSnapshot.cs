@@ -63,12 +63,40 @@ namespace ESPL.KP.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("ESPL.KP.Entities.CFGUserDepartment", b =>
+            modelBuilder.Entity("ESPL.KP.Entities.CfgUserArea", b =>
+                {
+                    b.Property<Guid>("UserAreaID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("AreaID");
+
+                    b.Property<Guid?>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<bool>("IsDelete");
+
+                    b.Property<Guid?>("UpdatedBy");
+
+                    b.Property<DateTime?>("UpdatedOn");
+
+                    b.Property<string>("UserID");
+
+                    b.HasKey("UserAreaID");
+
+                    b.HasIndex("AreaID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("CfgUserArea");
+                });
+
+            modelBuilder.Entity("ESPL.KP.Entities.CfgUserDepartment", b =>
                 {
                     b.Property<Guid>("UserDepartmentID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("CreatedBy");
+                    b.Property<Guid?>("CreatedBy");
 
                     b.Property<DateTime>("CreatedOn");
 
@@ -76,9 +104,9 @@ namespace ESPL.KP.Migrations
 
                     b.Property<bool>("IsDelete");
 
-                    b.Property<Guid>("UpdatedBy");
+                    b.Property<Guid?>("UpdatedBy");
 
-                    b.Property<DateTime>("UpdatedOn");
+                    b.Property<DateTime?>("UpdatedOn");
 
                     b.Property<string>("UserID");
 
@@ -88,7 +116,63 @@ namespace ESPL.KP.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("CFGUserDepartment");
+                    b.ToTable("CfgUserDepartment");
+                });
+
+            modelBuilder.Entity("ESPL.KP.Entities.CfgUserDesignation", b =>
+                {
+                    b.Property<Guid>("UserDesignationID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid?>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<Guid>("DesignationID");
+
+                    b.Property<bool>("IsDelete");
+
+                    b.Property<Guid?>("UpdatedBy");
+
+                    b.Property<DateTime?>("UpdatedOn");
+
+                    b.Property<string>("UserID");
+
+                    b.HasKey("UserDesignationID");
+
+                    b.HasIndex("DesignationID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("CfgUserDesignation");
+                });
+
+            modelBuilder.Entity("ESPL.KP.Entities.CfgUserShift", b =>
+                {
+                    b.Property<Guid>("UserShiftID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid?>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<bool>("IsDelete");
+
+                    b.Property<Guid>("ShiftID");
+
+                    b.Property<Guid?>("UpdatedBy");
+
+                    b.Property<DateTime?>("UpdatedOn");
+
+                    b.Property<string>("UserID");
+
+                    b.HasKey("UserShiftID");
+
+                    b.HasIndex("ShiftID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("CfgUserShift");
                 });
 
             modelBuilder.Entity("ESPL.KP.Entities.ESPLUser", b =>
@@ -103,8 +187,6 @@ namespace ESPL.KP.Migrations
 
                     b.Property<string>("Address2")
                         .HasMaxLength(500);
-
-                    b.Property<Guid>("AreaID");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -132,7 +214,11 @@ namespace ESPL.KP.Migrations
 
                     b.Property<string>("Mobile");
 
+                    b.Property<Guid?>("MstAreaAreaID");
+
                     b.Property<Guid?>("MstDesignationDesignationID");
+
+                    b.Property<Guid?>("MstShiftShiftID");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -148,8 +234,6 @@ namespace ESPL.KP.Migrations
 
                     b.Property<string>("SecurityStamp");
 
-                    b.Property<Guid>("ShiftID");
-
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
@@ -157,9 +241,11 @@ namespace ESPL.KP.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AreaID");
+                    b.HasIndex("MstAreaAreaID");
 
                     b.HasIndex("MstDesignationDesignationID");
+
+                    b.HasIndex("MstShiftShiftID");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -167,8 +253,6 @@ namespace ESPL.KP.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasName("UserNameIndex");
-
-                    b.HasIndex("ShiftID");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -185,7 +269,7 @@ namespace ESPL.KP.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<Guid>("CreatedBy");
+                    b.Property<Guid?>("CreatedBy");
 
                     b.Property<DateTime>("CreatedOn");
 
@@ -194,9 +278,9 @@ namespace ESPL.KP.Migrations
                     b.Property<string>("PinCode")
                         .HasMaxLength(20);
 
-                    b.Property<Guid>("UpdatedBy");
+                    b.Property<Guid?>("UpdatedBy");
 
-                    b.Property<DateTime>("UpdatedOn");
+                    b.Property<DateTime?>("UpdatedOn");
 
                     b.HasKey("AreaID");
 
@@ -208,7 +292,7 @@ namespace ESPL.KP.Migrations
                     b.Property<Guid>("DepartmentID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("CreatedBy");
+                    b.Property<Guid?>("CreatedBy");
 
                     b.Property<DateTime>("CreatedOn");
 
@@ -221,9 +305,9 @@ namespace ESPL.KP.Migrations
 
                     b.Property<bool>("IsDelete");
 
-                    b.Property<Guid>("UpdatedBy");
+                    b.Property<Guid?>("UpdatedBy");
 
-                    b.Property<DateTime>("UpdatedOn");
+                    b.Property<DateTime?>("UpdatedOn");
 
                     b.HasKey("DepartmentID");
 
@@ -235,7 +319,7 @@ namespace ESPL.KP.Migrations
                     b.Property<Guid>("DesignationID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("CreatedBy");
+                    b.Property<Guid?>("CreatedBy");
 
                     b.Property<DateTime>("CreatedOn");
 
@@ -248,9 +332,9 @@ namespace ESPL.KP.Migrations
 
                     b.Property<bool>("IsDelete");
 
-                    b.Property<Guid>("UpdatedBy");
+                    b.Property<Guid?>("UpdatedBy");
 
-                    b.Property<DateTime>("UpdatedOn");
+                    b.Property<DateTime?>("UpdatedOn");
 
                     b.HasKey("DesignationID");
 
@@ -268,7 +352,7 @@ namespace ESPL.KP.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<Guid>("CreatedBy");
+                    b.Property<Guid?>("CreatedBy");
 
                     b.Property<DateTime>("CreatedOn");
 
@@ -283,8 +367,6 @@ namespace ESPL.KP.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<Guid>("OBStatusID");
-
                     b.Property<DateTime>("OBTime");
 
                     b.Property<Guid>("OBTypeID");
@@ -292,9 +374,11 @@ namespace ESPL.KP.Migrations
                     b.Property<string>("Remark")
                         .HasMaxLength(50);
 
-                    b.Property<Guid>("UpdatedBy");
+                    b.Property<Guid>("StatusID");
 
-                    b.Property<DateTime>("UpdatedOn");
+                    b.Property<Guid?>("UpdatedBy");
+
+                    b.Property<DateTime?>("UpdatedOn");
 
                     b.HasKey("OBID");
 
@@ -302,35 +386,11 @@ namespace ESPL.KP.Migrations
 
                     b.HasIndex("DepartmentID");
 
-                    b.HasIndex("OBStatusID");
-
                     b.HasIndex("OBTypeID");
 
+                    b.HasIndex("StatusID");
+
                     b.ToTable("MstOccurrenceBook");
-                });
-
-            modelBuilder.Entity("ESPL.KP.Entities.MstOccurrenceStatus", b =>
-                {
-                    b.Property<Guid>("StatusID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("CreatedBy");
-
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<bool>("IsDelete");
-
-                    b.Property<string>("StatusName")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.Property<Guid>("UpdatedBy");
-
-                    b.Property<DateTime>("UpdatedOn");
-
-                    b.HasKey("StatusID");
-
-                    b.ToTable("MstOccurrenceStatus");
                 });
 
             modelBuilder.Entity("ESPL.KP.Entities.MstOccurrenceType", b =>
@@ -338,7 +398,7 @@ namespace ESPL.KP.Migrations
                     b.Property<Guid>("OBTypeID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("CreatedBy");
+                    b.Property<Guid?>("CreatedBy");
 
                     b.Property<DateTime>("CreatedOn");
 
@@ -348,9 +408,9 @@ namespace ESPL.KP.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<Guid>("UpdatedBy");
+                    b.Property<Guid?>("UpdatedBy");
 
-                    b.Property<DateTime>("UpdatedOn");
+                    b.Property<DateTime?>("UpdatedOn");
 
                     b.HasKey("OBTypeID");
 
@@ -362,7 +422,7 @@ namespace ESPL.KP.Migrations
                     b.Property<Guid>("PermissionID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("CreatedBy");
+                    b.Property<Guid?>("CreatedBy");
 
                     b.Property<DateTime>("CreatedOn");
 
@@ -378,9 +438,9 @@ namespace ESPL.KP.Migrations
 
                     b.Property<Guid>("PermissionParentID");
 
-                    b.Property<Guid>("UpdatedBy");
+                    b.Property<Guid?>("UpdatedBy");
 
-                    b.Property<DateTime>("UpdatedOn");
+                    b.Property<DateTime?>("UpdatedOn");
 
                     b.HasKey("PermissionID");
 
@@ -392,7 +452,7 @@ namespace ESPL.KP.Migrations
                     b.Property<Guid>("ShiftID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("CreatedBy");
+                    b.Property<Guid?>("CreatedBy");
 
                     b.Property<DateTime>("CreatedOn");
 
@@ -406,13 +466,37 @@ namespace ESPL.KP.Migrations
 
                     b.Property<TimeSpan>("StartTime");
 
-                    b.Property<Guid>("UpdatedBy");
+                    b.Property<Guid?>("UpdatedBy");
 
-                    b.Property<DateTime>("UpdatedOn");
+                    b.Property<DateTime?>("UpdatedOn");
 
                     b.HasKey("ShiftID");
 
                     b.ToTable("MstShift");
+                });
+
+            modelBuilder.Entity("ESPL.KP.Entities.MstStatus", b =>
+                {
+                    b.Property<Guid>("StatusID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid?>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<bool>("IsDelete");
+
+                    b.Property<string>("StatusName")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<Guid?>("UpdatedBy");
+
+                    b.Property<DateTime?>("UpdatedOn");
+
+                    b.HasKey("StatusID");
+
+                    b.ToTable("MstStatus");
                 });
 
             modelBuilder.Entity("ESPL.KP.Entities.OccurrenceAssignment", b =>
@@ -425,25 +509,21 @@ namespace ESPL.KP.Migrations
                     b.Property<string>("Comments")
                         .HasMaxLength(500);
 
-                    b.Property<Guid>("CreatedBy");
+                    b.Property<Guid?>("CreatedBy");
 
                     b.Property<DateTime>("CreatedOn");
 
                     b.Property<bool>("IsDelete");
 
-                    b.Property<Guid?>("MstOccurrenceStatusStatusID");
-
                     b.Property<Guid>("OBID");
 
-                    b.Property<Guid>("UpdatedBy");
+                    b.Property<Guid?>("UpdatedBy");
 
-                    b.Property<DateTime>("UpdatedOn");
+                    b.Property<DateTime?>("UpdatedOn");
 
                     b.HasKey("OBAssignmentID");
 
                     b.HasIndex("AssignedTO");
-
-                    b.HasIndex("MstOccurrenceStatusStatusID");
 
                     b.HasIndex("OBID");
 
@@ -455,7 +535,7 @@ namespace ESPL.KP.Migrations
                     b.Property<Guid>("OBReviewHistoryID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("CreatedBy");
+                    b.Property<Guid?>("CreatedBy");
 
                     b.Property<DateTime>("CreatedOn");
 
@@ -467,9 +547,9 @@ namespace ESPL.KP.Migrations
                         .IsRequired()
                         .HasMaxLength(500);
 
-                    b.Property<Guid>("UpdatedBy");
+                    b.Property<Guid?>("UpdatedBy");
 
-                    b.Property<DateTime>("UpdatedOn");
+                    b.Property<DateTime?>("UpdatedOn");
 
                     b.HasKey("OBReviewHistoryID");
 
@@ -593,33 +673,67 @@ namespace ESPL.KP.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("ESPL.KP.Entities.CFGUserDepartment", b =>
+            modelBuilder.Entity("ESPL.KP.Entities.CfgUserArea", b =>
+                {
+                    b.HasOne("ESPL.KP.Entities.MstArea", "MstArea")
+                        .WithMany()
+                        .HasForeignKey("AreaID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ESPL.KP.Entities.ESPLUser", "ESPLUser")
+                        .WithMany("CfgUserArea")
+                        .HasForeignKey("UserID");
+                });
+
+            modelBuilder.Entity("ESPL.KP.Entities.CfgUserDepartment", b =>
                 {
                     b.HasOne("ESPL.KP.Entities.MstDepartment", "MstDepartment")
-                        .WithMany("CFGUserDepartments")
+                        .WithMany("CfgUserDepartment")
                         .HasForeignKey("DepartmentID")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ESPL.KP.Entities.ESPLUser", "ESPLUser")
-                        .WithMany("CFGUserDepartments")
+                        .WithMany("CfgUserDepartments")
+                        .HasForeignKey("UserID");
+                });
+
+            modelBuilder.Entity("ESPL.KP.Entities.CfgUserDesignation", b =>
+                {
+                    b.HasOne("ESPL.KP.Entities.MstDesignation", "MstDesignation")
+                        .WithMany()
+                        .HasForeignKey("DesignationID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ESPL.KP.Entities.ESPLUser", "ESPLUser")
+                        .WithMany("CfgUserDesignation")
+                        .HasForeignKey("UserID");
+                });
+
+            modelBuilder.Entity("ESPL.KP.Entities.CfgUserShift", b =>
+                {
+                    b.HasOne("ESPL.KP.Entities.MstShift", "MstShift")
+                        .WithMany()
+                        .HasForeignKey("ShiftID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ESPL.KP.Entities.ESPLUser", "ESPLUser")
+                        .WithMany("CfgUserShift")
                         .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("ESPL.KP.Entities.ESPLUser", b =>
                 {
-                    b.HasOne("ESPL.KP.Entities.MstArea", "MstArea")
+                    b.HasOne("ESPL.KP.Entities.MstArea")
                         .WithMany("ESPLUser")
-                        .HasForeignKey("AreaID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("MstAreaAreaID");
 
                     b.HasOne("ESPL.KP.Entities.MstDesignation")
                         .WithMany("ESPLUser")
                         .HasForeignKey("MstDesignationDesignationID");
 
-                    b.HasOne("ESPL.KP.Entities.MstShift", "MstShift")
+                    b.HasOne("ESPL.KP.Entities.MstShift")
                         .WithMany("ESPLUser")
-                        .HasForeignKey("ShiftID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("MstShiftShiftID");
                 });
 
             modelBuilder.Entity("ESPL.KP.Entities.MstOccurrenceBook", b =>
@@ -634,14 +748,14 @@ namespace ESPL.KP.Migrations
                         .HasForeignKey("DepartmentID")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("ESPL.KP.Entities.MstOccurrenceStatus", "MstOccurrenceStatus")
-                        .WithMany("MstOccurrenceBooks")
-                        .HasForeignKey("OBStatusID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("ESPL.KP.Entities.MstOccurrenceType", "MstOccurrenceType")
                         .WithMany("MstOccurrenceBooks")
                         .HasForeignKey("OBTypeID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ESPL.KP.Entities.MstStatus", "MstStatus")
+                        .WithMany("MstOccurrenceBooks")
+                        .HasForeignKey("StatusID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -650,10 +764,6 @@ namespace ESPL.KP.Migrations
                     b.HasOne("ESPL.KP.Entities.ESPLUser", "ESPLUser")
                         .WithMany("OccurrenceAssignments")
                         .HasForeignKey("AssignedTO");
-
-                    b.HasOne("ESPL.KP.Entities.MstOccurrenceStatus")
-                        .WithMany("OccurrenceAssignments")
-                        .HasForeignKey("MstOccurrenceStatusStatusID");
 
                     b.HasOne("ESPL.KP.Entities.MstOccurrenceBook", "MstOccurrenceBook")
                         .WithMany("OccurrenceAssignments")
