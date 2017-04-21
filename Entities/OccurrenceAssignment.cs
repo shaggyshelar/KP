@@ -13,8 +13,8 @@ namespace ESPL.KP.Entities {
         public Guid OBID { get; set; }
         
         [ForeignKey ("AssignedTO")]
-        public ESPLUser ESPLUser { get; set; }
-        public string AssignedTO { get; set; }
+        public MstEmployee MstEmployee { get; set; }
+        public Guid AssignedTO { get; set; }
 
         [MaxLength (500)]
         public string Comments { get; set; }
