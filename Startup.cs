@@ -21,6 +21,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using ESPL.KP.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Threading.Tasks;
 
 namespace ESPL.KP
 {
@@ -51,6 +53,31 @@ namespace ESPL.KP
             services.AddDbContext<LibraryContext>(o => o.UseSqlServer(connectionString));
             services.AddTransient<IdentityInitializer>();
             services.AddIdentity<ESPLUser, IdentityRole>().AddEntityFrameworkStores<LibraryContext>();
+            services.Configure<IdentityOptions>(config =>
+            {
+                config.Cookies.ApplicationCookie.Events =
+                    new CookieAuthenticationEvents()
+                    {
+                        OnRedirectToLogin = (ctx) =>
+                        {
+                            if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+                            {
+                                ctx.Response.StatusCode = 401;
+                            }
+
+                            return Task.CompletedTask;
+                        },
+                        OnRedirectToAccessDenied = (ctx) =>
+                        {
+                            if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+                            {
+                                ctx.Response.StatusCode = 403;
+                            }
+
+                            return Task.CompletedTask;
+                        }
+                    };
+            });
             services.AddCors();
             services.AddMvc(setupAction =>
             {
@@ -88,6 +115,14 @@ namespace ESPL.KP
             {
                 options.SerializerSettings.ContractResolver =
                 new CamelCasePropertyNamesContractResolver();
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Auth.CanCreate", policy => policy.RequireClaim("Auth.CanCreate"));
+                options.AddPolicy("Auth.CanRead", policy => policy.RequireClaim("Auth.CanRead"));
+                options.AddPolicy("Auth.CanUpdate", policy => policy.RequireClaim("Auth.CanUpdate"));
+                options.AddPolicy("Auth.CanDelete", policy => policy.RequireClaim("Auth.CanDelete"));
             });
 
             // register the repository

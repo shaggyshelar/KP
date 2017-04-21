@@ -41,7 +41,7 @@ namespace ESPL.KP.Entities
 
                 var userResult = await _userMgr.CreateAsync(user, "P@ssw0rd!");
                 var roleResult = await _userMgr.AddToRoleAsync(user, "Admin");
-                var claimResult = await _userMgr.AddClaimAsync(user, new Claim("SuperUser", "True"));
+                var claimResult = await _userMgr.AddClaimAsync(user, new Claim("Auth.CanCreate", "True"));
 
                 if (!userResult.Succeeded || !roleResult.Succeeded || !claimResult.Succeeded)
                 {
