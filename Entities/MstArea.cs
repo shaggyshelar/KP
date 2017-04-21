@@ -20,7 +20,7 @@ namespace ESPL.KP.Entities {
 
         public ICollection<MstOccurrenceBook> MstOccurrenceBooks { get; set; } 
             = new List<MstOccurrenceBook> ();
-        public ICollection<ESPLUser> ESPLUser { get; set; }
-            = new List<ESPLUser>();
+        public ICollection<MstEmployee> MstEmployees { get; set; }
+            = new List<MstEmployee>();
     }
 }

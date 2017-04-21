@@ -13,13 +13,13 @@ namespace ESPL.KP.Entities {
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
 
-        public DbSet<CfgUserDepartment> CfgUserDepartment { get; set; }
+        public DbSet<CfgEmployeeDepartment> CfgEmployeeDepartment { get; set; }
 
-        public DbSet<CfgUserArea> CfgUserArea { get; set; }
+        public DbSet<CfgEmployeeArea> CfgEmployeeArea { get; set; }
 
-        public DbSet<CfgUserDesignation> CfgUserDesignation { get; set; }
+        public DbSet<CfgEmployeeDesignation> CfgEmployeeDesignation { get; set; }
 
-        public DbSet<CfgUserShift> CfgUserShift { get; set; }
+        public DbSet<CfgEmployeeShift> CfgEmployeeShift { get; set; }
 
 
         public DbSet<MstArea> MstArea { get; set; }
@@ -42,13 +42,15 @@ namespace ESPL.KP.Entities {
 
         public DbSet<OccurrenceReviewHistory> OccurrenceReviewHistory { get; set; }
 
-        // protected override void OnModelCreating(ModelBuilder modelbuilder){
-        //     foreach (var relationship in modelbuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
-        //     {
-        //         relationship.DeleteBehavior = DeleteBehavior.Restrict;
-        //     }
-        //     base.OnModelCreating(modelbuilder);
-        // }
+        public DbSet<MstEmployee> MstEmployee {get;set;}
+
+        protected override void OnModelCreating(ModelBuilder modelbuilder){
+            foreach (var relationship in modelbuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+            base.OnModelCreating(modelbuilder);
+        }
 
     }
 }
