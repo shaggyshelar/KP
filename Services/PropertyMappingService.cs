@@ -49,6 +49,22 @@ namespace ESPL.KP.Services
                { "OBTypeName", new PropertyMappingValue(new List<string>() { "OBTypeName" } )},
         };
 
+        private Dictionary<string, PropertyMappingValue> _shiftPropertyMapping =
+           new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+           {
+               { "ShiftID", new PropertyMappingValue(new List<string>() { "ShiftID" } ) },
+               { "ShiftName", new PropertyMappingValue(new List<string>() { "ShiftName" } )},
+                { "StartTime", new PropertyMappingValue(new List<string>() { "StartTime" } )},
+                { "EndTime", new PropertyMappingValue(new List<string>() { "EndTime" } )},
+           };
+
+        private Dictionary<string, PropertyMappingValue> _statusPropertyMapping =
+           new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+           {
+               { "StatusID", new PropertyMappingValue(new List<string>() { "StatusID" } ) },
+               { "StatusName", new PropertyMappingValue(new List<string>() { "StatusName" } )}
+           };
+
         private IList<IPropertyMapping> propertyMappings = new List<IPropertyMapping>();
 
         public PropertyMappingService()
@@ -58,6 +74,8 @@ namespace ESPL.KP.Services
             propertyMappings.Add(new PropertyMapping<OccurrenceTypeDto, MstOccurrenceType>(_occurrenctTypePropertyMapping));
             propertyMappings.Add(new PropertyMapping<AreaDto, MstArea>(_areaPropertyMapping));
             propertyMappings.Add(new PropertyMapping<DesignationDto, MstDesignation>(_designationPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<ShiftDto, MstShift>(_shiftPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<StatusDto, MstStatus>(_statusPropertyMapping));
         }
         public Dictionary<string, PropertyMappingValue> GetPropertyMapping
             <TSource, TDestination>()

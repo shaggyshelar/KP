@@ -9,6 +9,8 @@ using ESPL.KP.Helpers.Department;
 using ESPL.KP.Helpers.Area;
 using ESPL.KP.Helpers.Designation;
 using ESPL.KP.Helpers.OccurrenceType;
+using ESPL.KP.Helpers.Shift;
+using ESPL.KP.Helpers.Status;
 
 namespace ESPL.KP.Services
 {
@@ -380,5 +382,123 @@ namespace ESPL.KP.Services
         }
 
         #endregion
+
+                #region Shift
+
+        public PagedList<MstShift> GetShifts(ShiftsResourceParameters shiftResourceParameters)
+        {
+            var collectionBeforePaging =
+                _context.MstShift.ApplySort(shiftResourceParameters.OrderBy,
+                _propertyMappingService.GetPropertyMapping<ShiftDto, MstShift>());
+
+            if (!string.IsNullOrEmpty(shiftResourceParameters.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = shiftResourceParameters.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.ShiftName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || Convert.ToString(a.StartTime).ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || Convert.ToString(a.EndTime).ToLowerInvariant().Contains(searchQueryForWhereClause));
+            }
+
+            return PagedList<MstShift>.Create(collectionBeforePaging,
+                shiftResourceParameters.PageNumber,
+                shiftResourceParameters.PageSize);
+        }
+
+        public MstShift GetShift(Guid shiftId)
+        {
+            return _context.MstShift.FirstOrDefault(a => a.ShiftID == shiftId);
+        }
+
+        public IEnumerable<MstShift> GetShifts(IEnumerable<Guid> shiftIds)
+        {
+            return _context.MstShift.Where(a => shiftIds.Contains(a.ShiftID))
+                .OrderBy(a => a.ShiftName)
+                .ToList();
+        }
+
+        public void AddShift(MstShift shift)
+        {
+            shift.ShiftID = Guid.NewGuid();
+            _context.MstShift.Add(shift);
+        }
+
+        public void DeleteShift(MstShift shift)
+        {
+            _context.MstShift.Remove(shift);
+        }
+
+        public void UpdateShift(MstShift shift)
+        {
+            // no code in this implementation
+        }
+
+        public bool ShiftExists(Guid shiftId)
+        {
+            return _context.MstShift.Any(a => a.ShiftID == shiftId);
+        }
+
+        #endregion Shift
+
+        #region Status
+
+        public PagedList<MstStatus> GetStatuses(StatusesResourceParameters statusResourceParameters)
+        {
+            var collectionBeforePaging =
+                _context.MstStatus.ApplySort(statusResourceParameters.OrderBy,
+                _propertyMappingService.GetPropertyMapping<StatusDto, MstStatus>());
+
+            if (!string.IsNullOrEmpty(statusResourceParameters.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = statusResourceParameters.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.StatusName.ToLowerInvariant().Contains(searchQueryForWhereClause));
+            }
+
+            return PagedList<MstStatus>.Create(collectionBeforePaging,
+                statusResourceParameters.PageNumber,
+                statusResourceParameters.PageSize);
+        }
+
+        public MstStatus GetStatus(Guid statusId)
+        {
+            return _context.MstStatus.FirstOrDefault(a => a.StatusID == statusId);
+        }
+
+        public IEnumerable<MstStatus> GetStatuses(IEnumerable<Guid> statusIds)
+        {
+            return _context.MstStatus.Where(a => statusIds.Contains(a.StatusID))
+                .OrderBy(a => a.StatusName)
+                .ToList();
+        }
+
+        public void AddStatus(MstStatus status)
+        {
+            status.StatusID = Guid.NewGuid();
+            _context.MstStatus.Add(status);
+        }
+
+        public void DeleteStatus(MstStatus status)
+        {
+            _context.MstStatus.Remove(status);
+        }
+
+        public void UpdateStatus(MstStatus status)
+        {
+            // no code in this implementation
+        }
+
+        public bool StatusExists(Guid statusId)
+        {
+            return _context.MstStatus.Any(a => a.StatusID == statusId);
+        }
+
+        #endregion Status
     }
 }
