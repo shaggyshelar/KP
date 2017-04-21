@@ -8,6 +8,7 @@ using ESPL.KP.Helpers.OccurrenceBook;
 using ESPL.KP.Models;
 using ESPL.KP.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KP.Controllers.OccurrenceBook
@@ -203,6 +204,115 @@ namespace KP.Controllers.OccurrenceBook
             if (!_libraryRepository.Save())
             {
                 throw new Exception($"Deleting occurrenceBook {id} failed on save.");
+            }
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}", Name = "UpdateOccurrenceBook")]
+        public IActionResult UpdateOccurrenceBook(Guid id, [FromBody] OccurrenceBookForUpdationDto occurrenceBook)
+        {
+            if (occurrenceBook == null)
+            {
+                return BadRequest();
+            }
+            // if (!_libraryRepository.OccurrenceBookExists(id))
+            // {
+            //     return NotFound();
+            // }
+            //Mapper.Map(source,destination);
+            var occurrenceBookFromRepo = _libraryRepository.GetOccurrenceBook(id);
+
+            if (occurrenceBookFromRepo == null)
+            {
+                var occurrenceBookAdd = Mapper.Map<MstOccurrenceBook>(occurrenceBook);
+                occurrenceBookAdd.OBID = id;
+
+                _libraryRepository.AddOccurrenceBook(occurrenceBookAdd);
+
+                if (!_libraryRepository.Save())
+                {
+                    throw new Exception($"Upserting book {id} for author {id} failed on save.");
+                }
+
+                var occurrenceBookReturnVal = Mapper.Map<OccurrenceBookDto>(occurrenceBookAdd);
+
+                return CreatedAtRoute("GetOccurrenceBook",
+                    new { OBID = occurrenceBookReturnVal.OBID },
+                    occurrenceBookReturnVal);
+            }
+
+            Mapper.Map(occurrenceBook, occurrenceBookFromRepo);
+            _libraryRepository.UpdateOccurrenceBook(occurrenceBookFromRepo);
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception("Updating an occurrenceBook failed on save.");
+                // return StatusCode(500, "A problem happened with handling your request.");
+            }
+
+
+            return Ok(occurrenceBookFromRepo);
+        }
+
+        [HttpPatch("{id}", Name = "PartiallyUpdateOccurrenceBook")]
+        public IActionResult PartiallyUpdateOccurrenceBook(Guid id,
+                    [FromBody] JsonPatchDocument<OccurrenceBookForUpdationDto> patchDoc)
+        {
+            if (patchDoc == null)
+            {
+                return BadRequest();
+            }
+
+            var bookForAuthorFromRepo = _libraryRepository.GetOccurrenceBook(id);
+
+            if (bookForAuthorFromRepo == null)
+            {
+                var bookDto = new OccurrenceBookForUpdationDto();
+                patchDoc.ApplyTo(bookDto, ModelState);
+
+                TryValidateModel(bookDto);
+
+                if (!ModelState.IsValid)
+                {
+                    return new UnprocessableEntityObjectResult(ModelState);
+                }
+
+                var bookToAdd = Mapper.Map<MstOccurrenceBook>(bookDto);
+                bookToAdd.OBID = id;
+
+                _libraryRepository.AddOccurrenceBook(bookToAdd);
+
+                if (!_libraryRepository.Save())
+                {
+                    throw new Exception($"Upserting in Occurrence Book {id} failed on save.");
+                }
+
+                var bookToReturn = Mapper.Map<OccurrenceBookDto>(bookToAdd);
+                return CreatedAtRoute("GetOccurrenceBook",
+                    new { id = bookToReturn.OBID },
+                    bookToReturn);
+            }
+
+            var bookToPatch = Mapper.Map<OccurrenceBookForUpdationDto>(bookForAuthorFromRepo);
+
+            patchDoc.ApplyTo(bookToPatch, ModelState);
+
+            // patchDoc.ApplyTo(bookToPatch);
+
+            TryValidateModel(bookToPatch);
+
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
+
+            Mapper.Map(bookToPatch, bookForAuthorFromRepo);
+
+            _libraryRepository.UpdateOccurrenceBook(bookForAuthorFromRepo);
+
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception($"Patching  Occurrence Book {id} failed on save.");
             }
 
             return NoContent();

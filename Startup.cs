@@ -21,6 +21,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using ESPL.KP.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using ESPL.KP.Models;
 
 namespace ESPL.KP
 {
@@ -229,6 +230,15 @@ namespace ESPL.KP
                 cfg.CreateMap<ESPL.KP.Entities.MstStatus, ESPL.KP.Models.StatusDto>();
                 cfg.CreateMap<ESPL.KP.Models.StatusForCreationDto, ESPL.KP.Entities.MstStatus>();
 
+
+                cfg.CreateMap<OccurrenceBookForUpdationDto, MstOccurrenceBook>();
+                cfg.CreateMap<MstOccurrenceBook, OccurrenceBookForUpdationDto>();
+
+                cfg.CreateMap<MstArea, AreaForCreationDto>();
+
+                cfg.CreateMap<MstDepartment, DepartmentForCreationDto>();
+
+
             });
 
             libraryContext.EnsureSeedDataForContext();
@@ -257,7 +267,7 @@ namespace ESPL.KP
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-            //identitySeeder.Seed().Wait();
+            identitySeeder.Seed().Wait();
         }
     }
 }
