@@ -65,6 +65,22 @@ namespace ESPL.KP.Services
                { "StatusName", new PropertyMappingValue(new List<string>() { "StatusName" } )}
            };
 
+           private Dictionary<string, PropertyMappingValue> _occurrencBookPropertyMapping =
+        new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+        {
+            { "OBID", new PropertyMappingValue(new List<string>() { "OBID" } ) },
+            { "AreaID", new PropertyMappingValue(new List<string>() { "AreaID" } ) },
+            { "OBTypeID", new PropertyMappingValue(new List<string>() { "OBTypeID" } ) },
+            { "DepartmentID", new PropertyMappingValue(new List<string>() { "DepartmentID" } ) },
+            { "MstStatus", new PropertyMappingValue(new List<string>() { "MstStatus" } ) },
+            { "StatusID", new PropertyMappingValue(new List<string>() { "StatusID" } ) },
+            { "OBNumber", new PropertyMappingValue(new List<string>() { "OBNumber" } ) },
+            { "OBTime", new PropertyMappingValue(new List<string>() { "OBTime" } ) },
+            { "CaseFileNumber", new PropertyMappingValue(new List<string>() { "CaseFileNumber" } ) },
+            { "NatureOfOccurrence", new PropertyMappingValue(new List<string>() { "NatureOfOccurrence" } ) },
+            { "Remark", new PropertyMappingValue(new List<string>() { "Remark" } ) }
+        };
+
         private IList<IPropertyMapping> propertyMappings = new List<IPropertyMapping>();
 
         public PropertyMappingService()
@@ -76,6 +92,7 @@ namespace ESPL.KP.Services
             propertyMappings.Add(new PropertyMapping<DesignationDto, MstDesignation>(_designationPropertyMapping));
             propertyMappings.Add(new PropertyMapping<ShiftDto, MstShift>(_shiftPropertyMapping));
             propertyMappings.Add(new PropertyMapping<StatusDto, MstStatus>(_statusPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<OccurrenceBookDto, MstOccurrenceBook>(_occurrencBookPropertyMapping));
         }
         public Dictionary<string, PropertyMappingValue> GetPropertyMapping
             <TSource, TDestination>()
