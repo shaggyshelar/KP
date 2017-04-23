@@ -15,7 +15,9 @@
 		"66f1cf26-42c7-48c8-fded-3f9c65eb482b",
 		"24065ff8-b78b-8ac8-9a11-8b77e09bda74",
 		"e355991d-ae0a-fc41-8c5b-e4fe42db33da",
-		"d0cb60ec-9ce3-563a-6cc3-915397f27ee9"
+		"d0cb60ec-9ce3-563a-6cc3-915397f27ee9",
+		"9d7e6bb2-7b76-756d-b10a-2859a70626a0",
+		"46060df0-dbbc-298c-a3b8-1d420cce99f1"
 	],
 	"folders": [],
 	"timestamp": 1492688830216,
@@ -59,6 +61,27 @@
 			"description": "",
 			"collectionId": "40d8f268-107b-a33c-50e8-583e7e1559b3",
 			"responses": []
+		},
+		{
+			"id": "46060df0-dbbc-298c-a3b8-1d420cce99f1",
+			"headers": "Content-Type: application/json\nAccept: application/json\n",
+			"url": "http://localhost:6058/api/occurrencetype/758b1995-7f92-4d87-9588-b90800abf111",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PATCH",
+			"collectionId": "40d8f268-107b-a33c-50e8-583e7e1559b3",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Patch Occurrence Type (758b1995-7f92-4d87-9588-b90800abf111)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1492783561120,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "[{\n\t\"op\":\"replace\",\n\t\"path\":\"/obTypeName\",\n\t\"value\":\"test after patch\"\n}]"
 		},
 		{
 			"id": "5a61013c-b5cb-5d25-f8cd-70ccfac6f271",
@@ -175,6 +198,27 @@
 			"responses": []
 		},
 		{
+			"id": "9d7e6bb2-7b76-756d-b10a-2859a70626a0",
+			"headers": "Content-Type: application/json\nAccept: application/json\n",
+			"url": "http://localhost:6058/api/occurrencetype/758b1995-7f92-4d87-9588-b90800abf111",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PUT",
+			"collectionId": "40d8f268-107b-a33c-50e8-583e7e1559b3",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Update Occurrence Type (758b1995-7f92-4d87-9588-b90800abf111)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1492783488166,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n  \"obTypeID\": \"758b1995-7f92-4d87-9588-b90800abf111\",\n  \"obTypeName\": \"Occurrence Type 1 - After Update\",\n  \"createdOn\": \"2017-04-21T19:13:44.8223999\",\n  \"createdBy\": \"00000000-0000-0000-0000-000000000000\",\n  \"updatedOn\": \"0001-01-01T00:00:00\",\n  \"updatedBy\": \"00000000-0000-0000-0000-000000000000\",\n  \"isDelete\": false\n}"
+		},
+		{
 			"id": "c9f8b667-5ec7-5781-b9e9-280dd102c2fc",
 			"headers": "Accept: application/json\n",
 			"url": "http://localhost:6058/api/occurrencetype?pageNumber=2&pageSize=5",
@@ -253,23 +297,22 @@
 		{
 			"id": "e355991d-ae0a-fc41-8c5b-e4fe42db33da",
 			"headers": "Content-Type: application/json\nAccept: application/json\n",
-			"url": "http://localhost:6058/api/occurrencetype",
-			"pathVariables": {},
+			"url": "http://localhost:6058/api/occurrencebook",
 			"preRequestScript": null,
+			"pathVariables": {},
 			"method": "POST",
-			"collectionId": "40d8f268-107b-a33c-50e8-583e7e1559b3",
 			"data": [],
 			"dataMode": "raw",
-			"name": "Add new Occurrence Type",
-			"description": "",
-			"descriptionFormat": "html",
-			"time": 1492691220697,
 			"version": 2,
-			"responses": [],
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"rawModeData": "{\r\n    \"oBTypeID\": \"758b1995-7f92-4d87-9588-b90800abf198\",\r\n    \"oBTypeName\": \"Occurrence Type 99\"\r\n    \r\n}\r\n"
+			"time": 1492702327231,
+			"name": "Add new Occurrence Type",
+			"description": "",
+			"collectionId": "40d8f268-107b-a33c-50e8-583e7e1559b3",
+			"responses": [],
+			"rawModeData": "{\r\n    \"obid\": \"411bfab2-0d44-4fb9-8835-184db90a9999\",\r\n    \"areaID\": \"411bfab2-0d44-4fb9-8835-184db90f44fa\",\r\n    \"obTypeID\": \"758b1995-7f92-4d87-9588-b90800abf222\",\r\n    \"departmentID\": \"a1da1d8e-1111-4634-b538-a01709472222\",\r\n    \"mstStatus\": null,\r\n    \"statusID\": \"56c385ae-ce46-41d4-b7fe-08df9aef9579\",\r\n    \"obNumber\": \"987\",\r\n    \"obTime\": \"2017-04-22T17:23:14.9100866\",\r\n    \"caseFileNumber\": \"2\",\r\n    \"natureOfOccurrence\": \"Nature 3\",\r\n    \"remark\": \"Test Remark 3\",\r\n    \"createdOn\": \"2017-04-20T19:23:14.9100866\",\r\n    \"createdBy\": \"00000000-0000-0000-0000-000000000000\",\r\n    \"updatedOn\": \"0001-01-01T00:00:00\",\r\n    \"updatedBy\": \"00000000-0000-0000-0000-000000000000\",\r\n    \"isDelete\": false\r\n  }"
 		}
 	]
 }

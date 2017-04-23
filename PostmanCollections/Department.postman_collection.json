@@ -1,245 +1,284 @@
 {
-	"variables": [],
-	"info": {
-		"name": "Department",
-		"_postman_id": "1822bb58-e0e1-ad87-66d6-3fa8a8539d60",
-		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
-	},
-	"item": [
+	"id": "e6b0fbc2-d4a5-ec9c-b94f-e4e5b1373d4c",
+	"name": "Department",
+	"description": "",
+	"order": [
+		"887ffac2-bf39-2644-1a41-3b9cc9bf666f",
+		"0cd7b183-15bd-2be1-913c-3772a65fc582",
+		"ccab1f20-c2ca-e4d9-57d0-6b902c44ad22",
+		"0ce2bd47-4057-2c98-b94c-4c21db02836b",
+		"e0983b6d-a81b-ab77-ad14-0b3cd26e33aa",
+		"dea30a68-9de1-b651-ea74-bbc5d9652aa7",
+		"7d11a579-0a72-fa0a-5c86-22f328aabb05",
+		"48a711df-645b-a00a-e819-1dc5ccbb18da",
+		"f2ec57eb-d56e-9a1d-2147-fb30bd636d89",
+		"43b3ddbb-b4bb-ace8-cdea-0d9d938166b0",
+		"ae546255-397a-4083-944b-35b4eb604265",
+		"c5fb1994-fe7e-0637-7a25-499bfda036f2",
+		"af779d4d-a9c9-5312-d55d-1e3efa24b569",
+		"47d48e4f-7c13-8c65-b1c9-a20dc93edc11",
+		"d876e89c-49e2-113e-50ae-c6da1ca8946b",
+		"7bd85a6f-039b-0919-1b75-ee3a4a159bf5",
+		"e322b939-4eb3-8408-283d-adf39c2f31e1",
+		"84e22524-8aa7-be92-17f1-35f27d8692c1"
+	],
+	"folders": [],
+	"timestamp": 0,
+	"owner": "898026",
+	"public": false,
+	"requests": [
 		{
-			"name": "Add New Department",
-			"request": {
-				"url": "http://localhost:6058/api/departments",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/vnd.marvin.author.full+json",
-						"description": ""
-					},
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"departmentName\" : \"New Department Name\",\n\t\"departmentDespcription\" : \"New Department Description\"\n}"
-				},
-				"description": "Create Department"
-			},
-			"response": []
-		},
-		{
+			"id": "0cd7b183-15bd-2be1-913c-3772a65fc582",
 			"name": "Get Single Department",
-			"request": {
-				"url": "http://localhost:6058/api/departments/e31b459f-5770-4a6e-9bfb-574474ae6862",
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"description": "Get Department By ID"
-			},
-			"response": []
+			"description": "Get Department By ID",
+			"collectionId": "e6b0fbc2-d4a5-ec9c-b94f-e4e5b1373d4c",
+			"method": "GET",
+			"headers": "",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/departments/e31b459f-5770-4a6e-9bfb-574474ae6862",
+			"responses": []
 		},
 		{
-			"name": "DELETE Department",
-			"request": {
-				"url": "http://localhost:6058/api/departments/a1da1d8e-1111-4634-b538-a01709474444",
-				"method": "DELETE",
-				"header": [],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
+			"id": "0ce2bd47-4057-2c98-b94c-4c21db02836b",
 			"name": "GET Departments",
-			"request": {
-				"url": "http://localhost:6058/api/departments",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
+			"description": "",
+			"collectionId": "e6b0fbc2-d4a5-ec9c-b94f-e4e5b1373d4c",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/departments",
+			"responses": []
 		},
 		{
-			"name": "GET Departments (pageNumber = 1, pageSize = 5)",
-			"request": {
-				"url": "http://localhost:6058/api/departments?pageNumber=1&pageSize=5",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Departments (pageNumber = 1, pageSize = 100)",
-			"request": {
-				"url": "http://localhost:6058/api/departments?pageNumber=1&pageSize=100",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Departments (pageNumber = 2, pageSize = 5)",
-			"request": {
-				"url": "http://localhost:6058/api/departments?pageNumber=2&pageSize=5",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Departments (searchQuery = 2)",
-			"request": {
-				"url": "http://localhost:6058/api/departments?searchQuery=2",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET departments (orderBy = departmentsName)",
-			"request": {
-				"url": "http://localhost:6058/api/departments?orderBy=departmentName",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
+			"id": "43b3ddbb-b4bb-ace8-cdea-0d9d938166b0",
 			"name": "GET Departments (orderBy = departmentName desc)",
-			"request": {
-				"url": "http://localhost:6058/api/departments?orderBy=departmentName desc",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
+			"description": "",
+			"collectionId": "e6b0fbc2-d4a5-ec9c-b94f-e4e5b1373d4c",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/departments?orderBy=departmentName desc",
+			"responses": []
 		},
 		{
-			"name": "GET Departments (orderBy = departmentName desc, pageNumber = 2, pageSize = 5)",
-			"request": {
-				"url": "http://localhost:6058/api/departments?orderBy=departmentName desc&pageNumber=2&pageSize=5",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Departments (fields = departmentName)",
-			"request": {
-				"url": "http://localhost:6058/api/departments?fields=departmentName",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Departments (fields = departmentID)",
-			"request": {
-				"url": "http://localhost:6058/api/departments?fields=departmentID",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
+			"id": "47d48e4f-7c13-8c65-b1c9-a20dc93edc11",
 			"name": "GET Departments (fields = departmentDescription)",
-			"request": {
-				"url": "http://localhost:6058/api/departments?fields=departmentDespcription",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
+			"description": "",
+			"collectionId": "e6b0fbc2-d4a5-ec9c-b94f-e4e5b1373d4c",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/departments?fields=departmentDespcription",
+			"responses": []
+		},
+		{
+			"id": "48a711df-645b-a00a-e819-1dc5ccbb18da",
+			"name": "GET Departments (searchQuery = 2)",
+			"description": "",
+			"collectionId": "e6b0fbc2-d4a5-ec9c-b94f-e4e5b1373d4c",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/departments?searchQuery=2",
+			"responses": []
+		},
+		{
+			"id": "7bd85a6f-039b-0919-1b75-ee3a4a159bf5",
+			"headers": "Content-Type: application/json\nAccept: application/json\n",
+			"url": "http://localhost:6058/api/departments/a1da1d8e-1111-4634-b538-a01709471111",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PATCH",
+			"collectionId": "e6b0fbc2-d4a5-ec9c-b94f-e4e5b1373d4c",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Patch Depatrment (DepartmentName, DepartmentDescription, a1da1d8e-1111-4634-b538-a01709471111)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1492779515964,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "[\n\t{\n\t\t\"op\":\"replace\",\n\t\t\"path\":\"/departmentName\",\n\t\t\"value\":\"Dept Name after patch\"\n\t},{\n\t\t\"op\":\"replace\",\n\t\t\"path\":\"/departmentDespcription\",\n\t\t\"value\":\"Dept Description changed after patch\"\n\t}\n]"
+		},
+		{
+			"id": "7d11a579-0a72-fa0a-5c86-22f328aabb05",
+			"name": "GET Departments (pageNumber = 2, pageSize = 5)",
+			"description": "",
+			"collectionId": "e6b0fbc2-d4a5-ec9c-b94f-e4e5b1373d4c",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/departments?pageNumber=2&pageSize=5",
+			"responses": []
+		},
+		{
+			"id": "84e22524-8aa7-be92-17f1-35f27d8692c1",
+			"headers": "Content-Type: application/json\nAccept: application/json\n",
+			"url": "http://localhost:6058/api/departments/a1da1d8e-1111-4634-b538-a01709471111",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PUT",
+			"collectionId": "e6b0fbc2-d4a5-ec9c-b94f-e4e5b1373d4c",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Put Departments (a1da1d8e-1111-4634-b538-a01709471111)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1492779535517,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n  \"departmentID\": \"a1da1d8e-1111-4634-b538-a01709471111\",\n  \"departmentName\": \"Dept Name after Edit\",\n  \"departmentDespcription\": \"Dept Desc after edit\",\n  \"createdOn\": \"2017-04-21T17:15:24.7492989\",\n  \"createdBy\": \"00000000-0000-0000-0000-000000000000\",\n  \"updatedOn\": \"0001-01-01T00:00:00\",\n  \"updatedBy\": \"00000000-0000-0000-0000-000000000000\",\n  \"isDelete\": false\n}"
+		},
+		{
+			"id": "887ffac2-bf39-2644-1a41-3b9cc9bf666f",
+			"name": "Add New Department",
+			"description": "Create Department",
+			"collectionId": "e6b0fbc2-d4a5-ec9c-b94f-e4e5b1373d4c",
+			"method": "POST",
+			"headers": "Content-Type: application/vnd.marvin.author.full+json\nAccept: application/json",
+			"dataMode": "raw",
+			"data": [],
+			"rawModeData": "{\n\t\"departmentName\" : \"New Department Name\",\n\t\"departmentDespcription\" : \"New Department Description\"\n}",
+			"url": "http://localhost:6058/api/departments",
+			"responses": []
+		},
+		{
+			"id": "ae546255-397a-4083-944b-35b4eb604265",
+			"name": "GET Departments (orderBy = departmentName desc, pageNumber = 2, pageSize = 5)",
+			"description": "",
+			"collectionId": "e6b0fbc2-d4a5-ec9c-b94f-e4e5b1373d4c",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/departments?orderBy=departmentName desc&pageNumber=2&pageSize=5",
+			"responses": []
+		},
+		{
+			"id": "af779d4d-a9c9-5312-d55d-1e3efa24b569",
+			"name": "GET Departments (fields = departmentID)",
+			"description": "",
+			"collectionId": "e6b0fbc2-d4a5-ec9c-b94f-e4e5b1373d4c",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/departments?fields=departmentID",
+			"responses": []
+		},
+		{
+			"id": "c5fb1994-fe7e-0637-7a25-499bfda036f2",
+			"name": "GET Departments (fields = departmentName)",
+			"description": "",
+			"collectionId": "e6b0fbc2-d4a5-ec9c-b94f-e4e5b1373d4c",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/departments?fields=departmentName",
+			"responses": []
+		},
+		{
+			"id": "ccab1f20-c2ca-e4d9-57d0-6b902c44ad22",
+			"name": "DELETE Department",
+			"description": "",
+			"collectionId": "e6b0fbc2-d4a5-ec9c-b94f-e4e5b1373d4c",
+			"method": "DELETE",
+			"headers": "",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/departments/a1da1d8e-1111-4634-b538-a01709474444",
+			"responses": []
+		},
+		{
+			"id": "d876e89c-49e2-113e-50ae-c6da1ca8946b",
+			"headers": "Content-Type: application/json\nAccept: application/json\n",
+			"url": "http://localhost:6058/api/departments/a1da1d8e-1111-4634-b538-a01709471111",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PATCH",
+			"collectionId": "e6b0fbc2-d4a5-ec9c-b94f-e4e5b1373d4c",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Patch Departments (a1da1d8e-1111-4634-b538-a01709471111)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1492779505266,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "[{\n\t\"op\":\"replace\",\n\t\"path\":\"/departmentName\",\n\t\"value\":\"test after patch\"\n}]"
+		},
+		{
+			"id": "dea30a68-9de1-b651-ea74-bbc5d9652aa7",
+			"name": "GET Departments (pageNumber = 1, pageSize = 100)",
+			"description": "",
+			"collectionId": "e6b0fbc2-d4a5-ec9c-b94f-e4e5b1373d4c",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/departments?pageNumber=1&pageSize=100",
+			"responses": []
+		},
+		{
+			"id": "e0983b6d-a81b-ab77-ad14-0b3cd26e33aa",
+			"name": "GET Departments (pageNumber = 1, pageSize = 5)",
+			"description": "",
+			"collectionId": "e6b0fbc2-d4a5-ec9c-b94f-e4e5b1373d4c",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/departments?pageNumber=1&pageSize=5",
+			"responses": []
+		},
+		{
+			"id": "e322b939-4eb3-8408-283d-adf39c2f31e1",
+			"headers": "Content-Type: application/json\nAccept: application/json\n",
+			"url": "http://localhost:6058/api/departments/a1da1d8e-1111-4634-b538-a01709471111",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PATCH",
+			"collectionId": "e6b0fbc2-d4a5-ec9c-b94f-e4e5b1373d4c",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Patch Department (Remove, a1da1d8e-1111-4634-b538-a01709471111)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1492779523492,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "[{\n\t\"op\":\"remove\",\n\t\"path\":\"/departmentDespcription\"\n}]"
+		},
+		{
+			"id": "f2ec57eb-d56e-9a1d-2147-fb30bd636d89",
+			"name": "GET departments (orderBy = departmentsName)",
+			"description": "",
+			"collectionId": "e6b0fbc2-d4a5-ec9c-b94f-e4e5b1373d4c",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/departments?orderBy=departmentName",
+			"responses": []
 		}
 	]
 }

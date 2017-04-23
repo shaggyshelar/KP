@@ -10,6 +10,7 @@ using ESPL.KP.Entities;
 using Microsoft.AspNetCore.Http;
 using ESPL.KP.Helpers.Core;
 using ESPL.KP.Helpers.Shift;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace ESPL.KP.Controllers.Shift
 {
@@ -71,15 +72,15 @@ namespace ESPL.KP.Controllers.Shift
 
                 var shapedShifts = shifts.ShapeData(shiftsResourceParameters.Fields);
 
-                var shapedShiftsWithLinks = shapedShifts.Select(department =>
+                var shapedShiftsWithLinks = shapedShifts.Select(shift =>
                 {
-                    var departmentAsDictionary = department as IDictionary<string, object>;
-                    var departmentLinks = CreateLinksForShift(
-                        (Guid)departmentAsDictionary["Id"], shiftsResourceParameters.Fields);
+                    var shiftAsDictionary = shift as IDictionary<string, object>;
+                    var shiftLinks = CreateLinksForShift(
+                        (Guid)shiftAsDictionary["Id"], shiftsResourceParameters.Fields);
 
-                    departmentAsDictionary.Add("links", departmentLinks);
+                    shiftAsDictionary.Add("links", shiftLinks);
 
-                    return departmentAsDictionary;
+                    return shiftAsDictionary;
                 });
 
                 var linkedCollectionResource = new
@@ -166,18 +167,18 @@ namespace ESPL.KP.Controllers.Shift
                 return BadRequest();
             }
 
-            var departmentFromRepo = _libraryRepository.GetShift(id);
+            var shiftFromRepo = _libraryRepository.GetShift(id);
 
-            if (departmentFromRepo == null)
+            if (shiftFromRepo == null)
             {
                 return NotFound();
             }
 
-            var department = Mapper.Map<ShiftDto>(departmentFromRepo);
+            var shift = Mapper.Map<ShiftDto>(shiftFromRepo);
 
             var links = CreateLinksForShift(id, fields);
 
-            var linkedResourceToReturn = department.ShapeData(fields)
+            var linkedResourceToReturn = shift.ShapeData(fields)
                 as IDictionary<string, object>;
 
             linkedResourceToReturn.Add("links", links);
@@ -186,28 +187,28 @@ namespace ESPL.KP.Controllers.Shift
         }
 
         [HttpPost(Name = "CreateShift")]
-        public IActionResult CreateShift([FromBody] ShiftForCreationDto department)
+        public IActionResult CreateShift([FromBody] ShiftForCreationDto shift)
         {
-            if (department == null)
+            if (shift == null)
             {
                 return BadRequest();
             }
 
-            var departmentEntity = Mapper.Map<MstShift>(department);
+            var shiftEntity = Mapper.Map<MstShift>(shift);
 
-            _libraryRepository.AddShift(departmentEntity);
+            _libraryRepository.AddShift(shiftEntity);
 
             if (!_libraryRepository.Save())
             {
-                throw new Exception("Creating an department failed on save.");
+                throw new Exception("Creating an shift failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
             }
 
-            var departmentToReturn = Mapper.Map<ShiftDto>(departmentEntity);
+            var shiftToReturn = Mapper.Map<ShiftDto>(shiftEntity);
 
-            var links = CreateLinksForShift(departmentToReturn.ShiftID, null);
+            var links = CreateLinksForShift(shiftToReturn.ShiftID, null);
 
-            var linkedResourceToReturn = departmentToReturn.ShapeData(null)
+            var linkedResourceToReturn = shiftToReturn.ShapeData(null)
                 as IDictionary<string, object>;
 
             linkedResourceToReturn.Add("links", links);
@@ -231,17 +232,126 @@ namespace ESPL.KP.Controllers.Shift
         [HttpDelete("{id}", Name = "DeleteShift")]
         public IActionResult DeleteShift(Guid id)
         {
-            var departmentFromRepo = _libraryRepository.GetShift(id);
-            if (departmentFromRepo == null)
+            var shiftFromRepo = _libraryRepository.GetShift(id);
+            if (shiftFromRepo == null)
             {
                 return NotFound();
             }
 
-            _libraryRepository.DeleteShift(departmentFromRepo);
+            _libraryRepository.DeleteShift(shiftFromRepo);
 
             if (!_libraryRepository.Save())
             {
-                throw new Exception($"Deleting department {id} failed on save.");
+                throw new Exception($"Deleting shift {id} failed on save.");
+            }
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}", Name = "UpdateShift")]
+        public IActionResult UpdateShift(Guid id, [FromBody] ShiftForCreationDto shift)
+        {
+            if (shift == null)
+            {
+                return BadRequest();
+            }
+            // if (!_libraryRepository.OccurrenceBookExists(id))
+            // {
+            //     return NotFound();
+            // }
+            //Mapper.Map(source,destination);
+            var shiftRepo = _libraryRepository.GetShift(id);
+
+            if (shiftRepo == null)
+            {
+                var shiftAdd = Mapper.Map<MstShift>(shift);
+                shiftAdd.ShiftID = id;
+
+                _libraryRepository.AddShift(shiftAdd);
+
+                if (!_libraryRepository.Save())
+                {
+                    throw new Exception($"Upserting shift {id} failed on save.");
+                }
+
+                var shiftReturnVal = Mapper.Map<ShiftDto>(shiftAdd);
+
+                return CreatedAtRoute("GetShift",
+                    new { ShiftID = shiftReturnVal.ShiftID },
+                    shiftReturnVal);
+            }
+
+            Mapper.Map(shift, shiftRepo);
+            _libraryRepository.UpdateShift(shiftRepo);
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception("Updating an shift failed on save.");
+                // return StatusCode(500, "A problem happened with handling your request.");
+            }
+
+
+            return Ok(shiftRepo);
+        }
+
+        [HttpPatch("{id}", Name = "PartiallyUpdateShift")]
+        public IActionResult PartiallyUpdateShift(Guid id,
+                    [FromBody] JsonPatchDocument<ShiftForCreationDto> patchDoc)
+        {
+            if (patchDoc == null)
+            {
+                return BadRequest();
+            }
+
+            var shiftFromRepo = _libraryRepository.GetShift(id);
+
+            if (shiftFromRepo == null)
+            {
+                var shiftDto = new ShiftForCreationDto();
+                patchDoc.ApplyTo(shiftDto, ModelState);
+
+                TryValidateModel(shiftDto);
+
+                if (!ModelState.IsValid)
+                {
+                    return new UnprocessableEntityObjectResult(ModelState);
+                }
+
+                var shiftToAdd = Mapper.Map<MstShift>(shiftDto);
+                shiftToAdd.ShiftID = id;
+
+                _libraryRepository.AddShift(shiftToAdd);
+
+                if (!_libraryRepository.Save())
+                {
+                    throw new Exception($"Upserting in shift {id} failed on save.");
+                }
+
+                var shiftToReturn = Mapper.Map<ShiftDto>(shiftToAdd);
+                return CreatedAtRoute("GetShift",
+                    new { ShiftID = shiftToReturn.ShiftID },
+                    shiftToReturn);
+            }
+
+            var shiftToPatch = Mapper.Map<ShiftForCreationDto>(shiftFromRepo);
+
+            patchDoc.ApplyTo(shiftToPatch, ModelState);
+
+            // patchDoc.ApplyTo(shiftToPatch);
+
+            TryValidateModel(shiftToPatch);
+
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
+
+            Mapper.Map(shiftToPatch, shiftFromRepo);
+
+            _libraryRepository.UpdateShift(shiftFromRepo);
+
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception($"Patching  shift {id} failed on save.");
             }
 
             return NoContent();
@@ -268,16 +378,16 @@ namespace ESPL.KP.Controllers.Shift
 
             links.Add(
               new LinkDto(_urlHelper.Link("DeleteShift", new { id = id }),
-              "delete_department",
+              "delete_shift",
               "DELETE"));
 
             links.Add(
-              new LinkDto(_urlHelper.Link("CreateBookForShift", new { departmentId = id }),
-              "create_book_for_department",
+              new LinkDto(_urlHelper.Link("CreateBookForShift", new { shiftId = id }),
+              "create_book_for_shift",
               "POST"));
 
             links.Add(
-               new LinkDto(_urlHelper.Link("GetBooksForShift", new { departmentId = id }),
+               new LinkDto(_urlHelper.Link("GetBooksForShift", new { shiftId = id }),
                "books",
                "GET"));
 

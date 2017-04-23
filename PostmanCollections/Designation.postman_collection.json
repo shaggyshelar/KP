@@ -1,245 +1,284 @@
 {
-	"variables": [],
-	"info": {
-		"name": "Designation",
-		"_postman_id": "999a2a74-a0e2-199c-80d3-71437dc85bec",
-		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
-	},
-	"item": [
+	"id": "bff339f7-871d-a266-aceb-90b7bf06342c",
+	"name": "Designation",
+	"description": "",
+	"order": [
+		"aeada1c3-ccd1-43d5-9ae6-ceda5d72a27f",
+		"f0ad4b76-478c-3ea4-0f97-93a97cb06f72",
+		"04ca0c09-a7c9-8459-4e2e-c80212cb9469",
+		"4d4dd814-d5f5-8116-0213-d75438b74d88",
+		"c763c591-dc6f-9af0-4b1e-cc32c66fc778",
+		"a72af9b1-a7ba-89a8-3ef3-4cade47e4d23",
+		"c3c25a12-45d6-a1f3-30a8-b63d62ded4b6",
+		"90b043e0-0034-39e1-6ad4-206fedabee09",
+		"0b732312-b290-b2fd-308d-8e5df55e19fe",
+		"311c0e4f-8dc7-bc51-b3a0-f9dd772a1332",
+		"a26a49c6-09ff-d68d-8b0f-f1dcb374339b",
+		"e452b608-e31c-f52b-ddde-f62a6aa1aaea",
+		"4a3a43c0-70e0-4024-0e5f-b1c1452065b4",
+		"c0a2e724-7a6a-f9df-9c63-090eec624f39",
+		"00b0edfd-b3f5-d861-a69d-906dc7c05570",
+		"89fd1dae-37ae-a3ca-1d2d-296d291dea6f",
+		"02281bbd-522e-eadb-5327-ad02594cfff4",
+		"1b98e8aa-b6ee-9046-46a2-f7581c46bd39"
+	],
+	"folders": [],
+	"timestamp": 0,
+	"owner": "898026",
+	"public": false,
+	"requests": [
 		{
-			"name": "Add New Designation",
-			"request": {
-				"url": "http://localhost:6058/api/areas",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/vnd.marvin.author.full+json",
-						"description": ""
-					},
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"DesignationName\" : \"Director general of police\",\n\t\"DesignationCode\" : \"DGP\",\n}"
-				},
-				"description": "Create Designation"
-			},
-			"response": []
+			"id": "00b0edfd-b3f5-d861-a69d-906dc7c05570",
+			"headers": "Content-Type: application/json\nAccept: application/json\n",
+			"url": "http://localhost:6058/api/designations/6aac273a-ab24-4959-8c93-6f52cfee56ff",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PUT",
+			"collectionId": "bff339f7-871d-a266-aceb-90b7bf06342c",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Update Designations (6aac273a-ab24-4959-8c93-6f52cfee56ff)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1492782591796,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n    \"designationID\": \"6aac273a-ab24-4959-8c93-6f52cfee56ff\",\n    \"designationName\": \"Assistant Commissioner of Police - Updated\",\n    \"designationCode\": \"DCP - Updated\",\n    \"createdOn\": \"2017-04-21T19:13:44.7963985\",\n    \"createdBy\": \"00000000-0000-0000-0000-000000000000\",\n    \"updatedOn\": \"0001-01-01T00:00:00\",\n    \"updatedBy\": \"00000000-0000-0000-0000-000000000000\",\n    \"isDelete\": false\n  }"
 		},
 		{
-			"name": "Get Single Designation",
-			"request": {
-				"url": "http://localhost:6058/api/designations/15251460-E145-4AEF-A3DA-6846E881AD11",
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"description": ""
-			},
-			"response": []
+			"id": "02281bbd-522e-eadb-5327-ad02594cfff4",
+			"headers": "Content-Type: application/json\nAccept: application/json\n",
+			"url": "http://localhost:6058/api/designations/6aac273a-ab24-4959-8c93-6f52cfee56ff",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PATCH",
+			"collectionId": "bff339f7-871d-a266-aceb-90b7bf06342c",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Patch Designations (DesignationName, DesignationDesc, 6aac273a-ab24-4959-8c93-6f52cfee56ff)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1492783139780,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "[\n\t{\n\t\t\"op\":\"replace\",\n\t\t\"path\":\"/designationName\",\n\t\t\"value\":\"Designation Name after patch\"\n\t},{\n\t\t\"op\":\"replace\",\n\t\t\"path\":\"/designationCode\",\n\t\t\"value\":\"DCP\"\n\t}\n]"
 		},
 		{
+			"id": "04ca0c09-a7c9-8459-4e2e-c80212cb9469",
 			"name": "DELETE Designation",
-			"request": {
-				"url": "http://localhost:6058/api/designations/15251460-E145-4AEF-A3DA-6846E881AD11",
-				"method": "DELETE",
-				"header": [],
-				"body": {},
-				"description": ""
-			},
-			"response": []
+			"description": "",
+			"collectionId": "bff339f7-871d-a266-aceb-90b7bf06342c",
+			"method": "DELETE",
+			"headers": "",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/designations/15251460-E145-4AEF-A3DA-6846E881AD11",
+			"responses": []
 		},
 		{
-			"name": "GET Designations",
-			"request": {
-				"url": "http://localhost:6058/api/designations",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Designations (pageNumber = 1, pageSize = 5)",
-			"request": {
-				"url": "http://localhost:6058/api/designations?pageNumber=1&pageSize=5",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Designations (pageNumber = 1, pageSize = 100)",
-			"request": {
-				"url": "http://localhost:6058/api/designations?pageNumber=1&pageSize=100",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Designations (pageNumber = 2, pageSize = 5)",
-			"request": {
-				"url": "http://localhost:6058/api/designations?pageNumber=2&pageSize=8",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Designations (searchQuery = 2)",
-			"request": {
-				"url": "http://localhost:6058/api/designations?searchQuery=DCP",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
+			"id": "0b732312-b290-b2fd-308d-8e5df55e19fe",
 			"name": "GET Designations (orderBy = departmentsName)",
-			"request": {
-				"url": "http://localhost:6058/api/designations?orderBy=designationName",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
+			"description": "",
+			"collectionId": "bff339f7-871d-a266-aceb-90b7bf06342c",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/designations?orderBy=designationName",
+			"responses": []
 		},
 		{
+			"id": "1b98e8aa-b6ee-9046-46a2-f7581c46bd39",
+			"headers": "Content-Type: application/json\nAccept: application/json\n",
+			"url": "http://localhost:6058/api/designations/15251460-e145-4aef-a3da-6846e881ad11",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PATCH",
+			"collectionId": "bff339f7-871d-a266-aceb-90b7bf06342c",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Patch Designations (Remove, 15251460-e145-4aef-a3da-6846e881ad11)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1492783247731,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "[{\n\t\"op\":\"remove\",\n\t\"path\":\"/designationCode\"\n}]"
+		},
+		{
+			"id": "311c0e4f-8dc7-bc51-b3a0-f9dd772a1332",
 			"name": "GET Designations (orderBy = departmentName desc)",
-			"request": {
-				"url": "http://localhost:6058/api/areas?orderBy=areaName desc",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
+			"description": "",
+			"collectionId": "bff339f7-871d-a266-aceb-90b7bf06342c",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/areas?orderBy=areaName desc",
+			"responses": []
 		},
 		{
-			"name": "GET Designations (orderBy = departmentName desc, pageNumber = 2, pageSize = 5)",
-			"request": {
-				"url": "http://localhost:6058/api/areas?orderBy=areaName desc&pageNumber=2&pageSize=5",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Designations (fields = DesignationName)",
-			"request": {
-				"url": "http://localhost:6058/api/areas?fields=areaName",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
+			"id": "4a3a43c0-70e0-4024-0e5f-b1c1452065b4",
 			"name": "GET Designations (fields = designationID)",
-			"request": {
-				"url": "http://localhost:6058/api/designations?fields=designationID",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
+			"description": "",
+			"collectionId": "bff339f7-871d-a266-aceb-90b7bf06342c",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/designations?fields=designationID",
+			"responses": []
 		},
 		{
+			"id": "4d4dd814-d5f5-8116-0213-d75438b74d88",
+			"name": "GET Designations",
+			"description": "",
+			"collectionId": "bff339f7-871d-a266-aceb-90b7bf06342c",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/designations",
+			"responses": []
+		},
+		{
+			"id": "89fd1dae-37ae-a3ca-1d2d-296d291dea6f",
+			"headers": "Content-Type: application/json\nAccept: application/json\n",
+			"url": "http://localhost:6058/api/designations/6aac273a-ab24-4959-8c93-6f52cfee56ff",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PATCH",
+			"collectionId": "bff339f7-871d-a266-aceb-90b7bf06342c",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Patch Designations (6aac273a-ab24-4959-8c93-6f52cfee56ff)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1492782738899,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "[{\n\t\"op\":\"replace\",\n\t\"path\":\"/designationCode\",\n\t\"value\":\"DCP - patch applied\"\n}]"
+		},
+		{
+			"id": "90b043e0-0034-39e1-6ad4-206fedabee09",
+			"name": "GET Designations (searchQuery = 2)",
+			"description": "",
+			"collectionId": "bff339f7-871d-a266-aceb-90b7bf06342c",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/designations?searchQuery=DCP",
+			"responses": []
+		},
+		{
+			"id": "a26a49c6-09ff-d68d-8b0f-f1dcb374339b",
+			"name": "GET Designations (orderBy = departmentName desc, pageNumber = 2, pageSize = 5)",
+			"description": "",
+			"collectionId": "bff339f7-871d-a266-aceb-90b7bf06342c",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/areas?orderBy=areaName desc&pageNumber=2&pageSize=5",
+			"responses": []
+		},
+		{
+			"id": "a72af9b1-a7ba-89a8-3ef3-4cade47e4d23",
+			"name": "GET Designations (pageNumber = 1, pageSize = 100)",
+			"description": "",
+			"collectionId": "bff339f7-871d-a266-aceb-90b7bf06342c",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/designations?pageNumber=1&pageSize=100",
+			"responses": []
+		},
+		{
+			"id": "aeada1c3-ccd1-43d5-9ae6-ceda5d72a27f",
+			"name": "Add New Designation",
+			"description": "Create Designation",
+			"collectionId": "bff339f7-871d-a266-aceb-90b7bf06342c",
+			"method": "POST",
+			"headers": "Content-Type: application/vnd.marvin.author.full+json\nAccept: application/json",
+			"dataMode": "raw",
+			"data": [],
+			"rawModeData": "{\n\t\"DesignationName\" : \"Director general of police\",\n\t\"DesignationCode\" : \"DGP\",\n}",
+			"url": "http://localhost:6058/api/areas",
+			"responses": []
+		},
+		{
+			"id": "c0a2e724-7a6a-f9df-9c63-090eec624f39",
 			"name": "GET Designations (fields = DesignationCode)",
-			"request": {
-				"url": "http://localhost:6058/api/designations?fields=designationCode",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
+			"description": "",
+			"collectionId": "bff339f7-871d-a266-aceb-90b7bf06342c",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/designations?fields=designationCode",
+			"responses": []
+		},
+		{
+			"id": "c3c25a12-45d6-a1f3-30a8-b63d62ded4b6",
+			"name": "GET Designations (pageNumber = 2, pageSize = 5)",
+			"description": "",
+			"collectionId": "bff339f7-871d-a266-aceb-90b7bf06342c",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/designations?pageNumber=2&pageSize=8",
+			"responses": []
+		},
+		{
+			"id": "c763c591-dc6f-9af0-4b1e-cc32c66fc778",
+			"name": "GET Designations (pageNumber = 1, pageSize = 5)",
+			"description": "",
+			"collectionId": "bff339f7-871d-a266-aceb-90b7bf06342c",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/designations?pageNumber=1&pageSize=5",
+			"responses": []
+		},
+		{
+			"id": "e452b608-e31c-f52b-ddde-f62a6aa1aaea",
+			"name": "GET Designations (fields = DesignationName)",
+			"description": "",
+			"collectionId": "bff339f7-871d-a266-aceb-90b7bf06342c",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/areas?fields=areaName",
+			"responses": []
+		},
+		{
+			"id": "f0ad4b76-478c-3ea4-0f97-93a97cb06f72",
+			"name": "Get Single Designation",
+			"description": "",
+			"collectionId": "bff339f7-871d-a266-aceb-90b7bf06342c",
+			"method": "GET",
+			"headers": "",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/designations/15251460-E145-4AEF-A3DA-6846E881AD11",
+			"responses": []
 		}
 	]
 }

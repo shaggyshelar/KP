@@ -1,245 +1,284 @@
 {
-	"variables": [],
-	"info": {
-		"name": "Area",
-		"_postman_id": "8e33fc5c-423f-0137-a85d-c660e6af98b8",
-		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
-	},
-	"item": [
+	"id": "234bd8e8-8785-5947-068b-3f952176f3ec",
+	"name": "Area",
+	"description": "",
+	"order": [
+		"cc3ff39c-2a24-3bb6-926f-97f964666ede",
+		"83085011-d919-819c-0138-d12e66b01e68",
+		"7f7b1fd5-bb4e-071c-d600-00698551a3cb",
+		"c43649fc-9ea8-59e1-b58f-1e07de9f5d1e",
+		"2bdefd8c-dc0d-9ba9-6fab-e4de57e848ca",
+		"56af29df-6b7f-abed-26f6-7d1c410f52ba",
+		"1aaa7196-f4ad-f2c9-e14f-a861d3894392",
+		"4c7c2120-ccfc-e0e5-6833-8aa62f00d5fb",
+		"b32503bf-dd71-6482-5583-0a7e9a11c4c1",
+		"7de85fbd-10bd-8cc4-2c16-ecaa9bfb06b9",
+		"fdf1802d-601f-c991-1416-79ad05d36eb6",
+		"0a4d99e6-5acc-59f5-909d-9904a14b5654",
+		"09ce0819-7d8c-0e8c-25ae-10eedac2568d",
+		"97a633e0-0ae2-8552-283b-8325e735f813",
+		"3737f22a-0416-985a-7bc4-43abbf3313ea",
+		"acfd27cf-bd6a-96ae-beb6-0eb2cc5632f2",
+		"1e026efd-a51a-b3d3-7d49-e5be5e9c479d",
+		"6e34cafa-a43a-e7ec-4446-c9cb26de81c9"
+	],
+	"folders": [],
+	"timestamp": 0,
+	"owner": "898026",
+	"public": false,
+	"requests": [
 		{
-			"name": "Add New Area",
-			"request": {
-				"url": "http://localhost:6058/api/areas",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/vnd.marvin.author.full+json",
-						"description": ""
-					},
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"AreaName\" : \"New Area Name\",\n\t\"AreaCode\" : \"A001\",\n\t\"PinCode\"  : \"411027\"\t\n}"
-				},
-				"description": "Create Area"
-			},
-			"response": []
-		},
-		{
-			"name": "Get Single Area",
-			"request": {
-				"url": "http://localhost:6058/api/areas/DA00CA84-AFF0-4B07-ABD2-5777DD27BE3D",
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"description": "Get Area By ID"
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE Area",
-			"request": {
-				"url": "http://localhost:6058/api/areas/DA00CA84-AFF0-4B07-ABD2-5777DD27BE3D",
-				"method": "DELETE",
-				"header": [],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Areas",
-			"request": {
-				"url": "http://localhost:6058/api/areas",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Areas (pageNumber = 1, pageSize = 5)",
-			"request": {
-				"url": "http://localhost:6058/api/areas?pageNumber=1&pageSize=5",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Areas (pageNumber = 1, pageSize = 100)",
-			"request": {
-				"url": "http://localhost:6058/api/areas?pageNumber=1&pageSize=100",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Areas (pageNumber = 2, pageSize = 5)",
-			"request": {
-				"url": "http://localhost:6058/api/areas?pageNumber=2&pageSize=5",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Areas (searchQuery = 2)",
-			"request": {
-				"url": "http://localhost:6058/api/areas?searchQuery=2",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Areas (orderBy = departmentsName)",
-			"request": {
-				"url": "http://localhost:6058/api/areas?orderBy=areaName",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Areas (orderBy = departmentName desc)",
-			"request": {
-				"url": "http://localhost:6058/api/areas?orderBy=areaName desc",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Areas (orderBy = departmentName desc, pageNumber = 2, pageSize = 5)",
-			"request": {
-				"url": "http://localhost:6058/api/areas?orderBy=areaName desc&pageNumber=2&pageSize=5",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Areas (fields = departmentName)",
-			"request": {
-				"url": "http://localhost:6058/api/areas?fields=areaName",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
+			"id": "09ce0819-7d8c-0e8c-25ae-10eedac2568d",
 			"name": "GET Areas (fields = departmentID)",
-			"request": {
-				"url": "http://localhost:6058/api/areas?fields=areaID",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
+			"description": "",
+			"collectionId": "234bd8e8-8785-5947-068b-3f952176f3ec",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/areas?fields=areaID",
+			"responses": []
 		},
 		{
+			"id": "0a4d99e6-5acc-59f5-909d-9904a14b5654",
+			"name": "GET Areas (fields = departmentName)",
+			"description": "",
+			"collectionId": "234bd8e8-8785-5947-068b-3f952176f3ec",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/areas?fields=areaName",
+			"responses": []
+		},
+		{
+			"id": "1aaa7196-f4ad-f2c9-e14f-a861d3894392",
+			"name": "GET Areas (pageNumber = 2, pageSize = 5)",
+			"description": "",
+			"collectionId": "234bd8e8-8785-5947-068b-3f952176f3ec",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/areas?pageNumber=2&pageSize=5",
+			"responses": []
+		},
+		{
+			"id": "1e026efd-a51a-b3d3-7d49-e5be5e9c479d",
+			"headers": "Content-Type: application/json\nAccept: application/json\n",
+			"url": "http://localhost:6058/api/areas/08372fff-ad0b-40c8-8eed-595eab744ee8",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PATCH",
+			"collectionId": "234bd8e8-8785-5947-068b-3f952176f3ec",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Patch Areas (AreaName, AreaCode, 08372fff-ad0b-40c8-8eed-595eab744ee8)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1492779347781,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "[\n\t{\n\t\t\"op\":\"replace\",\n\t\t\"path\":\"/areaName\",\n\t\t\"value\":\"Area Name after patch\"\n\t},{\n\t\t\"op\":\"replace\",\n\t\t\"path\":\"/areaCode\",\n\t\t\"value\":\"ACAP\"\n\t}\n]"
+		},
+		{
+			"id": "2bdefd8c-dc0d-9ba9-6fab-e4de57e848ca",
+			"name": "GET Areas (pageNumber = 1, pageSize = 5)",
+			"description": "",
+			"collectionId": "234bd8e8-8785-5947-068b-3f952176f3ec",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/areas?pageNumber=1&pageSize=5",
+			"responses": []
+		},
+		{
+			"id": "3737f22a-0416-985a-7bc4-43abbf3313ea",
+			"headers": "Content-Type: application/json\nAccept: application/json\n",
+			"url": "http://localhost:6058/api/areas/56c385ae-ce46-41d4-b7fe-08df9aef9579",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PUT",
+			"collectionId": "234bd8e8-8785-5947-068b-3f952176f3ec",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Update Area (56c385ae-ce46-41d4-b7fe-08df9aef9579)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1492779310011,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n    \"areaName\": \"Area1-After Update\",\n    \"areaCode\": \"A1-After Update\",\n    \"pinCode\": \"1001\",\n    \"createdOn\": \"2017-04-21T17:01:13.4386067\",\n    \"createdBy\": \"00000000-0000-0000-0000-000000000000\",\n    \"updatedOn\": \"0001-01-01T00:00:00\",\n    \"updatedBy\": \"00000000-0000-0000-0000-000000000000\",\n    \"isDelete\": false\n  }"
+		},
+		{
+			"id": "4c7c2120-ccfc-e0e5-6833-8aa62f00d5fb",
+			"name": "GET Areas (searchQuery = 2)",
+			"description": "",
+			"collectionId": "234bd8e8-8785-5947-068b-3f952176f3ec",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/areas?searchQuery=2",
+			"responses": []
+		},
+		{
+			"id": "56af29df-6b7f-abed-26f6-7d1c410f52ba",
+			"name": "GET Areas (pageNumber = 1, pageSize = 100)",
+			"description": "",
+			"collectionId": "234bd8e8-8785-5947-068b-3f952176f3ec",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/areas?pageNumber=1&pageSize=100",
+			"responses": []
+		},
+		{
+			"id": "6e34cafa-a43a-e7ec-4446-c9cb26de81c9",
+			"headers": "Content-Type: application/json\nAccept: application/json\n",
+			"url": "http://localhost:6058/api/areas/08372fff-ad0b-40c8-8eed-595eab744ee8",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PATCH",
+			"collectionId": "234bd8e8-8785-5947-068b-3f952176f3ec",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Patch Areas (Remove, 08372fff-ad0b-40c8-8eed-595eab744ee8)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1492779356580,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "[{\n\t\"op\":\"remove\",\n\t\"path\":\"/pinCode\"\n}]"
+		},
+		{
+			"id": "7de85fbd-10bd-8cc4-2c16-ecaa9bfb06b9",
+			"name": "GET Areas (orderBy = departmentName desc)",
+			"description": "",
+			"collectionId": "234bd8e8-8785-5947-068b-3f952176f3ec",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/areas?orderBy=areaName desc",
+			"responses": []
+		},
+		{
+			"id": "7f7b1fd5-bb4e-071c-d600-00698551a3cb",
+			"name": "DELETE Area",
+			"description": "",
+			"collectionId": "234bd8e8-8785-5947-068b-3f952176f3ec",
+			"method": "DELETE",
+			"headers": "",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/areas/DA00CA84-AFF0-4B07-ABD2-5777DD27BE3D",
+			"responses": []
+		},
+		{
+			"id": "83085011-d919-819c-0138-d12e66b01e68",
+			"name": "Get Single Area",
+			"description": "Get Area By ID",
+			"collectionId": "234bd8e8-8785-5947-068b-3f952176f3ec",
+			"method": "GET",
+			"headers": "",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/areas/DA00CA84-AFF0-4B07-ABD2-5777DD27BE3D",
+			"responses": []
+		},
+		{
+			"id": "97a633e0-0ae2-8552-283b-8325e735f813",
 			"name": "GET Areas (fields = departmentDescription)",
-			"request": {
-				"url": "http://localhost:6058/api/areas?fields=areaCode",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
+			"description": "",
+			"collectionId": "234bd8e8-8785-5947-068b-3f952176f3ec",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/areas?fields=areaCode",
+			"responses": []
+		},
+		{
+			"id": "acfd27cf-bd6a-96ae-beb6-0eb2cc5632f2",
+			"headers": "Content-Type: application/json\nAccept: application/json\n",
+			"url": "http://localhost:6058/api/areas/08372fff-ad0b-40c8-8eed-595eab744ee8",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PATCH",
+			"collectionId": "234bd8e8-8785-5947-068b-3f952176f3ec",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Patch Areas (08372fff-ad0b-40c8-8eed-595eab744ee8)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1492779332309,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "[{\n\t\"op\":\"replace\",\n\t\"path\":\"/areaName\",\n\t\"value\":\"test after patch\"\n}]"
+		},
+		{
+			"id": "b32503bf-dd71-6482-5583-0a7e9a11c4c1",
+			"name": "GET Areas (orderBy = departmentsName)",
+			"description": "",
+			"collectionId": "234bd8e8-8785-5947-068b-3f952176f3ec",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/areas?orderBy=areaName",
+			"responses": []
+		},
+		{
+			"id": "c43649fc-9ea8-59e1-b58f-1e07de9f5d1e",
+			"name": "GET Areas",
+			"description": "",
+			"collectionId": "234bd8e8-8785-5947-068b-3f952176f3ec",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/areas",
+			"responses": []
+		},
+		{
+			"id": "cc3ff39c-2a24-3bb6-926f-97f964666ede",
+			"name": "Add New Area",
+			"description": "Create Area",
+			"collectionId": "234bd8e8-8785-5947-068b-3f952176f3ec",
+			"method": "POST",
+			"headers": "Content-Type: application/vnd.marvin.author.full+json\nAccept: application/json",
+			"dataMode": "raw",
+			"data": [],
+			"rawModeData": "{\n\t\"AreaName\" : \"New Area Name\",\n\t\"AreaCode\" : \"A001\",\n\t\"PinCode\"  : \"411027\"\t\n}",
+			"url": "http://localhost:6058/api/areas",
+			"responses": []
+		},
+		{
+			"id": "fdf1802d-601f-c991-1416-79ad05d36eb6",
+			"name": "GET Areas (orderBy = departmentName desc, pageNumber = 2, pageSize = 5)",
+			"description": "",
+			"collectionId": "234bd8e8-8785-5947-068b-3f952176f3ec",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/areas?orderBy=areaName desc&pageNumber=2&pageSize=5",
+			"responses": []
 		}
 	]
 }

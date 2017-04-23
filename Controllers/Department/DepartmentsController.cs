@@ -10,6 +10,7 @@ using ESPL.KP.Entities;
 using Microsoft.AspNetCore.Http;
 using ESPL.KP.Helpers.Core;
 using ESPL.KP.Helpers.Department;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace ESPL.KP.Controllers.Department
 {
@@ -242,6 +243,115 @@ namespace ESPL.KP.Controllers.Department
             if (!_libraryRepository.Save())
             {
                 throw new Exception($"Deleting department {id} failed on save.");
+            }
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}", Name = "UpdateDepartment")]
+        public IActionResult UpdateDepartment(Guid id, [FromBody] DepartmentForCreationDto department)
+        {
+            if (department == null)
+            {
+                return BadRequest();
+            }
+            // if (!_libraryRepository.OccurrenceBookExists(id))
+            // {
+            //     return NotFound();
+            // }
+            //Mapper.Map(source,destination);
+            var departmentRepo = _libraryRepository.GetDepartment(id);
+
+            if (departmentRepo == null)
+            {
+                var departmentAdd = Mapper.Map<MstDepartment>(department);
+                departmentAdd.DepartmentID = id;
+
+                _libraryRepository.AddDepartment(departmentAdd);
+
+                if (!_libraryRepository.Save())
+                {
+                    throw new Exception($"Upserting department {id} failed on save.");
+                }
+
+                var departmentReturnVal = Mapper.Map<DepartmentDto>(departmentAdd);
+
+                return CreatedAtRoute("GetDepartment",
+                    new { DepartmentID = departmentReturnVal.DepartmentID },
+                    departmentReturnVal);
+            }
+
+            Mapper.Map(department, departmentRepo);
+            _libraryRepository.UpdateDepartment(departmentRepo);
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception("Updating an department failed on save.");
+                // return StatusCode(500, "A problem happened with handling your request.");
+            }
+
+
+            return Ok(departmentRepo);
+        }
+
+        [HttpPatch("{id}", Name = "PartiallyUpdateDepartment")]
+        public IActionResult PartiallyUpdateDepartment(Guid id,
+                    [FromBody] JsonPatchDocument<DepartmentForCreationDto> patchDoc)
+        {
+            if (patchDoc == null)
+            {
+                return BadRequest();
+            }
+
+            var departmentFromRepo = _libraryRepository.GetDepartment(id);
+
+            if (departmentFromRepo == null)
+            {
+                var departmentDto = new DepartmentForCreationDto();
+                patchDoc.ApplyTo(departmentDto, ModelState);
+
+                TryValidateModel(departmentDto);
+
+                if (!ModelState.IsValid)
+                {
+                    return new UnprocessableEntityObjectResult(ModelState);
+                }
+
+                var departmentToAdd = Mapper.Map<MstDepartment>(departmentDto);
+                departmentToAdd.DepartmentID = id;
+
+                _libraryRepository.AddDepartment(departmentToAdd);
+
+                if (!_libraryRepository.Save())
+                {
+                    throw new Exception($"Upserting in department {id} failed on save.");
+                }
+
+                var departmentToReturn = Mapper.Map<DepartmentDto>(departmentToAdd);
+                return CreatedAtRoute("GetDepartment",
+                    new { DepartmentID = departmentToReturn.DepartmentID },
+                    departmentToReturn);
+            }
+
+            var departmentToPatch = Mapper.Map<DepartmentForCreationDto>(departmentFromRepo);
+
+            patchDoc.ApplyTo(departmentToPatch, ModelState);
+
+            // patchDoc.ApplyTo(departmentToPatch);
+
+            TryValidateModel(departmentToPatch);
+
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
+
+            Mapper.Map(departmentToPatch, departmentFromRepo);
+
+            _libraryRepository.UpdateDepartment(departmentFromRepo);
+
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception($"Patching  department {id} failed on save.");
             }
 
             return NoContent();

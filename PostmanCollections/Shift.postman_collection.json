@@ -1,245 +1,290 @@
 {
-	"variables": [],
-	"info": {
-		"name": "Shift",
-		"_postman_id": "30fc7dd6-779c-f39e-6cf3-8d1586e98196",
-		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
-	},
-	"item": [
+	"id": "150e1f1c-e4f8-2975-7746-a7eb12d815c5",
+	"name": "Shift",
+	"description": "",
+	"order": [
+		"93a50e01-b258-374e-e5b2-f1e977cc3ba0",
+		"e15a595b-3a2d-aa95-f341-453ca5ceb513",
+		"92391ca4-8094-2e6b-c015-fddc82b9084a",
+		"9aeb0c4d-839c-e655-9012-735f5f078782",
+		"c88a070a-f22c-ffd0-c694-b1420f0d6312",
+		"af333fe1-2058-d5f4-5cd6-c1dc4a1d70f8",
+		"ae4f4ae9-0bd8-d428-f460-a5f3e7bafc7c",
+		"a6740e32-3f43-0405-89c1-b19557793feb",
+		"baa255fd-19d0-ebc9-5863-a21635c0a4cf",
+		"dbdfaffb-9f55-0694-4dc9-8dd994999352",
+		"89bbd8e4-9ca5-6622-d863-2cf3278d4c81",
+		"9403f9c5-0079-7259-cb25-d65bea79475e",
+		"c8a37f12-9a3a-ad92-9a7e-45ca2d8af64d",
+		"7d90489f-f425-e610-59dc-d32e0b93cc7d",
+		"b1c23783-6a18-c023-500e-655617fbb057",
+		"a76e0d90-3496-4134-a2f1-b037a9f473da",
+		"933d560f-ff40-136f-51eb-768530662c7d",
+		"c44f7023-2e3d-ac21-ddbe-28debb612a10"
+	],
+	"folders": [],
+	"timestamp": 0,
+	"owner": "898026",
+	"public": false,
+	"requests": [
 		{
-			"name": "Add New Shift",
-			"request": {
-				"url": "http://localhost:6058/api/shifts",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/vnd.marvin.author.full+json",
-						"description": ""
-					},
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"shiftName\" : \"New Department Name\",\n\t\"startTime\" : \"01:01:01\",\n\t\"endTime\" : \"01:01:01\"\n}"
-				},
-				"description": "Create Shift"
-			},
-			"response": []
-		},
-		{
-			"name": "Get Single Shift",
-			"request": {
-				"url": "http://localhost:6058/api/shifts/d9f7fcb8-9966-4beb-a738-cbf8d47201e4",
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"description": "Get Shift By ID"
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE Shift",
-			"request": {
-				"url": "http://localhost:6058/api/shifts/d9f7fcb8-9966-4beb-a738-cbf8d47201e4",
-				"method": "DELETE",
-				"header": [],
-				"body": {},
-				"description": "Delete Shift by ID"
-			},
-			"response": []
-		},
-		{
-			"name": "GET Shifts",
-			"request": {
-				"url": "http://localhost:6058/api/shifts",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Shifts (pageNumber = 1, pageSize = 5)",
-			"request": {
-				"url": "http://localhost:6058/api/shifts?pageNumber=3&pageSize=1",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Shifts (pageNumber = 1, pageSize = 100)",
-			"request": {
-				"url": "http://localhost:6058/api/shifts?pageNumber=1&pageSize=100",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Shifts (pageNumber = 2, pageSize = 5)",
-			"request": {
-				"url": "http://localhost:6058/api/shifts?pageNumber=2&pageSize=5",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Shifts (searchQuery = 2)",
-			"request": {
-				"url": "http://localhost:6058/api/shifts?searchQuery=2",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Shifts (orderBy = shiftName)",
-			"request": {
-				"url": "http://localhost:6058/api/shifts?orderBy=shiftName",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Shifts (orderBy = shiftName desc)",
-			"request": {
-				"url": "http://localhost:6058/api/shifts?orderBy=shiftName desc",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Shifts (orderBy = shiftName desc, pageNumber = 2, pageSize = 5)",
-			"request": {
-				"url": "http://localhost:6058/api/shifts?orderBy=shiftName desc&pageNumber=2&pageSize=2",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Shifts (fields = shiftName )",
-			"request": {
-				"url": "http://localhost:6058/api/shifts?fields=shiftName",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Shifts (fields = shiftID)",
-			"request": {
-				"url": "http://localhost:6058/api/shifts?fields=shiftID",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
+			"id": "7d90489f-f425-e610-59dc-d32e0b93cc7d",
 			"name": "GET Shifts (fields = startTime,endTime)",
-			"request": {
-				"url": "http://localhost:6058/api/shifts?fields=startTime,endTime",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
+			"description": "",
+			"collectionId": "150e1f1c-e4f8-2975-7746-a7eb12d815c5",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/shifts?fields=startTime,endTime",
+			"responses": []
+		},
+		{
+			"id": "89bbd8e4-9ca5-6622-d863-2cf3278d4c81",
+			"name": "GET Shifts (orderBy = shiftName desc, pageNumber = 2, pageSize = 5)",
+			"description": "",
+			"collectionId": "150e1f1c-e4f8-2975-7746-a7eb12d815c5",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/shifts?orderBy=shiftName desc&pageNumber=2&pageSize=2",
+			"responses": []
+		},
+		{
+			"id": "92391ca4-8094-2e6b-c015-fddc82b9084a",
+			"name": "DELETE Shift",
+			"description": "Delete Shift by ID",
+			"collectionId": "150e1f1c-e4f8-2975-7746-a7eb12d815c5",
+			"method": "DELETE",
+			"headers": "",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/shifts/d9f7fcb8-9966-4beb-a738-cbf8d47201e4",
+			"responses": []
+		},
+		{
+			"id": "933d560f-ff40-136f-51eb-768530662c7d",
+			"headers": "Content-Type: application/json\nAccept: application/json\n",
+			"url": "http://localhost:6058/api/shifts/318dc4df-684a-444f-9e5a-18bb5eed1123",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PATCH",
+			"collectionId": "150e1f1c-e4f8-2975-7746-a7eb12d815c5",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Patch Shifts (ShiftName, StartTime, 318dc4df-684a-444f-9e5a-18bb5eed1123)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1492784255225,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "[\n\t{\n\t\t\"op\":\"replace\",\n\t\t\"path\":\"/shiftName\",\n\t\t\"value\":\"shiftName after multi patch\"\n\t},{\n\t\t\"op\":\"replace\",\n\t\t\"path\":\"/startTime\",\n\t\t\"value\":\"00:01:25\"\n\t}\n]"
+		},
+		{
+			"id": "93a50e01-b258-374e-e5b2-f1e977cc3ba0",
+			"name": "Add New Shift",
+			"description": "Create Shift",
+			"collectionId": "150e1f1c-e4f8-2975-7746-a7eb12d815c5",
+			"method": "POST",
+			"headers": "Content-Type: application/vnd.marvin.author.full+json\nAccept: application/json",
+			"dataMode": "raw",
+			"data": [],
+			"rawModeData": "{\n\t\"shiftName\" : \"New Department Name\",\n\t\"startTime\" : \"01:01:01\",\n\t\"endTime\" : \"01:01:01\"\n}",
+			"url": "http://localhost:6058/api/shifts",
+			"responses": []
+		},
+		{
+			"id": "9403f9c5-0079-7259-cb25-d65bea79475e",
+			"name": "GET Shifts (fields = shiftName )",
+			"description": "",
+			"collectionId": "150e1f1c-e4f8-2975-7746-a7eb12d815c5",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/shifts?fields=shiftName",
+			"responses": []
+		},
+		{
+			"id": "9aeb0c4d-839c-e655-9012-735f5f078782",
+			"name": "GET Shifts",
+			"description": "",
+			"collectionId": "150e1f1c-e4f8-2975-7746-a7eb12d815c5",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/shifts",
+			"responses": []
+		},
+		{
+			"id": "a6740e32-3f43-0405-89c1-b19557793feb",
+			"name": "GET Shifts (searchQuery = 2)",
+			"description": "",
+			"collectionId": "150e1f1c-e4f8-2975-7746-a7eb12d815c5",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/shifts?searchQuery=2",
+			"responses": []
+		},
+		{
+			"id": "a76e0d90-3496-4134-a2f1-b037a9f473da",
+			"headers": "Content-Type: application/json\nAccept: application/json\n",
+			"url": "http://localhost:6058/api/shifts/318dc4df-684a-444f-9e5a-18bb5eed1123",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PATCH",
+			"collectionId": "150e1f1c-e4f8-2975-7746-a7eb12d815c5",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Patch Shifts (318dc4df-684a-444f-9e5a-18bb5eed1123)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1492784125186,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "[{\n\t\"op\":\"replace\",\n\t\"path\":\"/shiftName\",\n\t\"value\":\"shiftName after patch\"\n}]"
+		},
+		{
+			"id": "ae4f4ae9-0bd8-d428-f460-a5f3e7bafc7c",
+			"name": "GET Shifts (pageNumber = 2, pageSize = 5)",
+			"description": "",
+			"collectionId": "150e1f1c-e4f8-2975-7746-a7eb12d815c5",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/shifts?pageNumber=2&pageSize=5",
+			"responses": []
+		},
+		{
+			"id": "af333fe1-2058-d5f4-5cd6-c1dc4a1d70f8",
+			"name": "GET Shifts (pageNumber = 1, pageSize = 100)",
+			"description": "",
+			"collectionId": "150e1f1c-e4f8-2975-7746-a7eb12d815c5",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/shifts?pageNumber=1&pageSize=100",
+			"responses": []
+		},
+		{
+			"id": "b1c23783-6a18-c023-500e-655617fbb057",
+			"headers": "Content-Type: application/json\nAccept: application/json\n",
+			"url": "http://localhost:6058/api/shifts/318dc4df-684a-444f-9e5a-18bb5eed1123",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PUT",
+			"collectionId": "150e1f1c-e4f8-2975-7746-a7eb12d815c5",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Update Shifts (318dc4df-684a-444f-9e5a-18bb5eed1123)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1492784063858,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n  \"shiftID\": \"318dc4df-684a-444f-9e5a-18bb5eed1123\",\n  \"shiftName\": \"Shift1 - Updated\",\n  \"startTime\": \"00:01:20\",\n  \"endTime\": \"00:01:05\",\n  \"createdOn\": \"2017-04-21T19:13:44.910405\",\n  \"createdBy\": \"00000000-0000-0000-0000-000000000000\",\n  \"updatedOn\": \"0001-01-01T00:00:00\",\n  \"updatedBy\": \"00000000-0000-0000-0000-000000000000\",\n  \"isDelete\": false\n}"
+		},
+		{
+			"id": "baa255fd-19d0-ebc9-5863-a21635c0a4cf",
+			"name": "GET Shifts (orderBy = shiftName)",
+			"description": "",
+			"collectionId": "150e1f1c-e4f8-2975-7746-a7eb12d815c5",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/shifts?orderBy=shiftName",
+			"responses": []
+		},
+		{
+			"id": "c44f7023-2e3d-ac21-ddbe-28debb612a10",
+			"headers": "Content-Type: application/json\nAccept: application/json\n",
+			"url": "http://localhost:6058/api/shifts/318dc4df-684a-444f-9e5a-18bb5eed1123",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PATCH",
+			"collectionId": "150e1f1c-e4f8-2975-7746-a7eb12d815c5",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Patch Shifts (Remove, 318dc4df-684a-444f-9e5a-18bb5eed1123)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1492784328114,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "[{\n\t\"op\":\"remove\",\n\t\"path\":\"/endTime\"\n}]"
+		},
+		{
+			"id": "c88a070a-f22c-ffd0-c694-b1420f0d6312",
+			"name": "GET Shifts (pageNumber = 1, pageSize = 5)",
+			"description": "",
+			"collectionId": "150e1f1c-e4f8-2975-7746-a7eb12d815c5",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/shifts?pageNumber=3&pageSize=1",
+			"responses": []
+		},
+		{
+			"id": "c8a37f12-9a3a-ad92-9a7e-45ca2d8af64d",
+			"name": "GET Shifts (fields = shiftID)",
+			"description": "",
+			"collectionId": "150e1f1c-e4f8-2975-7746-a7eb12d815c5",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/shifts?fields=shiftID",
+			"responses": []
+		},
+		{
+			"id": "dbdfaffb-9f55-0694-4dc9-8dd994999352",
+			"name": "GET Shifts (orderBy = shiftName desc)",
+			"description": "",
+			"collectionId": "150e1f1c-e4f8-2975-7746-a7eb12d815c5",
+			"method": "GET",
+			"headers": "Accept: application/json",
+			"data": [],
+			"rawModeData": "",
+			"url": "http://localhost:6058/api/shifts?orderBy=shiftName desc",
+			"responses": []
+		},
+		{
+			"id": "e15a595b-3a2d-aa95-f341-453ca5ceb513",
+			"headers": "",
+			"url": "http://localhost:6058/api/shifts/318dc4df-684a-444f-9e5a-18bb5eed1123",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1492783977955,
+			"name": "Get Single Shift",
+			"description": "Get Shift By ID",
+			"collectionId": "150e1f1c-e4f8-2975-7746-a7eb12d815c5",
+			"responses": []
 		}
 	]
 }
