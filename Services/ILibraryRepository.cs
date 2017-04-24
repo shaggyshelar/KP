@@ -11,6 +11,7 @@ using ESPL.KP.Helpers.OccurrenceBook;
 using ESPL.KP.Helpers.Shift;
 using ESPL.KP.Helpers.Status;
 using ESPL.KP.Entities.Core;
+using ESPL.KP.Helpers.Employee;
 
 namespace ESPL.KP.Services
 {
@@ -150,5 +151,16 @@ namespace ESPL.KP.Services
         bool ESPLRoleExists(Guid esplRoleId);
 
         #endregion ESPLRole
+
+        #region Employee
+        PagedList<MstEmployee> GetEmployees(EmployeesResourceParameters employeesResourceParameters);
+        MstEmployee GetEmployee(Guid employeeId);
+        IEnumerable<MstEmployee> GetEmployees(IEnumerable<Guid> employeeIds);
+        void AddEmployee(MstEmployee employee);
+        void DeleteEmployee(MstEmployee employee);
+        void UpdateEmployee(MstEmployee employee);
+        bool EmployeeExists(Guid authorId);
+
+        #endregion
     }
 }

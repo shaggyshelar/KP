@@ -98,6 +98,29 @@ namespace ESPL.KP.Services
                { "Name", new PropertyMappingValue(new List<string>() { "Genre" } )},
                { "MenuText", new PropertyMappingValue(new List<string>() { "MenuText" } )}
            };
+        
+        private Dictionary<string, PropertyMappingValue> _employeePropertyMapping =
+            new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+        {
+            { "EmployeeID", new PropertyMappingValue(new List<string>() { "EmployeeID" } ) },
+            { "FirstName", new PropertyMappingValue(new List<string>() { "FirstName" } ) },
+            { "LastName", new PropertyMappingValue(new List<string>() { "LastName" } ) },
+            { "EmployeeCode", new PropertyMappingValue(new List<string>() { "EmployeeCode" } ) },
+            { "DateofBirth", new PropertyMappingValue(new List<string>() { "DateofBirth" } ) },
+            { "Gender", new PropertyMappingValue(new List<string>() { "Gender" } ) },
+            { "Mobile", new PropertyMappingValue(new List<string>() { "Mobile" } ) },
+            { "Email", new PropertyMappingValue(new List<string>() { "Email" } ) },
+            { "ResidencePhone1", new PropertyMappingValue(new List<string>() { "ResidencePhone1" } ) },
+            { "OrganizationJoiningDate", new PropertyMappingValue(new List<string>() { "OrganizationJoiningDate" } ) },
+            { "ServiceJoiningDate", new PropertyMappingValue(new List<string>() { "ServiceJoiningDate" } ) },
+            { "Address1", new PropertyMappingValue(new List<string>() { "Mobile" } ) },
+            { "Address2", new PropertyMappingValue(new List<string>() { "Email" } ) },
+            { "AreaID", new PropertyMappingValue(new List<string>() { "ResidencePhone1" } ) },
+            { "DepartmentID", new PropertyMappingValue(new List<string>() { "DepartmentID" } ) },
+            { "DesignationID", new PropertyMappingValue(new List<string>() { "DesignationID" } ) },
+            { "ShiftID", new PropertyMappingValue(new List<string>() { "ShiftID" } ) },
+            { "UserID", new PropertyMappingValue(new List<string>() { "UserID" } ) }
+        };
 
         private IList<IPropertyMapping> propertyMappings = new List<IPropertyMapping>();
 
@@ -113,6 +136,7 @@ namespace ESPL.KP.Services
             propertyMappings.Add(new PropertyMapping<StatusDto, MstStatus>(_statusPropertyMapping));
             propertyMappings.Add(new PropertyMapping<OccurrenceBookDto, MstOccurrenceBook>(_occurrencBookPropertyMapping));
             propertyMappings.Add(new PropertyMapping<AppModuleDto, AppModule>(_appModulesPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<EmployeeDto, MstEmployee>(_employeePropertyMapping));
         }
         public Dictionary<string, PropertyMappingValue> GetPropertyMapping
             <TSource, TDestination>()
