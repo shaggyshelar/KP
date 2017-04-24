@@ -733,8 +733,7 @@ namespace ESPL.KP.Services
                     || a.MstDesignation.DesignationName.ToLowerInvariant().Contains(searchQueryForWhereClause)
                     || a.MstDepartment.DepartmentName.ToLowerInvariant().Contains(searchQueryForWhereClause)
                     || a.MstArea.AreaName.ToLowerInvariant().Contains(searchQueryForWhereClause)
-                    || a.ESPLUser.UserName.ToLowerInvariant().Contains(searchQueryForWhereClause)
-                    && a.IsDelete == a.MstArea.IsDelete == false);
+                    || a.ESPLUser.UserName.ToLowerInvariant().Contains(searchQueryForWhereClause));
 
             }
 
