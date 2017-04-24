@@ -12,26 +12,34 @@ namespace ESPL.KP.Entities
         public Guid EmployeeID { get; set; }
         
         [Required]
-        [MaxLength(100)]
-        public string EmployeeFullName { get; set; }
+        [MaxLength(50)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string LastName { get; set; }
         
         [Required]
         [MaxLength(50)]
         public string EmployeeCode { get; set; }
 
         [Required]
-        public DateTime DateofBirth { get; set; }       
+        public DateTime DateOfBirth { get; set; }       
         
         [Required]
         [MaxLength(10)]
         public string Gender { get; set; }
 
-         [Required]
+        [Required]
         [MaxLength(20)]
         public string Mobile { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string Email { get; set; }
         
         [MaxLength(20)]
-        public string ResidencePhone1 { get; set; }
+        public string ResidencePhone { get; set; }
 
         [Required]
         public DateTime OrganizationJoiningDate { get; set; }

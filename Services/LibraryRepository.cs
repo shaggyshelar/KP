@@ -14,6 +14,7 @@ using ESPL.KP.Helpers.Status;
 using ESPL.KP.Helpers.OccurrenceBook;
 using ESPL.KP.Entities.Core;
 using ESPL.KP.Models.Core;
+using ESPL.KP.Helpers.Employee;
 
 namespace ESPL.KP.Services
 {
@@ -708,5 +709,72 @@ namespace ESPL.KP.Services
         }
 
         #endregion ESPLRole
+        #region Employee
+        public PagedList<MstEmployee> GetEmployees(EmployeesResourceParameters employeesResourceParameters)
+        {
+            var collectionBeforePaging =
+                _context.MstEmployee.ApplySort(employeesResourceParameters.OrderBy,
+                _propertyMappingService.GetPropertyMapping<EmployeeDto, MstEmployee>());
+
+            if (!string.IsNullOrEmpty(employeesResourceParameters.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = employeesResourceParameters.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.FirstName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.LastName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.EmployeeCode.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || Convert.ToString(a.DateOfBirth).ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.Gender.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.Mobile.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.Email.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.MstDesignation.DesignationName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.MstDepartment.DepartmentName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.MstArea.AreaName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.ESPLUser.UserName.ToLowerInvariant().Contains(searchQueryForWhereClause));
+
+            }
+
+            return PagedList<MstEmployee>.Create(collectionBeforePaging,
+                employeesResourceParameters.PageNumber,
+                employeesResourceParameters.PageSize);
+        }
+
+        public MstEmployee GetEmployee(Guid employeeId)
+        {
+            return _context.MstEmployee.FirstOrDefault(a => a.EmployeeID == employeeId);
+        }
+
+        public IEnumerable<MstEmployee> GetEmployees(IEnumerable<Guid> employeeIds)
+        {
+            return _context.MstEmployee.Where(a => employeeIds.Contains(a.EmployeeID))
+                .OrderBy(a => a.FirstName)
+                .ToList();
+        }
+
+        public void AddEmployee(MstEmployee employee)
+        {
+            employee.EmployeeID = Guid.NewGuid();
+            _context.MstEmployee.Add(employee);
+        }
+
+        public void DeleteEmployee(MstEmployee employee)
+        {
+            _context.MstEmployee.Remove(employee);
+        }
+
+        public void UpdateEmployee(MstEmployee employee)
+        {
+            // no code in this implementation
+        }
+
+        public bool EmployeeExists(Guid employeeId)
+        {
+            return _context.MstEmployee.Any(a => a.EmployeeID == employeeId);
+        }     
+
+        #endregion Employee
     }
 }
