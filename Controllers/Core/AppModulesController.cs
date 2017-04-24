@@ -13,7 +13,7 @@ using ESPL.KP.Helpers.Core;
 using ESPL.KP.Models.Core;
 using ESPL.KP.Entities.Core;
 
-namespace ESPL.KP.Controllers.Auth
+namespace ESPL.KP.Controllers.Core
 {
     [Route("api/appmodules")]
     public class AppModulesController : Controller

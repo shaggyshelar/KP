@@ -203,5 +203,46 @@ namespace ESPL.KP.Services
         }
 
         #endregion AppModule
+
+
+
+        #region ESPLUser
+
+        public PagedList<ESPLUser> GetESPLUsers(ESPLUsersResourceParameters appModuleResourceParameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ESPLUser GetESPLUser(Guid appModuleId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ESPLUser> GetESPLUsers(IEnumerable<Guid> appModuleIds)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddESPLUser(ESPLUser appModule)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteESPLUser(ESPLUser appModule)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateESPLUser(ESPLUser appModule)
+        {
+            // no code in this implementation
+        }
+
+        public bool ESPLUserExists(Guid appModuleId)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion ESPLUser
     }
 }
