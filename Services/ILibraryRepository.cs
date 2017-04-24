@@ -137,5 +137,18 @@ namespace ESPL.KP.Services
         bool ESPLUserExists(Guid esplUserId);
 
         #endregion ESPLUser
+
+
+         #region ESPLRole
+
+        PagedList<ESPLRole> GetESPLRoles(ESPLRolesResourceParameters esplRoleResourceParameters);
+        ESPLRole GetESPLRole(Guid esplRoleId);
+        IEnumerable<ESPLRole> GetESPLRoles(IEnumerable<Guid> esplRoleIds);
+        void AddESPLRole(ESPLRole esplRole);
+        void DeleteESPLRole(ESPLRole esplRole);
+        void UpdateESPLRole(ESPLRole esplRole);
+        bool ESPLRoleExists(Guid esplRoleId);
+
+        #endregion ESPLRole
     }
 }
