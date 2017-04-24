@@ -225,23 +225,24 @@ namespace KP.Controllers.OccurrenceBook
 
             if (occurrenceBookFromRepo == null)
             {
-                var occurrenceBookAdd = Mapper.Map<MstOccurrenceBook>(occurrenceBook);
-                occurrenceBookAdd.OBID = id;
+                // var occurrenceBookAdd = Mapper.Map<MstOccurrenceBook>(occurrenceBook);
+                // occurrenceBookAdd.OBID = id;
 
-                _libraryRepository.AddOccurrenceBook(occurrenceBookAdd);
+                // _libraryRepository.AddOccurrenceBook(occurrenceBookAdd);
 
-                if (!_libraryRepository.Save())
-                {
-                    throw new Exception($"Upserting book {id} for author {id} failed on save.");
-                }
+                // if (!_libraryRepository.Save())
+                // {
+                //     throw new Exception($"Upserting book {id} for author {id} failed on save.");
+                // }
 
-                var occurrenceBookReturnVal = Mapper.Map<OccurrenceBookDto>(occurrenceBookAdd);
+                // var occurrenceBookReturnVal = Mapper.Map<OccurrenceBookDto>(occurrenceBookAdd);
 
-                return CreatedAtRoute("GetOccurrenceBook",
-                    new { OBID = occurrenceBookReturnVal.OBID },
-                    occurrenceBookReturnVal);
+                // return CreatedAtRoute("GetOccurrenceBook",
+                //     new { OBID = occurrenceBookReturnVal.OBID },
+                //     occurrenceBookReturnVal);
+                return NotFound();
             }
-
+            SetItemHistoryData(occurrenceBook, occurrenceBookFromRepo);
             Mapper.Map(occurrenceBook, occurrenceBookFromRepo);
             _libraryRepository.UpdateOccurrenceBook(occurrenceBookFromRepo);
             if (!_libraryRepository.Save())
@@ -433,6 +434,11 @@ namespace KP.Controllers.OccurrenceBook
             return links;
         }
 
+        private void SetItemHistoryData(OccurrenceBookForUpdationDto model, MstOccurrenceBook modelRepo)
+        {
+            model.CreatedOn = modelRepo.CreatedOn;
+            model.UpdatedOn = DateTime.Now;
+        }
 
 
     }

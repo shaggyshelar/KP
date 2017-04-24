@@ -248,7 +248,7 @@ namespace ESPL.KP.Controllerss.Designation
         }
 
         [HttpPut("{id}", Name = "UpdateDesignation")]
-        public IActionResult UpdateDesignation(Guid id, [FromBody] DesignationForCreationDto designation)
+        public IActionResult UpdateDesignation(Guid id, [FromBody] DesignationForUpdationDto designation)
         {
             if (designation == null)
             {
@@ -263,23 +263,9 @@ namespace ESPL.KP.Controllerss.Designation
 
             if (designationRepo == null)
             {
-                var designationAdd = Mapper.Map<MstDesignation>(designation);
-                designationAdd.DesignationID = id;
-
-                _libraryRepository.AddDesignation(designationAdd);
-
-                if (!_libraryRepository.Save())
-                {
-                    throw new Exception($"Upserting designation {id} failed on save.");
-                }
-
-                var designationReturnVal = Mapper.Map<DesignationDto>(designationAdd);
-
-                return CreatedAtRoute("GetDesignation",
-                    new { DesignationID = designationReturnVal.DesignationID },
-                    designationReturnVal);
+                return NotFound();
             }
-
+            SetItemHistoryData(designation, designationRepo);
             Mapper.Map(designation, designationRepo);
             _libraryRepository.UpdateDesignation(designationRepo);
             if (!_libraryRepository.Save())
@@ -429,5 +415,12 @@ namespace ESPL.KP.Controllerss.Designation
             Response.Headers.Add("Allow", "GET,OPTIONS,POST");
             return Ok();
         }
+
+        private void SetItemHistoryData(DesignationForUpdationDto model, MstDesignation modelRepo)
+        {
+            model.CreatedOn = modelRepo.CreatedOn;
+            model.UpdatedOn = DateTime.Now;
+        }
+
     }
 }

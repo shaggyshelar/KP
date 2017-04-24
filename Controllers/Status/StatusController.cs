@@ -249,7 +249,7 @@ namespace ESPL.KP.Controllers.Status
         }
 
         [HttpPut("{id}", Name = "UpdateStatus")]
-        public IActionResult UpdateStatus(Guid id, [FromBody] StatusForCreationDto status)
+        public IActionResult UpdateStatus(Guid id, [FromBody] StatusForUpdationDto status)
         {
             if (status == null)
             {
@@ -264,23 +264,24 @@ namespace ESPL.KP.Controllers.Status
 
             if (statusRepo == null)
             {
-                var statusAdd = Mapper.Map<MstStatus>(status);
-                statusAdd.StatusID = id;
+                // var statusAdd = Mapper.Map<MstStatus>(status);
+                // statusAdd.StatusID = id;
 
-                _libraryRepository.AddStatus(statusAdd);
+                // _libraryRepository.AddStatus(statusAdd);
 
-                if (!_libraryRepository.Save())
-                {
-                    throw new Exception($"Upserting status {id} failed on save.");
-                }
+                // if (!_libraryRepository.Save())
+                // {
+                //     throw new Exception($"Upserting status {id} failed on save.");
+                // }
 
-                var statusReturnVal = Mapper.Map<StatusDto>(statusAdd);
+                // var statusReturnVal = Mapper.Map<StatusDto>(statusAdd);
 
-                return CreatedAtRoute("GetStatus",
-                    new { StatusID = statusReturnVal.StatusID },
-                    statusReturnVal);
+                // return CreatedAtRoute("GetStatus",
+                //     new { StatusID = statusReturnVal.StatusID },
+                //     statusReturnVal);
+                return NotFound();
             }
-
+            SetItemHistoryData(status, statusRepo);
             Mapper.Map(status, statusRepo);
             _libraryRepository.UpdateStatus(statusRepo);
             if (!_libraryRepository.Save())
@@ -430,6 +431,12 @@ namespace ESPL.KP.Controllers.Status
         {
             Response.Headers.Add("Allow", "GET,OPTIONS,POST");
             return Ok();
+        }
+
+        private void SetItemHistoryData(StatusForUpdationDto model, MstStatus modelRepo)
+        {
+            model.CreatedOn = modelRepo.CreatedOn;
+            model.UpdatedOn = DateTime.Now;
         }
     }
 }

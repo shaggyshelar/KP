@@ -249,7 +249,7 @@ namespace ESPL.KP.Controllers.Department
         }
 
         [HttpPut("{id}", Name = "UpdateDepartment")]
-        public IActionResult UpdateDepartment(Guid id, [FromBody] DepartmentForCreationDto department)
+        public IActionResult UpdateDepartment(Guid id, [FromBody] DepartmentForUpdationDto department)
         {
             if (department == null)
             {
@@ -264,23 +264,9 @@ namespace ESPL.KP.Controllers.Department
 
             if (departmentRepo == null)
             {
-                var departmentAdd = Mapper.Map<MstDepartment>(department);
-                departmentAdd.DepartmentID = id;
-
-                _libraryRepository.AddDepartment(departmentAdd);
-
-                if (!_libraryRepository.Save())
-                {
-                    throw new Exception($"Upserting department {id} failed on save.");
-                }
-
-                var departmentReturnVal = Mapper.Map<DepartmentDto>(departmentAdd);
-
-                return CreatedAtRoute("GetDepartment",
-                    new { DepartmentID = departmentReturnVal.DepartmentID },
-                    departmentReturnVal);
+                return NotFound();
             }
-
+            SetItemHistoryData(department, departmentRepo);
             Mapper.Map(department, departmentRepo);
             _libraryRepository.UpdateDepartment(departmentRepo);
             if (!_libraryRepository.Save())
@@ -431,5 +417,12 @@ namespace ESPL.KP.Controllers.Department
             Response.Headers.Add("Allow", "GET,OPTIONS,POST");
             return Ok();
         }
+
+        private void SetItemHistoryData(DepartmentForUpdationDto model, MstDepartment modelRepo)
+        {
+            model.CreatedOn = modelRepo.CreatedOn;
+            model.UpdatedOn = DateTime.Now;
+        }
+
     }
 }

@@ -250,7 +250,7 @@ namespace ESPL.KP.Controllers.OccurrenceType
         }
 
         [HttpPut("{id}", Name = "UpdateOccurrenceType")]
-        public IActionResult UpdateOccurrenceType(Guid id, [FromBody] OccurrenceTypeForCreationDto occurrenceType)
+        public IActionResult UpdateOccurrenceType(Guid id, [FromBody] OccurrenceTypeForUpdationsDto occurrenceType)
         {
             if (occurrenceType == null)
             {
@@ -265,23 +265,24 @@ namespace ESPL.KP.Controllers.OccurrenceType
 
             if (occurrenceTypeRepo == null)
             {
-                var occurrenceTypeAdd = Mapper.Map<MstOccurrenceType>(occurrenceType);
-                occurrenceTypeAdd.OBTypeID = id;
+                // var occurrenceTypeAdd = Mapper.Map<MstOccurrenceType>(occurrenceType);
+                // occurrenceTypeAdd.OBTypeID = id;
 
-                _libraryRepository.AddOccurrenceType(occurrenceTypeAdd);
+                // _libraryRepository.AddOccurrenceType(occurrenceTypeAdd);
 
-                if (!_libraryRepository.Save())
-                {
-                    throw new Exception($"Upserting occurrenceType {id} failed on save.");
-                }
+                // if (!_libraryRepository.Save())
+                // {
+                //     throw new Exception($"Upserting occurrenceType {id} failed on save.");
+                // }
 
-                var occurrenceTypeReturnVal = Mapper.Map<OccurrenceTypeDto>(occurrenceTypeAdd);
+                // var occurrenceTypeReturnVal = Mapper.Map<OccurrenceTypeDto>(occurrenceTypeAdd);
 
-                return CreatedAtRoute("GetOccurrenceType",
-                    new { OccurrenceTypeID = occurrenceTypeReturnVal.OBTypeID },
-                    occurrenceTypeReturnVal);
+                // return CreatedAtRoute("GetOccurrenceType",
+                //     new { OccurrenceTypeID = occurrenceTypeReturnVal.OBTypeID },
+                //     occurrenceTypeReturnVal);
+                return NotFound();
             }
-
+            SetItemHistoryData(occurrenceType, occurrenceTypeRepo);
             Mapper.Map(occurrenceType, occurrenceTypeRepo);
             _libraryRepository.UpdateOccurrenceType(occurrenceTypeRepo);
             if (!_libraryRepository.Save())
@@ -432,6 +433,13 @@ namespace ESPL.KP.Controllers.OccurrenceType
             Response.Headers.Add("Allow", "GET,OPTIONS,POST");
             return Ok();
         }
+
+        private void SetItemHistoryData(OccurrenceTypeForUpdationsDto model, MstOccurrenceType modelRepo)
+        {
+            model.CreatedOn = modelRepo.CreatedOn;
+            model.UpdatedOn = DateTime.Now;
+        }
+
 
     }
 }

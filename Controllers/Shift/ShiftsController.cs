@@ -249,7 +249,7 @@ namespace ESPL.KP.Controllers.Shift
         }
 
         [HttpPut("{id}", Name = "UpdateShift")]
-        public IActionResult UpdateShift(Guid id, [FromBody] ShiftForCreationDto shift)
+        public IActionResult UpdateShift(Guid id, [FromBody] ShiftForUpdationDto shift)
         {
             if (shift == null)
             {
@@ -264,23 +264,24 @@ namespace ESPL.KP.Controllers.Shift
 
             if (shiftRepo == null)
             {
-                var shiftAdd = Mapper.Map<MstShift>(shift);
-                shiftAdd.ShiftID = id;
+                // var shiftAdd = Mapper.Map<MstShift>(shift);
+                // shiftAdd.ShiftID = id;
 
-                _libraryRepository.AddShift(shiftAdd);
+                // _libraryRepository.AddShift(shiftAdd);
 
-                if (!_libraryRepository.Save())
-                {
-                    throw new Exception($"Upserting shift {id} failed on save.");
-                }
+                // if (!_libraryRepository.Save())
+                // {
+                //     throw new Exception($"Upserting shift {id} failed on save.");
+                // }
 
-                var shiftReturnVal = Mapper.Map<ShiftDto>(shiftAdd);
+                // var shiftReturnVal = Mapper.Map<ShiftDto>(shiftAdd);
 
-                return CreatedAtRoute("GetShift",
-                    new { ShiftID = shiftReturnVal.ShiftID },
-                    shiftReturnVal);
+                // return CreatedAtRoute("GetShift",
+                //     new { ShiftID = shiftReturnVal.ShiftID },
+                //     shiftReturnVal);
+                return NotFound();
             }
-
+            SetItemHistoryData(shift, shiftRepo);
             Mapper.Map(shift, shiftRepo);
             _libraryRepository.UpdateShift(shiftRepo);
             if (!_libraryRepository.Save())
@@ -430,6 +431,12 @@ namespace ESPL.KP.Controllers.Shift
         {
             Response.Headers.Add("Allow", "GET,OPTIONS,POST");
             return Ok();
+        }
+
+        private void SetItemHistoryData(ShiftForUpdationDto model, MstShift modelRepo)
+        {
+            model.CreatedOn = modelRepo.CreatedOn;
+            model.UpdatedOn = DateTime.Now;
         }
     }
 }
