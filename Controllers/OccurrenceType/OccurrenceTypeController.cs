@@ -297,7 +297,7 @@ namespace ESPL.KP.Controllers.OccurrenceType
 
         [HttpPatch("{id}", Name = "PartiallyUpdateOccurrenceType")]
         public IActionResult PartiallyUpdateOccurrenceType(Guid id,
-                    [FromBody] JsonPatchDocument<OccurrenceTypeForCreationDto> patchDoc)
+                    [FromBody] JsonPatchDocument<OccurrenceTypeForUpdationsDto> patchDoc)
         {
             if (patchDoc == null)
             {
@@ -308,33 +308,34 @@ namespace ESPL.KP.Controllers.OccurrenceType
 
             if (occurrenceTypeFromRepo == null)
             {
-                var occurrenceTypeDto = new OccurrenceTypeForCreationDto();
-                patchDoc.ApplyTo(occurrenceTypeDto, ModelState);
+                // var occurrenceTypeDto = new OccurrenceTypeForCreationDto();
+                // patchDoc.ApplyTo(occurrenceTypeDto, ModelState);
 
-                TryValidateModel(occurrenceTypeDto);
+                // TryValidateModel(occurrenceTypeDto);
 
-                if (!ModelState.IsValid)
-                {
-                    return new UnprocessableEntityObjectResult(ModelState);
-                }
+                // if (!ModelState.IsValid)
+                // {
+                //     return new UnprocessableEntityObjectResult(ModelState);
+                // }
 
-                var occurrenceTypeToAdd = Mapper.Map<MstOccurrenceType>(occurrenceTypeDto);
-                occurrenceTypeToAdd.OBTypeID = id;
+                // var occurrenceTypeToAdd = Mapper.Map<MstOccurrenceType>(occurrenceTypeDto);
+                // occurrenceTypeToAdd.OBTypeID = id;
 
-                _libraryRepository.AddOccurrenceType(occurrenceTypeToAdd);
+                // _libraryRepository.AddOccurrenceType(occurrenceTypeToAdd);
 
-                if (!_libraryRepository.Save())
-                {
-                    throw new Exception($"Upserting in occurrenceType {id} failed on save.");
-                }
+                // if (!_libraryRepository.Save())
+                // {
+                //     throw new Exception($"Upserting in occurrenceType {id} failed on save.");
+                // }
 
-                var occurrenceTypeToReturn = Mapper.Map<OccurrenceTypeDto>(occurrenceTypeToAdd);
-                return CreatedAtRoute("GetOccurrenceType",
-                    new { OccurrenceTypeID = occurrenceTypeToReturn.OBTypeID },
-                    occurrenceTypeToReturn);
+                // var occurrenceTypeToReturn = Mapper.Map<OccurrenceTypeDto>(occurrenceTypeToAdd);
+                // return CreatedAtRoute("GetOccurrenceType",
+                //     new { OccurrenceTypeID = occurrenceTypeToReturn.OBTypeID },
+                //     occurrenceTypeToReturn);
+                return NotFound();
             }
 
-            var occurrenceTypeToPatch = Mapper.Map<OccurrenceTypeForCreationDto>(occurrenceTypeFromRepo);
+            var occurrenceTypeToPatch = Mapper.Map<OccurrenceTypeForUpdationsDto>(occurrenceTypeFromRepo);
 
             patchDoc.ApplyTo(occurrenceTypeToPatch, ModelState);
 
@@ -346,7 +347,7 @@ namespace ESPL.KP.Controllers.OccurrenceType
             {
                 return new UnprocessableEntityObjectResult(ModelState);
             }
-
+            SetItemHistoryData(occurrenceTypeToPatch, occurrenceTypeFromRepo);
             Mapper.Map(occurrenceTypeToPatch, occurrenceTypeFromRepo);
 
             _libraryRepository.UpdateOccurrenceType(occurrenceTypeFromRepo);

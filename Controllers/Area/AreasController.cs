@@ -296,7 +296,7 @@ namespace ESPL.KP.Controllerss.Area
 
         [HttpPatch("{id}", Name = "PartiallyUpdateArea")]
         public IActionResult PartiallyUpdateArea(Guid id,
-                    [FromBody] JsonPatchDocument<AreaForCreationDto> patchDoc)
+                    [FromBody] JsonPatchDocument<AreaForUpdationDto> patchDoc)
         {
             if (patchDoc == null)
             {
@@ -307,33 +307,34 @@ namespace ESPL.KP.Controllerss.Area
 
             if (areaFromRepo == null)
             {
-                var areaDto = new AreaForCreationDto();
-                patchDoc.ApplyTo(areaDto, ModelState);
+                // var areaDto = new AreaForCreationDto();
+                // patchDoc.ApplyTo(areaDto, ModelState);
 
-                TryValidateModel(areaDto);
+                // TryValidateModel(areaDto);
 
-                if (!ModelState.IsValid)
-                {
-                    return new UnprocessableEntityObjectResult(ModelState);
-                }
+                // if (!ModelState.IsValid)
+                // {
+                //     return new UnprocessableEntityObjectResult(ModelState);
+                // }
 
-                var areaToAdd = Mapper.Map<MstArea>(areaDto);
-                areaToAdd.AreaID = id;
+                // var areaToAdd = Mapper.Map<MstArea>(areaDto);
+                // areaToAdd.AreaID = id;
 
-                _libraryRepository.AddArea(areaToAdd);
+                // _libraryRepository.AddArea(areaToAdd);
 
-                if (!_libraryRepository.Save())
-                {
-                    throw new Exception($"Upserting in area {id} failed on save.");
-                }
+                // if (!_libraryRepository.Save())
+                // {
+                //     throw new Exception($"Upserting in area {id} failed on save.");
+                // }
 
-                var areaToReturn = Mapper.Map<AreaDto>(areaToAdd);
-                return CreatedAtRoute("GetArea",
-                    new { AreaID = areaToReturn.AreaID },
-                    areaToReturn);
+                // var areaToReturn = Mapper.Map<AreaDto>(areaToAdd);
+                // return CreatedAtRoute("GetArea",
+                //     new { AreaID = areaToReturn.AreaID },
+                //     areaToReturn);
+                return NotFound();
             }
 
-            var areaToPatch = Mapper.Map<AreaForCreationDto>(areaFromRepo);
+            var areaToPatch = Mapper.Map<AreaForUpdationDto>(areaFromRepo);
 
             patchDoc.ApplyTo(areaToPatch, ModelState);
 
@@ -345,7 +346,7 @@ namespace ESPL.KP.Controllerss.Area
             {
                 return new UnprocessableEntityObjectResult(ModelState);
             }
-
+            SetItemHistoryData(areaToPatch, areaFromRepo);
             Mapper.Map(areaToPatch, areaFromRepo);
 
             _libraryRepository.UpdateArea(areaFromRepo);

@@ -268,30 +268,31 @@ namespace KP.Controllers.OccurrenceBook
 
             if (bookForAuthorFromRepo == null)
             {
-                var bookDto = new OccurrenceBookForUpdationDto();
-                patchDoc.ApplyTo(bookDto, ModelState);
+                // var bookDto = new OccurrenceBookForUpdationDto();
+                // patchDoc.ApplyTo(bookDto, ModelState);
 
-                TryValidateModel(bookDto);
+                // TryValidateModel(bookDto);
 
-                if (!ModelState.IsValid)
-                {
-                    return new UnprocessableEntityObjectResult(ModelState);
-                }
+                // if (!ModelState.IsValid)
+                // {
+                //     return new UnprocessableEntityObjectResult(ModelState);
+                // }
 
-                var bookToAdd = Mapper.Map<MstOccurrenceBook>(bookDto);
-                bookToAdd.OBID = id;
+                // var bookToAdd = Mapper.Map<MstOccurrenceBook>(bookDto);
+                // bookToAdd.OBID = id;
 
-                _libraryRepository.AddOccurrenceBook(bookToAdd);
+                // _libraryRepository.AddOccurrenceBook(bookToAdd);
 
-                if (!_libraryRepository.Save())
-                {
-                    throw new Exception($"Upserting in Occurrence Book {id} failed on save.");
-                }
+                // if (!_libraryRepository.Save())
+                // {
+                //     throw new Exception($"Upserting in Occurrence Book {id} failed on save.");
+                // }
 
-                var bookToReturn = Mapper.Map<OccurrenceBookDto>(bookToAdd);
-                return CreatedAtRoute("GetOccurrenceBook",
-                    new { id = bookToReturn.OBID },
-                    bookToReturn);
+                // var bookToReturn = Mapper.Map<OccurrenceBookDto>(bookToAdd);
+                // return CreatedAtRoute("GetOccurrenceBook",
+                //     new { id = bookToReturn.OBID },
+                //     bookToReturn);
+                return NotFound();
             }
 
             var bookToPatch = Mapper.Map<OccurrenceBookForUpdationDto>(bookForAuthorFromRepo);
@@ -306,7 +307,7 @@ namespace KP.Controllers.OccurrenceBook
             {
                 return new UnprocessableEntityObjectResult(ModelState);
             }
-
+            SetItemHistoryData(bookToPatch, bookForAuthorFromRepo);
             Mapper.Map(bookToPatch, bookForAuthorFromRepo);
 
             _libraryRepository.UpdateOccurrenceBook(bookForAuthorFromRepo);

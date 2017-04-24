@@ -280,7 +280,7 @@ namespace ESPL.KP.Controllerss.Designation
 
         [HttpPatch("{id}", Name = "PartiallyUpdateDesignation")]
         public IActionResult PartiallyUpdateDesignation(Guid id,
-                    [FromBody] JsonPatchDocument<DesignationForCreationDto> patchDoc)
+                    [FromBody] JsonPatchDocument<DesignationForUpdationDto> patchDoc)
         {
             if (patchDoc == null)
             {
@@ -291,33 +291,34 @@ namespace ESPL.KP.Controllerss.Designation
 
             if (designationFromRepo == null)
             {
-                var designationDto = new DesignationForCreationDto();
-                patchDoc.ApplyTo(designationDto, ModelState);
+                // var designationDto = new DesignationForCreationDto();
+                // patchDoc.ApplyTo(designationDto, ModelState);
 
-                TryValidateModel(designationDto);
+                // TryValidateModel(designationDto);
 
-                if (!ModelState.IsValid)
-                {
-                    return new UnprocessableEntityObjectResult(ModelState);
-                }
+                // if (!ModelState.IsValid)
+                // {
+                //     return new UnprocessableEntityObjectResult(ModelState);
+                // }
 
-                var designationToAdd = Mapper.Map<MstDesignation>(designationDto);
-                designationToAdd.DesignationID = id;
+                // var designationToAdd = Mapper.Map<MstDesignation>(designationDto);
+                // designationToAdd.DesignationID = id;
 
-                _libraryRepository.AddDesignation(designationToAdd);
+                // _libraryRepository.AddDesignation(designationToAdd);
 
-                if (!_libraryRepository.Save())
-                {
-                    throw new Exception($"Upserting in designation {id} failed on save.");
-                }
+                // if (!_libraryRepository.Save())
+                // {
+                //     throw new Exception($"Upserting in designation {id} failed on save.");
+                // }
 
-                var designationToReturn = Mapper.Map<DesignationDto>(designationToAdd);
-                return CreatedAtRoute("GetDesignation",
-                    new { DesignationID = designationToReturn.DesignationID },
-                    designationToReturn);
+                // var designationToReturn = Mapper.Map<DesignationDto>(designationToAdd);
+                // return CreatedAtRoute("GetDesignation",
+                //     new { DesignationID = designationToReturn.DesignationID },
+                //     designationToReturn);
+                return NotFound();
             }
 
-            var designationToPatch = Mapper.Map<DesignationForCreationDto>(designationFromRepo);
+            var designationToPatch = Mapper.Map<DesignationForUpdationDto>(designationFromRepo);
 
             patchDoc.ApplyTo(designationToPatch, ModelState);
 
@@ -329,7 +330,7 @@ namespace ESPL.KP.Controllerss.Designation
             {
                 return new UnprocessableEntityObjectResult(ModelState);
             }
-
+            SetItemHistoryData(designationToPatch, designationFromRepo);
             Mapper.Map(designationToPatch, designationFromRepo);
 
             _libraryRepository.UpdateDesignation(designationFromRepo);

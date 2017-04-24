@@ -281,7 +281,7 @@ namespace ESPL.KP.Controllers.Department
 
         [HttpPatch("{id}", Name = "PartiallyUpdateDepartment")]
         public IActionResult PartiallyUpdateDepartment(Guid id,
-                    [FromBody] JsonPatchDocument<DepartmentForCreationDto> patchDoc)
+                    [FromBody] JsonPatchDocument<DepartmentForUpdationDto> patchDoc)
         {
             if (patchDoc == null)
             {
@@ -292,33 +292,34 @@ namespace ESPL.KP.Controllers.Department
 
             if (departmentFromRepo == null)
             {
-                var departmentDto = new DepartmentForCreationDto();
-                patchDoc.ApplyTo(departmentDto, ModelState);
+                // var departmentDto = new DepartmentForCreationDto();
+                // patchDoc.ApplyTo(departmentDto, ModelState);
 
-                TryValidateModel(departmentDto);
+                // TryValidateModel(departmentDto);
 
-                if (!ModelState.IsValid)
-                {
-                    return new UnprocessableEntityObjectResult(ModelState);
-                }
+                // if (!ModelState.IsValid)
+                // {
+                //     return new UnprocessableEntityObjectResult(ModelState);
+                // }
 
-                var departmentToAdd = Mapper.Map<MstDepartment>(departmentDto);
-                departmentToAdd.DepartmentID = id;
+                // var departmentToAdd = Mapper.Map<MstDepartment>(departmentDto);
+                // departmentToAdd.DepartmentID = id;
 
-                _libraryRepository.AddDepartment(departmentToAdd);
+                // _libraryRepository.AddDepartment(departmentToAdd);
 
-                if (!_libraryRepository.Save())
-                {
-                    throw new Exception($"Upserting in department {id} failed on save.");
-                }
+                // if (!_libraryRepository.Save())
+                // {
+                //     throw new Exception($"Upserting in department {id} failed on save.");
+                // }
 
-                var departmentToReturn = Mapper.Map<DepartmentDto>(departmentToAdd);
-                return CreatedAtRoute("GetDepartment",
-                    new { DepartmentID = departmentToReturn.DepartmentID },
-                    departmentToReturn);
+                // var departmentToReturn = Mapper.Map<DepartmentDto>(departmentToAdd);
+                // return CreatedAtRoute("GetDepartment",
+                //     new { DepartmentID = departmentToReturn.DepartmentID },
+                //     departmentToReturn);
+                return NotFound();
             }
-
-            var departmentToPatch = Mapper.Map<DepartmentForCreationDto>(departmentFromRepo);
+            
+            var departmentToPatch = Mapper.Map<DepartmentForUpdationDto>(departmentFromRepo);
 
             patchDoc.ApplyTo(departmentToPatch, ModelState);
 
@@ -331,6 +332,7 @@ namespace ESPL.KP.Controllers.Department
                 return new UnprocessableEntityObjectResult(ModelState);
             }
 
+            SetItemHistoryData(departmentToPatch, departmentFromRepo);
             Mapper.Map(departmentToPatch, departmentFromRepo);
 
             _libraryRepository.UpdateDepartment(departmentFromRepo);

@@ -296,7 +296,7 @@ namespace ESPL.KP.Controllers.Shift
 
         [HttpPatch("{id}", Name = "PartiallyUpdateShift")]
         public IActionResult PartiallyUpdateShift(Guid id,
-                    [FromBody] JsonPatchDocument<ShiftForCreationDto> patchDoc)
+                    [FromBody] JsonPatchDocument<ShiftForUpdationDto> patchDoc)
         {
             if (patchDoc == null)
             {
@@ -307,33 +307,34 @@ namespace ESPL.KP.Controllers.Shift
 
             if (shiftFromRepo == null)
             {
-                var shiftDto = new ShiftForCreationDto();
-                patchDoc.ApplyTo(shiftDto, ModelState);
+                // var shiftDto = new ShiftForCreationDto();
+                // patchDoc.ApplyTo(shiftDto, ModelState);
 
-                TryValidateModel(shiftDto);
+                // TryValidateModel(shiftDto);
 
-                if (!ModelState.IsValid)
-                {
-                    return new UnprocessableEntityObjectResult(ModelState);
-                }
+                // if (!ModelState.IsValid)
+                // {
+                //     return new UnprocessableEntityObjectResult(ModelState);
+                // }
 
-                var shiftToAdd = Mapper.Map<MstShift>(shiftDto);
-                shiftToAdd.ShiftID = id;
+                // var shiftToAdd = Mapper.Map<MstShift>(shiftDto);
+                // shiftToAdd.ShiftID = id;
 
-                _libraryRepository.AddShift(shiftToAdd);
+                // _libraryRepository.AddShift(shiftToAdd);
 
-                if (!_libraryRepository.Save())
-                {
-                    throw new Exception($"Upserting in shift {id} failed on save.");
-                }
+                // if (!_libraryRepository.Save())
+                // {
+                //     throw new Exception($"Upserting in shift {id} failed on save.");
+                // }
 
-                var shiftToReturn = Mapper.Map<ShiftDto>(shiftToAdd);
-                return CreatedAtRoute("GetShift",
-                    new { ShiftID = shiftToReturn.ShiftID },
-                    shiftToReturn);
+                // var shiftToReturn = Mapper.Map<ShiftDto>(shiftToAdd);
+                // return CreatedAtRoute("GetShift",
+                //     new { ShiftID = shiftToReturn.ShiftID },
+                //     shiftToReturn);
+                return NotFound();
             }
 
-            var shiftToPatch = Mapper.Map<ShiftForCreationDto>(shiftFromRepo);
+            var shiftToPatch = Mapper.Map<ShiftForUpdationDto>(shiftFromRepo);
 
             patchDoc.ApplyTo(shiftToPatch, ModelState);
 
@@ -345,7 +346,7 @@ namespace ESPL.KP.Controllers.Shift
             {
                 return new UnprocessableEntityObjectResult(ModelState);
             }
-
+            SetItemHistoryData(shiftToPatch, shiftFromRepo);
             Mapper.Map(shiftToPatch, shiftFromRepo);
 
             _libraryRepository.UpdateShift(shiftFromRepo);
