@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using ESPL.KP.Helpers.Core;
 using ESPL.KP.Entities.Core;
 using ESPL.KP.Models.Core;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ESPL.KP.Controllers.Core
 {
@@ -39,7 +40,7 @@ namespace ESPL.KP.Controllers.Core
         public IActionResult GetESPLRoles(ESPLRolesResourceParameters esplRolesResourceParameters,
             [FromHeader(Name = "Accept")] string mediaType)
         {
-            if (!_propertyMappingService.ValidMappingExistsFor<ESPLRoleDto, ESPLRole>
+            if (!_propertyMappingService.ValidMappingExistsFor<ESPLRoleDto, IdentityRole>
                (esplRolesResourceParameters.OrderBy))
             {
                 return BadRequest();
@@ -53,7 +54,16 @@ namespace ESPL.KP.Controllers.Core
 
             var esplRolesFromRepo = _libraryRepository.GetESPLRoles(esplRolesResourceParameters);
 
-            var esplRoles = Mapper.Map<IEnumerable<ESPLRoleDto>>(esplRolesFromRepo);
+            var esplRoles = new List<ESPLRoleDto>();
+            esplRolesFromRepo.ForEach(esplRole =>
+            {
+                esplRoles.Add(
+                new ESPLRoleDto()
+                {
+                    Id = new Guid(esplRole.Id),
+                    Name = esplRole.Name
+                });
+            });
 
             if (mediaType == "application/vnd.marvin.hateoas+json")
             {
@@ -72,21 +82,9 @@ namespace ESPL.KP.Controllers.Core
                     esplRolesFromRepo.HasNext, esplRolesFromRepo.HasPrevious);
 
                 var shapedESPLRoles = esplRoles.ShapeData(esplRolesResourceParameters.Fields);
-
-                var shapedESPLRolesWithLinks = shapedESPLRoles.Select(esplRole =>
-                {
-                    var esplRoleAsDictionary = esplRole as IDictionary<string, object>;
-                    var esplRoleLinks = CreateLinksForESPLRole(
-                        (Guid)esplRoleAsDictionary["Id"], esplRolesResourceParameters.Fields);
-
-                    esplRoleAsDictionary.Add("links", esplRoleLinks);
-
-                    return esplRoleAsDictionary;
-                });
-
                 var linkedCollectionResource = new
                 {
-                    value = shapedESPLRolesWithLinks,
+                    value = shapedESPLRoles,
                     links = links
                 };
 
@@ -115,7 +113,7 @@ namespace ESPL.KP.Controllers.Core
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
 
-                return Ok(esplRoles.ShapeData(esplRolesResourceParameters.Fields));
+                return Ok(esplRoles);
             }
         }
 
@@ -197,7 +195,7 @@ namespace ESPL.KP.Controllers.Core
                 return BadRequest();
             }
 
-            var esplRoleEntity = Mapper.Map<ESPLRole>(esplRole);
+            var esplRoleEntity = Mapper.Map<IdentityRole>(esplRole);
 
             _libraryRepository.AddESPLRole(esplRoleEntity);
 
