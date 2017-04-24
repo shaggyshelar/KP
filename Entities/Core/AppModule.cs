@@ -1,0 +1,19 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace ESPL.KP.Entities.Core
+{
+    public class AppModule
+    {
+        [Key]
+        public Guid Id { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string MenuText { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string Name { get; set; }
+    }
+}

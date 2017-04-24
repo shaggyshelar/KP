@@ -1,13 +1,17 @@
-﻿using System.Linq;
+using System.Linq;
+using ESPL.KP.Entities.Core;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 
-namespace ESPL.KP.Entities {
-    public class LibraryContext : IdentityDbContext<ESPLUser> {
-        public LibraryContext (DbContextOptions<LibraryContext> options) : base (options) {
-            Database.Migrate ();
+namespace ESPL.KP.Entities
+{
+    public class LibraryContext : IdentityDbContext<ESPLUser>
+    {
+        public LibraryContext(DbContextOptions<LibraryContext> options) : base(options)
+        {
+            Database.Migrate();
         }
 
         public DbSet<Author> Authors { get; set; }
@@ -42,9 +46,11 @@ namespace ESPL.KP.Entities {
 
         public DbSet<OccurrenceReviewHistory> OccurrenceReviewHistory { get; set; }
 
-        public DbSet<MstEmployee> MstEmployee {get;set;}
+        public DbSet<MstEmployee> MstEmployee { get; set; }
+        public DbSet<AppModule> AppModules { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelbuilder){
+        protected override void OnModelCreating(ModelBuilder modelbuilder)
+        {
             foreach (var relationship in modelbuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;

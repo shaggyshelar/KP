@@ -8,9 +8,10 @@ using ESPL.KP.Helpers.Area;
 using ESPL.KP.Helpers.Designation;
 using ESPL.KP.Helpers.OccurrenceType;
 using ESPL.KP.Helpers.OccurrenceBook;
-using ESPL.KP.Helpers.OccurrenceBook;
 using ESPL.KP.Helpers.Shift;
 using ESPL.KP.Helpers.Status;
+using ESPL.KP.Entities.Core;
+using ESPL.KP.Helpers.Employee;
 
 namespace ESPL.KP.Services
 {
@@ -90,7 +91,7 @@ namespace ESPL.KP.Services
         bool OccurrenceBookExists(Guid occurrenceTypeId);
         #endregion
 
-                #region Shift
+        #region Shift
         PagedList<MstShift> GetShifts(ShiftsResourceParameters shiftResourceParameters);
         MstShift GetShift(Guid shiftId);
         IEnumerable<MstShift> GetShifts(IEnumerable<Guid> shiftIds);
@@ -113,5 +114,53 @@ namespace ESPL.KP.Services
         #endregion 
 
         bool Save();
+
+        #region AppModule
+
+        PagedList<AppModule> GetAppModules(AppModulesResourceParameters appModuleResourceParameters);
+        AppModule GetAppModule(Guid appModuleId);
+        IEnumerable<AppModule> GetAppModules(IEnumerable<Guid> appModuleIds);
+        void AddAppModule(AppModule appModule);
+        void DeleteAppModule(AppModule appModule);
+        void UpdateAppModule(AppModule appModule);
+        bool AppModuleExists(Guid appModuleId);
+
+        #endregion AppModule
+
+        #region ESPLUser
+
+        PagedList<ESPLUser> GetESPLUsers(ESPLUsersResourceParameters esplUserResourceParameters);
+        ESPLUser GetESPLUser(Guid esplUserId);
+        IEnumerable<ESPLUser> GetESPLUsers(IEnumerable<Guid> esplUserIds);
+        void AddESPLUser(ESPLUser esplUser);
+        void DeleteESPLUser(ESPLUser esplUser);
+        void UpdateESPLUser(ESPLUser esplUser);
+        bool ESPLUserExists(Guid esplUserId);
+
+        #endregion ESPLUser
+
+
+         #region ESPLRole
+
+        PagedList<ESPLRole> GetESPLRoles(ESPLRolesResourceParameters esplRoleResourceParameters);
+        ESPLRole GetESPLRole(Guid esplRoleId);
+        IEnumerable<ESPLRole> GetESPLRoles(IEnumerable<Guid> esplRoleIds);
+        void AddESPLRole(ESPLRole esplRole);
+        void DeleteESPLRole(ESPLRole esplRole);
+        void UpdateESPLRole(ESPLRole esplRole);
+        bool ESPLRoleExists(Guid esplRoleId);
+
+        #endregion ESPLRole
+
+        #region Employee
+        PagedList<MstEmployee> GetEmployees(EmployeesResourceParameters employeesResourceParameters);
+        MstEmployee GetEmployee(Guid employeeId);
+        IEnumerable<MstEmployee> GetEmployees(IEnumerable<Guid> employeeIds);
+        void AddEmployee(MstEmployee employee);
+        void DeleteEmployee(MstEmployee employee);
+        void UpdateEmployee(MstEmployee employee);
+        bool EmployeeExists(Guid authorId);
+
+        #endregion
     }
 }

@@ -12,8 +12,9 @@ using ESPL.KP.Helpers.OccurrenceType;
 using ESPL.KP.Helpers.Shift;
 using ESPL.KP.Helpers.Status;
 using ESPL.KP.Helpers.OccurrenceBook;
-using ESPL.KP.Helpers.OccurrenceBook;
-
+using ESPL.KP.Entities.Core;
+using ESPL.KP.Models.Core;
+using ESPL.KP.Helpers.Employee;
 
 namespace ESPL.KP.Services
 {
@@ -328,7 +329,7 @@ namespace ESPL.KP.Services
 
         #endregion Designation
 
-                #region OccurrenceType
+        #region OccurrenceType
 
         public PagedList<MstOccurrenceType> GetOccurrenceTypes(OccurrenceTypeResourceParameters occurrenceTypeResourceParameters)
         {
@@ -386,7 +387,7 @@ namespace ESPL.KP.Services
 
         #endregion
 
-                #region Shift
+        #region Shift
 
         public PagedList<MstShift> GetShifts(ShiftsResourceParameters shiftResourceParameters)
         {
@@ -506,7 +507,7 @@ namespace ESPL.KP.Services
 
 
 
- #region OccurrenceBook
+        #region OccurrenceBook
 
         public PagedList<MstOccurrenceBook> GetOccurrenceBooks(OccurrenceBookResourceParameters occurrenceBookResourceParameters)
         {
@@ -562,11 +563,218 @@ namespace ESPL.KP.Services
             // no code in this implementation
         }
 
-public bool OccurrenceBookExists(Guid occurrenceBookId)
+        public bool OccurrenceBookExists(Guid occurrenceBookId)
         {
             return _context.MstOccurrenceBook.Any(a => a.OBID == occurrenceBookId);
         }
 
         #endregion OccurrenceBook
+
+        #region AppModule
+
+        public PagedList<AppModule> GetAppModules(AppModulesResourceParameters appModuleResourceParameters)
+        {
+            var collectionBeforePaging =
+                _context.AppModules.ApplySort(appModuleResourceParameters.OrderBy,
+                _propertyMappingService.GetPropertyMapping<AppModuleDto, AppModule>());
+
+            if (!string.IsNullOrEmpty(appModuleResourceParameters.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = appModuleResourceParameters.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.Name.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.MenuText.ToLowerInvariant().Contains(searchQueryForWhereClause));
+            }
+
+            return PagedList<AppModule>.Create(collectionBeforePaging,
+                appModuleResourceParameters.PageNumber,
+                appModuleResourceParameters.PageSize);
+        }
+
+        public AppModule GetAppModule(Guid appModuleId)
+        {
+            return _context.AppModules.FirstOrDefault(a => a.Id == appModuleId);
+        }
+
+        public IEnumerable<AppModule> GetAppModules(IEnumerable<Guid> appModuleIds)
+        {
+            return _context.AppModules.Where(a => appModuleIds.Contains(a.Id))
+                .OrderBy(a => a.Name)
+                .ToList();
+        }
+
+        public void AddAppModule(AppModule appModule)
+        {
+            appModule.Id = Guid.NewGuid();
+            _context.AppModules.Add(appModule);
+        }
+
+        public void DeleteAppModule(AppModule appModule)
+        {
+            _context.AppModules.Remove(appModule);
+        }
+
+        public void UpdateAppModule(AppModule appModule)
+        {
+            // no code in this implementation
+        }
+
+        public bool AppModuleExists(Guid appModuleId)
+        {
+            return _context.AppModules.Any(a => a.Id == appModuleId);
+        }
+
+        #endregion AppModule
+
+
+
+        #region ESPLUser
+
+        public PagedList<ESPLUser> GetESPLUsers(ESPLUsersResourceParameters esplUserResourceParameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ESPLUser GetESPLUser(Guid esplUserId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ESPLUser> GetESPLUsers(IEnumerable<Guid> esplUserIds)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddESPLUser(ESPLUser esplUser)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteESPLUser(ESPLUser esplUser)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateESPLUser(ESPLUser esplUser)
+        {
+            // no code in this implementation
+        }
+
+        public bool ESPLUserExists(Guid esplUserId)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion ESPLUser
+
+
+        #region ESPLRole
+
+        public PagedList<ESPLRole> GetESPLRoles(ESPLRolesResourceParameters esplRoleResourceParameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ESPLRole GetESPLRole(Guid esplRoleId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ESPLRole> GetESPLRoles(IEnumerable<Guid> esplRoleIds)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddESPLRole(ESPLRole esplRole)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteESPLRole(ESPLRole esplRole)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateESPLRole(ESPLRole esplRole)
+        {
+            // no code in this implementation
+        }
+
+        public bool ESPLRoleExists(Guid esplRoleId)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion ESPLRole
+        #region Employee
+        public PagedList<MstEmployee> GetEmployees(EmployeesResourceParameters employeesResourceParameters)
+        {
+            var collectionBeforePaging =
+                _context.MstEmployee.ApplySort(employeesResourceParameters.OrderBy,
+                _propertyMappingService.GetPropertyMapping<EmployeeDto, MstEmployee>());
+
+            if (!string.IsNullOrEmpty(employeesResourceParameters.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = employeesResourceParameters.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.FirstName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.LastName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.EmployeeCode.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || Convert.ToString(a.DateOfBirth).ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.Gender.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.Mobile.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.Email.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.MstDesignation.DesignationName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.MstDepartment.DepartmentName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.MstArea.AreaName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.ESPLUser.UserName.ToLowerInvariant().Contains(searchQueryForWhereClause));
+
+            }
+
+            return PagedList<MstEmployee>.Create(collectionBeforePaging,
+                employeesResourceParameters.PageNumber,
+                employeesResourceParameters.PageSize);
+        }
+
+        public MstEmployee GetEmployee(Guid employeeId)
+        {
+            return _context.MstEmployee.FirstOrDefault(a => a.EmployeeID == employeeId);
+        }
+
+        public IEnumerable<MstEmployee> GetEmployees(IEnumerable<Guid> employeeIds)
+        {
+            return _context.MstEmployee.Where(a => employeeIds.Contains(a.EmployeeID))
+                .OrderBy(a => a.FirstName)
+                .ToList();
+        }
+
+        public void AddEmployee(MstEmployee employee)
+        {
+            employee.EmployeeID = Guid.NewGuid();
+            _context.MstEmployee.Add(employee);
+        }
+
+        public void DeleteEmployee(MstEmployee employee)
+        {
+            _context.MstEmployee.Remove(employee);
+        }
+
+        public void UpdateEmployee(MstEmployee employee)
+        {
+            // no code in this implementation
+        }
+
+        public bool EmployeeExists(Guid employeeId)
+        {
+            return _context.MstEmployee.Any(a => a.EmployeeID == employeeId);
+        }     
+
+        #endregion Employee
     }
 }

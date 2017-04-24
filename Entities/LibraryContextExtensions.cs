@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ESPL.KP.Entities.Core;
 
 namespace ESPL.KP.Entities
 {
@@ -194,7 +195,11 @@ namespace ESPL.KP.Entities
             UpdateShifts(context);
             UpdateStatus(context);
             UpdateOccurrenceBooks(context);
+            UpdateAppModules(context);
+            UpdateEmployee(context);
         }
+
+       
 
         private static void UpdateDesignation(LibraryContext context)
         {
@@ -450,7 +455,7 @@ namespace ESPL.KP.Entities
 
         }
 
-           #region Shifts
+        #region Shifts
 
         public static void UpdateShifts(this LibraryContext context)
         {
@@ -517,7 +522,7 @@ namespace ESPL.KP.Entities
         }
         #endregion
 
-private static void UpdateOccurrenceBooks(LibraryContext context)
+        private static void UpdateOccurrenceBooks(LibraryContext context)
         {
             context.MstOccurrenceBook.RemoveRange(context.MstOccurrenceBook);
             context.SaveChanges();
@@ -577,5 +582,99 @@ private static void UpdateOccurrenceBooks(LibraryContext context)
 
         }
 
+        public static void UpdateAppModules(this LibraryContext context)
+        {
+            context.AppModules.RemoveRange(context.AppModules);
+            context.SaveChanges();
+
+            var appModules = new List<AppModule>()
+            {
+                new AppModule()
+                {
+                    Id = new Guid("1325360c-8253-473a-a20f-55c269c20407"),
+                    Name = "Menu 1",
+                    MenuText = "Menu 1"
+                },
+                new AppModule()
+                {
+                    Id = new Guid("1325360c-8253-473a-a22f-55c269c20407"),
+                    Name = "Menu 2",
+                    MenuText = "Menu 2"
+                },
+                new AppModule()
+                {
+                    Id = new Guid("1325360c-8253-473a-a23f-55c269c20407"),
+                    Name = "Menu 3",
+                    MenuText = "Menu 3"
+                }
+            };
+
+            context.AppModules.AddRange(appModules);
+            context.SaveChanges();
+        }
+         private static void UpdateEmployee(LibraryContext context)
+        {
+            context.MstEmployee.RemoveRange(context.MstEmployee);
+            context.SaveChanges();
+            var employee = new List<MstEmployee>()
+            {
+                new MstEmployee
+                {
+                    FirstName="First Name1",
+                    LastName="Last Name1",
+                    EmployeeCode="Emp001",
+                    DateOfBirth=DateTime.Now.AddYears(-30),
+                    Gender="Male",
+                    Mobile="1234567890",
+                    Email="Test1@test.com",
+                    ResidencePhone="020-22665544",
+                    Address1="Test Address 1",
+                    OrganizationJoiningDate=DateTime.Now.AddYears(-5),
+                    ServiceJoiningDate=DateTime.Now.AddYears(-5),
+                    AreaID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9579"),
+                    DesignationID=new Guid("2b72f829-5195-46c3-a6a4-06f817f11093"),
+                    DepartmentID=new Guid("a1da1d8e-1111-4634-b538-a01709471111"),
+                    ShiftID= new Guid("318DC4DF-684A-444F-9E5A-18BB5EED1123")
+                },
+                 new MstEmployee
+                {
+                    FirstName="First Name1",
+                    LastName="Last Name1",
+                    EmployeeCode="Emp001",
+                    DateOfBirth=DateTime.Now.AddYears(-30),
+                    Gender="Male",
+                    Mobile="1234567890",
+                    Email="Test1@test.com",
+                    ResidencePhone="020-22665544",
+                    Address1="Test Address 2",
+                    OrganizationJoiningDate=DateTime.Now.AddYears(-5),
+                    ServiceJoiningDate=DateTime.Now.AddYears(-5),
+                    AreaID=new Guid("411bfab2-0d44-4fb9-8835-184db90f44fa"),
+                    DesignationID=new Guid("f6b0d655-5afd-44e1-a1d4-5d6bec3a7c81"),
+                    DepartmentID=new Guid("a1da1d8e-1111-4634-b538-a01709472222"),
+                    ShiftID= new Guid("95998825-255A-401F-AAB1-5EF4C2A56285")
+                },
+                 new MstEmployee
+                {
+                    FirstName="First Name3",
+                    LastName="Last Name3",
+                    EmployeeCode="Emp003",
+                    DateOfBirth=DateTime.Now.AddYears(-30),
+                    Gender="Female",
+                    Mobile="12344564644",
+                    Email="Test2@test.com",
+                    ResidencePhone="020-22565784",
+                    Address1="Test Address 3",
+                    OrganizationJoiningDate=DateTime.Now.AddYears(-5),
+                    ServiceJoiningDate=DateTime.Now.AddYears(-5),
+                    AreaID=new Guid("89234f93-6a6a-4960-a7d3-20f98f2760a8"),
+                    DesignationID=new Guid("aff1592e-ba8e-4791-831c-5df49da69054"),
+                    DepartmentID=new Guid("a1da1d8e-1111-4634-b538-a01709473333"),
+                    ShiftID= new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE904CA")
+                },
+            };
+            context.MstEmployee.AddRange(employee);
+            context.SaveChanges();
+        }
     }
 }

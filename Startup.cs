@@ -287,6 +287,14 @@ namespace ESPL.KP
                 cfg.CreateMap<KP.Models.StatusForUpdationDto, ESPL.KP.Entities.MstStatus>();
                 cfg.CreateMap<ESPL.KP.Entities.MstStatus, ESPL.KP.Models.StatusForUpdationDto>();
 
+                 
+                cfg.CreateMap<ESPL.KP.Entities.MstEmployee, ESPL.KP.Models.EmployeeDto>();
+                cfg.CreateMap<ESPL.KP.Models.EmployeeForCreationDto, ESPL.KP.Entities.MstEmployee>();
+                cfg.CreateMap<ESPL.KP.Entities.MstEmployee, ESPL.KP.Models.EmployeeForCreationDto>();
+                cfg.CreateMap<ESPL.KP.Models.EmployeeForUpdationDto, ESPL.KP.Entities.MstEmployee>();
+                cfg.CreateMap<ESPL.KP.Entities.MstEmployee, ESPL.KP.Models.EmployeeForUpdationDto>();
+                
+
 
             });
 
