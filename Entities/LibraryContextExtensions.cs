@@ -166,19 +166,19 @@ namespace ESPL.KP.Entities
             {
                 new AppModule()
                 {
-                    Id = new Guid("76056s54-6517-4353-8937-b16756748abe"),
+                    Id = new Guid("1325360c-8253-473a-a20f-55c269c20407"),
                     Name = "Menu 1",
                     MenuText = "Menu 1"
                 },
                 new AppModule()
                 {
-                    Id = new Guid("76056s54-6517-4353-8910-b16756748abe"),
+                    Id = new Guid("1325360c-8253-473a-a22f-55c269c20407"),
                     Name = "Menu 2",
                     MenuText = "Menu 2"
                 },
                 new AppModule()
                 {
-                    Id = new Guid("76056s54-6517-4353-8910-b16756748abe"),
+                    Id = new Guid("1325360c-8253-473a-a23f-55c269c20407"),
                     Name = "Menu 3",
                     MenuText = "Menu 3"
                 }
