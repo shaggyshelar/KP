@@ -225,23 +225,24 @@ namespace KP.Controllers.Employee
 
             if (employeeFromRepo == null)
             {
-                var employeeAdd = Mapper.Map<MstEmployee>(employee);
-                employeeAdd.EmployeeID = id;
+                // var employeeAdd = Mapper.Map<MstEmployee>(employee);
+                // employeeAdd.EmployeeID = id;
 
-                _libraryRepository.AddEmployee(employeeAdd);
+                // _libraryRepository.AddEmployee(employeeAdd);
 
-                if (!_libraryRepository.Save())
-                {
-                    throw new Exception($"Upserting book {id} for author {id} failed on save.");
-                }
+                // if (!_libraryRepository.Save())
+                // {
+                //     throw new Exception($"Upserting book {id} for author {id} failed on save.");
+                // }
 
-                var employeeReturnVal = Mapper.Map<EmployeeDto>(employeeAdd);
+                // var employeeReturnVal = Mapper.Map<EmployeeDto>(employeeAdd);
 
-                return CreatedAtRoute("GetEmployee",
-                    new { OBID = employeeReturnVal.EmployeeID },
-                    employeeReturnVal);
+                // return CreatedAtRoute("GetEmployee",
+                //     new { OBID = employeeReturnVal.EmployeeID },
+                //     employeeReturnVal);
+                return NotFound();
             }
-
+            SetItemHistoryData(employee, employeeFromRepo);
             Mapper.Map(employee, employeeFromRepo);
             _libraryRepository.UpdateEmployee(employeeFromRepo);
             if (!_libraryRepository.Save())
@@ -267,30 +268,31 @@ namespace KP.Controllers.Employee
 
             if (bookForAuthorFromRepo == null)
             {
-                var bookDto = new EmployeeForUpdationDto();
-                patchDoc.ApplyTo(bookDto, ModelState);
+                // var bookDto = new EmployeeForUpdationDto();
+                // patchDoc.ApplyTo(bookDto, ModelState);
 
-                TryValidateModel(bookDto);
+                // TryValidateModel(bookDto);
 
-                if (!ModelState.IsValid)
-                {
-                    return new UnprocessableEntityObjectResult(ModelState);
-                }
+                // if (!ModelState.IsValid)
+                // {
+                //     return new UnprocessableEntityObjectResult(ModelState);
+                // }
 
-                var bookToAdd = Mapper.Map<MstEmployee>(bookDto);
-                bookToAdd.EmployeeID = id;
+                // var bookToAdd = Mapper.Map<MstEmployee>(bookDto);
+                // bookToAdd.EmployeeID = id;
 
-                _libraryRepository.AddEmployee(bookToAdd);
+                // _libraryRepository.AddEmployee(bookToAdd);
 
-                if (!_libraryRepository.Save())
-                {
-                    throw new Exception($"Upserting in Occurrence Book {id} failed on save.");
-                }
+                // if (!_libraryRepository.Save())
+                // {
+                //     throw new Exception($"Upserting in Occurrence Book {id} failed on save.");
+                // }
 
-                var bookToReturn = Mapper.Map<EmployeeDto>(bookToAdd);
-                return CreatedAtRoute("GetEmployee",
-                    new { id = bookToReturn.EmployeeID },
-                    bookToReturn);
+                // var bookToReturn = Mapper.Map<EmployeeDto>(bookToAdd);
+                // return CreatedAtRoute("GetEmployee",
+                //     new { id = bookToReturn.EmployeeID },
+                //     bookToReturn);
+                return NotFound();
             }
 
             var bookToPatch = Mapper.Map<EmployeeForUpdationDto>(bookForAuthorFromRepo);
@@ -306,6 +308,7 @@ namespace KP.Controllers.Employee
                 return new UnprocessableEntityObjectResult(ModelState);
             }
 
+            SetItemHistoryData(bookToPatch, bookForAuthorFromRepo);
             Mapper.Map(bookToPatch, bookForAuthorFromRepo);
 
             _libraryRepository.UpdateEmployee(bookForAuthorFromRepo);
@@ -433,7 +436,11 @@ namespace KP.Controllers.Employee
             return links;
         }
 
-
+        private void SetItemHistoryData(EmployeeForUpdationDto model, MstEmployee modelRepo)
+        {
+            model.CreatedOn = modelRepo.CreatedOn;
+            model.UpdatedOn = DateTime.Now;
+        }
 
     }
 }
