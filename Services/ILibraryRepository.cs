@@ -125,5 +125,17 @@ namespace ESPL.KP.Services
         bool AppModuleExists(Guid appModuleId);
 
         #endregion AppModule
+
+        #region ESPLUser
+
+        PagedList<ESPLUser> GetESPLUsers(ESPLUsersResourceParameters esplUserResourceParameters);
+        ESPLUser GetESPLUser(Guid esplUserId);
+        IEnumerable<ESPLUser> GetESPLUsers(IEnumerable<Guid> esplUserIds);
+        void AddESPLUser(ESPLUser esplUser);
+        void DeleteESPLUser(ESPLUser esplUser);
+        void UpdateESPLUser(ESPLUser esplUser);
+        bool ESPLUserExists(Guid esplUserId);
+
+        #endregion ESPLUser
     }
 }

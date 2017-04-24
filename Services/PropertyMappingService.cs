@@ -11,6 +11,14 @@ namespace ESPL.KP.Services
 {
     public class PropertyMappingService : IPropertyMappingService
     {
+         private Dictionary<string, PropertyMappingValue> _esplUserPropertyMapping =
+           new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+           {
+               { "Id", new PropertyMappingValue(new List<string>() { "Id" } ) },
+               { "FirstName", new PropertyMappingValue(new List<string>() { "FirstName" } )},
+               { "LastName", new PropertyMappingValue(new List<string>() { "LastName" } )}
+           };
+
         private Dictionary<string, PropertyMappingValue> _authorPropertyMapping =
            new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
            {
@@ -95,6 +103,7 @@ namespace ESPL.KP.Services
 
         public PropertyMappingService()
         {
+            propertyMappings.Add(new PropertyMapping<AuthorDto, Author>(_esplUserPropertyMapping));
             propertyMappings.Add(new PropertyMapping<AuthorDto, Author>(_authorPropertyMapping));
             propertyMappings.Add(new PropertyMapping<DepartmentDto, MstDepartment>(_departmentPropertyMapping));
             propertyMappings.Add(new PropertyMapping<OccurrenceTypeDto, MstOccurrenceType>(_occurrenctTypePropertyMapping));
