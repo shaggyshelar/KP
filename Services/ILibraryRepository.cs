@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using ESPL.KP.Entities.Core;
 using ESPL.KP.Helpers.Core;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ESPL.KP.Services
 {
@@ -50,12 +51,12 @@ namespace ESPL.KP.Services
 
          #region ESPLRole
 
-        PagedList<ESPLRole> GetESPLRoles(ESPLRolesResourceParameters esplRoleResourceParameters);
-        ESPLRole GetESPLRole(Guid esplRoleId);
-        IEnumerable<ESPLRole> GetESPLRoles(IEnumerable<Guid> esplRoleIds);
-        void AddESPLRole(ESPLRole esplRole);
-        void DeleteESPLRole(ESPLRole esplRole);
-        void UpdateESPLRole(ESPLRole esplRole);
+        PagedList<IdentityRole> GetESPLRoles(ESPLRolesResourceParameters esplRoleResourceParameters);
+        IdentityRole GetESPLRole(Guid esplRoleId);
+        IEnumerable<IdentityRole> GetESPLRoles(IEnumerable<Guid> esplRoleIds);
+        void AddESPLRole(IdentityRole esplRole);
+        void DeleteESPLRole(IdentityRole esplRole);
+        void UpdateESPLRole(IdentityRole esplRole);
         bool ESPLRoleExists(Guid esplRoleId);
 
         #endregion ESPLRole

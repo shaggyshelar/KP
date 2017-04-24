@@ -7,6 +7,8 @@ using System.Linq;
 using ESPL.KP.Entities.Core;
 using ESPL.KP.Helpers.Core;
 using ESPL.KP.Models.Core;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace ESPL.KP.Services
 {
@@ -14,12 +16,18 @@ namespace ESPL.KP.Services
     {
         private LibraryContext _context;
         private IPropertyMappingService _propertyMappingService;
+        private RoleManager<IdentityRole> _roleMgr;
+        private UserManager<ESPLUser> _userMgr;
 
         public LibraryRepository(LibraryContext context,
-            IPropertyMappingService propertyMappingService)
+            IPropertyMappingService propertyMappingService,
+            UserManager<ESPLUser> userMgr,
+            RoleManager<IdentityRole> roleMgr)
         {
             _context = context;
             _propertyMappingService = propertyMappingService;
+            _userMgr = userMgr;
+            _roleMgr = roleMgr;
         }
 
         public void AddAuthor(Author author)
@@ -248,32 +256,48 @@ namespace ESPL.KP.Services
 
         #region ESPLRole
 
-        public PagedList<ESPLRole> GetESPLRoles(ESPLRolesResourceParameters esplRoleResourceParameters)
+        public PagedList<IdentityRole> GetESPLRoles(ESPLRolesResourceParameters esplRoleResourceParameters)
+        {
+            var collectionBeforePaging =
+               _roleMgr.Roles.ApplySort(esplRoleResourceParameters.OrderBy,
+                _propertyMappingService.GetPropertyMapping<AppModuleDto, AppModule>());
+
+            if (!string.IsNullOrEmpty(esplRoleResourceParameters.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = esplRoleResourceParameters.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.Name.ToLowerInvariant().Contains(searchQueryForWhereClause));
+            }
+
+            return PagedList<IdentityRole>.Create(collectionBeforePaging,
+                esplRoleResourceParameters.PageNumber,
+                esplRoleResourceParameters.PageSize);
+        }
+
+        public IdentityRole GetESPLRole(Guid esplRoleId)
         {
             throw new NotImplementedException();
         }
 
-        public ESPLRole GetESPLRole(Guid esplRoleId)
+        public IEnumerable<IdentityRole> GetESPLRoles(IEnumerable<Guid> esplRoleIds)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<ESPLRole> GetESPLRoles(IEnumerable<Guid> esplRoleIds)
+        public void AddESPLRole(IdentityRole esplRole)
         {
             throw new NotImplementedException();
         }
 
-        public void AddESPLRole(ESPLRole esplRole)
+        public void DeleteESPLRole(IdentityRole esplRole)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteESPLRole(ESPLRole esplRole)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateESPLRole(ESPLRole esplRole)
+        public void UpdateESPLRole(IdentityRole esplRole)
         {
             // no code in this implementation
         }
