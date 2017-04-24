@@ -12,8 +12,8 @@ using ESPL.KP.Helpers.OccurrenceType;
 using ESPL.KP.Helpers.Shift;
 using ESPL.KP.Helpers.Status;
 using ESPL.KP.Helpers.OccurrenceBook;
-using ESPL.KP.Helpers.OccurrenceBook;
-
+using ESPL.KP.Entities.Core;
+using ESPL.KP.Models.Core;
 
 namespace ESPL.KP.Services
 {
@@ -328,7 +328,7 @@ namespace ESPL.KP.Services
 
         #endregion Designation
 
-                #region OccurrenceType
+        #region OccurrenceType
 
         public PagedList<MstOccurrenceType> GetOccurrenceTypes(OccurrenceTypeResourceParameters occurrenceTypeResourceParameters)
         {
@@ -386,7 +386,7 @@ namespace ESPL.KP.Services
 
         #endregion
 
-                #region Shift
+        #region Shift
 
         public PagedList<MstShift> GetShifts(ShiftsResourceParameters shiftResourceParameters)
         {
@@ -506,7 +506,7 @@ namespace ESPL.KP.Services
 
 
 
- #region OccurrenceBook
+        #region OccurrenceBook
 
         public PagedList<MstOccurrenceBook> GetOccurrenceBooks(OccurrenceBookResourceParameters occurrenceBookResourceParameters)
         {
@@ -562,11 +562,70 @@ namespace ESPL.KP.Services
             // no code in this implementation
         }
 
-public bool OccurrenceBookExists(Guid occurrenceBookId)
+        public bool OccurrenceBookExists(Guid occurrenceBookId)
         {
             return _context.MstOccurrenceBook.Any(a => a.OBID == occurrenceBookId);
         }
 
         #endregion OccurrenceBook
+
+        #region AppModule
+
+        public PagedList<AppModule> GetAppModules(AppModulesResourceParameters appModuleResourceParameters)
+        {
+            var collectionBeforePaging =
+                _context.AppModules.ApplySort(appModuleResourceParameters.OrderBy,
+                _propertyMappingService.GetPropertyMapping<AppModuleDto, AppModule>());
+
+            if (!string.IsNullOrEmpty(appModuleResourceParameters.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = appModuleResourceParameters.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.Name.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.MenuText.ToLowerInvariant().Contains(searchQueryForWhereClause));
+            }
+
+            return PagedList<AppModule>.Create(collectionBeforePaging,
+                appModuleResourceParameters.PageNumber,
+                appModuleResourceParameters.PageSize);
+        }
+
+        public AppModule GetAppModule(Guid appModuleId)
+        {
+            return _context.AppModules.FirstOrDefault(a => a.Id == appModuleId);
+        }
+
+        public IEnumerable<AppModule> GetAppModules(IEnumerable<Guid> appModuleIds)
+        {
+            return _context.AppModules.Where(a => appModuleIds.Contains(a.Id))
+                .OrderBy(a => a.Name)
+                .ToList();
+        }
+
+        public void AddAppModule(AppModule appModule)
+        {
+            appModule.Id = Guid.NewGuid();
+            _context.AppModules.Add(appModule);
+        }
+
+        public void DeleteAppModule(AppModule appModule)
+        {
+            _context.AppModules.Remove(appModule);
+        }
+
+        public void UpdateAppModule(AppModule appModule)
+        {
+            // no code in this implementation
+        }
+
+        public bool AppModuleExists(Guid appModuleId)
+        {
+            return _context.AppModules.Any(a => a.Id == appModuleId);
+        }
+
+        #endregion AppModule
     }
 }

@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ESPL.KP.Entities.Core;
+using ESPL.KP.Models.Core;
 
 namespace ESPL.KP.Services
 {
@@ -25,7 +27,7 @@ namespace ESPL.KP.Services
                { "DepartmentName", new PropertyMappingValue(new List<string>() { "DepartmentName" } )},
                { "DepartmentDespcription", new PropertyMappingValue(new List<string>() { "DepartmentDespcription" } )}
            };
-        
+
         private Dictionary<string, PropertyMappingValue> _areaPropertyMapping =
            new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
            {
@@ -33,7 +35,7 @@ namespace ESPL.KP.Services
                { "AreaName", new PropertyMappingValue(new List<string>() { "AreaName" } )},
                { "AreaCode", new PropertyMappingValue(new List<string>() { "AreaCode" } )}
            };
-        
+
         private Dictionary<string, PropertyMappingValue> _designationPropertyMapping =
            new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
            {
@@ -65,9 +67,9 @@ namespace ESPL.KP.Services
                { "StatusName", new PropertyMappingValue(new List<string>() { "StatusName" } )}
            };
 
-           private Dictionary<string, PropertyMappingValue> _occurrencBookPropertyMapping =
-        new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
-        {
+        private Dictionary<string, PropertyMappingValue> _occurrencBookPropertyMapping =
+     new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+     {
             { "OBID", new PropertyMappingValue(new List<string>() { "OBID" } ) },
             { "AreaID", new PropertyMappingValue(new List<string>() { "AreaID" } ) },
             { "OBTypeID", new PropertyMappingValue(new List<string>() { "OBTypeID" } ) },
@@ -79,7 +81,15 @@ namespace ESPL.KP.Services
             { "CaseFileNumber", new PropertyMappingValue(new List<string>() { "CaseFileNumber" } ) },
             { "NatureOfOccurrence", new PropertyMappingValue(new List<string>() { "NatureOfOccurrence" } ) },
             { "Remark", new PropertyMappingValue(new List<string>() { "Remark" } ) }
-        };
+     };
+
+        private Dictionary<string, PropertyMappingValue> _appModulesPropertyMapping =
+           new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+           {
+               { "Id", new PropertyMappingValue(new List<string>() { "Id" } ) },
+               { "Name", new PropertyMappingValue(new List<string>() { "Genre" } )},
+               { "MenuText", new PropertyMappingValue(new List<string>() { "MenuText" } )}
+           };
 
         private IList<IPropertyMapping> propertyMappings = new List<IPropertyMapping>();
 
@@ -93,6 +103,7 @@ namespace ESPL.KP.Services
             propertyMappings.Add(new PropertyMapping<ShiftDto, MstShift>(_shiftPropertyMapping));
             propertyMappings.Add(new PropertyMapping<StatusDto, MstStatus>(_statusPropertyMapping));
             propertyMappings.Add(new PropertyMapping<OccurrenceBookDto, MstOccurrenceBook>(_occurrencBookPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<AppModuleDto, AppModule>(_appModulesPropertyMapping));
         }
         public Dictionary<string, PropertyMappingValue> GetPropertyMapping
             <TSource, TDestination>()

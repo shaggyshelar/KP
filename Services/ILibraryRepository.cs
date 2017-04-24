@@ -8,9 +8,9 @@ using ESPL.KP.Helpers.Area;
 using ESPL.KP.Helpers.Designation;
 using ESPL.KP.Helpers.OccurrenceType;
 using ESPL.KP.Helpers.OccurrenceBook;
-using ESPL.KP.Helpers.OccurrenceBook;
 using ESPL.KP.Helpers.Shift;
 using ESPL.KP.Helpers.Status;
+using ESPL.KP.Entities.Core;
 
 namespace ESPL.KP.Services
 {
@@ -90,7 +90,7 @@ namespace ESPL.KP.Services
         bool OccurrenceBookExists(Guid occurrenceTypeId);
         #endregion
 
-                #region Shift
+        #region Shift
         PagedList<MstShift> GetShifts(ShiftsResourceParameters shiftResourceParameters);
         MstShift GetShift(Guid shiftId);
         IEnumerable<MstShift> GetShifts(IEnumerable<Guid> shiftIds);
@@ -113,5 +113,17 @@ namespace ESPL.KP.Services
         #endregion 
 
         bool Save();
+
+        #region AppModule
+
+        PagedList<AppModule> GetAppModules(AppModulesResourceParameters appModuleResourceParameters);
+        AppModule GetAppModule(Guid appModuleId);
+        IEnumerable<AppModule> GetAppModules(IEnumerable<Guid> appModuleIds);
+        void AddAppModule(AppModule appModule);
+        void DeleteAppModule(AppModule appModule);
+        void UpdateAppModule(AppModule appModule);
+        bool AppModuleExists(Guid appModuleId);
+
+        #endregion AppModule
     }
 }
