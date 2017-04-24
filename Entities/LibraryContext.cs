@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using ESPL.KP.Entities.Core;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -14,6 +15,8 @@ namespace ESPL.KP.Entities
 
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
+
+        public DbSet<AppModule> AppModules { get; set; }
 
     }
 }

@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ESPL.KP.Models.Core;
+using ESPL.KP.Entities.Core;
 
 namespace ESPL.KP.Services
 {
@@ -18,13 +20,22 @@ namespace ESPL.KP.Services
                { "Name", new PropertyMappingValue(new List<string>() { "FirstName", "LastName" }) }
            };
 
+        private Dictionary<string, PropertyMappingValue> _appModulesPropertyMapping =
+           new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+           {
+               { "Id", new PropertyMappingValue(new List<string>() { "Id" } ) },
+               { "Name", new PropertyMappingValue(new List<string>() { "Genre" } )},
+               { "MenuText", new PropertyMappingValue(new List<string>() { "MenuText" } )}
+           };
+
         private IList<IPropertyMapping> propertyMappings = new List<IPropertyMapping>();
 
         public PropertyMappingService()
         {
             propertyMappings.Add(new PropertyMapping<AuthorDto, Author>(_authorPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<AppModuleDto, AppModule>(_appModulesPropertyMapping));
         }
-        public Dictionary<string, PropertyMappingValue>  GetPropertyMapping
+        public Dictionary<string, PropertyMappingValue> GetPropertyMapping
             <TSource, TDestination>()
         {
             // get matching mapping

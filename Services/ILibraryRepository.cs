@@ -2,6 +2,8 @@
 using ESPL.KP.Helpers;
 using System;
 using System.Collections.Generic;
+using ESPL.KP.Entities.Core;
+using ESPL.KP.Helpers.Core;
 
 namespace ESPL.KP.Services
 {
@@ -20,5 +22,17 @@ namespace ESPL.KP.Services
         void UpdateBookForAuthor(Book book);
         void DeleteBook(Book book);
         bool Save();
+
+        #region AppModule
+
+        PagedList<AppModule> GetAppModules(AppModulesResourceParameters appModuleResourceParameters);
+        AppModule GetAppModule(Guid appModuleId);
+        IEnumerable<AppModule> GetAppModules(IEnumerable<Guid> appModuleIds);
+        void AddAppModule(AppModule appModule);
+        void DeleteAppModule(AppModule appModule);
+        void UpdateAppModule(AppModule appModule);
+        bool AppModuleExists(Guid appModuleId);
+
+        #endregion AppModule
     }
 }

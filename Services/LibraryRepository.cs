@@ -4,6 +4,9 @@ using ESPL.KP.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ESPL.KP.Entities.Core;
+using ESPL.KP.Helpers.Core;
+using ESPL.KP.Models.Core;
 
 namespace ESPL.KP.Services
 {
@@ -12,7 +15,7 @@ namespace ESPL.KP.Services
         private LibraryContext _context;
         private IPropertyMappingService _propertyMappingService;
 
-        public LibraryRepository(LibraryContext context, 
+        public LibraryRepository(LibraryContext context,
             IPropertyMappingService propertyMappingService)
         {
             _context = context;
@@ -103,7 +106,7 @@ namespace ESPL.KP.Services
 
             return PagedList<Author>.Create(collectionBeforePaging,
                 authorsResourceParameters.PageNumber,
-                authorsResourceParameters.PageSize);               
+                authorsResourceParameters.PageSize);
         }
 
         public IEnumerable<Author> GetAuthors(IEnumerable<Guid> authorIds)
@@ -140,5 +143,65 @@ namespace ESPL.KP.Services
         {
             return (_context.SaveChanges() >= 0);
         }
+
+
+        #region AppModule
+
+        public PagedList<AppModule> GetAppModules(AppModulesResourceParameters appModuleResourceParameters)
+        {
+            var collectionBeforePaging =
+                _context.AppModules.ApplySort(appModuleResourceParameters.OrderBy,
+                _propertyMappingService.GetPropertyMapping<AppModuleDto, AppModule>());
+
+            if (!string.IsNullOrEmpty(appModuleResourceParameters.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = appModuleResourceParameters.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.Name.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.MenuText.ToLowerInvariant().Contains(searchQueryForWhereClause));
+            }
+
+            return PagedList<AppModule>.Create(collectionBeforePaging,
+                appModuleResourceParameters.PageNumber,
+                appModuleResourceParameters.PageSize);
+        }
+
+        public AppModule GetAppModule(Guid appModuleId)
+        {
+            return _context.AppModules.FirstOrDefault(a => a.Id == appModuleId);
+        }
+
+        public IEnumerable<AppModule> GetAppModules(IEnumerable<Guid> appModuleIds)
+        {
+            return _context.AppModules.Where(a => appModuleIds.Contains(a.Id))
+                .OrderBy(a => a.Name)
+                .ToList();
+        }
+
+        public void AddAppModule(AppModule appModule)
+        {
+            appModule.Id = Guid.NewGuid();
+            _context.AppModules.Add(appModule);
+        }
+
+        public void DeleteAppModule(AppModule appModule)
+        {
+            _context.AppModules.Remove(appModule);
+        }
+
+        public void UpdateAppModule(AppModule appModule)
+        {
+            // no code in this implementation
+        }
+
+        public bool AppModuleExists(Guid appModuleId)
+        {
+            return _context.AppModules.Any(a => a.Id == appModuleId);
+        }
+
+        #endregion AppModule
     }
 }

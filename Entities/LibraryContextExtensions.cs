@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ESPL.KP.Entities.Core;
 
 namespace ESPL.KP.Entities
 {
@@ -151,6 +152,39 @@ namespace ESPL.KP.Entities
             };
 
             context.Authors.AddRange(authors);
+            context.SaveChanges();
+
+            UpdateAppModules(context);
+        }
+
+        public static void UpdateAppModules(this LibraryContext context)
+        {
+            context.AppModules.RemoveRange(context.AppModules);
+            context.SaveChanges();
+
+            var appModules = new List<AppModule>()
+            {
+                new AppModule()
+                {
+                    Id = new Guid("76056s54-6517-4353-8937-b16756748abe"),
+                    Name = "Menu 1",
+                    MenuText = "Menu 1"
+                },
+                new AppModule()
+                {
+                    Id = new Guid("76056s54-6517-4353-8910-b16756748abe"),
+                    Name = "Menu 2",
+                    MenuText = "Menu 2"
+                },
+                new AppModule()
+                {
+                    Id = new Guid("76056s54-6517-4353-8910-b16756748abe"),
+                    Name = "Menu 3",
+                    MenuText = "Menu 3"
+                }
+            };
+
+            context.AppModules.AddRange(appModules);
             context.SaveChanges();
         }
     }
