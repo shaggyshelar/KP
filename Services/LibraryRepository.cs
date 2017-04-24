@@ -208,41 +208,81 @@ namespace ESPL.KP.Services
 
         #region ESPLUser
 
-        public PagedList<ESPLUser> GetESPLUsers(ESPLUsersResourceParameters appModuleResourceParameters)
+        public PagedList<ESPLUser> GetESPLUsers(ESPLUsersResourceParameters esplUserResourceParameters)
         {
             throw new NotImplementedException();
         }
 
-        public ESPLUser GetESPLUser(Guid appModuleId)
+        public ESPLUser GetESPLUser(Guid esplUserId)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<ESPLUser> GetESPLUsers(IEnumerable<Guid> appModuleIds)
+        public IEnumerable<ESPLUser> GetESPLUsers(IEnumerable<Guid> esplUserIds)
         {
             throw new NotImplementedException();
         }
 
-        public void AddESPLUser(ESPLUser appModule)
+        public void AddESPLUser(ESPLUser esplUser)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteESPLUser(ESPLUser appModule)
+        public void DeleteESPLUser(ESPLUser esplUser)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateESPLUser(ESPLUser appModule)
+        public void UpdateESPLUser(ESPLUser esplUser)
         {
             // no code in this implementation
         }
 
-        public bool ESPLUserExists(Guid appModuleId)
+        public bool ESPLUserExists(Guid esplUserId)
         {
             throw new NotImplementedException();
         }
 
         #endregion ESPLUser
+
+
+        #region ESPLRole
+
+        public PagedList<ESPLRole> GetESPLRoles(ESPLRolesResourceParameters esplRoleResourceParameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ESPLRole GetESPLRole(Guid esplRoleId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ESPLRole> GetESPLRoles(IEnumerable<Guid> esplRoleIds)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddESPLRole(ESPLRole esplRole)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteESPLRole(ESPLRole esplRole)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateESPLRole(ESPLRole esplRole)
+        {
+            // no code in this implementation
+        }
+
+        public bool ESPLRoleExists(Guid esplRoleId)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion ESPLRole
     }
 }
