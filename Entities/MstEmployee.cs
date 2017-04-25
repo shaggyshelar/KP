@@ -77,8 +77,8 @@ namespace ESPL.KP.Entities
 
          public ICollection<CfgEmployeeDepartment> CfgEmployeeDepartments { get; set; } 
             = new List<CfgEmployeeDepartment> ();
-        public virtual ICollection<OccurrenceAssignment> OccurrenceAssignments { get; set; } 
-            = new List<OccurrenceAssignment> ();
+        public virtual ICollection<OccurrenceAssignmentHistory> OccurrenceAssignments { get; set; } 
+            = new List<OccurrenceAssignmentHistory> ();
          public ICollection<CfgEmployeeShift> CfgEmployeeShift { get; set; } 
             = new List<CfgEmployeeShift> ();
         public ICollection<CfgEmployeeArea> CfgEmployeeArea { get; set; } 

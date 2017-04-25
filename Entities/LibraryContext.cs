@@ -42,7 +42,7 @@ namespace ESPL.KP.Entities
 
         public DbSet<MstShift> MstShift { get; set; }
 
-        public DbSet<OccurrenceAssignment> OccurrenceAssignment { get; set; }
+        public DbSet<OccurrenceAssignmentHistory> OccurrenceAssignmentHistory { get; set; }
 
         public DbSet<OccurrenceReviewHistory> OccurrenceReviewHistory { get; set; }
 

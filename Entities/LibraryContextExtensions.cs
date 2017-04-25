@@ -194,12 +194,13 @@ namespace ESPL.KP.Entities
             UpdateOccurrenceType(context);
             UpdateShifts(context);
             UpdateStatus(context);
+            UpdateEmployee(context);
             UpdateOccurrenceBooks(context);
             UpdateAppModules(context);
-            UpdateEmployee(context);
+            
         }
 
-       
+
 
         private static void UpdateDesignation(LibraryContext context)
         {
@@ -574,6 +575,8 @@ namespace ESPL.KP.Entities
                     CaseFileNumber= "4",
                     NatureOfOccurrence= "Nature 4",
                     Remark= "Test Remark 4",
+                    AssignedTO=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef3333"),
+                    AssignedComments="Test Assign to officer"
                   }
 
             };
@@ -612,7 +615,7 @@ namespace ESPL.KP.Entities
             context.AppModules.AddRange(appModules);
             context.SaveChanges();
         }
-         private static void UpdateEmployee(LibraryContext context)
+        private static void UpdateEmployee(LibraryContext context)
         {
             context.MstEmployee.RemoveRange(context.MstEmployee);
             context.SaveChanges();
@@ -620,6 +623,7 @@ namespace ESPL.KP.Entities
             {
                 new MstEmployee
                 {
+                    EmployeeID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111"),
                     FirstName="First Name1",
                     LastName="Last Name1",
                     EmployeeCode="Emp001",
@@ -638,6 +642,7 @@ namespace ESPL.KP.Entities
                 },
                  new MstEmployee
                 {
+                    EmployeeID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222"),
                     FirstName="First Name1",
                     LastName="Last Name1",
                     EmployeeCode="Emp001",
@@ -656,6 +661,7 @@ namespace ESPL.KP.Entities
                 },
                  new MstEmployee
                 {
+                    EmployeeID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef3333"),
                     FirstName="First Name3",
                     LastName="Last Name3",
                     EmployeeCode="Emp003",
