@@ -218,27 +218,48 @@ namespace ESPL.KP.Services
 
         public PagedList<ESPLUser> GetESPLUsers(ESPLUsersResourceParameters esplUserResourceParameters)
         {
-            throw new NotImplementedException();
+            var collectionBeforePaging =
+               _userMgr.Users.ApplySort(esplUserResourceParameters.OrderBy,
+                _propertyMappingService.GetPropertyMapping<ESPLUserDto, ESPLUser>());
+
+            if (!string.IsNullOrEmpty(esplUserResourceParameters.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = esplUserResourceParameters.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.FirstName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.LastName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.Email.ToLowerInvariant().Contains(searchQueryForWhereClause));
+            }
+
+            return PagedList<ESPLUser>.Create(collectionBeforePaging,
+                esplUserResourceParameters.PageNumber,
+                esplUserResourceParameters.PageSize);
         }
 
         public ESPLUser GetESPLUser(Guid esplUserId)
         {
-            throw new NotImplementedException();
+            return _userMgr.Users.FirstOrDefault(a => a.Id == esplUserId.ToString());
         }
 
         public IEnumerable<ESPLUser> GetESPLUsers(IEnumerable<Guid> esplUserIds)
         {
-            throw new NotImplementedException();
+            return _userMgr.Users.Where(a => esplUserIds.Contains(new Guid(a.Id)))
+                .OrderBy(a => a.FirstName)
+                .OrderBy(a => a.LastName)
+                .ToList();
         }
 
         public void AddESPLUser(ESPLUser esplUser)
         {
-            throw new NotImplementedException();
+            _userMgr.CreateAsync(esplUser);
         }
 
-        public void DeleteESPLUser(ESPLUser esplUser)
+        public async void DeleteESPLUser(ESPLUser esplUser)
         {
-            throw new NotImplementedException();
+            await _userMgr.DeleteAsync(esplUser);
         }
 
         public void UpdateESPLUser(ESPLUser esplUser)
@@ -248,7 +269,7 @@ namespace ESPL.KP.Services
 
         public bool ESPLUserExists(Guid esplUserId)
         {
-            throw new NotImplementedException();
+            return _userMgr.Users.Any(a => a.Id == esplUserId.ToString());
         }
 
         #endregion ESPLUser
@@ -294,9 +315,9 @@ namespace ESPL.KP.Services
             _roleMgr.CreateAsync(esplRole);
         }
 
-        public void DeleteESPLRole(IdentityRole esplRole)
+        public async void DeleteESPLRole(IdentityRole esplRole)
         {
-            _roleMgr.DeleteAsync(esplRole);
+            await _roleMgr.DeleteAsync(esplRole);
         }
 
         public void UpdateESPLRole(IdentityRole esplRole)
