@@ -1,0 +1,340 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Administrator",
+		"_postman_id": "526244a9-f12c-25c3-5e71-cfa13bbc6e3a",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AppModules",
+			"description": "",
+			"item": [
+				{
+					"name": "Add New AppModule",
+					"request": {
+						"url": "http://localhost:6058/api/appmodules",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Test Menu\",\n\t\"menuText\": \"Test Menu\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET AppModules",
+					"request": {
+						"url": "http://localhost:6058/api/appmodules",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single AppModule",
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a20f-55c269c20407",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "Get AppModule By ID"
+					},
+					"response": []
+				},
+				{
+					"name": "GET AppModule (pageNumber = 1, pageSize = 5)",
+					"request": {
+						"url": "http://localhost:6058/api/appmodules?pageNumber=1&pageSize=5",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET AppModule (orderBy = name desc)",
+					"request": {
+						"url": "http://localhost:6058/api/appmodules?orderBy=name desc",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET AppModule (fields = name)",
+					"request": {
+						"url": "http://localhost:6058/api/appmodules?fields=name",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE AppModule",
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a20f-55c269c20407",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Roles",
+			"description": "",
+			"item": [
+				{
+					"name": "Add New Role",
+					"request": {
+						"url": "http://localhost:6058/api/roles",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"TestRole\"\n}"
+						},
+						"description": "Create Role"
+					},
+					"response": []
+				},
+				{
+					"name": "GET Roles",
+					"request": {
+						"url": "http://localhost:6058/api/roles",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Role",
+					"request": {
+						"url": "http://localhost:6058/api/roles/db618b6c-6f5b-4674-9b8a-ab0681298d7b",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "Get Role By ID"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Role",
+					"request": {
+						"url": "http://localhost:6058/api/roles/a03069bd-9e0b-465b-a539-93703ac94af3",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET Roles (pageNumber = 1, pageSize = 5)",
+					"request": {
+						"url": "http://localhost:6058/api/roles?pageNumber=1&pageSize=5",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"description": "",
+			"item": [
+				{
+					"name": "Add New User",
+					"request": {
+						"url": "http://localhost:6058/api/identityusers",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.marvin.author.full+json",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\" : \"First\",\n\t\"lastName\" : \"Last\",\n\t\"email\" : \"first.last@eternussolutions.com\",\n\t\"userName\" : \"firstlast\"\n}"
+						},
+						"description": "Create User"
+					},
+					"response": []
+				},
+				{
+					"name": "GET Users",
+					"request": {
+						"url": "http://localhost:6058/api/identityusers",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single User",
+					"request": {
+						"url": "http://localhost:6058/api/identityusers/c0ce6cad-828b-429d-a5e7-caa9b0a92395",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "Get User By ID"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE User",
+					"request": {
+						"url": "http://localhost:6058/api/identityusers/a1da1d8e-1111-4634-b538-a01709474444",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET Users (pageNumber = 1, pageSize = 5)",
+					"request": {
+						"url": "http://localhost:6058/api/identityusers?pageNumber=1&pageSize=5",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET Users (orderBy = lastName desc)",
+					"request": {
+						"url": "http://localhost:6058/api/identityusers?orderBy=lastName desc",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET Users (fields = lastName)",
+					"request": {
+						"url": "http://localhost:6058/api/identityusers?fields=lastName",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

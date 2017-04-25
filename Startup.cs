@@ -242,6 +242,8 @@ namespace ESPL.KP
                 cfg.CreateMap<ESPL.KP.Models.BookForCreationDto, ESPL.KP.Entities.Book>();
                 cfg.CreateMap<ESPL.KP.Models.BookForUpdateDto, ESPL.KP.Entities.Book>();
                 cfg.CreateMap<ESPL.KP.Entities.Book, ESPL.KP.Models.BookForUpdateDto>();
+                cfg.CreateMap<ESPL.KP.Entities.Core.AppModule, ESPL.KP.Models.Core.AppModuleDto>();
+                cfg.CreateMap<ESPL.KP.Models.Core.AppModuleForCreationDto, ESPL.KP.Entities.Core.AppModule>();
                 cfg.CreateMap<ESPL.KP.Entities.ESPLUser, ESPL.KP.Models.Core.ESPLUserDto>();
                 cfg.CreateMap<ESPL.KP.Models.Core.ESPLUserForCreationDto, ESPL.KP.Entities.ESPLUser>();
                 cfg.CreateMap<IdentityRole, ESPL.KP.Models.Core.ESPLRoleDto>();
