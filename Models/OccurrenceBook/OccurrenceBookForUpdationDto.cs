@@ -5,7 +5,6 @@ namespace ESPL.KP.Models
 {
     public class OccurrenceBookForUpdationDto: BaseDto
     {
-
         public Guid AreaID { get; set; }
 
         public Guid OBTypeID { get; set; }

@@ -8,7 +8,6 @@ namespace ESPL.KP.Models
         public DesignationForUpdationDto()
         {
         }
-        public Guid DesignationID { get; set; }
         public string DesignationName { get; set; }
         public string DesignationCode { get; set; }
     }
