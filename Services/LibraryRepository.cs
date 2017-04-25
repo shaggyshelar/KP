@@ -704,22 +704,24 @@ namespace ESPL.KP.Services
 
         public IdentityRole GetESPLRole(Guid esplRoleId)
         {
-            throw new NotImplementedException();
+            return _roleMgr.Roles.FirstOrDefault(a => a.Id == esplRoleId.ToString());
         }
 
         public IEnumerable<IdentityRole> GetESPLRoles(IEnumerable<Guid> esplRoleIds)
         {
-            throw new NotImplementedException();
+            return _roleMgr.Roles.Where(a => esplRoleIds.Contains(new Guid(a.Id)))
+                .OrderBy(a => a.Name)
+                .ToList();
         }
 
         public void AddESPLRole(IdentityRole esplRole)
         {
-            throw new NotImplementedException();
+            _roleMgr.CreateAsync(esplRole);
         }
 
         public void DeleteESPLRole(IdentityRole esplRole)
         {
-            throw new NotImplementedException();
+            _roleMgr.DeleteAsync(esplRole);
         }
 
         public void UpdateESPLRole(IdentityRole esplRole)
@@ -729,7 +731,7 @@ namespace ESPL.KP.Services
 
         public bool ESPLRoleExists(Guid esplRoleId)
         {
-            throw new NotImplementedException();
+            return _roleMgr.Roles.Any(a => a.Id == esplRoleId.ToString());
         }
 
         #endregion ESPLRole
