@@ -186,8 +186,6 @@ namespace ESPL.KP.Controllers.Core
         }
 
         [HttpPost(Name = "CreateESPLRole")]
-        [RequestHeaderMatchesMediaType("Content-Type",
-            new[] { "application/vnd.marvin.esplRole.full+json" })]
         public IActionResult CreateESPLRole([FromBody] ESPLRoleForCreationDto esplRole)
         {
             if (esplRole == null)
