@@ -11,6 +11,8 @@ using ESPL.KP.Entities;
 using Microsoft.AspNetCore.Http;
 using ESPL.KP.Models.Core;
 using ESPL.KP.Helpers.Core;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ESPL.KP.Controllers.Core
 {
@@ -21,16 +23,23 @@ namespace ESPL.KP.Controllers.Core
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
+        private RoleManager<IdentityRole> _roleMgr;
+        private UserManager<ESPLUser> _userMgr;
+
 
         public IdentityUserController(ILibraryRepository libraryRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
-            ITypeHelperService typeHelperService)
+            ITypeHelperService typeHelperService,
+            UserManager<ESPLUser> userMgr,
+            RoleManager<IdentityRole> roleMgr)
         {
             _libraryRepository = libraryRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
+            _userMgr = userMgr;
+            _roleMgr = roleMgr;
         }
 
         [HttpGet(Name = "GetESPLUsers")]
@@ -321,6 +330,41 @@ namespace ESPL.KP.Controllers.Core
         public IActionResult GetESPLUsersOptions()
         {
             Response.Headers.Add("Allow", "GET,OPTIONS,POST");
+            return Ok();
+        }
+
+
+        [Route("{userId}/roles")]
+        [HttpPost(Name = "AddUserToRole")]
+        public async Task<IActionResult> AddUserToRole(Guid userId,
+            [FromBody] AddUserToRoleDto user)
+        {
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            var userFromDB = _libraryRepository.GetESPLUser(userId);
+            if (userFromDB == null)
+            {
+                return NotFound("User Not Found");
+            }
+
+
+            var roleFromDB = _libraryRepository.GetESPLRole(user.RoleId);
+            if (roleFromDB == null)
+            {
+                return NotFound("Role Not Found");
+            }
+
+
+            await _userMgr.AddToRoleAsync(userFromDB, roleFromDB.Name);
+
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception($"Creating a book for author {userId} failed on save.");
+            }
+
             return Ok();
         }
     }
