@@ -11,8 +11,6 @@ namespace ESPL.KP.Models
             this.UpdatedOn = DateTime.Now;
         }
 
-        public Guid EmployeeID { get; set; }
-
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

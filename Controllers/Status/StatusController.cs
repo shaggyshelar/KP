@@ -249,7 +249,7 @@ namespace ESPL.KP.Controllers.Status
         }
 
         [HttpPut("{id}", Name = "UpdateStatus")]
-        public IActionResult UpdateStatus(Guid id, [FromBody] StatusForCreationDto status)
+        public IActionResult UpdateStatus(Guid id, [FromBody] StatusForUpdationDto status)
         {
             if (status == null)
             {
@@ -264,23 +264,24 @@ namespace ESPL.KP.Controllers.Status
 
             if (statusRepo == null)
             {
-                var statusAdd = Mapper.Map<MstStatus>(status);
-                statusAdd.StatusID = id;
+                // var statusAdd = Mapper.Map<MstStatus>(status);
+                // statusAdd.StatusID = id;
 
-                _libraryRepository.AddStatus(statusAdd);
+                // _libraryRepository.AddStatus(statusAdd);
 
-                if (!_libraryRepository.Save())
-                {
-                    throw new Exception($"Upserting status {id} failed on save.");
-                }
+                // if (!_libraryRepository.Save())
+                // {
+                //     throw new Exception($"Upserting status {id} failed on save.");
+                // }
 
-                var statusReturnVal = Mapper.Map<StatusDto>(statusAdd);
+                // var statusReturnVal = Mapper.Map<StatusDto>(statusAdd);
 
-                return CreatedAtRoute("GetStatus",
-                    new { StatusID = statusReturnVal.StatusID },
-                    statusReturnVal);
+                // return CreatedAtRoute("GetStatus",
+                //     new { StatusID = statusReturnVal.StatusID },
+                //     statusReturnVal);
+                return NotFound();
             }
-
+            SetItemHistoryData(status, statusRepo);
             Mapper.Map(status, statusRepo);
             _libraryRepository.UpdateStatus(statusRepo);
             if (!_libraryRepository.Save())
@@ -295,7 +296,7 @@ namespace ESPL.KP.Controllers.Status
 
         [HttpPatch("{id}", Name = "PartiallyUpdateStatus")]
         public IActionResult PartiallyUpdateStatus(Guid id,
-                    [FromBody] JsonPatchDocument<StatusForCreationDto> patchDoc)
+                    [FromBody] JsonPatchDocument<StatusForUpdationDto> patchDoc)
         {
             if (patchDoc == null)
             {
@@ -306,33 +307,34 @@ namespace ESPL.KP.Controllers.Status
 
             if (statusFromRepo == null)
             {
-                var statusDto = new StatusForCreationDto();
-                patchDoc.ApplyTo(statusDto, ModelState);
+                // var statusDto = new StatusForCreationDto();
+                // patchDoc.ApplyTo(statusDto, ModelState);
 
-                TryValidateModel(statusDto);
+                // TryValidateModel(statusDto);
 
-                if (!ModelState.IsValid)
-                {
-                    return new UnprocessableEntityObjectResult(ModelState);
-                }
+                // if (!ModelState.IsValid)
+                // {
+                //     return new UnprocessableEntityObjectResult(ModelState);
+                // }
 
-                var statusToAdd = Mapper.Map<MstStatus>(statusDto);
-                statusToAdd.StatusID = id;
+                // var statusToAdd = Mapper.Map<MstStatus>(statusDto);
+                // statusToAdd.StatusID = id;
 
-                _libraryRepository.AddStatus(statusToAdd);
+                // _libraryRepository.AddStatus(statusToAdd);
 
-                if (!_libraryRepository.Save())
-                {
-                    throw new Exception($"Upserting in status {id} failed on save.");
-                }
+                // if (!_libraryRepository.Save())
+                // {
+                //     throw new Exception($"Upserting in status {id} failed on save.");
+                // }
 
-                var statusToReturn = Mapper.Map<StatusDto>(statusToAdd);
-                return CreatedAtRoute("GetStatus",
-                    new { StatusID = statusToReturn.StatusID },
-                    statusToReturn);
+                // var statusToReturn = Mapper.Map<StatusDto>(statusToAdd);
+                // return CreatedAtRoute("GetStatus",
+                //     new { StatusID = statusToReturn.StatusID },
+                //     statusToReturn);
+                return NotFound();
             }
 
-            var statusToPatch = Mapper.Map<StatusForCreationDto>(statusFromRepo);
+            var statusToPatch = Mapper.Map<StatusForUpdationDto>(statusFromRepo);
 
             patchDoc.ApplyTo(statusToPatch, ModelState);
 
@@ -344,7 +346,7 @@ namespace ESPL.KP.Controllers.Status
             {
                 return new UnprocessableEntityObjectResult(ModelState);
             }
-
+            SetItemHistoryData(statusToPatch, statusFromRepo);
             Mapper.Map(statusToPatch, statusFromRepo);
 
             _libraryRepository.UpdateStatus(statusFromRepo);
@@ -430,6 +432,12 @@ namespace ESPL.KP.Controllers.Status
         {
             Response.Headers.Add("Allow", "GET,OPTIONS,POST");
             return Ok();
+        }
+
+        private void SetItemHistoryData(StatusForUpdationDto model, MstStatus modelRepo)
+        {
+            model.CreatedOn = modelRepo.CreatedOn;
+            model.UpdatedOn = DateTime.Now;
         }
     }
 }

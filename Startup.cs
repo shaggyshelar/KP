@@ -249,19 +249,26 @@ namespace ESPL.KP
                 cfg.CreateMap<ESPL.KP.Entities.MstDepartment, ESPL.KP.Models.DepartmentDto>();
                 cfg.CreateMap<ESPL.KP.Models.DepartmentForCreationDto, ESPL.KP.Entities.MstDepartment>();
                 cfg.CreateMap<MstDepartment, DepartmentForCreationDto>();
+                cfg.CreateMap<KP.Models.DepartmentForUpdationDto, ESPL.KP.Entities.MstDepartment>();
+                cfg.CreateMap<ESPL.KP.Entities.MstDepartment, ESPL.KP.Models.DepartmentForUpdationDto>();
 
                 cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceType, ESPL.KP.Models.OccurrenceTypeDto>();
                 cfg.CreateMap<ESPL.KP.Models.OccurrenceTypeForCreationDto, ESPL.KP.Entities.MstOccurrenceType>();
                 cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceType, ESPL.KP.Models.OccurrenceTypeForCreationDto>();
-
+                cfg.CreateMap<KP.Models.OccurrenceBookForUpdationDto, ESPL.KP.Entities.MstOccurrenceType>();
+                cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceType, ESPL.KP.Models.OccurrenceBookForUpdationDto>();
 
                 cfg.CreateMap<ESPL.KP.Entities.MstArea, ESPL.KP.Models.AreaDto>();
                 cfg.CreateMap<ESPL.KP.Models.AreaForCreationDto, ESPL.KP.Entities.MstArea>();
                 cfg.CreateMap<ESPL.KP.Entities.MstArea, ESPL.KP.Models.AreaForCreationDto>();
+                cfg.CreateMap<KP.Models.AreaForUpdationDto, ESPL.KP.Entities.MstArea>();
+                cfg.CreateMap<ESPL.KP.Entities.MstArea, ESPL.KP.Models.AreaForUpdationDto>();
 
                 cfg.CreateMap<ESPL.KP.Entities.MstDesignation, ESPL.KP.Models.DesignationDto>();
                 cfg.CreateMap<ESPL.KP.Models.DesignationForCreationDto, ESPL.KP.Entities.MstDesignation>();
                 cfg.CreateMap<ESPL.KP.Entities.MstDesignation, ESPL.KP.Models.DesignationForCreationDto>();
+                cfg.CreateMap<KP.Models.DesignationForUpdationDto, ESPL.KP.Entities.MstDesignation>();
+                cfg.CreateMap<ESPL.KP.Entities.MstDesignation, ESPL.KP.Models.DesignationForUpdationDto>();
 
                 cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceBook, ESPL.KP.Models.OccurrenceBookDto>();
                 cfg.CreateMap<ESPL.KP.Models.OccurrenceBookForCreationDto, ESPL.KP.Entities.MstOccurrenceBook>();
@@ -272,10 +279,14 @@ namespace ESPL.KP
                 cfg.CreateMap<ESPL.KP.Entities.MstShift, ESPL.KP.Models.ShiftDto>();
                 cfg.CreateMap<ESPL.KP.Models.ShiftForCreationDto, ESPL.KP.Entities.MstShift>();
                 cfg.CreateMap<ESPL.KP.Entities.MstShift, ESPL.KP.Models.ShiftForCreationDto>();
+                cfg.CreateMap<KP.Models.ShiftForUpdationDto, ESPL.KP.Entities.MstShift>();
+                cfg.CreateMap<ESPL.KP.Entities.MstShift, ESPL.KP.Models.ShiftForUpdationDto>();
 
                 cfg.CreateMap<ESPL.KP.Entities.MstStatus, ESPL.KP.Models.StatusDto>();
                 cfg.CreateMap<ESPL.KP.Models.StatusForCreationDto, ESPL.KP.Entities.MstStatus>();
                 cfg.CreateMap<ESPL.KP.Entities.MstStatus, ESPL.KP.Models.StatusForCreationDto>();
+                cfg.CreateMap<KP.Models.StatusForUpdationDto, ESPL.KP.Entities.MstStatus>();
+                cfg.CreateMap<ESPL.KP.Entities.MstStatus, ESPL.KP.Models.StatusForUpdationDto>();
 
                  
                 cfg.CreateMap<ESPL.KP.Entities.MstEmployee, ESPL.KP.Models.EmployeeDto>();

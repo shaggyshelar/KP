@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ESPL.KP.Entities {
-    public class OccurrenceAssignment : BaseEntity {
+    public class OccurrenceAssignmentHistory : BaseEntity {
         [Key]
         public Guid OBAssignmentID { get; set; }
 
@@ -16,7 +16,7 @@ namespace ESPL.KP.Entities {
         public MstEmployee MstEmployee { get; set; }
         public Guid AssignedTO { get; set; }
 
-        [MaxLength (500)]
-        public string Comments { get; set; }
+        //[MaxLength (500)]
+        // public string Comments { get; set; }
     }
 }
