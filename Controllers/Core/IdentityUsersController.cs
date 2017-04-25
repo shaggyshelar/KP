@@ -187,8 +187,6 @@ namespace ESPL.KP.Controllers.Core
         }
 
         [HttpPost(Name = "CreateESPLUser")]
-        [RequestHeaderMatchesMediaType("Content-Type",
-            new[] { "application/vnd.marvin.esplUser.full+json" })]
         public IActionResult CreateESPLUser([FromBody] ESPLUserForCreationDto esplUser)
         {
             if (esplUser == null)
