@@ -188,8 +188,6 @@ namespace ESPL.KP.Controllers.Core
         }
 
         [HttpPost(Name = "CreateAppModule")]
-        [RequestHeaderMatchesMediaType("Content-Type",
-            new[] { "application/vnd.marvin.appModule.full+json" })]
         public IActionResult CreateAppModule([FromBody] AppModuleForCreationDto appModule)
         {
             if (appModule == null)
