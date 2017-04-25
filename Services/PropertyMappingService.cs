@@ -134,7 +134,7 @@ namespace ESPL.KP.Services
 
         public PropertyMappingService()
         {
-            propertyMappings.Add(new PropertyMapping<AuthorDto, Author>(_esplUserPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<ESPLUserDto, ESPLUser>(_esplUserPropertyMapping));
             propertyMappings.Add(new PropertyMapping<AuthorDto, Author>(_authorPropertyMapping));
             propertyMappings.Add(new PropertyMapping<DepartmentDto, MstDepartment>(_departmentPropertyMapping));
             propertyMappings.Add(new PropertyMapping<OccurrenceTypeDto, MstOccurrenceType>(_occurrenctTypePropertyMapping));
