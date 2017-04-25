@@ -53,13 +53,16 @@ namespace ESPL.KP.Controllers.Core
             var esplUsersFromRepo = _libraryRepository.GetESPLUsers(esplUsersResourceParameters);
 
             var esplUsers = new List<ESPLUserDto>();
-            esplUsersFromRepo.ForEach(esplRole =>
+            esplUsersFromRepo.ForEach(esplUser =>
             {
                 esplUsers.Add(
                 new ESPLUserDto()
                 {
-                    Id = new Guid(esplRole.Id),
-                    FirstName = esplRole.FirstName
+                    Id = new Guid(esplUser.Id),
+                    FirstName = esplUser.FirstName,
+                    LastName = esplUser.LastName,
+                    Email = esplUser.Email,
+                    UserName = esplUser.UserName
                 });
             });
 

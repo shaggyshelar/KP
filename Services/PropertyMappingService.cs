@@ -17,7 +17,9 @@ namespace ESPL.KP.Services
           {
                { "Id", new PropertyMappingValue(new List<string>() { "Id" } ) },
                { "FirstName", new PropertyMappingValue(new List<string>() { "FirstName" } )},
-               { "LastName", new PropertyMappingValue(new List<string>() { "LastName" } )}
+               { "LastName", new PropertyMappingValue(new List<string>() { "LastName" } )},
+               { "Email", new PropertyMappingValue(new List<string>() { "Email" } )},
+               { "UserName", new PropertyMappingValue(new List<string>() { "UserName" } )}
           };
 
         private Dictionary<string, PropertyMappingValue> _authorPropertyMapping =

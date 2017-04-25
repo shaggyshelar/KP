@@ -243,6 +243,7 @@ namespace ESPL.KP
                 cfg.CreateMap<ESPL.KP.Models.BookForUpdateDto, ESPL.KP.Entities.Book>();
                 cfg.CreateMap<ESPL.KP.Entities.Book, ESPL.KP.Models.BookForUpdateDto>();
                 cfg.CreateMap<ESPL.KP.Entities.ESPLUser, ESPL.KP.Models.Core.ESPLUserDto>();
+                cfg.CreateMap<IdentityRole, ESPL.KP.Models.Core.ESPLRoleDto>();
             });
 
             libraryContext.EnsureSeedDataForContext();
