@@ -52,7 +52,16 @@ namespace ESPL.KP.Controllers.Core
 
             var esplUsersFromRepo = _libraryRepository.GetESPLUsers(esplUsersResourceParameters);
 
-            var esplUsers = Mapper.Map<IEnumerable<ESPLUserDto>>(esplUsersFromRepo);
+            var esplUsers = new List<ESPLUserDto>();
+            esplUsersFromRepo.ForEach(esplRole =>
+            {
+                esplUsers.Add(
+                new ESPLUserDto()
+                {
+                    Id = new Guid(esplRole.Id),
+                    FirstName = esplRole.FirstName
+                });
+            });
 
             if (mediaType == "application/vnd.marvin.hateoas+json")
             {
@@ -71,21 +80,9 @@ namespace ESPL.KP.Controllers.Core
                     esplUsersFromRepo.HasNext, esplUsersFromRepo.HasPrevious);
 
                 var shapedESPLUsers = esplUsers.ShapeData(esplUsersResourceParameters.Fields);
-
-                var shapedESPLUsersWithLinks = shapedESPLUsers.Select(esplUser =>
-                {
-                    var esplUserAsDictionary = esplUser as IDictionary<string, object>;
-                    var esplUserLinks = CreateLinksForESPLUser(
-                        (Guid)esplUserAsDictionary["Id"], esplUsersResourceParameters.Fields);
-
-                    esplUserAsDictionary.Add("links", esplUserLinks);
-
-                    return esplUserAsDictionary;
-                });
-
                 var linkedCollectionResource = new
                 {
-                    value = shapedESPLUsersWithLinks,
+                    value = shapedESPLUsers,
                     links = links
                 };
 
@@ -114,7 +111,7 @@ namespace ESPL.KP.Controllers.Core
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
 
-                return Ok(esplUsers.ShapeData(esplUsersResourceParameters.Fields));
+                return Ok(esplUsers);
             }
         }
 

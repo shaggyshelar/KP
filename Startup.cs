@@ -236,18 +236,13 @@ namespace ESPL.KP
                     $"{src.FirstName} {src.LastName}"))
                     .ForMember(dest => dest.Age, opt => opt.MapFrom(src =>
                     src.DateOfBirth.GetCurrentAge(src.DateOfDeath)));
-
                 cfg.CreateMap<ESPL.KP.Entities.Book, ESPL.KP.Models.BookDto>();
-
                 cfg.CreateMap<ESPL.KP.Models.AuthorForCreationDto, ESPL.KP.Entities.Author>();
-
                 cfg.CreateMap<ESPL.KP.Models.AuthorForCreationWithDateOfDeathDto, ESPL.KP.Entities.Author>();
-
                 cfg.CreateMap<ESPL.KP.Models.BookForCreationDto, ESPL.KP.Entities.Book>();
-
                 cfg.CreateMap<ESPL.KP.Models.BookForUpdateDto, ESPL.KP.Entities.Book>();
-
                 cfg.CreateMap<ESPL.KP.Entities.Book, ESPL.KP.Models.BookForUpdateDto>();
+                cfg.CreateMap<ESPL.KP.Entities.ESPLUser, ESPL.KP.Models.Core.ESPLUserDto>();
             });
 
             libraryContext.EnsureSeedDataForContext();
