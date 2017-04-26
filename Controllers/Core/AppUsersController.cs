@@ -16,8 +16,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ESPL.KP.Controllers.Core
 {
-    [Route("api/identityusers")]
-    public class IdentityUserController : Controller
+    [Route("api/appusers")]
+    public class AppUserController : Controller
     {
         private ILibraryRepository _libraryRepository;
         private IUrlHelper _urlHelper;
@@ -27,7 +27,7 @@ namespace ESPL.KP.Controllers.Core
         private UserManager<ESPLUser> _userMgr;
 
 
-        public IdentityUserController(ILibraryRepository libraryRepository,
+        public AppUserController(ILibraryRepository libraryRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService,
@@ -43,7 +43,6 @@ namespace ESPL.KP.Controllers.Core
         }
 
         [HttpGet(Name = "GetESPLUsers")]
-        [HttpHead]
         public IActionResult GetESPLUsers(ESPLUsersResourceParameters esplUsersResourceParameters,
             [FromHeader(Name = "Accept")] string mediaType)
         {
@@ -330,41 +329,6 @@ namespace ESPL.KP.Controllers.Core
         public IActionResult GetESPLUsersOptions()
         {
             Response.Headers.Add("Allow", "GET,OPTIONS,POST");
-            return Ok();
-        }
-
-
-        [Route("{userId}/roles")]
-        [HttpPost(Name = "AddUserToRole")]
-        public async Task<IActionResult> AddUserToRole(Guid userId,
-            [FromBody] AddUserToRoleDto user)
-        {
-            if (user == null)
-            {
-                return BadRequest();
-            }
-
-            var userFromDB = _libraryRepository.GetESPLUser(userId);
-            if (userFromDB == null)
-            {
-                return NotFound("User Not Found");
-            }
-
-
-            var roleFromDB = _libraryRepository.GetESPLRole(user.RoleId);
-            if (roleFromDB == null)
-            {
-                return NotFound("Role Not Found");
-            }
-
-
-            await _userMgr.AddToRoleAsync(userFromDB, roleFromDB.Name);
-
-            if (!_libraryRepository.Save())
-            {
-                throw new Exception($"Creating a book for author {userId} failed on save.");
-            }
-
             return Ok();
         }
     }
