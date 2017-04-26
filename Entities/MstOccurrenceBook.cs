@@ -50,6 +50,8 @@ namespace ESPL.KP.Entities
         [MaxLength(500)]
         public string AssignedComments { get; set; }
 
+        public DateTime? AssignedTime {get; set;}
+
         // public ICollection<OccurrenceAssignmentHistory> OccurrenceAssignmentHistory { get; set; } = new List<OccurrenceAssignmentHistory>();
 
         // public virtual ICollection<OccurrenceReviewHistory> OccurrenceReveiwHistories { get; set; } = new List<OccurrenceReviewHistory>();

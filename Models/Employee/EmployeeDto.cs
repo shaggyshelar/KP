@@ -44,12 +44,12 @@ namespace ESPL.KP.Models
 
         public string UserID { get; set; }
 
-        public MstArea Area { get; set; }
-        public MstDepartment Department { get; set; }
+        public MstArea MstArea { get; set; }
+        public MstDepartment MstDepartment { get; set; }
 
-        public MstDesignation Designation { get; set; }
+        public MstDesignation MstDesignation { get; set; }
         public MstShift Shift { get; set; }
-        public ICollection<MstOccurrenceBook> OccurrenceBooks { get; set; }
+        public ICollection<MstOccurrenceBook> MstOccurrenceBooks { get; set; }
 
     }
 }
