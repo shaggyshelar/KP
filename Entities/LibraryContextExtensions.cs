@@ -197,7 +197,7 @@ namespace ESPL.KP.Entities
             UpdateEmployee(context);
             UpdateOccurrenceBooks(context);
             UpdateAppModules(context);
-            
+
         }
 
 
@@ -539,6 +539,8 @@ namespace ESPL.KP.Entities
                     CaseFileNumber= "1",
                     NatureOfOccurrence= "Nature 1",
                     Remark= "Test Remark 1",
+                    AssignedTO=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111"),
+                    AssignedComments="Test Assign to officer 1"
                   },
                 new MstOccurrenceBook()  {
                     OBID=new Guid( "411bfab2-0d44-4fb9-8835-184db90f5678"),
@@ -551,6 +553,8 @@ namespace ESPL.KP.Entities
                     CaseFileNumber= "2",
                     NatureOfOccurrence= "Nature 2",
                     Remark= "Test Remark 2",
+                    AssignedTO=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222"),
+                    AssignedComments="Test Assign to officer 2"
                   },
                   new MstOccurrenceBook()  {
                     OBID=new Guid( "411bfab2-0d44-4fb9-8835-184db90f8878"),
@@ -563,6 +567,8 @@ namespace ESPL.KP.Entities
                     CaseFileNumber= "3",
                     NatureOfOccurrence= "Nature 3",
                     Remark= "Test Remark 3",
+                    AssignedTO=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef3333"),
+                    AssignedComments="Test Assign to officer 3"
                   },
                   new MstOccurrenceBook()  {
                     OBID=new Guid( "411bfab2-0d44-4fb9-8835-184db90f7878"),
