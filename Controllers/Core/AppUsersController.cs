@@ -11,30 +11,38 @@ using ESPL.KP.Entities;
 using Microsoft.AspNetCore.Http;
 using ESPL.KP.Models.Core;
 using ESPL.KP.Helpers.Core;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ESPL.KP.Controllers.Core
 {
-    [Route("api/identityusers")]
-    public class IdentityUserController : Controller
+    [Route("api/appusers")]
+    public class AppUserController : Controller
     {
         private ILibraryRepository _libraryRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
+        private RoleManager<IdentityRole> _roleMgr;
+        private UserManager<ESPLUser> _userMgr;
 
-        public IdentityUserController(ILibraryRepository libraryRepository,
+
+        public AppUserController(ILibraryRepository libraryRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
-            ITypeHelperService typeHelperService)
+            ITypeHelperService typeHelperService,
+            UserManager<ESPLUser> userMgr,
+            RoleManager<IdentityRole> roleMgr)
         {
             _libraryRepository = libraryRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
+            _userMgr = userMgr;
+            _roleMgr = roleMgr;
         }
 
         [HttpGet(Name = "GetESPLUsers")]
-        [HttpHead]
         public IActionResult GetESPLUsers(ESPLUsersResourceParameters esplUsersResourceParameters,
             [FromHeader(Name = "Accept")] string mediaType)
         {
