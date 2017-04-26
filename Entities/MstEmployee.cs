@@ -75,7 +75,7 @@ namespace ESPL.KP.Entities
         public string UserID { get; set; }
 
 
-        public virtual ICollection<MstOccurrenceBook> MstOccurrenceBooks { get; set; } 
+        public ICollection<MstOccurrenceBook> MstOccurrenceBooks { get; set; } 
             = new List<MstOccurrenceBook> ();
         //  public ICollection<CfgEmployeeShift> CfgEmployeeShift { get; set; } 
         //     = new List<CfgEmployeeShift> ();

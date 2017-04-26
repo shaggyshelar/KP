@@ -539,13 +539,13 @@ namespace ESPL.KP.Entities
                     CaseFileNumber= "1",
                     NatureOfOccurrence= "Nature 1",
                     Remark= "Test Remark 1",
-                    AssignedTO=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111"),
-                    AssignedComments="Test Assign to officer 1",
                     MapZoomLevel =11,
                     Lattitude=18.555905,
                     Longitude=73.805589,
                     Location="Near Agarrwal Packers and Movers",
-
+                    AssignedTO= new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111"),
+                    AssignedComments= "Assigned",
+                    AssignedTime= DateTime.Now.AddDays(4)
                   },
                 new MstOccurrenceBook()  {
                     OBID=new Guid( "411bfab2-0d44-4fb9-8835-184db90f5678"),
@@ -558,12 +558,13 @@ namespace ESPL.KP.Entities
                     CaseFileNumber= "2",
                     NatureOfOccurrence= "Nature 2",
                     Remark= "Test Remark 2",
-                    AssignedTO=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222"),
-                    AssignedComments="Test Assign to officer 2",
                     MapZoomLevel =11,
                     Lattitude=18.555905,
                     Longitude=73.805589,
                     Location="Near Agarrwal Packers and Movers",
+                    AssignedTO= new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222"),
+                    AssignedComments= "Assigned",
+                    AssignedTime=DateTime.Now.AddHours(-5)
                   },
                   new MstOccurrenceBook()  {
                     OBID=new Guid( "411bfab2-0d44-4fb9-8835-184db90f8878"),
@@ -576,12 +577,13 @@ namespace ESPL.KP.Entities
                     CaseFileNumber= "3",
                     NatureOfOccurrence= "Nature 3",
                     Remark= "Test Remark 3",
-                    AssignedTO=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef3333"),
-                    AssignedComments="Test Assign to officer 3",
                     MapZoomLevel =11,
                     Lattitude=18.555905,
                     Longitude=73.805589,
                     Location="Near Agarrwal Packers and Movers",
+                    AssignedTO= new Guid("56c385ae-ce46-41d4-b7fe-08df9aef3333"),
+                    AssignedComments= "Assigned",
+                    AssignedTime= DateTime.Now.AddDays(-5)
                   },
                   new MstOccurrenceBook()  {
                     OBID=new Guid( "411bfab2-0d44-4fb9-8835-184db90f7878"),
@@ -600,6 +602,7 @@ namespace ESPL.KP.Entities
                     Lattitude=18.555905,
                     Longitude=73.805589,
                     Location="Near Agarrwal Packers and Movers",
+                    AssignedTime=DateTime.Now
                   }
 
             };
