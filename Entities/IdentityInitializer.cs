@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -102,10 +103,159 @@ namespace ESPL.KP.Entities
             // Add User
             if (user == null)
             {
-                await AddAdminUser();
-                await AddManagerUser();
-                await AddEmployeeUser();
+                // await AddAdminUser();
+                // await AddManagerUser();
+                // await AddEmployeeUser();
+
+                await AddAllEmployees();
+                await AddAllManagers();
+                await AddAllAdmins();
             }
         }
+
+        public async Task AddAllEmployees()
+        {
+            List<ESPLUser> allUsers = new List<ESPLUser>()
+            {
+                new ESPLUser()
+                {
+                    UserName = "esplemployee",
+                    FirstName = "ESPL",
+                    LastName = "Employee",
+                    Email = "espl.employee@eternussolutions.com"
+                },new ESPLUser()
+                {
+                    UserName = "esplemployee1",
+                    FirstName = "ESPL 1",
+                    LastName = "Employee 1",
+                    Email = "espl.employee1@eternussolutions.com"
+                },new ESPLUser()
+                {
+                    UserName = "esplemployee2",
+                    FirstName = "ESPL 2",
+                    LastName = "Employee 2",
+                    Email = "espl.employee2@eternussolutions.com"
+                },new ESPLUser()
+                {
+                    UserName = "esplemployee3",
+                    FirstName = "ESPL 3",
+                    LastName = "Employee 3",
+                    Email = "espl.employee3@eternussolutions.com"
+                }
+            };
+
+            if (!(await _roleMgr.RoleExistsAsync("Employee")))
+            {
+                var role = new IdentityRole("Employee");
+                role.Claims.Add(new IdentityRoleClaim<string>()
+                {
+                    ClaimType = "IsEmployee",
+                    ClaimValue = "True"
+                });
+                await _roleMgr.CreateAsync(role);
+            }
+
+            foreach (ESPLUser user in allUsers)
+            {
+                var userResult = await _userMgr.CreateAsync(user, "Espl@123");
+                var roleResult = await _userMgr.AddToRoleAsync(user, "Employee");
+
+                if (!userResult.Succeeded || !roleResult.Succeeded)
+                {
+                    throw new InvalidOperationException("Failed to build user and roles");
+                }
+            }
+
+        }
+
+        public async Task AddAllManagers()
+        {
+            List<ESPLUser> allUsers = new List<ESPLUser>() {
+                new ESPLUser() {
+                    UserName = "esplmanager",
+                    FirstName = "ESPL 1",
+                    LastName = "Manager",
+                    Email = "espl.manager1@eternussolutions.com"
+                },
+                new ESPLUser() {
+                    UserName = "esplmanager1",
+                    FirstName = "ESPL 2",
+                    LastName = "Manager",
+                    Email = "espl.manager2@eternussolutions.com"
+                },
+                new ESPLUser() {
+                    UserName = "esplmanager2",
+                    FirstName = "ESPL 3",
+                    LastName = "Manager",
+                    Email = "espl.manager3@eternussolutions.com"
+                }
+
+            };
+
+            if (!(await _roleMgr.RoleExistsAsync("Manager")))
+            {
+                var role = new IdentityRole("Manager");
+                role.Claims.Add(new IdentityRoleClaim<string>()
+                {
+                    ClaimType = "IsManager",
+                    ClaimValue = "True"
+                });
+                await _roleMgr.CreateAsync(role);
+            }
+
+            foreach (var user in allUsers)
+            {
+                var userResult = await _userMgr.CreateAsync(user, "Espl@123");
+                var roleResult = await _userMgr.AddToRoleAsync(user, "Manager");
+
+                if (!userResult.Succeeded || !roleResult.Succeeded)
+                {
+                    throw new InvalidOperationException("Failed to build user and roles");
+                }
+            }
+        }
+
+        public async Task AddAllAdmins()
+        {
+            List<ESPLUser> allUsers = new List<ESPLUser>() {
+                new ESPLUser() {
+                    UserName = "espladmin",
+                    FirstName = "ESPL",
+                    LastName = "Admin",
+                    Email = "espl.admin@eternussolutions.com"
+                },
+                new ESPLUser() {
+                    UserName = "espladmin1",
+                    FirstName = "ESPL1",
+                    LastName = "Admin1",
+                    Email = "espl.admin1@eternussolutions.com"
+                }
+            
+            };
+
+            if (!(await _roleMgr.RoleExistsAsync("Admin")))
+            {
+                var role = new IdentityRole("Admin");
+                role.Claims.Add(new IdentityRoleClaim<string>()
+                {
+                    ClaimType = "IsAdmin",
+                    ClaimValue = "True"
+                });
+                await _roleMgr.CreateAsync(role);
+            }
+
+            foreach (var adminUser in allUsers)
+            {
+                var adminUserResult = await _userMgr.CreateAsync(adminUser, "Espl@123");
+                var adminRoleResult = await _userMgr.AddToRoleAsync(adminUser, "Admin");
+
+                if (!adminUserResult.Succeeded || !adminRoleResult.Succeeded)
+                {
+                    throw new InvalidOperationException("Failed to build user and roles");
+                }
+            }
+
+        }
+
     }
 }
