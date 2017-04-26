@@ -12,6 +12,7 @@ using ESPL.KP.Helpers.Shift;
 using ESPL.KP.Helpers.Status;
 using ESPL.KP.Entities.Core;
 using ESPL.KP.Helpers.Employee;
+using ESPL.KP.Helpers.Reports;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ESPL.KP.Services
@@ -162,6 +163,10 @@ namespace ESPL.KP.Services
         void UpdateEmployee(MstEmployee employee);
         bool EmployeeExists(Guid authorId);
 
+        #endregion
+
+        #region Reports
+        PagedList<MstOccurrenceBook> GetOccurrenceBooks(OccurrenceReportResourceParameters occurrenceTypeResourceParameters);
         #endregion
     }
 }
