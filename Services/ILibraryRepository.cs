@@ -14,6 +14,7 @@ using ESPL.KP.Entities.Core;
 using ESPL.KP.Helpers.Employee;
 using ESPL.KP.Helpers.Reports;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using ESPL.KP.Models;
 
 namespace ESPL.KP.Services
 {
@@ -169,6 +170,7 @@ namespace ESPL.KP.Services
 
         #region Reports
         PagedList<MstOccurrenceBook> GetOccurrenceBooks(OccurrenceReportResourceParameters occurrenceTypeResourceParameters);
+        PagedList<OccurreceStatistics> GetOccurrenceBooksStatistics(OccurrenceStatisticsResourceParameters occurrenceTypeResourceParameters);
         #endregion
     }
 }

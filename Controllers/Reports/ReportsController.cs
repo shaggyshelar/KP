@@ -120,6 +120,91 @@ namespace KP.Controllers.ReportsController
                 //return Ok(occurrenceBook);
             }
         }
+
+        [Route("GetOccurrenceBooksStatistics")]
+        [HttpGet(Name = "GetOccurrenceBooksStatistics")]
+        public IActionResult GetOccurrenceBooksStatistics(OccurrenceStatisticsResourceParameters occurrenceBookResourceParameters,
+            [FromHeader(Name = "Accept")] string mediaType)
+        {
+            if (!_propertyMappingService.ValidMappingExistsFor<OccurreceStatistics, MstOccurrenceBook>
+               (occurrenceBookResourceParameters.OrderBy))
+            {
+                return BadRequest();
+            }
+
+            if (!_typeHelperService.TypeHasProperties<OccurreceStatistics>
+                (occurrenceBookResourceParameters.Fields))
+            {
+                return BadRequest();
+            }
+
+            var occurrenceBookFromRepo = _libraryRepository.GetOccurrenceBooksStatistics(occurrenceBookResourceParameters);
+
+            var occurrenceBook = Mapper.Map<IEnumerable<OccurreceStatistics>>(occurrenceBookFromRepo);
+
+            if (mediaType == "application/vnd.marvin.hateoas+json")
+            {
+                var paginationMetadata = new
+                {
+                    totalCount = occurrenceBookFromRepo.TotalCount,
+                    pageSize = occurrenceBookFromRepo.PageSize,
+                    currentPage = occurrenceBookFromRepo.CurrentPage,
+                    totalPages = occurrenceBookFromRepo.TotalPages,
+                };
+
+                Response.Headers.Add("X-Pagination",
+                    Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+
+                var links = CreateLinksForOccurrenceBook(occurrenceBookResourceParameters,
+                    occurrenceBookFromRepo.HasNext, occurrenceBookFromRepo.HasPrevious);
+
+                var shapedoccurrenceBook = occurrenceBook.ShapeData(occurrenceBookResourceParameters.Fields);
+
+                var shapedoccurrenceBookWithLinks = shapedoccurrenceBook.Select(occType =>
+                {
+                    var occurrenceBookAsDictionary = occType as IDictionary<string, object>;
+                    var occurrenceBookLinks = CreateLinksForOccurrenceBook(
+                        (Guid)occurrenceBookAsDictionary["Id"], occurrenceBookResourceParameters.Fields);
+
+                    occurrenceBookAsDictionary.Add("links", occurrenceBookLinks);
+
+                    return occurrenceBookAsDictionary;
+                });
+
+                var linkedCollectionResource = new
+                {
+                    value = shapedoccurrenceBookWithLinks,
+                    links = links
+                };
+
+                return Ok(linkedCollectionResource);
+            }
+            else
+            {
+                var previousPageLink = occurrenceBookFromRepo.HasPrevious ?
+                    CreateOccurrenceBookResourceUri(occurrenceBookResourceParameters,
+                    ResourceUriType.PreviousPage) : null;
+
+                var nextPageLink = occurrenceBookFromRepo.HasNext ?
+                    CreateOccurrenceBookResourceUri(occurrenceBookResourceParameters,
+                    ResourceUriType.NextPage) : null;
+
+                var paginationMetadata = new
+                {
+                    previousPageLink = previousPageLink,
+                    nextPageLink = nextPageLink,
+                    totalCount = occurrenceBookFromRepo.TotalCount,
+                    pageSize = occurrenceBookFromRepo.PageSize,
+                    currentPage = occurrenceBookFromRepo.CurrentPage,
+                    totalPages = occurrenceBookFromRepo.TotalPages
+                };
+
+                Response.Headers.Add("X-Pagination",
+                    Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+
+                return Ok(occurrenceBook.ShapeData(occurrenceBookResourceParameters.Fields));
+            }
+        }
         private string CreateOccurrenceBookResourceUri(
                   OccurrenceReportResourceParameters occurrenceReportResourceParameters,
                   ResourceUriType type)
@@ -160,6 +245,45 @@ namespace KP.Controllers.ReportsController
             }
         }
 
+private string CreateOccurrenceBookResourceUri(
+                  OccurrenceStatisticsResourceParameters occurrenceReportResourceParameters,
+                  ResourceUriType type)
+        {
+            switch (type)
+            {
+                case ResourceUriType.PreviousPage:
+                    return _urlHelper.Link("GetOccurrenceBook",
+                      new
+                      {
+                          fields = occurrenceReportResourceParameters.Fields,
+                          orderBy = occurrenceReportResourceParameters.OrderBy,
+                          searchQuery = occurrenceReportResourceParameters.SearchQuery,
+                          pageNumber = occurrenceReportResourceParameters.PageNumber - 1,
+                          pageSize = occurrenceReportResourceParameters.PageSize
+                      });
+                case ResourceUriType.NextPage:
+                    return _urlHelper.Link("GetOccurrenceBook",
+                      new
+                      {
+                          fields = occurrenceReportResourceParameters.Fields,
+                          orderBy = occurrenceReportResourceParameters.OrderBy,
+                          searchQuery = occurrenceReportResourceParameters.SearchQuery,
+                          pageNumber = occurrenceReportResourceParameters.PageNumber + 1,
+                          pageSize = occurrenceReportResourceParameters.PageSize
+                      });
+                case ResourceUriType.Current:
+                default:
+                    return _urlHelper.Link("GetOccurrenceBook",
+                    new
+                    {
+                        fields = occurrenceReportResourceParameters.Fields,
+                        orderBy = occurrenceReportResourceParameters.OrderBy,
+                        searchQuery = occurrenceReportResourceParameters.SearchQuery,
+                        pageNumber = occurrenceReportResourceParameters.PageNumber,
+                        pageSize = occurrenceReportResourceParameters.PageSize
+                    });
+            }
+        }
         private IEnumerable<LinkDto> CreateLinksForOccurrenceBook(Guid id, string fields)
         {
             var links = new List<LinkDto>();
@@ -197,8 +321,41 @@ namespace KP.Controllers.ReportsController
             return links;
         }
 
+        
+
         private IEnumerable<LinkDto> CreateLinksForOccurrenceBook(
             OccurrenceReportResourceParameters occurrenceReportResourceParameters,
+            bool hasNext, bool hasPrevious)
+        {
+            var links = new List<LinkDto>();
+
+            // self 
+            links.Add(
+               new LinkDto(CreateOccurrenceBookResourceUri(occurrenceReportResourceParameters,
+               ResourceUriType.Current)
+               , "self", "GET"));
+
+            if (hasNext)
+            {
+                links.Add(
+                  new LinkDto(CreateOccurrenceBookResourceUri(occurrenceReportResourceParameters,
+                  ResourceUriType.NextPage),
+                  "nextPage", "GET"));
+            }
+
+            if (hasPrevious)
+            {
+                links.Add(
+                    new LinkDto(CreateOccurrenceBookResourceUri(occurrenceReportResourceParameters,
+                    ResourceUriType.PreviousPage),
+                    "previousPage", "GET"));
+            }
+
+            return links;
+        }
+
+         private IEnumerable<LinkDto> CreateLinksForOccurrenceBook(
+            OccurrenceStatisticsResourceParameters occurrenceReportResourceParameters,
             bool hasNext, bool hasPrevious)
         {
             var links = new List<LinkDto>();

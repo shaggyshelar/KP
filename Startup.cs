@@ -325,6 +325,10 @@ namespace ESPL.KP
                     src.MstDepartment))
                     .ForMember(dest => dest.Status, opt => opt.MapFrom(src =>
                     src.MstStatus));
+
+                 cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceBook, ESPL.KP.Models.OccurreceStatistics>()
+                    .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src =>
+                    src.MstStatus.StatusName));
             });
 
             libraryContext.EnsureSeedDataForContext();

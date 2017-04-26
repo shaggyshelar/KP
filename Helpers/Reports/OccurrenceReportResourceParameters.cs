@@ -6,4 +6,10 @@ namespace ESPL.KP.Helpers.Reports
     {
          public string OrderBy { get; set; } = "OBTime";
     }
+
+    public class OccurrenceStatisticsResourceParameters:BaseResourceParameters
+    {
+         public string OrderBy { get; set; } = "StatusName";
+    }
+   
 }
