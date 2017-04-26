@@ -601,20 +601,20 @@ namespace ESPL.KP.Entities
                 new AppModule()
                 {
                     Id = new Guid("1325360c-8253-473a-a20f-55c269c20407"),
-                    Name = "Menu 1",
-                    MenuText = "Menu 1"
+                    Name = "Department",
+                    MenuText = "Department"
                 },
                 new AppModule()
                 {
                     Id = new Guid("1325360c-8253-473a-a22f-55c269c20407"),
-                    Name = "Menu 2",
-                    MenuText = "Menu 2"
+                    Name = "Designation",
+                    MenuText = "Designation"
                 },
                 new AppModule()
                 {
                     Id = new Guid("1325360c-8253-473a-a23f-55c269c20407"),
-                    Name = "Menu 3",
-                    MenuText = "Menu 3"
+                    Name = "Area",
+                    MenuText = "Area"
                 }
             };
 

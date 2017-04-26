@@ -91,6 +91,38 @@ namespace ESPL.KP.Controllers.Core
             return Ok();
         }
 
+        [HttpDelete(Name = "RemoveUserFromRole")]
+        public async Task<IActionResult> RemoveUserFromRole(Guid userId,
+            [FromBody] AddUserToRoleDto user)
+        {
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            var userFromDB = _libraryRepository.GetESPLUser(userId);
+            if (userFromDB == null)
+            {
+                return NotFound("User Not Found");
+            }
+
+
+            var roleFromDB = _libraryRepository.GetESPLRole(user.RoleId);
+            if (roleFromDB == null)
+            {
+                return NotFound("Role Not Found");
+            }
+
+
+            await _userMgr.RemoveFromRoleAsync(userFromDB, roleFromDB.Name);
+
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception($"Removing user from role failed on save.");
+            }
+
+            return Ok();
+        }
 
     }
 }

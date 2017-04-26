@@ -637,6 +637,11 @@ namespace ESPL.KP.Services
             return _context.AppModules.Any(a => a.Id == appModuleId);
         }
 
+        public bool AppModuleExists(string appModuleName)
+        {
+            return _context.AppModules.Any(a => a.Name == appModuleName);
+        }
+
         #endregion AppModule
 
 
