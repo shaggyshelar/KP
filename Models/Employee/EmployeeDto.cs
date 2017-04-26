@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using ESPL.KP.Entities;
 using ESPL.KP.Models.Core;
 
@@ -42,5 +43,13 @@ namespace ESPL.KP.Models
         public Guid ShiftID { get; set; }
 
         public string UserID { get; set; }
+
+        public MstArea Area { get; set; }
+        public MstDepartment Department { get; set; }
+
+        public MstDesignation Designation { get; set; }
+        public MstShift Shift { get; set; }
+        public ICollection<MstOccurrenceBook> OccurrenceBooks { get; set; }
+
     }
 }

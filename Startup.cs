@@ -24,6 +24,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using ESPL.KP.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace ESPL.KP
 {
@@ -116,6 +117,10 @@ namespace ESPL.KP
             {
                 options.SerializerSettings.ContractResolver =
                 new CamelCasePropertyNamesContractResolver();
+                options.SerializerSettings.ReferenceLoopHandling=
+                ReferenceLoopHandling.Serialize;
+                options.SerializerSettings.PreserveReferencesHandling=
+                PreserveReferencesHandling.Objects;
             });
 
             services.AddAuthorization(options =>
@@ -295,7 +300,12 @@ namespace ESPL.KP
                 cfg.CreateMap<ESPL.KP.Entities.MstStatus, ESPL.KP.Models.StatusForUpdationDto>();
 
 
-                cfg.CreateMap<ESPL.KP.Entities.MstEmployee, ESPL.KP.Models.EmployeeDto>();
+                cfg.CreateMap<ESPL.KP.Entities.MstEmployee, ESPL.KP.Models.EmployeeDto>()
+                    .ForMember(dest => dest.Area, opt => opt.MapFrom(src =>src.MstArea))
+                    .ForMember(dest => dest.Department, opt => opt.MapFrom(src =>src.MstDepartment))
+                    .ForMember(dest => dest.Designation, opt => opt.MapFrom(src =>src.MstDesignation))
+                    .ForMember(dest => dest.Shift, opt => opt.MapFrom(src =>src.MstShift))
+                    .ForMember(dest => dest.OccurrenceBooks, opt => opt.MapFrom(src =>src.MstOccurrenceBooks));
                 cfg.CreateMap<ESPL.KP.Models.EmployeeForCreationDto, ESPL.KP.Entities.MstEmployee>();
                 cfg.CreateMap<ESPL.KP.Entities.MstEmployee, ESPL.KP.Models.EmployeeForCreationDto>();
                 cfg.CreateMap<ESPL.KP.Models.EmployeeForUpdationDto, ESPL.KP.Entities.MstEmployee>();

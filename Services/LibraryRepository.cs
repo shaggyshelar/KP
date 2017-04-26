@@ -18,6 +18,7 @@ using ESPL.KP.Helpers.Employee;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using ESPL.KP.Helpers.Reports;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace ESPL.KP.Services
 {
@@ -762,7 +763,12 @@ namespace ESPL.KP.Services
         public PagedList<MstEmployee> GetEmployees(EmployeesResourceParameters employeesResourceParameters)
         {
             var collectionBeforePaging =
-                _context.MstEmployee.ApplySort(employeesResourceParameters.OrderBy,
+                _context.MstEmployee
+                .Include(e=>e.MstArea)
+                .Include(e=>e.MstDepartment)
+                .Include(e=>e.MstDesignation)
+                .Include(e=>e.MstShift)
+                .Include(e=>e.MstOccurrenceBooks).ApplySort(employeesResourceParameters.OrderBy,
                 _propertyMappingService.GetPropertyMapping<EmployeeDto, MstEmployee>());
 
             if (!string.IsNullOrEmpty(employeesResourceParameters.SearchQuery))
@@ -793,12 +799,22 @@ namespace ESPL.KP.Services
 
         public MstEmployee GetEmployee(Guid employeeId)
         {
-            return _context.MstEmployee.FirstOrDefault(a => a.EmployeeID == employeeId);
+            return _context.MstEmployee
+                .Include(e=>e.MstArea)
+                .Include(e=>e.MstDepartment)
+                .Include(e=>e.MstDesignation)
+                .Include(e=>e.MstShift)
+                .Include(e=>e.MstOccurrenceBooks).FirstOrDefault(a => a.EmployeeID == employeeId);
         }
 
         public IEnumerable<MstEmployee> GetEmployees(IEnumerable<Guid> employeeIds)
         {
-            return _context.MstEmployee.Where(a => employeeIds.Contains(a.EmployeeID))
+            return _context.MstEmployee
+                .Include(e=>e.MstArea)
+                .Include(e=>e.MstDepartment)
+                .Include(e=>e.MstDesignation)
+                .Include(e=>e.MstShift)
+                .Include(e=>e.MstOccurrenceBooks).Where(a => employeeIds.Contains(a.EmployeeID))
                 .OrderBy(a => a.FirstName)
                 .ToList();
         }

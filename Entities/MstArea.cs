@@ -18,9 +18,9 @@ namespace ESPL.KP.Entities {
         [MaxLength (20)]
         public string PinCode { get; set; }
 
-        public ICollection<MstOccurrenceBook> MstOccurrenceBooks { get; set; } 
-            = new List<MstOccurrenceBook> ();
-        public ICollection<MstEmployee> MstEmployees { get; set; }
-            = new List<MstEmployee>();
+        // public ICollection<MstOccurrenceBook> MstOccurrenceBooks { get; set; } 
+        //     = new List<MstOccurrenceBook> ();
+        // public ICollection<MstEmployee> MstEmployees { get; set; }
+        //     = new List<MstEmployee>();
     }
 }

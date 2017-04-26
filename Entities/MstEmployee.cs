@@ -75,15 +75,16 @@ namespace ESPL.KP.Entities
         public string UserID { get; set; }
 
 
-         public ICollection<CfgEmployeeDepartment> CfgEmployeeDepartments { get; set; } 
-            = new List<CfgEmployeeDepartment> ();
-        public virtual ICollection<OccurrenceAssignmentHistory> OccurrenceAssignments { get; set; } 
-            = new List<OccurrenceAssignmentHistory> ();
-         public ICollection<CfgEmployeeShift> CfgEmployeeShift { get; set; } 
-            = new List<CfgEmployeeShift> ();
-        public ICollection<CfgEmployeeArea> CfgEmployeeArea { get; set; } 
-            = new List<CfgEmployeeArea> ();
-        public ICollection<CfgEmployeeDesignation> CfgEmployeeDesignation { get; set; } 
-            = new List<CfgEmployeeDesignation> ();
+        public virtual ICollection<MstOccurrenceBook> MstOccurrenceBooks { get; set; } 
+            = new List<MstOccurrenceBook> ();
+        //  public ICollection<CfgEmployeeShift> CfgEmployeeShift { get; set; } 
+        //     = new List<CfgEmployeeShift> ();
+        // public ICollection<CfgEmployeeArea> CfgEmployeeArea { get; set; } 
+        //     = new List<CfgEmployeeArea> ();
+        // public ICollection<CfgEmployeeDesignation> CfgEmployeeDesignation { get; set; } 
+        //     = new List<CfgEmployeeDesignation> ();
+        //  public ICollection<CfgEmployeeDepartment> CfgEmployeeDepartments { get; set; } 
+        //     = new List<CfgEmployeeDepartment> ();
+
     }
 }

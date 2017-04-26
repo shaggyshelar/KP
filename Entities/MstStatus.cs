@@ -12,7 +12,7 @@ namespace ESPL.KP.Entities {
         [MaxLength (50)]
         public string StatusName { get; set; }
 
-        public ICollection<MstOccurrenceBook> MstOccurrenceBooks { get; set; } = new List<MstOccurrenceBook> ();
+        // public ICollection<MstOccurrenceBook> MstOccurrenceBooks { get; set; } = new List<MstOccurrenceBook> ();
         
     }
 }
