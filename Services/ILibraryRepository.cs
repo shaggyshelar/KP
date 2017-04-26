@@ -127,6 +127,8 @@ namespace ESPL.KP.Services
         void UpdateAppModule(AppModule appModule);
         bool AppModuleExists(Guid appModuleId);
 
+        bool AppModuleExists(string appModuleName);
+
         #endregion AppModule
 
         #region ESPLUser
@@ -142,7 +144,7 @@ namespace ESPL.KP.Services
         #endregion ESPLUser
 
 
-         #region ESPLRole
+        #region ESPLRole
 
         PagedList<IdentityRole> GetESPLRoles(ESPLRolesResourceParameters esplRoleResourceParameters);
         IdentityRole GetESPLRole(Guid esplRoleId);
