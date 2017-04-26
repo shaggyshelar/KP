@@ -540,7 +540,12 @@ namespace ESPL.KP.Entities
                     NatureOfOccurrence= "Nature 1",
                     Remark= "Test Remark 1",
                     AssignedTO=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111"),
-                    AssignedComments="Test Assign to officer 1"
+                    AssignedComments="Test Assign to officer 1",
+                    MapZoomLevel =11,
+                    Lattitude=18.555905,
+                    Longitude=73.805589,
+                    Location="Near Agarrwal Packers and Movers",
+
                   },
                 new MstOccurrenceBook()  {
                     OBID=new Guid( "411bfab2-0d44-4fb9-8835-184db90f5678"),
@@ -554,7 +559,11 @@ namespace ESPL.KP.Entities
                     NatureOfOccurrence= "Nature 2",
                     Remark= "Test Remark 2",
                     AssignedTO=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222"),
-                    AssignedComments="Test Assign to officer 2"
+                    AssignedComments="Test Assign to officer 2",
+                    MapZoomLevel =11,
+                    Lattitude=18.555905,
+                    Longitude=73.805589,
+                    Location="Near Agarrwal Packers and Movers",
                   },
                   new MstOccurrenceBook()  {
                     OBID=new Guid( "411bfab2-0d44-4fb9-8835-184db90f8878"),
@@ -568,7 +577,11 @@ namespace ESPL.KP.Entities
                     NatureOfOccurrence= "Nature 3",
                     Remark= "Test Remark 3",
                     AssignedTO=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef3333"),
-                    AssignedComments="Test Assign to officer 3"
+                    AssignedComments="Test Assign to officer 3",
+                    MapZoomLevel =11,
+                    Lattitude=18.555905,
+                    Longitude=73.805589,
+                    Location="Near Agarrwal Packers and Movers",
                   },
                   new MstOccurrenceBook()  {
                     OBID=new Guid( "411bfab2-0d44-4fb9-8835-184db90f7878"),
@@ -582,7 +595,11 @@ namespace ESPL.KP.Entities
                     NatureOfOccurrence= "Nature 4",
                     Remark= "Test Remark 4",
                     AssignedTO=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef3333"),
-                    AssignedComments="Test Assign to officer"
+                    AssignedComments="Test Assign to officer",
+                    MapZoomLevel =11,
+                    Lattitude=18.555905,
+                    Longitude=73.805589,
+                    Location="Near Agarrwal Packers and Movers",
                   }
 
             };

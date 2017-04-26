@@ -46,7 +46,7 @@
 		},
 		{
 			"id": "0773b8fa-4d15-738e-9006-ed9d04b098b8",
-			"headers": "Content-Type: application/json\nAccept: application/json\nIf-Match: 2F8B3D41FBC07EB5A6E30C1FBE27C1E4\n",
+			"headers": "Content-Type: application/json\nAccept: application/json\nIf-Match: 0E8E09FDB349B6C7A6A354C281D8B077\n",
 			"url": "http://localhost:6058/api/occurrencebook/411bfab2-0d44-4fb9-8835-184db90f5678",
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -57,12 +57,12 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1493125682185,
+			"time": 1493203639558,
 			"name": "Update Occurrence Book (411bfab2-0d44-4fb9-8835-184db90f5678)",
 			"description": "",
 			"collectionId": "a561a185-75af-4671-d2ab-3803065e3def",
 			"responses": [],
-			"rawModeData": "{\n  \"areaID\": \"411bfab2-0d44-4fb9-8835-184db90f44fa\",\n  \"obTypeID\": \"758b1995-7f92-4d87-9588-b90800abf222\",\n  \"departmentID\": \"a1da1d8e-1111-4634-b538-a01709472222\",\n  \"mstStatus\": null,\n  \"statusID\": \"ebeed096-ea34-43e2-948e-32bb98f31401\",\n  \"obNumber\": \"2456\",\n  \"obTime\": \"2017-04-10T19:25:14.9100866\",\n  \"caseFileNumber\": \"221\",\n  \"natureOfOccurrence\": \"Nature 221\",\n  \"remark\": \"Test Remark 221\",\n  \"assignedTO\": \"56c385ae-ce46-41d4-b7fe-08df9aef1111\",\n  \"assignedComments\": \"Shoot at sight!\"\n}"
+			"rawModeData": "{\n  \"areaID\": \"411bfab2-0d44-4fb9-8835-184db90f44fa\",\n  \"obTypeID\": \"758b1995-7f92-4d87-9588-b90800abf222\",\n  \"departmentID\": \"a1da1d8e-1111-4634-b538-a01709472222\",\n  \"mstStatus\": null,\n  \"statusID\": \"ebeed096-ea34-43e2-948e-32bb98f31401\",\n  \"obNumber\": \"2456\",\n  \"obTime\": \"2017-04-10T19:25:14.9100866\",\n  \"caseFileNumber\": \"221\",\n  \"natureOfOccurrence\": \"Nature 221\",\n  \"remark\": \"Test Remark 221\",\n  \"assignedTO\": \"56c385ae-ce46-41d4-b7fe-08df9aef1111\",\n  \"assignedComments\": \"Shoot at sight!\",\n  \"MapZoomLevel\":10,\n  \"Lattitude\":18.555905,\n  \"Longitude\":73.805589,\n  \"Location\":\"Near Agarrwal Packers and Movers\"\n}"
 		},
 		{
 			"id": "0b95adeb-7976-b22b-da0d-0c416c991650",
@@ -97,12 +97,12 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1493130085928,
+			"time": 1493203593169,
 			"name": "Add new Occurrence Book",
 			"description": "",
 			"collectionId": "a561a185-75af-4671-d2ab-3803065e3def",
 			"responses": [],
-			"rawModeData": "{\n  \"obid\": \"411bfab2-0d44-4fb9-8835-184db90f5678\",\n  \"areaID\": \"411bfab2-0d44-4fb9-8835-184db90f44fa\",\n  \"obTypeID\": \"758b1995-7f92-4d87-9588-b90800abf222\",\n  \"departmentID\": \"a1da1d8e-1111-4634-b538-a01709472222\",\n  \"statusID\": \"ebeed096-ea34-43e2-948e-32bb98f31401\",\n  \"obNumber\": \"4561\",\n  \"obTime\": \"2017-04-10T19:25:14.9100866\",\n  \"caseFileNumber\": \"21\",\n  \"natureOfOccurrence\": \"Nature 21\",\n  \"remark\": \"Test Remark 21\",\n  \"assignedTO\": \"56c385ae-ce46-41d4-b7fe-08df9aef1111\",\n  \"assignedComments\": \"Created now\"\n}"
+			"rawModeData": "{\n  \"obid\": \"411bfab2-0d44-4fb9-8835-184db90f5678\",\n  \"areaID\": \"411bfab2-0d44-4fb9-8835-184db90f44fa\",\n  \"obTypeID\": \"758b1995-7f92-4d87-9588-b90800abf222\",\n  \"departmentID\": \"a1da1d8e-1111-4634-b538-a01709472222\",\n  \"statusID\": \"ebeed096-ea34-43e2-948e-32bb98f31401\",\n  \"obNumber\": \"4561\",\n  \"obTime\": \"2017-04-10T19:25:14.9100866\",\n  \"caseFileNumber\": \"21\",\n  \"natureOfOccurrence\": \"Nature 21\",\n  \"remark\": \"Test Remark 21\",\n  \"assignedTO\": \"56c385ae-ce46-41d4-b7fe-08df9aef1111\",\n  \"assignedComments\": \"Created now\",\n  \"MapZoomLevel\":10,\n  \"Lattitude\":18.555905,\n  \"Longitude\":73.805589,\n  \"Location\":\"Near Agarrwal Packers and Movers\"\n  \n}"
 		},
 		{
 			"id": "2a19af8e-28b5-d182-26d6-ea3930bbe3d7",

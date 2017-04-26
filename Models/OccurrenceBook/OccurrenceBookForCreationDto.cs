@@ -27,5 +27,9 @@ namespace ESPL.KP.Models
         public string Remark { get; set; }
         public Guid AssignedTO { get; set; }
         public string AssignedComments { get; set; }
+        public int MapZoomLevel { get; set; }
+        public double Lattitude { get; set; }
+        public double Longitude { get; set; }
+        public string Location { get; set; }
     }
 }
