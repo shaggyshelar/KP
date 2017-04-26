@@ -13,6 +13,6 @@ namespace ESPL.KP.Entities {
         public string OBTypeName { get; set; }
 
 
-        public ICollection<MstOccurrenceBook> MstOccurrenceBooks { get; set; } = new List<MstOccurrenceBook> ();
+        // public ICollection<MstOccurrenceBook> MstOccurrenceBooks { get; set; } = new List<MstOccurrenceBook> ();
     }
 }

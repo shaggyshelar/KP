@@ -16,7 +16,7 @@ namespace ESPL.KP.Entities {
         public string DesignationCode { get; set; }
         
 
-       public ICollection<MstEmployee> MstEmployees { get; set; }
-            = new List<MstEmployee>();
+    //    public ICollection<MstEmployee> MstEmployees { get; set; }
+    //         = new List<MstEmployee>();
     }
 }
