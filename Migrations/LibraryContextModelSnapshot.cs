@@ -63,9 +63,9 @@ namespace ESPL.KP.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("ESPL.KP.Entities.CfgUserArea", b =>
+            modelBuilder.Entity("ESPL.KP.Entities.CfgEmployeeArea", b =>
                 {
-                    b.Property<Guid>("UserAreaID")
+                    b.Property<Guid>("EmployeeAreaID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<Guid>("AreaID");
@@ -74,26 +74,26 @@ namespace ESPL.KP.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
+                    b.Property<Guid>("EmployeeID");
+
                     b.Property<bool>("IsDelete");
 
                     b.Property<Guid?>("UpdatedBy");
 
                     b.Property<DateTime?>("UpdatedOn");
 
-                    b.Property<string>("UserID");
-
-                    b.HasKey("UserAreaID");
+                    b.HasKey("EmployeeAreaID");
 
                     b.HasIndex("AreaID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("EmployeeID");
 
-                    b.ToTable("CfgUserArea");
+                    b.ToTable("CfgEmployeeArea");
                 });
 
-            modelBuilder.Entity("ESPL.KP.Entities.CfgUserDepartment", b =>
+            modelBuilder.Entity("ESPL.KP.Entities.CfgEmployeeDepartment", b =>
                 {
-                    b.Property<Guid>("UserDepartmentID")
+                    b.Property<Guid>("EmployeeDepartmentID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<Guid?>("CreatedBy");
@@ -102,26 +102,26 @@ namespace ESPL.KP.Migrations
 
                     b.Property<Guid>("DepartmentID");
 
+                    b.Property<Guid>("EmployeeID");
+
                     b.Property<bool>("IsDelete");
 
                     b.Property<Guid?>("UpdatedBy");
 
                     b.Property<DateTime?>("UpdatedOn");
 
-                    b.Property<string>("UserID");
-
-                    b.HasKey("UserDepartmentID");
+                    b.HasKey("EmployeeDepartmentID");
 
                     b.HasIndex("DepartmentID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("EmployeeID");
 
-                    b.ToTable("CfgUserDepartment");
+                    b.ToTable("CfgEmployeeDepartment");
                 });
 
-            modelBuilder.Entity("ESPL.KP.Entities.CfgUserDesignation", b =>
+            modelBuilder.Entity("ESPL.KP.Entities.CfgEmployeeDesignation", b =>
                 {
-                    b.Property<Guid>("UserDesignationID")
+                    b.Property<Guid>("EmployeeDesignationID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<Guid?>("CreatedBy");
@@ -130,31 +130,33 @@ namespace ESPL.KP.Migrations
 
                     b.Property<Guid>("DesignationID");
 
+                    b.Property<Guid>("EmployeeID");
+
                     b.Property<bool>("IsDelete");
 
                     b.Property<Guid?>("UpdatedBy");
 
                     b.Property<DateTime?>("UpdatedOn");
 
-                    b.Property<string>("UserID");
-
-                    b.HasKey("UserDesignationID");
+                    b.HasKey("EmployeeDesignationID");
 
                     b.HasIndex("DesignationID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("EmployeeID");
 
-                    b.ToTable("CfgUserDesignation");
+                    b.ToTable("CfgEmployeeDesignation");
                 });
 
-            modelBuilder.Entity("ESPL.KP.Entities.CfgUserShift", b =>
+            modelBuilder.Entity("ESPL.KP.Entities.CfgEmployeeShift", b =>
                 {
-                    b.Property<Guid>("UserShiftID")
+                    b.Property<Guid>("EmployeeShiftID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<Guid?>("CreatedBy");
 
                     b.Property<DateTime>("CreatedOn");
+
+                    b.Property<Guid>("EmployeeID");
 
                     b.Property<bool>("IsDelete");
 
@@ -164,15 +166,31 @@ namespace ESPL.KP.Migrations
 
                     b.Property<DateTime?>("UpdatedOn");
 
-                    b.Property<string>("UserID");
+                    b.HasKey("EmployeeShiftID");
 
-                    b.HasKey("UserShiftID");
+                    b.HasIndex("EmployeeID");
 
                     b.HasIndex("ShiftID");
 
-                    b.HasIndex("UserID");
+                    b.ToTable("CfgEmployeeShift");
+                });
 
-                    b.ToTable("CfgUserShift");
+            modelBuilder.Entity("ESPL.KP.Entities.Core.AppModule", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("MenuText")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppModules");
                 });
 
             modelBuilder.Entity("ESPL.KP.Entities.ESPLUser", b =>
@@ -181,12 +199,6 @@ namespace ESPL.KP.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
-
-                    b.Property<string>("Address1")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("Address2")
-                        .HasMaxLength(500);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -212,14 +224,6 @@ namespace ESPL.KP.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
-                    b.Property<string>("Mobile");
-
-                    b.Property<Guid?>("MstAreaAreaID");
-
-                    b.Property<Guid?>("MstDesignationDesignationID");
-
-                    b.Property<Guid?>("MstShiftShiftID");
-
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
 
@@ -240,12 +244,6 @@ namespace ESPL.KP.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MstAreaAreaID");
-
-                    b.HasIndex("MstDesignationDesignationID");
-
-                    b.HasIndex("MstShiftShiftID");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -341,12 +339,97 @@ namespace ESPL.KP.Migrations
                     b.ToTable("MstDesignation");
                 });
 
+            modelBuilder.Entity("ESPL.KP.Entities.MstEmployee", b =>
+                {
+                    b.Property<Guid>("EmployeeID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address1")
+                        .IsRequired()
+                        .HasMaxLength(500);
+
+                    b.Property<string>("Address2")
+                        .HasMaxLength(500);
+
+                    b.Property<Guid>("AreaID");
+
+                    b.Property<Guid?>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<DateTime>("DateOfBirth");
+
+                    b.Property<Guid>("DepartmentID");
+
+                    b.Property<Guid>("DesignationID");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("EmployeeCode")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasMaxLength(10);
+
+                    b.Property<bool>("IsDelete");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Mobile")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.Property<DateTime>("OrganizationJoiningDate");
+
+                    b.Property<string>("ResidencePhone")
+                        .HasMaxLength(20);
+
+                    b.Property<DateTime>("ServiceJoiningDate");
+
+                    b.Property<Guid>("ShiftID");
+
+                    b.Property<Guid?>("UpdatedBy");
+
+                    b.Property<DateTime?>("UpdatedOn");
+
+                    b.Property<string>("UserID");
+
+                    b.HasKey("EmployeeID");
+
+                    b.HasIndex("AreaID");
+
+                    b.HasIndex("DepartmentID");
+
+                    b.HasIndex("DesignationID");
+
+                    b.HasIndex("ShiftID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("MstEmployee");
+                });
+
             modelBuilder.Entity("ESPL.KP.Entities.MstOccurrenceBook", b =>
                 {
                     b.Property<Guid>("OBID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<Guid>("AreaID");
+
+                    b.Property<string>("AssignedComments")
+                        .HasMaxLength(500);
+
+                    b.Property<Guid?>("AssignedTO");
 
                     b.Property<string>("CaseFileNumber")
                         .IsRequired()
@@ -383,6 +466,8 @@ namespace ESPL.KP.Migrations
                     b.HasKey("OBID");
 
                     b.HasIndex("AreaID");
+
+                    b.HasIndex("AssignedTO");
 
                     b.HasIndex("DepartmentID");
 
@@ -499,15 +584,12 @@ namespace ESPL.KP.Migrations
                     b.ToTable("MstStatus");
                 });
 
-            modelBuilder.Entity("ESPL.KP.Entities.OccurrenceAssignment", b =>
+            modelBuilder.Entity("ESPL.KP.Entities.OccurrenceAssignmentHistory", b =>
                 {
                     b.Property<Guid>("OBAssignmentID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AssignedTO");
-
-                    b.Property<string>("Comments")
-                        .HasMaxLength(500);
+                    b.Property<Guid>("AssignedTO");
 
                     b.Property<Guid?>("CreatedBy");
 
@@ -527,7 +609,7 @@ namespace ESPL.KP.Migrations
 
                     b.HasIndex("OBID");
 
-                    b.ToTable("OccurrenceAssignment");
+                    b.ToTable("OccurrenceAssignmentHistory");
                 });
 
             modelBuilder.Entity("ESPL.KP.Entities.OccurrenceReviewHistory", b =>
@@ -669,151 +751,147 @@ namespace ESPL.KP.Migrations
                 {
                     b.HasOne("ESPL.KP.Entities.Author", "Author")
                         .WithMany("Books")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AuthorId");
                 });
 
-            modelBuilder.Entity("ESPL.KP.Entities.CfgUserArea", b =>
+            modelBuilder.Entity("ESPL.KP.Entities.CfgEmployeeArea", b =>
                 {
                     b.HasOne("ESPL.KP.Entities.MstArea", "MstArea")
                         .WithMany()
-                        .HasForeignKey("AreaID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AreaID");
 
-                    b.HasOne("ESPL.KP.Entities.ESPLUser", "ESPLUser")
-                        .WithMany("CfgUserArea")
-                        .HasForeignKey("UserID");
+                    b.HasOne("ESPL.KP.Entities.MstEmployee", "MstEmployee")
+                        .WithMany("CfgEmployeeArea")
+                        .HasForeignKey("EmployeeID");
                 });
 
-            modelBuilder.Entity("ESPL.KP.Entities.CfgUserDepartment", b =>
+            modelBuilder.Entity("ESPL.KP.Entities.CfgEmployeeDepartment", b =>
                 {
                     b.HasOne("ESPL.KP.Entities.MstDepartment", "MstDepartment")
-                        .WithMany("CfgUserDepartment")
-                        .HasForeignKey("DepartmentID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany()
+                        .HasForeignKey("DepartmentID");
 
-                    b.HasOne("ESPL.KP.Entities.ESPLUser", "ESPLUser")
-                        .WithMany("CfgUserDepartments")
-                        .HasForeignKey("UserID");
+                    b.HasOne("ESPL.KP.Entities.MstEmployee", "MstEmployee")
+                        .WithMany("CfgEmployeeDepartments")
+                        .HasForeignKey("EmployeeID");
                 });
 
-            modelBuilder.Entity("ESPL.KP.Entities.CfgUserDesignation", b =>
+            modelBuilder.Entity("ESPL.KP.Entities.CfgEmployeeDesignation", b =>
                 {
                     b.HasOne("ESPL.KP.Entities.MstDesignation", "MstDesignation")
                         .WithMany()
-                        .HasForeignKey("DesignationID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("DesignationID");
 
-                    b.HasOne("ESPL.KP.Entities.ESPLUser", "ESPLUser")
-                        .WithMany("CfgUserDesignation")
-                        .HasForeignKey("UserID");
+                    b.HasOne("ESPL.KP.Entities.MstEmployee", "MstEmployee")
+                        .WithMany("CfgEmployeeDesignation")
+                        .HasForeignKey("EmployeeID");
                 });
 
-            modelBuilder.Entity("ESPL.KP.Entities.CfgUserShift", b =>
+            modelBuilder.Entity("ESPL.KP.Entities.CfgEmployeeShift", b =>
                 {
+                    b.HasOne("ESPL.KP.Entities.MstEmployee", "MstEmployee")
+                        .WithMany("CfgEmployeeShift")
+                        .HasForeignKey("EmployeeID");
+
                     b.HasOne("ESPL.KP.Entities.MstShift", "MstShift")
                         .WithMany()
-                        .HasForeignKey("ShiftID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("ESPL.KP.Entities.ESPLUser", "ESPLUser")
-                        .WithMany("CfgUserShift")
-                        .HasForeignKey("UserID");
+                        .HasForeignKey("ShiftID");
                 });
 
-            modelBuilder.Entity("ESPL.KP.Entities.ESPLUser", b =>
+            modelBuilder.Entity("ESPL.KP.Entities.MstEmployee", b =>
                 {
-                    b.HasOne("ESPL.KP.Entities.MstArea")
-                        .WithMany("ESPLUser")
-                        .HasForeignKey("MstAreaAreaID");
+                    b.HasOne("ESPL.KP.Entities.MstArea", "MstArea")
+                        .WithMany("MstEmployees")
+                        .HasForeignKey("AreaID");
 
-                    b.HasOne("ESPL.KP.Entities.MstDesignation")
-                        .WithMany("ESPLUser")
-                        .HasForeignKey("MstDesignationDesignationID");
+                    b.HasOne("ESPL.KP.Entities.MstDepartment", "MstDepartment")
+                        .WithMany("MstEmployees")
+                        .HasForeignKey("DepartmentID");
 
-                    b.HasOne("ESPL.KP.Entities.MstShift")
-                        .WithMany("ESPLUser")
-                        .HasForeignKey("MstShiftShiftID");
+                    b.HasOne("ESPL.KP.Entities.MstDesignation", "MstDesignation")
+                        .WithMany("MstEmployees")
+                        .HasForeignKey("DesignationID");
+
+                    b.HasOne("ESPL.KP.Entities.MstShift", "MstShift")
+                        .WithMany("MstEmployees")
+                        .HasForeignKey("ShiftID");
+
+                    b.HasOne("ESPL.KP.Entities.ESPLUser", "ESPLUser")
+                        .WithMany()
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("ESPL.KP.Entities.MstOccurrenceBook", b =>
                 {
                     b.HasOne("ESPL.KP.Entities.MstArea", "MstArea")
                         .WithMany("MstOccurrenceBooks")
-                        .HasForeignKey("AreaID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AreaID");
+
+                    b.HasOne("ESPL.KP.Entities.MstEmployee", "MstEmployee")
+                        .WithMany()
+                        .HasForeignKey("AssignedTO");
 
                     b.HasOne("ESPL.KP.Entities.MstDepartment", "MstDepartment")
                         .WithMany("MstOccurrenceBooks")
-                        .HasForeignKey("DepartmentID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("DepartmentID");
 
                     b.HasOne("ESPL.KP.Entities.MstOccurrenceType", "MstOccurrenceType")
                         .WithMany("MstOccurrenceBooks")
-                        .HasForeignKey("OBTypeID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("OBTypeID");
 
                     b.HasOne("ESPL.KP.Entities.MstStatus", "MstStatus")
                         .WithMany("MstOccurrenceBooks")
-                        .HasForeignKey("StatusID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("StatusID");
                 });
 
-            modelBuilder.Entity("ESPL.KP.Entities.OccurrenceAssignment", b =>
+            modelBuilder.Entity("ESPL.KP.Entities.OccurrenceAssignmentHistory", b =>
                 {
-                    b.HasOne("ESPL.KP.Entities.ESPLUser", "ESPLUser")
+                    b.HasOne("ESPL.KP.Entities.MstEmployee", "MstEmployee")
                         .WithMany("OccurrenceAssignments")
                         .HasForeignKey("AssignedTO");
 
                     b.HasOne("ESPL.KP.Entities.MstOccurrenceBook", "MstOccurrenceBook")
-                        .WithMany("OccurrenceAssignments")
-                        .HasForeignKey("OBID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany("OccurrenceAssignmentHistory")
+                        .HasForeignKey("OBID");
                 });
 
             modelBuilder.Entity("ESPL.KP.Entities.OccurrenceReviewHistory", b =>
                 {
                     b.HasOne("ESPL.KP.Entities.MstOccurrenceBook", "MstOccurrenceBook")
                         .WithMany("OccurrenceReveiwHistories")
-                        .HasForeignKey("OBID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("OBID");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
                         .WithMany("Claims")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RoleId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
                     b.HasOne("ESPL.KP.Entities.ESPLUser")
                         .WithMany("Claims")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
                     b.HasOne("ESPL.KP.Entities.ESPLUser")
                         .WithMany("Logins")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
                         .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RoleId");
 
                     b.HasOne("ESPL.KP.Entities.ESPLUser")
                         .WithMany("Roles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
         }
     }

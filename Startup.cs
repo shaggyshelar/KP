@@ -301,6 +301,15 @@ namespace ESPL.KP
                 cfg.CreateMap<ESPL.KP.Models.EmployeeForUpdationDto, ESPL.KP.Entities.MstEmployee>();
                 cfg.CreateMap<ESPL.KP.Entities.MstEmployee, ESPL.KP.Models.EmployeeForUpdationDto>();
 
+                cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceBook, ESPL.KP.Models.OccurrenceReportDto>()
+                    .ForMember(dest => dest.Area, opt => opt.MapFrom(src =>
+                    src.MstArea))
+                    .ForMember(dest => dest.Offence, opt => opt.MapFrom(src =>
+                    src.MstOccurrenceType))
+                    .ForMember(dest => dest.Department, opt => opt.MapFrom(src =>
+                    src.MstDepartment))
+                    .ForMember(dest => dest.Status, opt => opt.MapFrom(src =>
+                    src.MstStatus));
             });
 
             libraryContext.EnsureSeedDataForContext();

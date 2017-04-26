@@ -16,6 +16,7 @@ using ESPL.KP.Entities.Core;
 using ESPL.KP.Models.Core;
 using ESPL.KP.Helpers.Employee;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using ESPL.KP.Helpers.Reports;
 using Microsoft.AspNetCore.Identity;
 
 namespace ESPL.KP.Services
@@ -824,5 +825,44 @@ namespace ESPL.KP.Services
         }
 
         #endregion Employee
+
+          #region Reports
+        public PagedList<MstOccurrenceBook> GetOccurrenceBooks(OccurrenceReportResourceParameters occurrenceBookResourceParameters)
+        {
+            var collectionBeforePaging =
+                _context.MstOccurrenceBook
+                // .Include(occurrence => occurrence.MstArea)
+                // .Include(occurrence => occurrence.MstDepartment)
+                // .Include(occurrence => occurrence.MstStatus)
+                .ApplySort(occurrenceBookResourceParameters.OrderBy,
+                _propertyMappingService.GetPropertyMapping<OccurrenceReportDto, MstOccurrenceBook>());
+
+            if (!string.IsNullOrEmpty(occurrenceBookResourceParameters.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = occurrenceBookResourceParameters.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a =>
+                        a.OBNumber.ToLowerInvariant().Contains(searchQueryForWhereClause) ||
+                        a.CaseFileNumber.ToLowerInvariant().Contains(searchQueryForWhereClause) ||
+                        a.NatureOfOccurrence.ToLowerInvariant().Contains(searchQueryForWhereClause) ||
+                        a.Remark.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    );
+            }
+
+            return PagedList<MstOccurrenceBook>.Create(collectionBeforePaging,
+                occurrenceBookResourceParameters.PageNumber,
+                occurrenceBookResourceParameters.PageSize);
+        }
+
+        public IEnumerable<MstArea> GetAreaForOccurrance(Guid areaId)
+        {
+            return _context.MstArea
+                        .Where(b => b.AreaID == areaId).OrderBy(b => b.AreaName).ToList();
+        }
+
+        #endregion Reports
     }
 }
