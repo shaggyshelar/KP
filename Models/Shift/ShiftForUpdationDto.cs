@@ -8,7 +8,6 @@ namespace ESPL.KP.Models
         public ShiftForUpdationDto()
         {
         }
-        public Guid ShiftID { get; set; }
         public string ShiftName { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }

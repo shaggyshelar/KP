@@ -182,6 +182,7 @@ namespace ESPL.KP
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -260,8 +261,8 @@ namespace ESPL.KP
                 cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceType, ESPL.KP.Models.OccurrenceTypeDto>();
                 cfg.CreateMap<ESPL.KP.Models.OccurrenceTypeForCreationDto, ESPL.KP.Entities.MstOccurrenceType>();
                 cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceType, ESPL.KP.Models.OccurrenceTypeForCreationDto>();
-                cfg.CreateMap<KP.Models.OccurrenceBookForUpdationDto, ESPL.KP.Entities.MstOccurrenceType>();
-                cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceType, ESPL.KP.Models.OccurrenceBookForUpdationDto>();
+                cfg.CreateMap<KP.Models.OccurrenceTypeForUpdationsDto, ESPL.KP.Entities.MstOccurrenceType>();
+                cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceType, ESPL.KP.Models.OccurrenceTypeForUpdationsDto>();
 
                 cfg.CreateMap<ESPL.KP.Entities.MstArea, ESPL.KP.Models.AreaDto>();
                 cfg.CreateMap<ESPL.KP.Models.AreaForCreationDto, ESPL.KP.Entities.MstArea>();
@@ -321,6 +322,7 @@ namespace ESPL.KP
                     ValidateLifetime = true
                 }
             });
+
             app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUi(c =>

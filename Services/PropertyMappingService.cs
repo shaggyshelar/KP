@@ -91,7 +91,9 @@ namespace ESPL.KP.Services
             { "OBTime", new PropertyMappingValue(new List<string>() { "OBTime" } ) },
             { "CaseFileNumber", new PropertyMappingValue(new List<string>() { "CaseFileNumber" } ) },
             { "NatureOfOccurrence", new PropertyMappingValue(new List<string>() { "NatureOfOccurrence" } ) },
-            { "Remark", new PropertyMappingValue(new List<string>() { "Remark" } ) }
+            { "Remark", new PropertyMappingValue(new List<string>() { "Remark" } ) },
+            { "AssignedTO", new PropertyMappingValue(new List<string>() { "AssignedTO" } ) },
+            { "AssignedComments", new PropertyMappingValue(new List<string>() { "AssignedComments" } ) },
      };
 
         private Dictionary<string, PropertyMappingValue> _appModulesPropertyMapping =
