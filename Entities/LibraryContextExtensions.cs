@@ -156,37 +156,45 @@ namespace ESPL.KP.Entities
 
 
 
-            #region Shift
-            context.MstShift.RemoveRange(context.MstShift);
-            context.SaveChanges();
-            var shifts = new List<MstShift>()
-            {
-                new MstShift()
-                {
-                    ShiftID = new Guid("318DC4DF-684A-444F-9E5A-18BB5EED1123"),
-                    ShiftName = "Shift1",
-                    StartTime = TimeSpan.FromMinutes(1),
-                    EndTime = TimeSpan.FromMinutes(1)
-                },
-                new MstShift()
-                {
-                    ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56285"),
-                    ShiftName = "Shift2",
-                    StartTime = TimeSpan.FromMinutes(1),
-                    EndTime = TimeSpan.FromMinutes(1)
-                },
-                new MstShift()
-                {
-                    ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE904CA"),
-                    ShiftName = "Shift3",
-                    StartTime =TimeSpan.FromMinutes(1),
-                    EndTime = TimeSpan.FromMinutes(1)
-                }
-            };
+            // #region Shift
+            // context.MstShift.RemoveRange(context.MstShift);
+            // context.SaveChanges();
+            // var shifts = new List<MstShift>() {
+            //     new MstShift() {
+            //         ShiftID = new Guid("318DC4DF-684A-444F-9E5A-18BB5EED1123"),
+            //         ShiftName = "Open",
+            //         StartTime = TimeSpan.FromMinutes(1),
+            //         EndTime = TimeSpan.FromMinutes(1)
+            //     },
+            //     new MstShift() {
+            //         ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56285"),
+            //         ShiftName = "Under Investigation",
+            //         StartTime = TimeSpan.FromMinutes(1),
+            //         EndTime = TimeSpan.FromMinutes(1)
+            //     },
+            //     new MstShift() {
+            //         ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90111"),
+            //         ShiftName = "Closed",
+            //         StartTime = TimeSpan.FromMinutes(1),
+            //         EndTime = TimeSpan.FromMinutes(1)
+            //     },
+            //     new MstShift() {
+            //         ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90222"),
+            //         ShiftName = "Solved",
+            //         StartTime = TimeSpan.FromMinutes(1),
+            //         EndTime = TimeSpan.FromMinutes(1)
+            //     },
+            //     new MstShift() {
+            //         ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90333"),
+            //         ShiftName = "In Court",
+            //         StartTime = TimeSpan.FromMinutes(1),
+            //         EndTime = TimeSpan.FromMinutes(1)
+            //     }
+            // };
 
-            context.MstShift.AddRange(shifts);
-            context.SaveChanges();
-            #endregion
+            // context.MstShift.AddRange(shifts);
+            // context.SaveChanges();
+            // #endregion
 
             UpdateDepartments(context);
             UpdateArea(context);
@@ -197,7 +205,7 @@ namespace ESPL.KP.Entities
             UpdateEmployee(context);
             UpdateOccurrenceBooks(context);
             UpdateAppModules(context);
-            
+
         }
 
 
@@ -206,61 +214,66 @@ namespace ESPL.KP.Entities
         {
             context.MstDesignation.RemoveRange(context.MstDesignation);
             context.SaveChanges();
-            var designations = new List<MstDesignation>()
-            {
-                new MstDesignation()
-                {
+            var designations = new List<MstDesignation>() {
+                new MstDesignation() {
                     DesignationID = new Guid("2b72f829-5195-46c3-a6a4-06f817f11093"),
-                    DesignationName = "Director general of police",
-                    DesignationCode = "DGP"
+                    DesignationName = "Inspector-General",
+                    DesignationCode = "IG"
                 },
-                new MstDesignation()
-                {
+                new MstDesignation() {
                     DesignationID = new Guid("f6b0d655-5afd-44e1-a1d4-5d6bec3a7c81"),
-                    DesignationName = "Inspector General of Police",
-                    DesignationCode = "IGP"
-                },
-                new MstDesignation()
-                {
-                    DesignationID = new Guid("aff1592e-ba8e-4791-831c-5df49da69054"),
-                    DesignationName = "Deputy Inspector General of Police",
+                    DesignationName = "Deputy Inspector-General",
                     DesignationCode = "DIG"
                 },
-                new MstDesignation()
-                {
+                new MstDesignation() {
+                    DesignationID = new Guid("aff1592e-ba8e-4791-831c-5df49da69054"),
+                    DesignationName = "Senior Assistant Inspector-General",
+                    DesignationCode = "SAIG"
+                },
+                new MstDesignation() {
                     DesignationID = new Guid("15251460-e145-4aef-a3da-6846e881ad11"),
-                    DesignationName = "Deputy Commissioner of Police",
-                    DesignationCode = "DCP"
+                    DesignationName = "Assistant Inspector-General",
+                    DesignationCode = "AIG"
                 },
-                new MstDesignation()
-                {
+                new MstDesignation() {
                     DesignationID = new Guid("6aac273a-ab24-4959-8c93-6f52cfee56ff"),
-                    DesignationName = "Assistant Commissioner of Police",
-                    DesignationCode = "DCP"
+                    DesignationName = "Senior Superintendent",
+                    DesignationCode = "SSP"
                 },
-                new MstDesignation()
-                {
+                new MstDesignation() {
                     DesignationID = new Guid("1d45922a-a4ea-4d81-ad46-7227891199b1"),
-                    DesignationName = "Superintendent of police",
+                    DesignationName = "Superintendent",
                     DesignationCode = "SP"
                 },
-                new MstDesignation()
-                {
+                new MstDesignation() {
                     DesignationID = new Guid("836bf2d2-7eb2-454a-a298-72a9d6aea480"),
-                    DesignationName = "Police Inspector",
+                    DesignationName = "Assistant Superintendent",
+                    DesignationCode = "ASP"
+                },
+                new MstDesignation() {
+                    DesignationID = new Guid("7e08300b-0888-4789-964c-a70686c63b1d"),
+                    DesignationName = "Chief Inspector",
+                    DesignationCode = "CI"
+                },
+                new MstDesignation() {
+                    DesignationID = new Guid("b6873249-6ee2-4506-97a6-cb0d9ce14aa9"),
+                    DesignationName = "Inspector",
                     DesignationCode = "PI"
                 },
-                new MstDesignation()
-                {
-                    DesignationID = new Guid("7e08300b-0888-4789-964c-a70686c63b1d"),
-                    DesignationName = "Police SubInspector",
-                    DesignationCode = "PSI"
+                new MstDesignation() {
+                    DesignationID = new Guid("ae573249-6ee2-4506-97a6-cb0d9ce14ca8"),
+                    DesignationName = "Senior Sergeant",
+                    DesignationCode = "SSGT"
                 },
-                new MstDesignation()
-                {
-                    DesignationID = new Guid("bf573249-6ee2-4506-97a6-cb0d9ce14ca8"),
-                    DesignationName = "Police Head Constable",
-                    DesignationCode = "HPC"
+                new MstDesignation() {
+                    DesignationID = new Guid("1f573249-6ee2-4506-97a6-cb0d9ce14ab9"),
+                    DesignationName = "Sergeant",
+                    DesignationCode = "SGT"
+                },
+                new MstDesignation() {
+                    DesignationID = new Guid("57bf3249-6ee2-4506-97a6-cb0d9ce14896"),
+                    DesignationName = "Constable",
+                    DesignationCode = "CSTBL"
                 }
             };
 
@@ -274,112 +287,95 @@ namespace ESPL.KP.Entities
             #region Area
             context.MstArea.RemoveRange(context.MstArea);
             context.SaveChanges();
-            var areas = new List<MstArea>()
-            {
-                new MstArea()
-                {
+            var areas = new List<MstArea>() {
+                new MstArea() {
                     AreaID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9579"),
-                    AreaName = "Area1",
-                    AreaCode = "A1",
-                    PinCode = "1000"
+                    AreaName = "Ladhri Awasi",
+                    AreaCode = "LASI",
+                    PinCode = "4 0122"
                 },
-                new MstArea()
-                {
+                new MstArea() {
                     AreaID = new Guid("411bfab2-0d44-4fb9-8835-184db90f44fa"),
-                    AreaName = "Area2",
-                    AreaCode = "A2",
-                    PinCode = "1001"
+                    AreaName = "Laikipia Campus",
+                    AreaCode = "LKPC",
+                    PinCode = "2 0330"
                 },
-                new MstArea()
-                {
+                new MstArea() {
                     AreaID = new Guid("89234f93-6a6a-4960-a7d3-20f98f2760a8"),
-                    AreaName = "Area3",
-                    AreaCode = "A3",
-                    PinCode = "1002"
+                    AreaName = "Laisamis",
+                    AreaCode = "LSMS",
+                    PinCode = "6 0502"
 
                 },
-                new MstArea()
-                {
+                new MstArea() {
                     AreaID = new Guid("901d24f6-f13e-4788-82f8-2416b11fe3f3"),
-                    AreaName = "Area4",
-                    AreaCode = "A4",
-                    PinCode = "1003"
+                    AreaName = "Lamu",
+                    AreaCode = "LAMU",
+                    PinCode = "8 0500"
 
                 },
-                new MstArea()
-                {
-                   AreaID = new Guid("1d97702d-6d22-4256-a5ab-2844c2900fea"),
-                   AreaName = "Area5",
-                   AreaCode = "A5",
-                   PinCode = "1004"
+                new MstArea() {
+                    AreaID = new Guid("1d97702d-6d22-4256-a5ab-2844c2900fea"),
+                    AreaName = "Lanet",
+                    AreaCode = "LNET",
+                    PinCode = "2 0112"
 
                 },
-                new MstArea()
-                {
-                  AreaID = new Guid("717fb309-5cc9-422e-9b6e-28942ea181fa"),
-                  AreaName = "Area6",
-                  AreaCode = "A6",
-                  PinCode = "1005"
+                new MstArea() {
+                    AreaID = new Guid("717fb309-5cc9-422e-9b6e-28942ea181fa"),
+                    AreaName = "Langas",
+                    AreaCode = "LNGS",
+                    PinCode = "3 0112"
                 },
-                new MstArea()
-                {
-                   AreaID = new Guid("85d79042-0dc0-48f1-9e7a-2f39a5650290"),
-                   AreaName = "Area7",
-                   AreaCode = "A7",
-                   PinCode = "1006"
+                new MstArea() {
+                    AreaID = new Guid("85d79042-0dc0-48f1-9e7a-2f39a5650290"),
+                    AreaName = "Langata",
+                    AreaCode = "LNGT",
+                    PinCode = "0 0509"
                 },
-                new MstArea()
-                {
-                   AreaID = new Guid("da00ca84-aff0-4b07-abd2-5777dd27be3d"),
-                   AreaName = "Area8",
-                   AreaCode = "A8",
-                   PinCode = "1007"
+                new MstArea() {
+                    AreaID = new Guid("da00ca84-aff0-4b07-abd2-5777dd27be3d"),
+                    AreaName = "Lavington",
+                    AreaCode = "LVTN",
+                    PinCode = "0 0603"
                 },
-                new MstArea()
-                {
-                   AreaID = new Guid("49ce5ab0-2025-4c50-aaf8-587a44d1941e"),
-                   AreaName = "Area9",
-                   AreaCode = "A9",
-                   PinCode = "1008"
+                new MstArea() {
+                    AreaID = new Guid("49ce5ab0-2025-4c50-aaf8-587a44d1941e"),
+                    AreaName = "Leshau",
+                    AreaCode = "LSHU",
+                    PinCode = "2 0310"
                 },
-                new MstArea()
-                {
+                new MstArea() {
                     AreaID = new Guid("08372fff-ad0b-40c8-8eed-595eab744ee8"),
-                    AreaName = "Area10",
-                    AreaCode = "A10",
-                    PinCode = "1009"
+                    AreaName = "Lessos",
+                    AreaCode = "LSOS",
+                    PinCode = "3 0302"
                 },
-                new MstArea()
-                {
-                  AreaID = new Guid("2b401a2c-26c2-489e-835d-7473bb734783"),
-                  AreaName = "Area11",
-                  AreaCode = "A11",
-                  PinCode = "1010"
+                new MstArea() {
+                    AreaID = new Guid("2b401a2c-26c2-489e-835d-7473bb734783"),
+                    AreaName = "Likoni",
+                    AreaCode = "LKNI",
+                    PinCode = "8 0110"
                 },
-                new MstArea()
-                {
-                   AreaID = new Guid("46529153-730c-4971-bb28-76c5d2698bd8"),
-                   AreaName = "Area12",
-                   AreaCode = "A12",
-                   PinCode = "1011"
+                new MstArea() {
+                    AreaID = new Guid("46529153-730c-4971-bb28-76c5d2698bd8"),
+                    AreaName = "Limuru",
+                    AreaCode = "LMRU",
+                    PinCode = "0 0217"
                 },
 
-                new MstArea()
-                {
-                   AreaID = new Guid("8d4f017f-a130-4970-9928-7b8c10e029a0"),
-                   AreaName = "Area13",
-                   AreaCode = "A13",
-                   PinCode = "1012"
+                new MstArea() {
+                    AreaID = new Guid("8d4f017f-a130-4970-9928-7b8c10e029a0"),
+                    AreaName = "Lita",
+                    AreaCode = "LITA",
+                    PinCode = "9 0109"
                 },
-                new MstArea()
-                {
-                   AreaID = new Guid("57c7f325-707b-4670-9afc-8a7707e47729"),
-                   AreaName = "Area14",
-                   AreaCode = "A14",
-                    PinCode = "1013"
+                new MstArea() {
+                    AreaID = new Guid("57c7f325-707b-4670-9afc-8a7707e47729"),
+                    AreaName = "Litein",
+                    AreaCode = "LTEN",
+                    PinCode = "2 0210"
                 },
-
-
             };
 
             context.MstArea.AddRange(areas);
@@ -392,46 +388,68 @@ namespace ESPL.KP.Entities
             context.MstDepartment.RemoveRange(context.MstDepartment);
             context.SaveChanges();
 
-            var departments = new List<MstDepartment>(){
-                new MstDepartment(){
+            var departments = new List<MstDepartment>() {
+                new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709471111"),
-                    DepartmentName = "Department 1",
-                    DepartmentDespcription = "Description for department 1",
+                    DepartmentName = "General Service Unit (GSU)",
+                    DepartmentDespcription = "A paramilitary wing to deal with situations affecting internal security and to be a reserve force to deal with special operations and civil disorders.",
                 },
-                new MstDepartment(){
+                new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709472222"),
-                    DepartmentName = "Department 2",
-                    DepartmentDespcription = "Description for department 2",
+                    DepartmentName = "Anti Stock Theft Unit",
+                    DepartmentDespcription = "Anti Stock Theft Unit for stock ",
                 },
-                new MstDepartment(){
+                new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),
-                    DepartmentName = "Department 3",
-                    DepartmentDespcription = "Description for department 3",
+                    DepartmentName = "Criminal Investigation Department",
+                    DepartmentDespcription = "Responsible for investigating complex cases.",
                 },
-                new MstDepartment(){
+                new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709474444"),
-                    DepartmentName = "Department 4",
-                    DepartmentDespcription = "Description for department 4",
-                },new MstDepartment(){
+                    DepartmentName = "Traffic Police Department",
+                    DepartmentDespcription = "Force to enforce traffic laws in the republic.",
+                },
+                new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709475555"),
-                    DepartmentName = "Department 5",
-                    DepartmentDespcription = "Description for department 5",
+                    DepartmentName = "Kenya Police College",
+                    DepartmentDespcription = "Training College for Police cadets.",
                 },
-                new MstDepartment(){
+                new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709476666"),
-                    DepartmentName = "Department 6",
-                    DepartmentDespcription = "Description for department 6",
+                    DepartmentName = "Kenya Police Air Wing",
+                    DepartmentDespcription = "Provides air support and surveillance to troops on ground.",
                 },
-                new MstDepartment(){
+                new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709477777"),
-                    DepartmentName = "Department 7",
-                    DepartmentDespcription = "Description for department 7",
+                    DepartmentName = "Kenya Railways Police",
+                    DepartmentDespcription = "Maintaining law and order in trains and on train stations.",
                 },
-                new MstDepartment(){
+                new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709478888"),
-                    DepartmentName = "Department 8",
-                    DepartmentDespcription = "Description for department 8",
-                }
+                    DepartmentName = "Kenya Police Dog Unit",
+                    DepartmentDespcription = "Sniffer dogs to detect explosives and drugs.",
+                },
+
+                new MstDepartment() {
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709479999"),
+                    DepartmentName = "Tourism Police Unit",
+                    DepartmentDespcription = "A department to tackle crimes related to tourists.",
+                },
+                new MstDepartment() {
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709471010"),
+                    DepartmentName = "Kenya Airports Police Unit",
+                    DepartmentDespcription = "A department tasked with protecting airports in the republic.",
+                },
+                new MstDepartment() {
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709471011"),
+                    DepartmentName = "Maritime Police Unit",
+                    DepartmentDespcription = "A marine police unit to secure the coastline and internal rivers.",
+                },
+                new MstDepartment() {
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709471012"),
+                    DepartmentName = "Diplomatic Police Unit",
+                    DepartmentDespcription = "A department tasked with protecting the diplomats in the republic.",
+                },
             };
 
             context.MstDepartment.AddRange(departments);
@@ -443,13 +461,30 @@ namespace ESPL.KP.Entities
             context.MstOccurrenceType.RemoveRange(context.MstOccurrenceType);
             context.SaveChanges();
             var occurrenceTypes = new List<MstOccurrenceType>() {
-                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf111"),OBTypeName="Occurrence Type 1"},
-                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf222"),OBTypeName="Occurrence Type 2"},
-                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf333"),OBTypeName="Occurrence Type 3"},
-                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf444"),OBTypeName="Occurrence Type 4"},
-                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf555"),OBTypeName="Occurrence Type 5"},
-                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf666"),OBTypeName="Occurrence Type 6"},
-                new MstOccurrenceType(){OBTypeID=new Guid("758b1995-7f92-4d87-9588-b90800abf777"),OBTypeName="Occurrence Type 7"}
+                new MstOccurrenceType() {
+                    OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf111"),
+                    OBTypeName = "Carjacking"
+                },
+                new MstOccurrenceType() {
+                    OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf222"),
+                    OBTypeName = "Theft and banditry"
+                },
+                new MstOccurrenceType() {
+                    OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf333"),
+                    OBTypeName = "Ethnic violence"
+                },
+                new MstOccurrenceType() {
+                    OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf444"),
+                    OBTypeName = "Corruption"
+                },
+                new MstOccurrenceType() {
+                    OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf555"),
+                    OBTypeName = "Terrorism"
+                },
+                new MstOccurrenceType() {
+                    OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf666"),
+                    OBTypeName = "Drug abuse"
+                }
             };
             context.MstOccurrenceType.AddRange(occurrenceTypes);
             context.SaveChanges();
@@ -462,30 +497,51 @@ namespace ESPL.KP.Entities
         {
             context.MstShift.RemoveRange(context.MstShift);
             context.SaveChanges();
-            var shifts = new List<MstShift>()
-            {
-                new MstShift()
-                {
+            var shifts = new List<MstShift>() {
+                new MstShift() {
                     ShiftID = new Guid("318DC4DF-684A-444F-9E5A-18BB5EED1123"),
-                    ShiftName = "Shift1",
-                    StartTime = TimeSpan.FromMinutes(1),
-                    EndTime = TimeSpan.FromMinutes(1)
+                    ShiftName = "Regular Morning Shift",
+                    StartTime = TimeSpan.FromHours(4),
+                    EndTime = TimeSpan.FromHours(12)
                 },
-                new MstShift()
-                {
+                new MstShift() {
                     ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56285"),
-                    ShiftName = "Shift2",
-                    StartTime = TimeSpan.FromMinutes(1),
-                    EndTime = TimeSpan.FromMinutes(1)
+                    ShiftName = "Officers Morning Shift",
+                    StartTime = TimeSpan.FromHours(4),
+                    EndTime = TimeSpan.FromHours(12)
                 },
-                new MstShift()
-                {
-                    ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE904CA"),
-                    ShiftName = "Shift3",
-                    StartTime =TimeSpan.FromMinutes(1),
-                    EndTime = TimeSpan.FromMinutes(1)
+                new MstShift() {
+                    ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56111"),
+                    ShiftName = "Regular Mid-Day Shift",
+                    StartTime = TimeSpan.FromHours(12),
+                    EndTime = TimeSpan.FromHours(20)
+                },
+                new MstShift() {
+                    ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90222"),
+                    ShiftName = "Officers Mid-Day Shift",
+                    StartTime = TimeSpan.FromHours(12),
+                    EndTime = TimeSpan.FromHours(20)
+                },
+                new MstShift() {
+                    ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90333"),
+                    ShiftName = "Regular Night Shift",
+                    StartTime = TimeSpan.FromHours(20),
+                    EndTime = TimeSpan.FromHours(4)
+                },
+                new MstShift() {
+                    ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90444"),
+                    ShiftName = "Officers Night Shift",
+                    StartTime = TimeSpan.FromHours(20),
+                    EndTime = TimeSpan.FromHours(4)
+                },
+                new MstShift() {
+                    ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90555"),
+                    ShiftName = "Officers General Shift",
+                    StartTime = TimeSpan.FromHours(8),
+                    EndTime = TimeSpan.FromHours(4)
                 }
             };
+
 
             context.MstShift.AddRange(shifts);
             context.SaveChanges();
@@ -499,24 +555,29 @@ namespace ESPL.KP.Entities
         {
             context.MstStatus.RemoveRange(context.MstStatus);
             context.SaveChanges();
-            var status = new List<MstStatus>()
-            {
-                new MstStatus()
-                {
+            var status = new List<MstStatus>() {
+                new MstStatus() {
                     StatusID = new Guid("1DD5458B-E136-4D03-B309-0089D4A9BD9D"),
-                    StatusName = "New"
+                    StatusName = "Open"
                 },
-                new MstStatus()
-                {
+                new MstStatus() {
                     StatusID = new Guid("EBEED096-EA34-43E2-948E-32BB98F31401"),
-                    StatusName = "Assigned"
+                    StatusName = "Under Investigation"
                 },
-                new MstStatus()
-                {
+                new MstStatus() {
                     StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
-                    StatusName = "Reviewed"
+                    StatusName = "Closed"
+                },
+                new MstStatus() {
+                    StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1111"),
+                    StatusName = "Solved"
+                },
+                new MstStatus() {
+                    StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1221"),
+                    StatusName = "In Court"
                 }
             };
+
 
             context.MstStatus.AddRange(status);
             context.SaveChanges();
@@ -529,67 +590,103 @@ namespace ESPL.KP.Entities
             context.SaveChanges();
             var occurrenceBooks = new List<MstOccurrenceBook>() {
                 new MstOccurrenceBook() {
-                    OBID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
-                    AreaID= new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9579"),
-                    OBTypeID= new Guid("758b1995-7f92-4d87-9588-b90800abf111"),
-                    DepartmentID= new Guid("a1da1d8e-1111-4634-b538-a01709471111"),
-                    StatusID= new Guid("1DD5458B-E136-4D03-B309-0089D4A9BD9D"),
-                    OBNumber= "123",
-                    OBTime= Convert.ToDateTime("2017-04-20T19:23:14.9100866"),
-                    CaseFileNumber= "1",
-                    NatureOfOccurrence= "Nature 1",
-                    Remark= "Test Remark 1",
-                    AssignedTO= new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111"),
-                    AssignedComments= "Assigned",
-                    AssignedTime= DateTime.Now.AddDays(4)
-                  },
-                new MstOccurrenceBook()  {
-                    OBID=new Guid( "411bfab2-0d44-4fb9-8835-184db90f5678"),
-                    AreaID=new Guid( "411bfab2-0d44-4fb9-8835-184db90f44fa"),
-                    OBTypeID=new Guid( "758b1995-7f92-4d87-9588-b90800abf222"),
-                    DepartmentID=new Guid("a1da1d8e-1111-4634-b538-a01709472222"),
-                    StatusID=new Guid("EBEED096-EA34-43E2-948E-32BB98F31401"),
-                    OBNumber= "456",
-                    OBTime= Convert.ToDateTime("2017-04-10T19:25:14.9100866"),
-                    CaseFileNumber= "2",
-                    NatureOfOccurrence= "Nature 2",
-                    Remark= "Test Remark 2",
-                    AssignedTO= new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222"),
-                    AssignedComments= "Assigned",
-                    AssignedTime=DateTime.Now.AddHours(-5)
-                  },
-                  new MstOccurrenceBook()  {
-                    OBID=new Guid( "411bfab2-0d44-4fb9-8835-184db90f8878"),
-                    AreaID=new Guid( "411bfab2-0d44-4fb9-8835-184db90f44fa"),
-                    OBTypeID=new Guid( "758b1995-7f92-4d87-9588-b90800abf222"),
-                    DepartmentID=new Guid("a1da1d8e-1111-4634-b538-a01709473333"),
-                    StatusID=new Guid("EBEED096-EA34-43E2-948E-32BB98F31401"),
-                    OBNumber= "888",
-                    OBTime= Convert.ToDateTime("2017-04-11T19:25:14.9100866"),
-                    CaseFileNumber= "3",
-                    NatureOfOccurrence= "Nature 3",
-                    Remark= "Test Remark 3",
-                    AssignedTO= new Guid("56c385ae-ce46-41d4-b7fe-08df9aef3333"),
-                    AssignedComments= "Assigned",
-                    AssignedTime= DateTime.Now.AddDays(-5)
-                  },
-                  new MstOccurrenceBook()  {
-                    OBID=new Guid( "411bfab2-0d44-4fb9-8835-184db90f7878"),
-                    AreaID=new Guid( "411bfab2-0d44-4fb9-8835-184db90f44fa"),
-                    OBTypeID=new Guid( "758b1995-7f92-4d87-9588-b90800abf222"),
-                    DepartmentID=new Guid("a1da1d8e-1111-4634-b538-a01709472222"),
-                    StatusID=new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
-                    OBNumber= "911",
-                    OBTime= Convert.ToDateTime("2017-04-15T21:25:14.9100866"),
-                    CaseFileNumber= "4",
-                    NatureOfOccurrence= "Nature 4",
-                    Remark= "Test Remark 4",
-                    AssignedTO=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef3333"),
-                    AssignedComments="Test Assign to officer",
-                    AssignedTime=DateTime.Now
-                  }
+                    OBID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
+                    AreaID = new Guid("89234f93-6a6a-4960-a7d3-20f98f2760a8"),	//LSMS
+            		OBTypeID =  new Guid("758b1995-7f92-4d87-9588-b90800abf111"),	//carjacking
+            		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
+            		StatusID = new Guid("EBEED096-EA34-43E2-948E-32BB98F31401"),
+                    OBNumber = "123",
+                    OBTime = Convert.ToDateTime("2017-04-20T19:23:14.9100866"),
+                    CaseFileNumber = "1",
+                    NatureOfOccurrence = "Nature 1",
+                    Remark = "Test Remark 1",
+                    MapZoomLevel = 11,
+                    Lattitude = 18.548026,
+                    Longitude = 73.811683,
+                    Location = "Near CSIR-URDIP",
+                    AssignedTO = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef4444"),	//SGT
+            		AssignedComments = "Assigned to a SGT in CID",
+                    AssignedTime = DateTime.Now.AddDays(4)
+                },
+                new MstOccurrenceBook() {
+                    OBID = new Guid("411bfab2-0d44-4fb9-8835-184db90f5678"),
+                    AreaID = new Guid("89234f93-6a6a-4960-a7d3-20f98f2760a8"),	//LSMS
+            		OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf222"),
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
+            		StatusID = new Guid("EBEED096-EA34-43E2-948E-32BB98F31401"),
+                    OBNumber = "456",
+                    OBTime = Convert.ToDateTime("2017-04-10T19:25:14.9100866"),
+                    CaseFileNumber = "2",
+                    NatureOfOccurrence = "Nature 2",
+                    Remark = "Test Remark 2",
+                    MapZoomLevel = 11,
+                    Lattitude = 18.550335,
+                    Longitude = 73.809956,
+                    Location = "Near IARIRS Baner",
+                    AssignedTO = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef3333"), //SAIG
+            		AssignedComments = "Assigned to SAIG in CID",
+                    AssignedTime = DateTime.Now.AddHours(-5)
+                },
+                new MstOccurrenceBook() {
+                    OBID = new Guid("411bfab2-0d44-4fb9-8835-184db90f8878"),
+                    AreaID = new Guid("411bfab2-0d44-4fb9-8835-184db90f44fa"),	//LKPC
+            		OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf222"),	//theft
+            		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709472222"),	//ASTU
+            		StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1111"),
+                    OBNumber = "789",
+                    OBTime = Convert.ToDateTime("2017-04-11T19:25:14.9100866"),
+                    CaseFileNumber = "3",
+                    NatureOfOccurrence = "Nature 3",
+                    Remark = "Test Remark 3",
+                    MapZoomLevel = 11,
+                    Lattitude = 18.547787,
+                    Longitude = 73.817699,
+                    Location = "Near baner road",
+                    AssignedTO =new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222"),	//DIG
+            		AssignedComments = "Assigned",
+                    AssignedTime = DateTime.Now.AddDays(-5)
+                },
+                new MstOccurrenceBook() {
+                    OBID = new Guid("411bfab2-0d44-4fb9-8835-184db90f7878"),
+                    AreaID =  new Guid("89234f93-6a6a-4960-a7d3-20f98f2760a8"),	//LSMS
+            		OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf333"),
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
+            		StatusID = new Guid("EBEED096-EA34-43E2-948E-32BB98F31401"),
+                    OBNumber = "911",
+                    OBTime = Convert.ToDateTime("2017-04-15T21:25:14.9100866"),
+                    CaseFileNumber = "4",
+                    NatureOfOccurrence = "Nature 4",
+                    Remark = "Test Remark 4",
+                    AssignedTO = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666"),	//Constable
+            		AssignedComments = "Test Assign to constable",
+                    MapZoomLevel = 11,
+                    Lattitude = 18.549613,
+                    Longitude = 73.812145,
+                    Location = "Near HDFC bank",
+                    AssignedTime = DateTime.Now
+                },
+                new MstOccurrenceBook() {
+                    OBID = new Guid("411bfab2-0d44-4fb9-8835-184db90f5545"),
+                    AreaID =  new Guid("89234f93-6a6a-4960-a7d3-20f98f2760a8"),	//LSMS
+            		OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf333"),
+                    DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
+            		StatusID = new Guid("EBEED096-EA34-43E2-948E-32BB98F31401"),
+                    OBNumber = "112",
+                    OBTime = Convert.ToDateTime("2017-04-15T21:25:14.9100866"),
+                    CaseFileNumber = "5",
+                    NatureOfOccurrence = "Nature 4",
+                    Remark = "Test Remark 4",
+                    AssignedTO =new Guid("56c385ae-ce46-41d4-b7fe-08df9aef5555"),	//Constable
+            		AssignedComments = "Test Assign to constable",
+                    MapZoomLevel = 11,
+                    Lattitude = 18.551200,
+                    Longitude = 73.813422,
+                    Location = "Near The oval",
+                    AssignedTime = DateTime.Now
+                }
 
             };
+
             context.MstOccurrenceBook.AddRange(occurrenceBooks);
             context.SaveChanges();
 
@@ -600,25 +697,61 @@ namespace ESPL.KP.Entities
             context.AppModules.RemoveRange(context.AppModules);
             context.SaveChanges();
 
-            var appModules = new List<AppModule>()
-            {
-                new AppModule()
-                {
-                    Id = new Guid("1325360c-8253-473a-a20f-55c269c20407"),
+            var appModules = new List<AppModule>() {
+                new AppModule() {
+                    Id = new Guid("1325360c-8253-473a-a20f-55c269c12345"),
                     Name = "Department",
                     MenuText = "Department"
                 },
-                new AppModule()
-                {
-                    Id = new Guid("1325360c-8253-473a-a22f-55c269c20407"),
+                new AppModule() {
+                    Id = new Guid("1325360c-8253-473a-a22f-55c269c23456"),
                     Name = "Designation",
                     MenuText = "Designation"
                 },
-                new AppModule()
-                {
-                    Id = new Guid("1325360c-8253-473a-a23f-55c269c20407"),
+                new AppModule() {
+                    Id = new Guid("1325360c-8253-473a-a23f-55c269c34567"),
                     Name = "Area",
                     MenuText = "Area"
+                },
+                new AppModule() {
+                    Id = new Guid("1325360c-8253-473a-a23f-55c269c45678"),
+                    Name = "Occurrence Type",
+                    MenuText = "Occurrence Type"
+                },
+                new AppModule() {
+                    Id = new Guid("1325360c-8253-473a-a23f-55c269c56789"),
+                    Name = "Occurrence Type",
+                    MenuText = "Occurrence Type"
+                },
+                new AppModule() {
+                    Id = new Guid("1325360c-8253-473a-a23f-55c269c67891"),
+                    Name = "Status",
+                    MenuText = "Status"
+                },
+                new AppModule() {
+                    Id = new Guid("1325360c-8253-473a-a23f-55c269c56889"),
+                    Name = "Shift",
+                    MenuText = "Shift"
+                },
+                new AppModule() {
+                    Id = new Guid("1325360c-8253-473a-a23f-55c269c65412"),
+                    Name = "Employee",
+                    MenuText = "Employee"
+                },
+                new AppModule() {
+                    Id = new Guid("1325360c-8253-473a-a23f-55c269c78912"),
+                    Name = "Occurrence Books",
+                    MenuText = "Occurrence Books"
+                },
+                new AppModule() {
+                    Id = new Guid("1325360c-8253-473a-a23f-55c269c89123"),
+                    Name = "Reports",
+                    MenuText = "Reports"
+                },
+                new AppModule() {
+                    Id = new Guid("1325360c-8253-473a-a23f-55c269c91234"),
+                    Name = "Dashboard",
+                    MenuText = "Dashboard"
                 }
             };
 
@@ -629,66 +762,117 @@ namespace ESPL.KP.Entities
         {
             context.MstEmployee.RemoveRange(context.MstEmployee);
             context.SaveChanges();
-            var employee = new List<MstEmployee>()
-            {
-                new MstEmployee
-                {
-                    EmployeeID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111"),
-                    FirstName="First Name1",
-                    LastName="Last Name1",
-                    EmployeeCode="Emp001",
-                    DateOfBirth=DateTime.Now.AddYears(-30),
-                    Gender="Male",
-                    Mobile="1234567890",
-                    Email="Test1@test.com",
-                    ResidencePhone="020-22665544",
-                    Address1="Test Address 1",
-                    OrganizationJoiningDate=DateTime.Now.AddYears(-5),
-                    ServiceJoiningDate=DateTime.Now.AddYears(-5),
-                    AreaID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9579"),
-                    DesignationID=new Guid("2b72f829-5195-46c3-a6a4-06f817f11093"),
-                    DepartmentID=new Guid("a1da1d8e-1111-4634-b538-a01709471111"),
-                    ShiftID= new Guid("318DC4DF-684A-444F-9E5A-18BB5EED1123")
+            var employee = new List<MstEmployee>() {
+                new MstEmployee{
+                    EmployeeID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111"),
+                    FirstName = "John",
+                    LastName = "Doe",
+                    EmployeeCode = "Emp001",
+                    DateOfBirth = DateTime.Now.AddYears(-30),
+                    Gender = "Male",
+                    Mobile = "9876543210",
+                    Email = "johndoe@test.com",
+                    ResidencePhone = "020-22665544",
+                    Address1 = "Westlands Commercial Centre, Ring Road",
+                    OrganizationJoiningDate = DateTime.Now.AddYears(-5),
+                    ServiceJoiningDate = DateTime.Now.AddYears(-5),
+                    AreaID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9579"),	//Lasi
+            		DesignationID = new Guid("2b72f829-5195-46c3-a6a4-06f817f11093"),	//IG
+            		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709471111"),	//GSU
+            		ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90555")			//General Officers
+            	},
+                new MstEmployee{
+                    EmployeeID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222"),
+                    FirstName = "Jack",
+                    LastName = "Sparrow",
+                    EmployeeCode = "Emp002",
+                    DateOfBirth = DateTime.Now.AddYears(-30),
+                    Gender = "Male",
+                    Mobile = "9823654170",
+                    Email = "jacksparrow@test.com",
+                    ResidencePhone = "020-22665544",
+                    Address1 = "Ngong, Olkeri, FOrest Line Road",
+                    OrganizationJoiningDate = DateTime.Now.AddYears(-5),
+                    ServiceJoiningDate = DateTime.Now.AddYears(-5),
+                    AreaID = new Guid("411bfab2-0d44-4fb9-8835-184db90f44fa"),	//LKPC
+            		DesignationID = new Guid("f6b0d655-5afd-44e1-a1d4-5d6bec3a7c81"),	//DIG
+            		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709472222"),	//ASTU
+            		ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90555")			//General Officers
+            	},
+                new MstEmployee{
+                    EmployeeID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef3333"),
+                    FirstName = "Angelina",
+                    LastName = "Jolie",
+                    EmployeeCode = "Emp003",
+                    DateOfBirth = DateTime.Now.AddYears(-30),
+                    Gender = "Female",
+                    Mobile = "95135782460",
+                    Email = "angelinajolie@test.com",
+                    ResidencePhone = "020-22565784",
+                    Address1 = "Salama House, Wabera Street Nairobi.",
+                    OrganizationJoiningDate = DateTime.Now.AddYears(-5),
+                    ServiceJoiningDate = DateTime.Now.AddYears(-5),
+                    AreaID = new Guid("89234f93-6a6a-4960-a7d3-20f98f2760a8"),	//LSMS
+            		DesignationID = new Guid("aff1592e-ba8e-4791-831c-5df49da69054"),	//SAIG
+            		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
+            		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56285")			//officers morning
+            	},
+                new MstEmployee{
+                    EmployeeID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef4444"),
+                    FirstName = "Brad",
+                    LastName = "Pitt",
+                    EmployeeCode = "Emp004",
+                    DateOfBirth = DateTime.Now.AddYears(-30),
+                    Gender = "Male",
+                    Mobile = "9654781230",
+                    Email = "bradpitt@test.com",
+                    ResidencePhone = "020-22565784",
+                    Address1 = "Nejo plaza, Kasarani",
+                    OrganizationJoiningDate = DateTime.Now.AddYears(-5),
+                    ServiceJoiningDate = DateTime.Now.AddYears(-5),
+                    AreaID = new Guid("89234f93-6a6a-4960-a7d3-20f98f2760a8"),	//LSMS
+            		DesignationID = new Guid("1f573249-6ee2-4506-97a6-cb0d9ce14ab9"),	//SGT
+            		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
+            		ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90222")
                 },
-                 new MstEmployee
-                {
-                    EmployeeID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222"),
-                    FirstName="First Name1",
-                    LastName="Last Name1",
-                    EmployeeCode="Emp001",
-                    DateOfBirth=DateTime.Now.AddYears(-30),
-                    Gender="Male",
-                    Mobile="1234567890",
-                    Email="Test1@test.com",
-                    ResidencePhone="020-22665544",
-                    Address1="Test Address 2",
-                    OrganizationJoiningDate=DateTime.Now.AddYears(-5),
-                    ServiceJoiningDate=DateTime.Now.AddYears(-5),
-                    AreaID=new Guid("411bfab2-0d44-4fb9-8835-184db90f44fa"),
-                    DesignationID=new Guid("f6b0d655-5afd-44e1-a1d4-5d6bec3a7c81"),
-                    DepartmentID=new Guid("a1da1d8e-1111-4634-b538-a01709472222"),
-                    ShiftID= new Guid("95998825-255A-401F-AAB1-5EF4C2A56285")
-                },
-                 new MstEmployee
-                {
-                    EmployeeID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef3333"),
-                    FirstName="First Name3",
-                    LastName="Last Name3",
-                    EmployeeCode="Emp003",
-                    DateOfBirth=DateTime.Now.AddYears(-30),
-                    Gender="Female",
-                    Mobile="12344564644",
-                    Email="Test2@test.com",
-                    ResidencePhone="020-22565784",
-                    Address1="Test Address 3",
-                    OrganizationJoiningDate=DateTime.Now.AddYears(-5),
-                    ServiceJoiningDate=DateTime.Now.AddYears(-5),
-                    AreaID=new Guid("89234f93-6a6a-4960-a7d3-20f98f2760a8"),
-                    DesignationID=new Guid("aff1592e-ba8e-4791-831c-5df49da69054"),
-                    DepartmentID=new Guid("a1da1d8e-1111-4634-b538-a01709473333"),
-                    ShiftID= new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE904CA")
-                },
+                new MstEmployee{
+                    EmployeeID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef5555"),
+                    FirstName = "Steve",
+                    LastName = "Rogers",
+                    EmployeeCode = "Emp005",
+                    DateOfBirth = DateTime.Now.AddYears(-30),
+                    Gender = "Male",
+                    Mobile = "8796541230",
+                    Email = "steverogers@test.com",
+                    ResidencePhone = "020-22565784",
+                    Address1 = "Kilimani Business Centre,Kirichwa Road",
+                    OrganizationJoiningDate = DateTime.Now.AddYears(-5),
+                    ServiceJoiningDate = DateTime.Now.AddYears(-5),
+                    AreaID = new Guid("89234f93-6a6a-4960-a7d3-20f98f2760a8"),	//LSMS
+            		DesignationID = new Guid("57bf3249-6ee2-4506-97a6-cb0d9ce14896"),	//Constable
+            		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
+            		ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90333")			//reg night
+            	},
+                new MstEmployee{
+                    EmployeeID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666"),
+                    FirstName = "Tony",
+                    LastName = "Stark",
+                    EmployeeCode = "Emp006",
+                    DateOfBirth = DateTime.Now.AddYears(-30),
+                    Gender = "Male",
+                    Mobile = "9632587410",
+                    Email = "tonystark@test.com",
+                    ResidencePhone = "020-22565784",
+                    Address1 = " Limuru Rd/1st Parklands Ave, Parklands, Nairobi",
+                    OrganizationJoiningDate = DateTime.Now.AddYears(-5),
+                    ServiceJoiningDate = DateTime.Now.AddYears(-5),
+                    AreaID = new Guid("89234f93-6a6a-4960-a7d3-20f98f2760a8"),	//LSMS
+            		DesignationID = new Guid("57bf3249-6ee2-4506-97a6-cb0d9ce14896"),	//Constable
+            		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
+            		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56111")		//reg mid day
+            	},
             };
+
             context.MstEmployee.AddRange(employee);
             context.SaveChanges();
         }
