@@ -46,6 +46,11 @@
 								"key": "Accept",
 								"value": "application/json",
 								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJTeXN0ZW1BZG1pbiI6IlRydWUiLCJzdWIiOiJlc3BsYWRtaW4iLCJqdGkiOiI3NzdmMTZhZC1hODQ3LTQ2NmEtYmFjNy0xN2I3NmUwNWNmMzAiLCJnaXZlbl9uYW1lIjoiRVNQTCIsImZhbWlseV9uYW1lIjoiU3lzdGVtQWRtaW4iLCJlbWFpbCI6ImVzcGwuYWRtaW5AZXRlcm51c3NvbHV0aW9ucy5jb20iLCJVc2VySWQiOiI1NmMzODVhZS1jZTQ2LTQxZDQtYjdmZS0wOGRmOWFlZjcxMDEiLCJleHAiOjE0OTMyODgwNDksImlzcyI6Imh0dHA6Ly9teWNvZGVjYW1wLmlvIiwiYXVkIjoiaHR0cDovL215Y29kZWNhbXAuaW8ifQ.XGlswuxdz4jOkBJcnRB2PUKeHaMjaZVPhLOuk6OT-k8",
+								"description": ""
 							}
 						],
 						"body": {},
@@ -158,6 +163,31 @@
 					"response": []
 				},
 				{
+					"name": "Add Role Permissions",
+					"request": {
+						"url": "http://localhost:6058/api/roles/0c540565-bd45-49f0-a8cb-2353a4e9b0cd/permissions",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"AppModuleName\": \"Department\",\n\t\"PermissionType\": \"Read\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
 					"name": "GET Roles",
 					"request": {
 						"url": "http://localhost:6058/api/roles",
@@ -212,6 +242,48 @@
 						"description": ""
 					},
 					"response": []
+				},
+				{
+					"name": "Get Role Permissions",
+					"request": {
+						"url": "http://localhost:6058/api/roles/a151ea40-802f-4b30-8b03-d89c5729f465/permissions",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Role Permissions",
+					"request": {
+						"url": "http://localhost:6058/api/roles/a151ea40-802f-4b30-8b03-d89c5729f465/permissions",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"AppModuleName\": \"Area\",\n\t\"PermissionType\": \"Read\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
 				}
 			]
 		},
@@ -222,7 +294,7 @@
 				{
 					"name": "Add New User",
 					"request": {
-						"url": "http://localhost:6058/api/identityusers",
+						"url": "http://localhost:6058/api/appusers",
 						"method": "POST",
 						"header": [
 							{
@@ -245,9 +317,34 @@
 					"response": []
 				},
 				{
+					"name": "Add User To Role",
+					"request": {
+						"url": "http://localhost:6058/api/appusers/203ee498-5c93-478d-b57e-5d5678037234/roles",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"RoleId\" : \"3e514f21-fac5-4b7d-bb60-4c916d785da7\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
 					"name": "GET Users",
 					"request": {
-						"url": "http://localhost:6058/api/identityusers",
+						"url": "http://localhost:6058/api/appusers",
 						"method": "GET",
 						"header": [
 							{
@@ -264,7 +361,7 @@
 				{
 					"name": "Get Single User",
 					"request": {
-						"url": "http://localhost:6058/api/identityusers/c0ce6cad-828b-429d-a5e7-caa9b0a92395",
+						"url": "http://localhost:6058/api/appusers/c0ce6cad-828b-429d-a5e7-caa9b0a92395",
 						"method": "GET",
 						"header": [],
 						"body": {},
@@ -275,7 +372,7 @@
 				{
 					"name": "DELETE User",
 					"request": {
-						"url": "http://localhost:6058/api/identityusers/a1da1d8e-1111-4634-b538-a01709474444",
+						"url": "http://localhost:6058/api/appusers/a1da1d8e-1111-4634-b538-a01709474444",
 						"method": "DELETE",
 						"header": [],
 						"body": {},
@@ -286,7 +383,7 @@
 				{
 					"name": "GET Users (pageNumber = 1, pageSize = 5)",
 					"request": {
-						"url": "http://localhost:6058/api/identityusers?pageNumber=1&pageSize=5",
+						"url": "http://localhost:6058/api/appusers?pageNumber=1&pageSize=5",
 						"method": "GET",
 						"header": [
 							{
@@ -303,7 +400,7 @@
 				{
 					"name": "GET Users (orderBy = lastName desc)",
 					"request": {
-						"url": "http://localhost:6058/api/identityusers?orderBy=lastName desc",
+						"url": "http://localhost:6058/api/appusers?orderBy=lastName desc",
 						"method": "GET",
 						"header": [
 							{
@@ -320,7 +417,7 @@
 				{
 					"name": "GET Users (fields = lastName)",
 					"request": {
-						"url": "http://localhost:6058/api/identityusers?fields=lastName",
+						"url": "http://localhost:6058/api/appusers?fields=lastName",
 						"method": "GET",
 						"header": [
 							{
@@ -333,8 +430,122 @@
 						"description": ""
 					},
 					"response": []
+				},
+				{
+					"name": "Get User Roles",
+					"request": {
+						"url": "http://localhost:6058/api/appusers/203ee498-5c93-478d-b57e-5d5678037234/roles",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"RoleId\" : \"a151ea40-802f-4b30-8b03-d89c5729f465\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE User Role",
+					"request": {
+						"url": "http://localhost:6058/api/appusers/a151ea40-802f-4b30-8b03-d89c5729f465/roles",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"RoleId\" : \"a151ea40-802f-4b30-8b03-d89c5729f465\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
 				}
 			]
+		},
+		{
+			"name": "Get Token",
+			"request": {
+				"url": "http://localhost:6058/api/auth/token",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"UserName\":\"espladmin\",\n\t\"Password\":\"Espl@123\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "My Profile",
+			"request": {
+				"url": "http://localhost:6058/api/profile",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJc0VtcGxveWVlIjoiVHJ1ZSIsInN1YiI6ImVzcGxlbXBsb3llZSIsImp0aSI6ImFiZjNhZmFiLTI4NmMtNDI1OS1iZDI5LWMxNTNhNjkxZjk5YSIsImdpdmVuX25hbWUiOiJFU1BMIiwiZmFtaWx5X25hbWUiOiJFbXBsb3llZSIsImVtYWlsIjoiZXNwbC5lbXBsb3llZUBldGVybnVzc29sdXRpb25zLmNvbSIsIlVzZXJJZCI6IjU2YzM4NWFlLWNlNDYtNDFkNC1iN2ZlLTA4ZGY5YWVmNzMwMSIsImV4cCI6MTQ5MzI4NzYzMiwiaXNzIjoiaHR0cDovL215Y29kZWNhbXAuaW8iLCJhdWQiOiJodHRwOi8vbXljb2RlY2FtcC5pbyJ9.ym0PVCTN-PncxI_au8oWzSL-QCX4dcOj415gmxLDNKc",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Permissions",
+			"request": {
+				"url": "http://localhost:6058/api/permissions",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJTeXN0ZW1BZG1pbiI6IlRydWUiLCJzdWIiOiJlc3BsYWRtaW4iLCJqdGkiOiI3NzdmMTZhZC1hODQ3LTQ2NmEtYmFjNy0xN2I3NmUwNWNmMzAiLCJnaXZlbl9uYW1lIjoiRVNQTCIsImZhbWlseV9uYW1lIjoiU3lzdGVtQWRtaW4iLCJlbWFpbCI6ImVzcGwuYWRtaW5AZXRlcm51c3NvbHV0aW9ucy5jb20iLCJVc2VySWQiOiI1NmMzODVhZS1jZTQ2LTQxZDQtYjdmZS0wOGRmOWFlZjcxMDEiLCJleHAiOjE0OTMyODgwNDksImlzcyI6Imh0dHA6Ly9teWNvZGVjYW1wLmlvIiwiYXVkIjoiaHR0cDovL215Y29kZWNhbXAuaW8ifQ.XGlswuxdz4jOkBJcnRB2PUKeHaMjaZVPhLOuk6OT-k8",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
 		}
 	]
 }

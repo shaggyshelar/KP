@@ -61,14 +61,12 @@ namespace ESPL.KP.Controllers
                         toSendClaims.AddRange(roleClaims);
                     }
 
-                    var claims = new[]
-                    {
-                        new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                        new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName),
-                        new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
-                        new Claim(JwtRegisteredClaimNames.Email, user.Email)
-                    }.Union(toSendClaims);
+                    toSendClaims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.UserName));
+                    toSendClaims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
+                    toSendClaims.Add(new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName));
+                    toSendClaims.Add(new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName));
+                    toSendClaims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
+                    toSendClaims.Add(new Claim("UserId", user.Id));
 
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
                     var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -76,7 +74,7 @@ namespace ESPL.KP.Controllers
                     var token = new JwtSecurityToken(
                       issuer: _config["Tokens:Issuer"],
                       audience: _config["Tokens:Audience"],
-                      claims: claims,
+                      claims: toSendClaims,
                       expires: DateTime.UtcNow.AddMinutes(15),
                       signingCredentials: creds
                       );
