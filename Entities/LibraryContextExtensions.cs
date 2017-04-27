@@ -278,6 +278,11 @@ namespace ESPL.KP.Entities
                 new MstDesignation() {
                     DesignationID = new Guid("57bf3249-6ee2-4506-97a6-cb0d9ce14897"),
                     DesignationName = "Super Admin",
+                    DesignationCode = "SAdmin"
+                },
+                new MstDesignation() {
+                    DesignationID = new Guid("57bf3249-6ee2-4506-97a6-cb0d9ce14898"),
+                    DesignationName = "Admin",
                     DesignationCode = "Admin"
                 }
             };
@@ -758,11 +763,29 @@ namespace ESPL.KP.Entities
                     ShortName = "RP"
                 },
                 new AppModule() {
-                    Id = new Guid("1325360c-8253-473a-a23f-55c269c91234"),
+                    Id = new Guid("1325360c-8253-473a-a23f-55c269c92345"),
                     Name = "Dashboard",
                     MenuText = "Dashboard",
                     ShortName = "DB"
-                }
+                },
+                new AppModule() {
+                    Id = new Guid("1325360c-8253-473a-a23f-55c269c93456"),
+                    Name = "Permissions",
+                    MenuText = "Permissions",
+                    ShortName = "PR"
+                },
+                new AppModule() {
+                    Id = new Guid("1325360c-8253-473a-a23f-55c269c94567"),
+                    Name = "Occurrence Assignment History",
+                    MenuText = "Occurrence Assignment History",
+                    ShortName = "OA"
+                },
+                new AppModule() {
+                    Id = new Guid("1325360c-8253-473a-a23f-55c269c95678"),
+                    Name = "Occurrence Review History",
+                    MenuText = "Occurrence Review History",
+                    ShortName = "OR"
+                },
             };
             context.AppModules.AddRange(appModules);
             context.SaveChanges();
@@ -913,6 +936,24 @@ namespace ESPL.KP.Entities
                     ServiceJoiningDate = DateTime.Now.AddYears(-5),
                     AreaID = new Guid("411bfab2-0d44-4fb9-8835-184db90f44fa"),	//LKPC
             		DesignationID = new Guid("57bf3249-6ee2-4506-97a6-cb0d9ce14897"),	//Admin
+            		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
+            		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56111")		//reg mid day
+            	},
+                 new MstEmployee{
+                    EmployeeID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
+                    FirstName = "Tom",
+                    LastName = "Cruise",
+                    EmployeeCode = "Emp009",
+                    DateOfBirth = DateTime.Now.AddYears(-30),
+                    Gender = "Male",
+                    Mobile = "9632587412",
+                    Email = "tom.cruise@kenyapolice.com",
+                    ResidencePhone = "020-22565784",
+                    Address1 = " Limuru Rd/1st Sandlands Ave, Sandlands, Nairobi",
+                    OrganizationJoiningDate = DateTime.Now.AddYears(-5),
+                    ServiceJoiningDate = DateTime.Now.AddYears(-5),
+                    AreaID = new Guid("411bfab2-0d44-4fb9-8835-184db90f44fa"),	//LKPC
+            		DesignationID = new Guid("57bf3249-6ee2-4506-97a6-cb0d9ce14898"),	//Admin
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56111")		//reg mid day
             	},
