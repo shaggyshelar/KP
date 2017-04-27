@@ -124,24 +124,28 @@ namespace ESPL.KP.Entities
                 new ESPLUser()
                 {
                     UserName = "esplemployee",
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7301",
                     FirstName = "ESPL",
                     LastName = "Employee",
                     Email = "espl.employee@eternussolutions.com"
                 },new ESPLUser()
                 {
                     UserName = "esplemployee1",
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7302",
                     FirstName = "ESPL 1",
                     LastName = "Employee 1",
                     Email = "espl.employee1@eternussolutions.com"
                 },new ESPLUser()
                 {
                     UserName = "esplemployee2",
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7303",
                     FirstName = "ESPL 2",
                     LastName = "Employee 2",
                     Email = "espl.employee2@eternussolutions.com"
                 },new ESPLUser()
                 {
                     UserName = "esplemployee3",
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7304",
                     FirstName = "ESPL 3",
                     LastName = "Employee 3",
                     Email = "espl.employee3@eternussolutions.com"
@@ -177,18 +181,21 @@ namespace ESPL.KP.Entities
             List<ESPLUser> allUsers = new List<ESPLUser>() {
                 new ESPLUser() {
                     UserName = "esplmanager",
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7201",
                     FirstName = "ESPL 1",
                     LastName = "Manager",
                     Email = "espl.manager1@eternussolutions.com"
                 },
                 new ESPLUser() {
                     UserName = "esplmanager1",
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7202",
                     FirstName = "ESPL 2",
                     LastName = "Manager",
                     Email = "espl.manager2@eternussolutions.com"
                 },
                 new ESPLUser() {
                     UserName = "esplmanager2",
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7203",
                     FirstName = "ESPL 3",
                     LastName = "Manager",
                     Email = "espl.manager3@eternussolutions.com"
@@ -224,12 +231,14 @@ namespace ESPL.KP.Entities
             List<ESPLUser> allUsers = new List<ESPLUser>() {
                 new ESPLUser() {
                     UserName = "espladmin",
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7101",
                     FirstName = "ESPL",
                     LastName = "SystemAdmin",
                     Email = "espl.admin@eternussolutions.com"
                 },
                 new ESPLUser() {
                     UserName = "espladmin1",
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7102",
                     FirstName = "ESPL1",
                     LastName = "Admin1",
                     Email = "espl.admin1@eternussolutions.com"
