@@ -120,9 +120,9 @@ namespace ESPL.KP
                 options.SerializerSettings.ContractResolver =
                 new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling =
-                ReferenceLoopHandling.Serialize;
-                options.SerializerSettings.PreserveReferencesHandling =
-                PreserveReferencesHandling.Objects;
+                ReferenceLoopHandling.Ignore;
+                // options.SerializerSettings.PreserveReferencesHandling =
+                // PreserveReferencesHandling.Objects;
             });
 
             services.AddAuthorization(options =>
