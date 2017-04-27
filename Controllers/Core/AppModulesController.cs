@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace ESPL.KP.Controllers.Core
 {
     [Route("api/appmodules")]
-    [Authorize(Policy = "SuperAdmin")]
+    [Authorize(Policy = "SystemAdmin")]
     public class AppModulesController : Controller
     {
         private ILibraryRepository _libraryRepository;

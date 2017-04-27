@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace ESPL.KP.Controllers.Core
 {
     [Route("api/roles/{roleId}/permissions")]
-    [Authorize(Policy = "SuperAdmin")]
+    [Authorize(Policy = "SystemAdmin")]
     public class RolePermissionsController : Controller
     {
         private ILibraryRepository _libraryRepository;
