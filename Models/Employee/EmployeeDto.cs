@@ -48,8 +48,11 @@ namespace ESPL.KP.Models
         public MstDepartment MstDepartment { get; set; }
 
         public MstDesignation MstDesignation { get; set; }
-        public MstShift Shift { get; set; }
+        public MstShift MstShift { get; set; }
         public ICollection<MstOccurrenceBook> MstOccurrenceBooks { get; set; }
+
+        public ESPLUser ESPLUser { get; set; }
+        
 
     }
 }

@@ -1,0 +1,211 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Employee",
+		"_postman_id": "1fe6d9a7-1209-0ff5-1ac3-cac2f7f54452",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Empolyees",
+			"request": {
+				"url": "http://localhost:6058/api/employees",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add New Employee",
+			"request": {
+				"url": "http://localhost:6058/api/employees",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.marvin.author.full+json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"FirstName\" : \"Devrin\",\n\t\"LastName\" : \"Cakali\",\n\t\"PinCode\"  : \"411027\"\n\t\"EmployeeCode\" : \"10007\",\n    \"DateOfBirth\" : \"4/15/1990\",\n    \"Gender\" : \"Male\",\n    \"Mobile\" : \"9876543210\",\n    \"Email\" : \"devrin@gmail.com\",\n    \"ResidencePhone\" : \"020-22665544\",\n    \"Address1\" : \"Westlands Commercial Centre, Ring Road\",\n    \"OrganizationJoiningDate\" : \"04/20/2010\",\n    \"ServiceJoiningDate\" : \"04/20/2010\",\n    \"AreaID\" : \"56c385ae-ce46-41d4-b7fe-08df9aef9579\",\n\t\"DesignationID\" : \"2b72f829-5195-46c3-a6a4-06f817f11093\",\n\t\"DepartmentID\" : \"a1da1d8e-1111-4634-b538-a01709471111\",\n\t\"ShiftID\" : \"B5FEDC70-D3A0-4806-BCF4-D1A30CE90555\"\n}"
+				},
+				"description": "Create Employee"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single Employee",
+			"request": {
+				"url": "http://localhost:6058/api/employees/56c385ae-ce46-41d4-b7fe-08df9aef1111",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Employee",
+			"request": {
+				"url": "http://localhost:6058/api/employees/56c385ae-ce46-41d4-b7fe-08df9aef3333",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET emplyees (pageNumber = 1, pageSize = 5)",
+			"request": {
+				"url": "http://localhost:6058/api/emplyees?pageNumber=1&pageSize=5",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Employee (searchQuery = 2)",
+			"request": {
+				"url": "http://localhost:6058/api/emplyees?searchQuery=Sparrow",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET emplyees(orderBy = FirstName)",
+			"request": {
+				"url": "http://localhost:6058/api/emplyees?orderBy=firstName",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET emplyees (orderBy = firstName desc)",
+			"request": {
+				"url": "http://localhost:6058/api/emplyees?orderBy=firstName desc",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET emplyees(orderBy = firstNaem desc, pageNumber = 2, pageSize = 5)",
+			"request": {
+				"url": "http://localhost:6058/api/emplyees?orderBy=firstName desc&pageNumber=2&pageSize=5",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET emplyees (fields = email)",
+			"request": {
+				"url": "http://localhost:6058/api/emplyees?fields=email",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Employee(fields = employeeID)",
+			"request": {
+				"url": "http://localhost:6058/api/emplyees?fields=employeeID",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Employee (fields = emplyeeCode)",
+			"request": {
+				"url": "http://localhost:6058/api/emplyees?fields=employeeCode",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
