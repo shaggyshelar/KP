@@ -20,10 +20,10 @@ namespace ESPL.KP.Entities
 
         public async Task AddAdminUser()
         {
-            if (!(await _roleMgr.RoleExistsAsync("Admin")))
+            if (!(await _roleMgr.RoleExistsAsync("SystemAdmin")))
             {
-                var role = new IdentityRole("Admin");
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "IsAdmin", ClaimValue = "True" });
+                var role = new IdentityRole("SystemAdmin");
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SystemAdmin", ClaimValue = "True" });
                 await _roleMgr.CreateAsync(role);
             }
 
@@ -31,12 +31,12 @@ namespace ESPL.KP.Entities
             {
                 UserName = "espladmin",
                 FirstName = "ESPL",
-                LastName = "Admin",
+                LastName = "SystemAdmin",
                 Email = "espl.admin@eternussolutions.com"
             };
 
             var adminUserResult = await _userMgr.CreateAsync(adminUser, "Espl@123");
-            var adminRoleResult = await _userMgr.AddToRoleAsync(adminUser, "Admin");
+            var adminRoleResult = await _userMgr.AddToRoleAsync(adminUser, "SystemAdmin");
 
             if (!adminUserResult.Succeeded || !adminRoleResult.Succeeded)
             {
@@ -76,18 +76,10 @@ namespace ESPL.KP.Entities
             {
                 var role = new IdentityRole("Employee");
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "IsEmployee", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Department.Read", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Department.AddEdit", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Department.Update", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Department.Delete", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Designation.Read", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Designation.AddEdit", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Designation.Update", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Designation.Delete", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Area.Read", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Area.AddEdit", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Area.Update", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Area.Delete", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.C", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.R", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.U", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.D", ClaimValue = "True" });
                 await _roleMgr.CreateAsync(role);
             }
 
@@ -233,7 +225,7 @@ namespace ESPL.KP.Entities
                 new ESPLUser() {
                     UserName = "espladmin",
                     FirstName = "ESPL",
-                    LastName = "Admin",
+                    LastName = "SystemAdmin",
                     Email = "espl.admin@eternussolutions.com"
                 },
                 new ESPLUser() {
@@ -242,15 +234,15 @@ namespace ESPL.KP.Entities
                     LastName = "Admin1",
                     Email = "espl.admin1@eternussolutions.com"
                 }
-            
+
             };
 
-            if (!(await _roleMgr.RoleExistsAsync("Admin")))
+            if (!(await _roleMgr.RoleExistsAsync("SystemAdmin")))
             {
-                var role = new IdentityRole("Admin");
+                var role = new IdentityRole("SystemAdmin");
                 role.Claims.Add(new IdentityRoleClaim<string>()
                 {
-                    ClaimType = "IsAdmin",
+                    ClaimType = "SystemAdmin",
                     ClaimValue = "True"
                 });
                 await _roleMgr.CreateAsync(role);
@@ -259,7 +251,7 @@ namespace ESPL.KP.Entities
             foreach (var adminUser in allUsers)
             {
                 var adminUserResult = await _userMgr.CreateAsync(adminUser, "Espl@123");
-                var adminRoleResult = await _userMgr.AddToRoleAsync(adminUser, "Admin");
+                var adminRoleResult = await _userMgr.AddToRoleAsync(adminUser, "SystemAdmin");
 
                 if (!adminUserResult.Succeeded || !adminRoleResult.Succeeded)
                 {

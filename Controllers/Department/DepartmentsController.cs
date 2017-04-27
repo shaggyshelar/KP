@@ -11,10 +11,12 @@ using Microsoft.AspNetCore.Http;
 using ESPL.KP.Helpers.Core;
 using ESPL.KP.Helpers.Department;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ESPL.KP.Controllers.Department
 {
     [Route("api/departments")]
+    [Authorize]
     public class DepartmentsController : Controller
     {
         private ILibraryRepository _libraryRepository;
@@ -35,6 +37,7 @@ namespace ESPL.KP.Controllers.Department
 
         [HttpGet(Name = "GetDepartments")]
         [HttpHead]
+        [Authorize(Policy = "DP.R")]
         public IActionResult GetDepartments(DepartmentsResourceParameters departmentsResourceParameters,
             [FromHeader(Name = "Accept")] string mediaType)
         {
@@ -159,6 +162,7 @@ namespace ESPL.KP.Controllers.Department
         }
 
         [HttpGet("{id}", Name = "GetDepartment")]
+        [Authorize(Policy = "DP.R")]
         public IActionResult GetDepartment(Guid id, [FromQuery] string fields)
         {
             if (!_typeHelperService.TypeHasProperties<DepartmentDto>
@@ -187,6 +191,7 @@ namespace ESPL.KP.Controllers.Department
         }
 
         [HttpPost(Name = "CreateDepartment")]
+        [Authorize(Policy = "DP.C")]
         public IActionResult CreateDepartment([FromBody] DepartmentForCreationDto department)
         {
             if (department == null)
@@ -230,6 +235,7 @@ namespace ESPL.KP.Controllers.Department
         }
 
         [HttpDelete("{id}", Name = "DeleteDepartment")]
+        [Authorize(Policy = "DP.D")]
         public IActionResult DeleteDepartment(Guid id)
         {
             var departmentFromRepo = _libraryRepository.GetDepartment(id);
@@ -249,6 +255,7 @@ namespace ESPL.KP.Controllers.Department
         }
 
         [HttpPut("{id}", Name = "UpdateDepartment")]
+        [Authorize(Policy = "DP.U")]
         public IActionResult UpdateDepartment(Guid id, [FromBody] DepartmentForUpdationDto department)
         {
             if (department == null)
@@ -280,6 +287,7 @@ namespace ESPL.KP.Controllers.Department
         }
 
         [HttpPatch("{id}", Name = "PartiallyUpdateDepartment")]
+        [Authorize(Policy = "DP.U")]
         public IActionResult PartiallyUpdateDepartment(Guid id,
                     [FromBody] JsonPatchDocument<DepartmentForUpdationDto> patchDoc)
         {
@@ -318,7 +326,7 @@ namespace ESPL.KP.Controllers.Department
                 //     departmentToReturn);
                 return NotFound();
             }
-            
+
             var departmentToPatch = Mapper.Map<DepartmentForUpdationDto>(departmentFromRepo);
 
             patchDoc.ApplyTo(departmentToPatch, ModelState);
