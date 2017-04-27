@@ -598,8 +598,8 @@ namespace ESPL.KP.Entities
                     OBNumber = "123",
                     OBTime = Convert.ToDateTime("2017-04-20T19:23:14.9100866"),
                     CaseFileNumber = "1",
-                    NatureOfOccurrence = "Nature 1",
-                    Remark = "Test Remark 1",
+                    NatureOfOccurrence = "Preplanned.",
+                    Remark = "total number of suspects: 4",
                     MapZoomLevel = 11,
                     Lattitude = 18.548026,
                     Longitude = 73.811683,
@@ -611,9 +611,9 @@ namespace ESPL.KP.Entities
                 new MstOccurrenceBook() {
                     OBID = new Guid("411bfab2-0d44-4fb9-8835-184db90f5678"),
                     AreaID = new Guid("89234f93-6a6a-4960-a7d3-20f98f2760a8"),	//LSMS
-            		OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf222"),
+            		OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf222"),    //theft
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
-            		StatusID = new Guid("EBEED096-EA34-43E2-948E-32BB98F31401"),
+            		StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
                     OBNumber = "456",
                     OBTime = Convert.ToDateTime("2017-04-10T19:25:14.9100866"),
                     CaseFileNumber = "2",
@@ -651,7 +651,7 @@ namespace ESPL.KP.Entities
                     AreaID =  new Guid("89234f93-6a6a-4960-a7d3-20f98f2760a8"),	//LSMS
             		OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf333"),
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
-            		StatusID = new Guid("EBEED096-EA34-43E2-948E-32BB98F31401"),
+            		StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
                     OBNumber = "911",
                     OBTime = Convert.ToDateTime("2017-04-15T21:25:14.9100866"),
                     CaseFileNumber = "4",
@@ -670,7 +670,7 @@ namespace ESPL.KP.Entities
                     AreaID =  new Guid("89234f93-6a6a-4960-a7d3-20f98f2760a8"),	//LSMS
             		OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf333"),
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
-            		StatusID = new Guid("EBEED096-EA34-43E2-948E-32BB98F31401"),
+            		StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
                     OBNumber = "112",
                     OBTime = Convert.ToDateTime("2017-04-15T21:25:14.9100866"),
                     CaseFileNumber = "5",
@@ -771,7 +771,7 @@ namespace ESPL.KP.Entities
                     DateOfBirth = DateTime.Now.AddYears(-30),
                     Gender = "Male",
                     Mobile = "9876543210",
-                    Email = "johndoe@test.com",
+                    Email = "john.doe@kenyapolice.com",
                     ResidencePhone = "020-22665544",
                     Address1 = "Westlands Commercial Centre, Ring Road",
                     OrganizationJoiningDate = DateTime.Now.AddYears(-5),
@@ -789,7 +789,7 @@ namespace ESPL.KP.Entities
                     DateOfBirth = DateTime.Now.AddYears(-30),
                     Gender = "Male",
                     Mobile = "9823654170",
-                    Email = "jacksparrow@test.com",
+                    Email = "jack.sparrow@kenyapolice.com",
                     ResidencePhone = "020-22665544",
                     Address1 = "Ngong, Olkeri, FOrest Line Road",
                     OrganizationJoiningDate = DateTime.Now.AddYears(-5),
@@ -807,7 +807,7 @@ namespace ESPL.KP.Entities
                     DateOfBirth = DateTime.Now.AddYears(-30),
                     Gender = "Female",
                     Mobile = "95135782460",
-                    Email = "angelinajolie@test.com",
+                    Email = "angelina.jolie@kenyapolice.com",
                     ResidencePhone = "020-22565784",
                     Address1 = "Salama House, Wabera Street Nairobi.",
                     OrganizationJoiningDate = DateTime.Now.AddYears(-5),
@@ -825,7 +825,7 @@ namespace ESPL.KP.Entities
                     DateOfBirth = DateTime.Now.AddYears(-30),
                     Gender = "Male",
                     Mobile = "9654781230",
-                    Email = "bradpitt@test.com",
+                    Email = "brad.pitt@kenyapolice.com",
                     ResidencePhone = "020-22565784",
                     Address1 = "Nejo plaza, Kasarani",
                     OrganizationJoiningDate = DateTime.Now.AddYears(-5),
@@ -843,7 +843,7 @@ namespace ESPL.KP.Entities
                     DateOfBirth = DateTime.Now.AddYears(-30),
                     Gender = "Male",
                     Mobile = "8796541230",
-                    Email = "steverogers@test.com",
+                    Email = "steve.rogers@kenyapolice.com",
                     ResidencePhone = "020-22565784",
                     Address1 = "Kilimani Business Centre,Kirichwa Road",
                     OrganizationJoiningDate = DateTime.Now.AddYears(-5),
@@ -861,13 +861,31 @@ namespace ESPL.KP.Entities
                     DateOfBirth = DateTime.Now.AddYears(-30),
                     Gender = "Male",
                     Mobile = "9632587410",
-                    Email = "tonystark@test.com",
+                    Email = "tony.stark@kenyapolice.com",
                     ResidencePhone = "020-22565784",
                     Address1 = " Limuru Rd/1st Parklands Ave, Parklands, Nairobi",
                     OrganizationJoiningDate = DateTime.Now.AddYears(-5),
                     ServiceJoiningDate = DateTime.Now.AddYears(-5),
                     AreaID = new Guid("89234f93-6a6a-4960-a7d3-20f98f2760a8"),	//LSMS
             		DesignationID = new Guid("57bf3249-6ee2-4506-97a6-cb0d9ce14896"),	//Constable
+            		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
+            		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56111")		//reg mid day
+            	},
+                new MstEmployee{
+                    EmployeeID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7777"),
+                    FirstName = "Johny",
+                    LastName = "Depp",
+                    EmployeeCode = "Emp007",
+                    DateOfBirth = DateTime.Now.AddYears(-30),
+                    Gender = "Male",
+                    Mobile = "9632587412",
+                    Email = "johny.depp@kenyapolice.com",
+                    ResidencePhone = "020-22565784",
+                    Address1 = " Limuru Rd/1st Sandlands Ave, Sandlands, Nairobi",
+                    OrganizationJoiningDate = DateTime.Now.AddYears(-5),
+                    ServiceJoiningDate = DateTime.Now.AddYears(-5),
+                    AreaID = new Guid("411bfab2-0d44-4fb9-8835-184db90f44fa"),	//LKPC
+            		DesignationID = new Guid("836bf2d2-7eb2-454a-a298-72a9d6aea480"),	//ASP
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56111")		//reg mid day
             	},
