@@ -12,10 +12,12 @@ using Microsoft.AspNetCore.Http;
 using ESPL.KP.Helpers.Core;
 using ESPL.KP.Models.Core;
 using ESPL.KP.Entities.Core;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ESPL.KP.Controllers.Core
 {
     [Route("api/appmodules")]
+    [Authorize(Policy = "SuperAdmin")]
     public class AppModulesController : Controller
     {
         private ILibraryRepository _libraryRepository;

@@ -22,7 +22,7 @@ namespace ESPL.KP.Entities
             if (!(await _roleMgr.RoleExistsAsync("Admin")))
             {
                 var role = new IdentityRole("Admin");
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "IsAdmin", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SuperAdmin", ClaimValue = "True" });
                 await _roleMgr.CreateAsync(role);
             }
 
@@ -75,18 +75,10 @@ namespace ESPL.KP.Entities
             {
                 var role = new IdentityRole("Employee");
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "IsEmployee", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Department.Read", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Department.AddEdit", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Department.Update", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Department.Delete", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Designation.Read", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Designation.AddEdit", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Designation.Update", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Designation.Delete", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Area.Read", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Area.AddEdit", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Area.Update", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Area.Delete", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.C", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.R", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.U", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.D", ClaimValue = "True" });
                 await _roleMgr.CreateAsync(role);
             }
 

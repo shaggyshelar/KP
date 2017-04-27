@@ -13,10 +13,12 @@ using ESPL.KP.Helpers.Core;
 using ESPL.KP.Entities.Core;
 using ESPL.KP.Models.Core;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ESPL.KP.Controllers.Core
 {
     [Route("api/roles")]
+    [Authorize(Policy = "SuperAdmin")]
     public class RolesController : Controller
     {
         private ILibraryRepository _libraryRepository;
