@@ -2,12 +2,12 @@ namespace ESPL.KP.Enums
 {
     public enum PermissionType
     {
-        Read,
+        R,
 
-        AddEdit,
+        C,
 
-        Update,
+        U,
 
-        Delete
+        D
     }
 }

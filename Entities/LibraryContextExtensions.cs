@@ -274,6 +274,11 @@ namespace ESPL.KP.Entities
                     DesignationID = new Guid("57bf3249-6ee2-4506-97a6-cb0d9ce14896"),
                     DesignationName = "Constable",
                     DesignationCode = "CSTBL"
+                },
+                new MstDesignation() {
+                    DesignationID = new Guid("57bf3249-6ee2-4506-97a6-cb0d9ce14897"),
+                    DesignationName = "Super Admin",
+                    DesignationCode = "Admin"
                 }
             };
 
@@ -701,57 +706,52 @@ namespace ESPL.KP.Entities
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a20f-55c269c12345"),
                     Name = "Department",
-                    MenuText = "Department"
+                    MenuText = "Department",
                 },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a22f-55c269c23456"),
                     Name = "Designation",
-                    MenuText = "Designation"
+                    MenuText = "Designation",
                 },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a23f-55c269c34567"),
                     Name = "Area",
-                    MenuText = "Area"
+                    MenuText = "Area",
                 },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a23f-55c269c45678"),
                     Name = "Occurrence Type",
-                    MenuText = "Occurrence Type"
-                },
-                new AppModule() {
-                    Id = new Guid("1325360c-8253-473a-a23f-55c269c56789"),
-                    Name = "Occurrence Type",
-                    MenuText = "Occurrence Type"
+                    MenuText = "Occurrence Type",
                 },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a23f-55c269c67891"),
                     Name = "Status",
-                    MenuText = "Status"
+                    MenuText = "Status",
                 },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a23f-55c269c56889"),
                     Name = "Shift",
-                    MenuText = "Shift"
+                    MenuText = "Shift",
                 },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a23f-55c269c65412"),
                     Name = "Employee",
-                    MenuText = "Employee"
+                    MenuText = "Employee",
                 },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a23f-55c269c78912"),
                     Name = "Occurrence Books",
-                    MenuText = "Occurrence Books"
+                    MenuText = "Occurrence Books",
                 },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a23f-55c269c89123"),
                     Name = "Reports",
-                    MenuText = "Reports"
+                    MenuText = "Reports",
                 },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a23f-55c269c91234"),
                     Name = "Dashboard",
-                    MenuText = "Dashboard"
+                    MenuText = "Dashboard",
                 }
             };
 
@@ -889,6 +889,25 @@ namespace ESPL.KP.Entities
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56111")		//reg mid day
             	},
+                                new MstEmployee{
+                    EmployeeID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef8888"),
+                    FirstName = "Nick",
+                    LastName = "jones",
+                    EmployeeCode = "Emp008",
+                    DateOfBirth = DateTime.Now.AddYears(-30),
+                    Gender = "Male",
+                    Mobile = "9632587412",
+                    Email = "nick.jones@kenyapolice.com",
+                    ResidencePhone = "020-22565784",
+                    Address1 = " Limuru Rd/1st Sandlands Ave, Sandlands, Nairobi",
+                    OrganizationJoiningDate = DateTime.Now.AddYears(-5),
+                    ServiceJoiningDate = DateTime.Now.AddYears(-5),
+                    AreaID = new Guid("411bfab2-0d44-4fb9-8835-184db90f44fa"),	//LKPC
+            		DesignationID = new Guid("57bf3249-6ee2-4506-97a6-cb0d9ce14897"),	//Admin
+            		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
+            		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56111")		//reg mid day
+            	},
+                
             };
 
             context.MstEmployee.AddRange(employee);

@@ -14,10 +14,12 @@ using ESPL.KP.Helpers.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ESPL.KP.Controllers.Core
 {
     [Route("api/roles/{roleId}/permissions")]
+    [Authorize(Policy = "SystemAdmin")]
     public class RolePermissionsController : Controller
     {
         private ILibraryRepository _libraryRepository;

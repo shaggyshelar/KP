@@ -20,10 +20,10 @@ namespace ESPL.KP.Entities
 
         public async Task AddAdminUser()
         {
-            if (!(await _roleMgr.RoleExistsAsync("Admin")))
+            if (!(await _roleMgr.RoleExistsAsync("SystemAdmin")))
             {
-                var role = new IdentityRole("Admin");
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "IsAdmin", ClaimValue = "True" });
+                var role = new IdentityRole("SystemAdmin");
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SystemAdmin", ClaimValue = "True" });
                 await _roleMgr.CreateAsync(role);
             }
 
@@ -31,12 +31,12 @@ namespace ESPL.KP.Entities
             {
                 UserName = "espladmin",
                 FirstName = "ESPL",
-                LastName = "Admin",
-                Email = "espl.admin@kenyapolice.com"
+                LastName = "SystemAdmin",
+                Email = "espl.admin@eternussolutions.com"
             };
 
             var adminUserResult = await _userMgr.CreateAsync(adminUser, "Espl@123");
-            var adminRoleResult = await _userMgr.AddToRoleAsync(adminUser, "Admin");
+            var adminRoleResult = await _userMgr.AddToRoleAsync(adminUser, "SystemAdmin");
 
             if (!adminUserResult.Succeeded || !adminRoleResult.Succeeded)
             {
@@ -58,7 +58,7 @@ namespace ESPL.KP.Entities
                 UserName = "esplmanager",
                 FirstName = "ESPL",
                 LastName = "Manager",
-                Email = "espl.manager@kenyapolice.com"
+                Email = "espl.manager@eternussolutions.com"
             };
 
             var userResult = await _userMgr.CreateAsync(user, "Espl@123");
@@ -76,18 +76,10 @@ namespace ESPL.KP.Entities
             {
                 var role = new IdentityRole("Employee");
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "IsEmployee", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Department.Read", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Department.AddEdit", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Department.Update", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Department.Delete", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Designation.Read", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Designation.AddEdit", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Designation.Update", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Designation.Delete", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Area.Read", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Area.AddEdit", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Area.Update", ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Area.Delete", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.C", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.R", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.U", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.D", ClaimValue = "True" });
                 await _roleMgr.CreateAsync(role);
             }
 
@@ -96,7 +88,7 @@ namespace ESPL.KP.Entities
                 UserName = "esplemployee",
                 FirstName = "ESPL",
                 LastName = "Employee",
-                Email = "espl.employee@kenyapolice.com"
+                Email = "espl.employee@eternussolutions.com"
             };
 
             var userResult = await _userMgr.CreateAsync(user, "Espl@123");
@@ -119,13 +111,172 @@ namespace ESPL.KP.Entities
                 // await AddManagerUser();
                 // await AddEmployeeUser();
 
+                // await AddAllEmployees();
+                // await AddAllManagers();
+                // await AddAllAdmins();
+
                 await AddAllConstables();
                 await AddAllSergeant();
                 await AddAllSAIG();
                 await AddAllDIG();
                 await AddAllIG();
                 await AddAllASP();
+                await AddAllSuperAdmins();
+
             }
+        }
+
+        public async Task AddAllEmployees()
+        {
+            List<ESPLUser> allUsers = new List<ESPLUser>()
+            {
+                new ESPLUser()
+                {
+                    UserName = "esplemployee",
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7301",
+                    FirstName = "ESPL",
+                    LastName = "Employee",
+                    Email = "espl.employee@eternussolutions.com"
+                },new ESPLUser()
+                {
+                    UserName = "esplemployee1",
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7302",
+                    FirstName = "ESPL 1",
+                    LastName = "Employee 1",
+                    Email = "espl.employee1@eternussolutions.com"
+                },new ESPLUser()
+                {
+                    UserName = "esplemployee2",
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7303",
+                    FirstName = "ESPL 2",
+                    LastName = "Employee 2",
+                    Email = "espl.employee2@eternussolutions.com"
+                },new ESPLUser()
+                {
+                    UserName = "esplemployee3",
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7304",
+                    FirstName = "ESPL 3",
+                    LastName = "Employee 3",
+                    Email = "espl.employee3@eternussolutions.com"
+                }
+            };
+
+            if (!(await _roleMgr.RoleExistsAsync("Employee")))
+            {
+                var role = new IdentityRole("Employee");
+                role.Claims.Add(new IdentityRoleClaim<string>()
+                {
+                    ClaimType = "IsEmployee",
+                    ClaimValue = "True"
+                });
+                await _roleMgr.CreateAsync(role);
+            }
+
+            foreach (ESPLUser user in allUsers)
+            {
+                var userResult = await _userMgr.CreateAsync(user, "Espl@123");
+                var roleResult = await _userMgr.AddToRoleAsync(user, "Employee");
+
+                if (!userResult.Succeeded || !roleResult.Succeeded)
+                {
+                    throw new InvalidOperationException("Failed to build user and roles");
+                }
+            }
+
+        }
+
+        public async Task AddAllManagers()
+        {
+            List<ESPLUser> allUsers = new List<ESPLUser>() {
+                new ESPLUser() {
+                    UserName = "esplmanager",
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7201",
+                    FirstName = "ESPL 1",
+                    LastName = "Manager",
+                    Email = "espl.manager1@eternussolutions.com"
+                },
+                new ESPLUser() {
+                    UserName = "esplmanager1",
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7202",
+                    FirstName = "ESPL 2",
+                    LastName = "Manager",
+                    Email = "espl.manager2@eternussolutions.com"
+                },
+                new ESPLUser() {
+                    UserName = "esplmanager2",
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7203",
+                    FirstName = "ESPL 3",
+                    LastName = "Manager",
+                    Email = "espl.manager3@eternussolutions.com"
+                }
+
+            };
+
+            if (!(await _roleMgr.RoleExistsAsync("Manager")))
+            {
+                var role = new IdentityRole("Manager");
+                role.Claims.Add(new IdentityRoleClaim<string>()
+                {
+                    ClaimType = "IsManager",
+                    ClaimValue = "True"
+                });
+                await _roleMgr.CreateAsync(role);
+            }
+
+            foreach (var user in allUsers)
+            {
+                var userResult = await _userMgr.CreateAsync(user, "Espl@123");
+                var roleResult = await _userMgr.AddToRoleAsync(user, "Manager");
+
+                if (!userResult.Succeeded || !roleResult.Succeeded)
+                {
+                    throw new InvalidOperationException("Failed to build user and roles");
+                }
+            }
+        }
+
+        public async Task AddAllAdmins()
+        {
+            List<ESPLUser> allUsers = new List<ESPLUser>() {
+                new ESPLUser() {
+                    UserName = "espladmin",
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7101",
+                    FirstName = "ESPL",
+                    LastName = "SystemAdmin",
+                    Email = "espl.admin@eternussolutions.com"
+                },
+                new ESPLUser() {
+                    UserName = "espladmin1",
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7102",
+                    FirstName = "ESPL1",
+                    LastName = "Admin1",
+                    Email = "espl.admin1@eternussolutions.com"
+                }
+
+            };
+
+            if (!(await _roleMgr.RoleExistsAsync("SystemAdmin")))
+            {
+                var role = new IdentityRole("SystemAdmin");
+                role.Claims.Add(new IdentityRoleClaim<string>()
+                {
+                    ClaimType = "SystemAdmin",
+                    ClaimValue = "True"
+                });
+                await _roleMgr.CreateAsync(role);
+            }
+
+            foreach (var adminUser in allUsers)
+            {
+                var adminUserResult = await _userMgr.CreateAsync(adminUser, "Espl@123");
+                var adminRoleResult = await _userMgr.AddToRoleAsync(adminUser, "SystemAdmin");
+
+                if (!adminUserResult.Succeeded || !adminRoleResult.Succeeded)
+                {
+                    throw new InvalidOperationException("Failed to build user and roles");
+                }
+            }
+
         }
 
         public async Task AddAllConstables()
@@ -134,12 +285,14 @@ namespace ESPL.KP.Entities
             {
                 new ESPLUser()
                 {
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7301",
                     UserName = "tonystark",
                     FirstName = "Tony",
                     LastName = "Stark",
                     Email = "tony.stark@kenyapolice.com"
                 },new ESPLUser()
                 {
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7302",
                     UserName = "steverogers",
                     FirstName = "Steve",
                     LastName = "Rogers",
@@ -188,6 +341,7 @@ namespace ESPL.KP.Entities
             {
                 new ESPLUser()
                 {
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7303",
                     UserName = "bradpitt",
                     FirstName = "Brad",
                     LastName = "Pitt",
@@ -240,6 +394,7 @@ namespace ESPL.KP.Entities
             {
                 new ESPLUser()
                 {
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7201",
                     UserName = "angelinajolie",
                     FirstName = "Angelina",
                     LastName = "Jolie",
@@ -304,6 +459,7 @@ namespace ESPL.KP.Entities
             {
                 new ESPLUser()
                 {
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7202",
                     UserName = "jacksparrow",
                     FirstName = "Jack",
                     LastName = "Sparrow",
@@ -365,6 +521,7 @@ namespace ESPL.KP.Entities
             {
                 new ESPLUser()
                 {
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7203",
                     UserName = "johndoe",
                     FirstName = "John",
                     LastName = "Doe",
@@ -439,6 +596,7 @@ namespace ESPL.KP.Entities
             {
                 new ESPLUser()
                 {
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7204",
                     UserName = "johnydepp",
                     FirstName = "Johny",
                     LastName = "Depp",
@@ -484,93 +642,81 @@ namespace ESPL.KP.Entities
             await AddUserWithRole(allUsers, "ASP", "Espl@123");
         }
 
-        public async Task AddAllManagers()
+        public async Task AddAllSuperAdmins()
         {
-            List<ESPLUser> allUsers = new List<ESPLUser>() {
-                new ESPLUser() {
-                    UserName = "esplmanager",
-                    FirstName = "ESPL 1",
-                    LastName = "Manager",
-                    Email = "espl.manager1@kenyapolice.com"
-                },
-                new ESPLUser() {
-                    UserName = "esplmanager1",
-                    FirstName = "ESPL 2",
-                    LastName = "Manager",
-                    Email = "espl.manager2@kenyapolice.com"
-                },
-                new ESPLUser() {
-                    UserName = "esplmanager2",
-                    FirstName = "ESPL 3",
-                    LastName = "Manager",
-                    Email = "espl.manager3@kenyapolice.com"
+            List<ESPLUser> allUsers = new List<ESPLUser>()
+            {
+                new ESPLUser()
+                {
+                    Id = "56c385ae-ce46-41d4-b7fe-08df9aef7101",
+                    UserName = "nickjones",
+                    FirstName = "Nick",
+                    LastName = "Jones",
+                    Email = "nick.jones@kenyapolice.com"
                 }
-
             };
 
-            if (!(await _roleMgr.RoleExistsAsync("Manager")))
+            if (!(await _roleMgr.RoleExistsAsync("ADMIN")))
             {
-                var role = new IdentityRole("Manager");
-                role.Claims.Add(new IdentityRoleClaim<string>()
-                {
-                    ClaimType = "IsManager",
-                    ClaimValue = "True"
-                });
+                var role = new IdentityRole("ADMIN");
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "IsAdmin", ClaimValue = "True" });
+                //----read
+                //----read
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Area.Read", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Department.Read", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Designations.Read", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Employee.Read", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OccurrenceBook.Read", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OccurrenceType.Read", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Permissions.Read", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Shift.Read", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Status.Read", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OccurrenceAssignmentHistory.Read", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OccurrenceReviewHistory.Read", ClaimValue = "True" });
+
+                //----- write
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Area.Add", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Department.Add", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Designations.Add", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Employee.Add", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OccurrenceBook.Add", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OccurrenceType.Add", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Permissions.Add", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Shift.Add", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Status.Add", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OccurrenceAssignmentHistory.Add", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OccurrenceReviewHistory.Add", ClaimValue = "True" });
+
+                //----- update
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Area.Update", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Department.Update", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Designations.Update", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Employee.Update", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OccurrenceBook.Update", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OccurrenceType.Update", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Permissions.Update", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Shift.Update", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Status.Update", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OccurrenceAssignmentHistory.Update", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OccurrenceReviewHistory.Update", ClaimValue = "True" });
+
+                //------ Delete
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Area.Delete", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Department.Delete", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Designations.Delete", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Employee.Delete", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OccurrenceBook.Delete", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OccurrenceType.Delete", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Permissions.Delete", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Shift.Delete", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "Status.Delete", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OccurrenceAssignmentHistory.Delete", ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OccurrenceReviewHistory.Delete", ClaimValue = "True" });
+
                 await _roleMgr.CreateAsync(role);
             }
 
-            foreach (var user in allUsers)
-            {
-                var userResult = await _userMgr.CreateAsync(user, "Espl@123");
-                var roleResult = await _userMgr.AddToRoleAsync(user, "Manager");
-
-                if (!userResult.Succeeded || !roleResult.Succeeded)
-                {
-                    throw new InvalidOperationException("Failed to build user and roles");
-                }
-            }
-        }
-
-        public async Task AddAllAdmins()
-        {
-            List<ESPLUser> allUsers = new List<ESPLUser>() {
-                new ESPLUser() {
-                    UserName = "espladmin",
-                    FirstName = "ESPL",
-                    LastName = "Admin",
-                    Email = "espl.admin@kenyapolice.com"
-                },
-                new ESPLUser() {
-                    UserName = "espladmin1",
-                    FirstName = "ESPL1",
-                    LastName = "Admin1",
-                    Email = "espl.admin1@kenyapolice.com"
-                }
-
-            };
-
-            if (!(await _roleMgr.RoleExistsAsync("Admin")))
-            {
-                var role = new IdentityRole("Admin");
-                role.Claims.Add(new IdentityRoleClaim<string>()
-                {
-                    ClaimType = "IsAdmin",
-                    ClaimValue = "True"
-                });
-                await _roleMgr.CreateAsync(role);
-            }
-
-            foreach (var adminUser in allUsers)
-            {
-                var adminUserResult = await _userMgr.CreateAsync(adminUser, "Espl@123");
-                var adminRoleResult = await _userMgr.AddToRoleAsync(adminUser, "Admin");
-
-                if (!adminUserResult.Succeeded || !adminRoleResult.Succeeded)
-                {
-                    throw new InvalidOperationException("Failed to build user and roles");
-                }
-            }
-
+            await AddUserWithRole(allUsers, "ADMIN", "Espl@123");
         }
 
         public async Task AddUserWithRole(List<ESPLUser> allUsers, string roleName, string password)
