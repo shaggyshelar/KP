@@ -342,6 +342,7 @@ namespace ESPL.KP
                    src.MstStatus.StatusName));
             });
 
+            identitySeeder.Seed().Wait();
             libraryContext.EnsureSeedDataForContext();
             app.UseIpRateLimiting();
             app.UseHttpCacheHeaders();
@@ -369,7 +370,7 @@ namespace ESPL.KP
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-            identitySeeder.Seed().Wait();
+            
         }
     }
 }

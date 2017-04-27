@@ -797,6 +797,7 @@ namespace ESPL.KP.Services
                 .Include(e => e.MstShift)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstStatus)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstOccurrenceType)
+                .Include(e =>e.ESPLUser)
                 .ApplySort(employeesResourceParameters.OrderBy,
                 _propertyMappingService.GetPropertyMapping<EmployeeDto, MstEmployee>());
 
@@ -835,6 +836,7 @@ namespace ESPL.KP.Services
                 .Include(e => e.MstShift)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstStatus)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstOccurrenceType)
+                .Include(e =>e.ESPLUser)
                 .FirstOrDefault(a => a.EmployeeID == employeeId);
         }
 
@@ -847,6 +849,7 @@ namespace ESPL.KP.Services
                 .Include(e => e.MstShift)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstStatus)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstOccurrenceType)
+                .Include(e =>e.ESPLUser)
                 .FirstOrDefault(a => a.UserID == userId.ToString());
         }
 
@@ -860,6 +863,7 @@ namespace ESPL.KP.Services
                 .Include(e => e.MstShift)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstStatus)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstOccurrenceType)
+                .Include(e =>e.ESPLUser)
                 .Where(a => employeeIds.Contains(a.EmployeeID))
                 .OrderBy(a => a.FirstName)
                 .ToList();
