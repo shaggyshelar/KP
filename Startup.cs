@@ -21,6 +21,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using ESPL.KP.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using ESPL.KP.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace ESPL.KP
 {
@@ -51,7 +55,32 @@ namespace ESPL.KP
             services.AddDbContext<LibraryContext>(o => o.UseSqlServer(connectionString));
             services.AddTransient<IdentityInitializer>();
             services.AddIdentity<ESPLUser, IdentityRole>().AddEntityFrameworkStores<LibraryContext>();
+            services.Configure<IdentityOptions>(config =>
+            {
+                config.Cookies.ApplicationCookie.Events =
+                    new CookieAuthenticationEvents()
+                    {
+                        OnRedirectToLogin = (ctx) =>
+                        {
+                            if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+                            {
+                                ctx.Response.StatusCode = 401;
+                            }
 
+                            return Task.CompletedTask;
+                        },
+                        OnRedirectToAccessDenied = (ctx) =>
+                        {
+                            if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+                            {
+                                ctx.Response.StatusCode = 403;
+                            }
+
+                            return Task.CompletedTask;
+                        }
+                    };
+            });
+            services.AddCors();
             services.AddMvc(setupAction =>
             {
                 setupAction.ReturnHttpNotAcceptable = true;
@@ -88,6 +117,18 @@ namespace ESPL.KP
             {
                 options.SerializerSettings.ContractResolver =
                 new CamelCasePropertyNamesContractResolver();
+                options.SerializerSettings.ReferenceLoopHandling=
+                ReferenceLoopHandling.Serialize;
+                options.SerializerSettings.PreserveReferencesHandling=
+                PreserveReferencesHandling.Objects;
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Auth.CanCreate", policy => policy.RequireClaim("Auth.CanCreate"));
+                options.AddPolicy("Auth.CanRead", policy => policy.RequireClaim("Auth.CanRead"));
+                options.AddPolicy("Auth.CanUpdate", policy => policy.RequireClaim("Auth.CanUpdate"));
+                options.AddPolicy("Auth.CanDelete", policy => policy.RequireClaim("Auth.CanDelete"));
             });
 
             // register the repository
@@ -146,6 +187,7 @@ namespace ESPL.KP
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -161,7 +203,12 @@ namespace ESPL.KP
 
             loggerFactory.AddNLog();
 
-            //app.UseIdentity();
+            app.UseCors(cfg =>
+            {
+                cfg.AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin();
+            });
 
             if (env.IsDevelopment())
             {
@@ -196,18 +243,92 @@ namespace ESPL.KP
                     $"{src.FirstName} {src.LastName}"))
                     .ForMember(dest => dest.Age, opt => opt.MapFrom(src =>
                     src.DateOfBirth.GetCurrentAge(src.DateOfDeath)));
-
                 cfg.CreateMap<ESPL.KP.Entities.Book, ESPL.KP.Models.BookDto>();
-
                 cfg.CreateMap<ESPL.KP.Models.AuthorForCreationDto, ESPL.KP.Entities.Author>();
-
                 cfg.CreateMap<ESPL.KP.Models.AuthorForCreationWithDateOfDeathDto, ESPL.KP.Entities.Author>();
-
                 cfg.CreateMap<ESPL.KP.Models.BookForCreationDto, ESPL.KP.Entities.Book>();
-
                 cfg.CreateMap<ESPL.KP.Models.BookForUpdateDto, ESPL.KP.Entities.Book>();
-
                 cfg.CreateMap<ESPL.KP.Entities.Book, ESPL.KP.Models.BookForUpdateDto>();
+                cfg.CreateMap<ESPL.KP.Entities.Core.AppModule, ESPL.KP.Models.Core.AppModuleDto>();
+                cfg.CreateMap<ESPL.KP.Models.Core.AppModuleForCreationDto, ESPL.KP.Entities.Core.AppModule>();
+                cfg.CreateMap<ESPL.KP.Entities.ESPLUser, ESPL.KP.Models.Core.ESPLUserDto>();
+
+                cfg.CreateMap<ESPL.KP.Models.Core.ESPLUserForCreationDto, ESPL.KP.Entities.ESPLUser>();
+                cfg.CreateMap<IdentityRole, ESPL.KP.Models.Core.ESPLRoleDto>();
+                cfg.CreateMap<ESPL.KP.Models.Core.ESPLRoleForCreationDto, IdentityRole>();
+
+                cfg.CreateMap<ESPL.KP.Entities.MstDepartment, ESPL.KP.Models.DepartmentDto>();
+                cfg.CreateMap<ESPL.KP.Models.DepartmentForCreationDto, ESPL.KP.Entities.MstDepartment>();
+                cfg.CreateMap<MstDepartment, DepartmentForCreationDto>();
+                cfg.CreateMap<KP.Models.DepartmentForUpdationDto, ESPL.KP.Entities.MstDepartment>();
+                cfg.CreateMap<ESPL.KP.Entities.MstDepartment, ESPL.KP.Models.DepartmentForUpdationDto>();
+
+                cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceType, ESPL.KP.Models.OccurrenceTypeDto>();
+                cfg.CreateMap<ESPL.KP.Models.OccurrenceTypeForCreationDto, ESPL.KP.Entities.MstOccurrenceType>();
+                cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceType, ESPL.KP.Models.OccurrenceTypeForCreationDto>();
+                cfg.CreateMap<KP.Models.OccurrenceTypeForUpdationsDto, ESPL.KP.Entities.MstOccurrenceType>();
+                cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceType, ESPL.KP.Models.OccurrenceTypeForUpdationsDto>();
+
+                cfg.CreateMap<ESPL.KP.Entities.MstArea, ESPL.KP.Models.AreaDto>();
+                cfg.CreateMap<ESPL.KP.Models.AreaForCreationDto, ESPL.KP.Entities.MstArea>();
+                cfg.CreateMap<ESPL.KP.Entities.MstArea, ESPL.KP.Models.AreaForCreationDto>();
+                cfg.CreateMap<KP.Models.AreaForUpdationDto, ESPL.KP.Entities.MstArea>();
+                cfg.CreateMap<ESPL.KP.Entities.MstArea, ESPL.KP.Models.AreaForUpdationDto>();
+
+                cfg.CreateMap<ESPL.KP.Entities.MstDesignation, ESPL.KP.Models.DesignationDto>();
+                cfg.CreateMap<ESPL.KP.Models.DesignationForCreationDto, ESPL.KP.Entities.MstDesignation>();
+                cfg.CreateMap<ESPL.KP.Entities.MstDesignation, ESPL.KP.Models.DesignationForCreationDto>();
+                cfg.CreateMap<KP.Models.DesignationForUpdationDto, ESPL.KP.Entities.MstDesignation>();
+                cfg.CreateMap<ESPL.KP.Entities.MstDesignation, ESPL.KP.Models.DesignationForUpdationDto>();
+
+                cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceBook, ESPL.KP.Models.OccurrenceBookDto>(); 
+                    // .ForMember(dest => dest.Area, opt => opt.MapFrom(src =>src.MstArea))
+                    // .ForMember(dest => dest.Department, opt => opt.MapFrom(src =>src.MstDepartment))
+                    // .ForMember(dest => dest.Status, opt => opt.MapFrom(src =>src.MstStatus))
+                    // .ForMember(dest => dest.OccurrenceType, opt => opt.MapFrom(src =>src.MstOccurrenceType))
+                    // .ForMember(dest=>dest.Employee, opt => opt.MapFrom(src =>src.MstEmployee));
+                cfg.CreateMap<ESPL.KP.Models.OccurrenceBookForCreationDto, ESPL.KP.Entities.MstOccurrenceBook>();
+                cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceBook, ESPL.KP.Models.OccurrenceBookForCreationDto>();
+                cfg.CreateMap<ESPL.KP.Models.OccurrenceBookForUpdationDto, ESPL.KP.Entities.MstOccurrenceBook>();
+                cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceBook, ESPL.KP.Models.OccurrenceBookForUpdationDto>();
+
+                cfg.CreateMap<ESPL.KP.Entities.MstShift, ESPL.KP.Models.ShiftDto>();
+                cfg.CreateMap<ESPL.KP.Models.ShiftForCreationDto, ESPL.KP.Entities.MstShift>();
+                cfg.CreateMap<ESPL.KP.Entities.MstShift, ESPL.KP.Models.ShiftForCreationDto>();
+                cfg.CreateMap<KP.Models.ShiftForUpdationDto, ESPL.KP.Entities.MstShift>();
+                cfg.CreateMap<ESPL.KP.Entities.MstShift, ESPL.KP.Models.ShiftForUpdationDto>();
+
+                cfg.CreateMap<ESPL.KP.Entities.MstStatus, ESPL.KP.Models.StatusDto>();
+                cfg.CreateMap<ESPL.KP.Models.StatusForCreationDto, ESPL.KP.Entities.MstStatus>();
+                cfg.CreateMap<ESPL.KP.Entities.MstStatus, ESPL.KP.Models.StatusForCreationDto>();
+                cfg.CreateMap<KP.Models.StatusForUpdationDto, ESPL.KP.Entities.MstStatus>();
+                cfg.CreateMap<ESPL.KP.Entities.MstStatus, ESPL.KP.Models.StatusForUpdationDto>();
+
+
+                cfg.CreateMap<ESPL.KP.Entities.MstEmployee, ESPL.KP.Models.EmployeeDto>();
+                    // .ForMember(dest => dest.Area, opt => opt.MapFrom(src =>src.MstArea))
+                    // .ForMember(dest => dest.Department, opt => opt.MapFrom(src =>src.MstDepartment))
+                    // .ForMember(dest => dest.Designation, opt => opt.MapFrom(src =>src.MstDesignation))
+                    // .ForMember(dest => dest.Shift, opt => opt.MapFrom(src =>src.MstShift))
+                    // .ForMember(dest => dest.OccurrenceBooks, opt => opt.MapFrom(src =>src.MstOccurrenceBooks));
+                cfg.CreateMap<ESPL.KP.Models.EmployeeForCreationDto, ESPL.KP.Entities.MstEmployee>();
+                cfg.CreateMap<ESPL.KP.Entities.MstEmployee, ESPL.KP.Models.EmployeeForCreationDto>();
+                cfg.CreateMap<ESPL.KP.Models.EmployeeForUpdationDto, ESPL.KP.Entities.MstEmployee>();
+                cfg.CreateMap<ESPL.KP.Entities.MstEmployee, ESPL.KP.Models.EmployeeForUpdationDto>();
+
+                cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceBook, ESPL.KP.Models.OccurrenceReportDto>()
+                    .ForMember(dest => dest.Area, opt => opt.MapFrom(src =>
+                    src.MstArea))
+                    .ForMember(dest => dest.Offence, opt => opt.MapFrom(src =>
+                    src.MstOccurrenceType))
+                    .ForMember(dest => dest.Department, opt => opt.MapFrom(src =>
+                    src.MstDepartment))
+                    .ForMember(dest => dest.Status, opt => opt.MapFrom(src =>
+                    src.MstStatus));
+
+                 cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceBook, ESPL.KP.Models.OccurreceStatistics>()
+                    .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src =>
+                    src.MstStatus.StatusName));
             });
 
             libraryContext.EnsureSeedDataForContext();
@@ -229,6 +350,7 @@ namespace ESPL.KP
                     ValidateLifetime = true
                 }
             });
+
             app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUi(c =>

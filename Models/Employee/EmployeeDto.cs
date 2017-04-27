@@ -1,0 +1,55 @@
+using System;
+using System.Collections.Generic;
+using ESPL.KP.Entities;
+using ESPL.KP.Models.Core;
+
+
+namespace ESPL.KP.Models
+{
+    public class EmployeeDto : BaseDto
+    {
+        public Guid EmployeeID { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string EmployeeCode { get; set; }
+
+        public DateTime DateofBirth { get; set; }
+
+        public string Gender { get; set; }
+
+        public string Mobile { get; set; }
+
+        public string Email { get; set; }
+
+        public string ResidencePhone1 { get; set; }
+
+        public DateTime OrganizationJoiningDate { get; set; }
+
+        public DateTime ServiceJoiningDate { get; set; }
+
+        public string Address1 { get; set; }
+
+        public string Address2 { get; set; }
+
+        public Guid AreaID { get; set; }
+
+        public Guid DepartmentID { get; set; }
+
+        public Guid DesignationID { get; set; }
+
+        public Guid ShiftID { get; set; }
+
+        public string UserID { get; set; }
+
+        public MstArea MstArea { get; set; }
+        public MstDepartment MstDepartment { get; set; }
+
+        public MstDesignation MstDesignation { get; set; }
+        public MstShift Shift { get; set; }
+        public ICollection<MstOccurrenceBook> MstOccurrenceBooks { get; set; }
+
+    }
+}
