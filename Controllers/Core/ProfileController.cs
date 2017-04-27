@@ -46,7 +46,17 @@ namespace ESPL.KP.Controllers.Core
         [HttpGet("api/profile")]
         public IActionResult GetUserProfile()
         {
-            return Ok(User);
+            var userId = User.Claims.FirstOrDefault(cl => cl.Type == "UserId");
+            if (userId == null)
+            {
+                return NotFound("Invalid Token");
+            }
+            var user = _libraryRepository.GetEmployeeByUserID(new Guid(userId.Value));
+            if (user == null)
+            {
+                return NotFound("User Not Found");
+            }
+            return Ok(user);
         }
 
         [HttpGet("api/permissions")]
