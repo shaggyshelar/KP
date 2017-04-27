@@ -701,57 +701,62 @@ namespace ESPL.KP.Entities
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a20f-55c269c12345"),
                     Name = "Department",
-                    MenuText = "Department"
+                    MenuText = "Department",
+                    ShortName = "DP"
                 },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a22f-55c269c23456"),
                     Name = "Designation",
-                    MenuText = "Designation"
+                    MenuText = "Designation",
+                    ShortName = "DS"
                 },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a23f-55c269c34567"),
                     Name = "Area",
-                    MenuText = "Area"
+                    MenuText = "Area",
+                    ShortName = "AR"
                 },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a23f-55c269c45678"),
                     Name = "Occurrence Type",
-                    MenuText = "Occurrence Type"
-                },
-                new AppModule() {
-                    Id = new Guid("1325360c-8253-473a-a23f-55c269c56789"),
-                    Name = "Occurrence Type",
-                    MenuText = "Occurrence Type"
+                    MenuText = "Occurrence Type",
+                    ShortName = "OT"
                 },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a23f-55c269c67891"),
                     Name = "Status",
-                    MenuText = "Status"
+                    MenuText = "Status",
+                    ShortName = "ST"
                 },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a23f-55c269c56889"),
                     Name = "Shift",
-                    MenuText = "Shift"
+                    MenuText = "Shift",
+                    ShortName = "SF"
                 },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a23f-55c269c65412"),
                     Name = "Employee",
-                    MenuText = "Employee"
+                    MenuText = "Employee",
+                    ShortName = "EP"
                 },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a23f-55c269c78912"),
                     Name = "Occurrence Books",
-                    MenuText = "Occurrence Books"
+                    MenuText = "Occurrence Books",
+                    ShortName = "OB"
                 },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a23f-55c269c89123"),
                     Name = "Reports",
-                    MenuText = "Reports"
+                    MenuText = "Reports",
+                    ShortName = "RP"
                 },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a23f-55c269c91234"),
                     Name = "Dashboard",
-                    MenuText = "Dashboard"
+                    MenuText = "Dashboard",
+                    ShortName = "DB"
                 }
             };
 

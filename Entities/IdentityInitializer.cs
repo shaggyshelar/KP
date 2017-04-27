@@ -20,9 +20,9 @@ namespace ESPL.KP.Entities
 
         public async Task AddAdminUser()
         {
-            if (!(await _roleMgr.RoleExistsAsync("Admin")))
+            if (!(await _roleMgr.RoleExistsAsync("SuperAdmin")))
             {
-                var role = new IdentityRole("Admin");
+                var role = new IdentityRole("SuperAdmin");
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SuperAdmin", ClaimValue = "True" });
                 await _roleMgr.CreateAsync(role);
             }
@@ -234,15 +234,15 @@ namespace ESPL.KP.Entities
                     LastName = "Admin1",
                     Email = "espl.admin1@eternussolutions.com"
                 }
-            
+
             };
 
-            if (!(await _roleMgr.RoleExistsAsync("Admin")))
+            if (!(await _roleMgr.RoleExistsAsync("SuperAdmin")))
             {
-                var role = new IdentityRole("Admin");
+                var role = new IdentityRole("SuperAdmin");
                 role.Claims.Add(new IdentityRoleClaim<string>()
                 {
-                    ClaimType = "IsAdmin",
+                    ClaimType = "SuperAdmin",
                     ClaimValue = "True"
                 });
                 await _roleMgr.CreateAsync(role);
