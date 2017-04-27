@@ -880,9 +880,9 @@ namespace ESPL.KP.Services
         {
             var collectionBeforePaging =
                 _context.MstOccurrenceBook
-                // .Include(occurrence => occurrence.MstArea)
-                // .Include(occurrence => occurrence.MstDepartment)
-                // .Include(occurrence => occurrence.MstStatus)
+                .Include(occurrence => occurrence.MstArea)
+                .Include(occurrence => occurrence.MstDepartment)
+                .Include(occurrence => occurrence.MstStatus)
                 .ApplySort(occurrenceBookResourceParameters.OrderBy,
                 _propertyMappingService.GetPropertyMapping<OccurrenceReportDto, MstOccurrenceBook>());
 
@@ -906,12 +906,37 @@ namespace ESPL.KP.Services
                 occurrenceBookResourceParameters.PageSize);
         }
 
-        public IEnumerable<MstArea> GetAreaForOccurrance(Guid areaId)
+        public PagedList<OccurreceStatistics> GetOccurrenceBooksStatistics(OccurrenceStatisticsResourceParameters occurrenceBookResourceParameters)
         {
-            return _context.MstArea
-                        .Where(b => b.AreaID == areaId).OrderBy(b => b.AreaName).ToList();
+            var collectionBeforePaging = from p in _context.MstOccurrenceBook
+            group p by p.MstStatus.StatusName into g
+            select new OccurreceStatistics
+            {
+              StatusName = g.Key,
+              Count = g.Count()
+            };
+           
+            collectionBeforePaging =  collectionBeforePaging.ApplySort(occurrenceBookResourceParameters.OrderBy,
+                     _propertyMappingService.GetPropertyMapping<OccurreceStatistics, MstOccurrenceBook>());
+
+                if (!string.IsNullOrEmpty(occurrenceBookResourceParameters.SearchQuery))
+                {
+                    // trim & ignore casing
+                    var searchQueryForWhereClause = occurrenceBookResourceParameters.SearchQuery
+                        .Trim().ToLowerInvariant();
+
+                    collectionBeforePaging = collectionBeforePaging
+                        .Where(a =>
+                            a.StatusName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                        );
+                }
+
+            return PagedList<OccurreceStatistics>.Create(collectionBeforePaging,
+                occurrenceBookResourceParameters.PageNumber,
+                occurrenceBookResourceParameters.PageSize);
         }
 
+        
         #endregion Reports
     }
 }
