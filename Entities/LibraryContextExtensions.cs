@@ -568,16 +568,12 @@ namespace ESPL.KP.Entities
             context.SaveChanges();
             var status = new List<MstStatus>() {
                 new MstStatus() {
-                    StatusID = new Guid("1DD5458B-E136-4D03-B309-0089D4A9BD9D"),
-                    StatusName = "Open"
-                },
-                new MstStatus() {
                     StatusID = new Guid("EBEED096-EA34-43E2-948E-32BB98F31401"),
-                    StatusName = "Under Investigation"
+                    StatusName = "Under Review"
                 },
                 new MstStatus() {
                     StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
-                    StatusName = "Closed"
+                    StatusName = "Open"
                 },
                 new MstStatus() {
                     StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1111"),
@@ -606,7 +602,7 @@ namespace ESPL.KP.Entities
             		OBTypeID =  new Guid("758b1995-7f92-4d87-9588-b90800abf111"),	//carjacking
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		StatusID = new Guid("EBEED096-EA34-43E2-948E-32BB98F31401"),
-                    OBNumber = "123",
+                    OBNumber = "123456",
                     OBTime = Convert.ToDateTime("2017-04-20T19:23:14.9100866"),
                     CaseFileNumber = "1",
                     NatureOfOccurrence = "Preplanned.",
@@ -626,7 +622,7 @@ namespace ESPL.KP.Entities
             		OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf222"),    //theft
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
-                    OBNumber = "456",
+                    OBNumber = "456789",
                     OBTime = Convert.ToDateTime("2017-04-10T19:25:14.9100866"),
                     CaseFileNumber = "2",
                     NatureOfOccurrence = "Nature 2",
@@ -646,7 +642,7 @@ namespace ESPL.KP.Entities
             		OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf222"),	//theft
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709472222"),	//ASTU
             		StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1111"),
-                    OBNumber = "789",
+                    OBNumber = "789123",
                     OBTime = Convert.ToDateTime("2017-04-11T19:25:14.9100866"),
                     CaseFileNumber = "3",
                     NatureOfOccurrence = "Nature 3",
@@ -666,7 +662,7 @@ namespace ESPL.KP.Entities
             		OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf333"),
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
-                    OBNumber = "911",
+                    OBNumber = "911119",
                     OBTime = Convert.ToDateTime("2017-04-15T21:25:14.9100866"),
                     CaseFileNumber = "4",
                     NatureOfOccurrence = "Nature 4",
@@ -686,7 +682,7 @@ namespace ESPL.KP.Entities
             		OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf333"),
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
-                    OBNumber = "112",
+                    OBNumber = "112211",
                     OBTime = Convert.ToDateTime("2017-04-15T21:25:14.9100866"),
                     CaseFileNumber = "5",
                     NatureOfOccurrence = "Nature 4",
