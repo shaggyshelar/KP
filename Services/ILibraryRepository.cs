@@ -171,7 +171,8 @@ namespace ESPL.KP.Services
 
         #region Reports
         PagedList<MstOccurrenceBook> GetOccurrenceBooks(OccurrenceReportResourceParameters occurrenceTypeResourceParameters);
-        PagedList<OccurreceStatistics> GetOccurrenceBooksStatistics(OccurrenceStatisticsResourceParameters occurrenceTypeResourceParameters);
+        OccurreceStatistics GetOccurrenceBooksStatistics(OccurrenceStatisticsResourceParameters occurrenceTypeResourceParameters);
+        OccurreceStatistics GetOfficersStatistics(OccurrenceStatisticsResourceParameters occurrenceTypeResourceParameters);
         #endregion
     }
 }

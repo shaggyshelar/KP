@@ -923,37 +923,81 @@ namespace ESPL.KP.Services
                 occurrenceBookResourceParameters.PageSize);
         }
 
-        public PagedList<OccurreceStatistics> GetOccurrenceBooksStatistics(OccurrenceStatisticsResourceParameters occurrenceBookResourceParameters)
+        public OccurreceStatistics GetOccurrenceBooksStatistics(OccurrenceStatisticsResourceParameters occurrenceBookResourceParameters)
         {
-            var collectionBeforePaging = from p in _context.MstOccurrenceBook
-                                         group p by p.MstStatus.StatusName into g
-                                         select new OccurreceStatistics
-                                         {
-                                             StatusName = g.Key,
-                                             Count = g.Count()
-                                         };
+            IQueryable<StatusStatistics> statusStats = from p in _context.MstOccurrenceBook
+                                                       group p by p.MstStatus.StatusName into g
+                                                       select new StatusStatistics
+                                                       {
+                                                           StatusName = g.Key,
+                                                           Count = g.Count()
+                                                       };
+            IQueryable<PriorityStatistics> priorityStats = from p in _context.MstOccurrenceBook
+                                                           group p by new { Priority = p.Priority } into g
+                                                           select new PriorityStatistics
+                                                           {
+                                                               Priority = g.Key.Priority,
+                                                               Count = g.Key.Priority.Count(),
+                                                           };
+            int count = _context.MstOccurrenceBook.Count();
 
-            collectionBeforePaging = collectionBeforePaging.ApplySort(occurrenceBookResourceParameters.OrderBy,
-                     _propertyMappingService.GetPropertyMapping<OccurreceStatistics, MstOccurrenceBook>());
 
-            if (!string.IsNullOrEmpty(occurrenceBookResourceParameters.SearchQuery))
-            {
-                // trim & ignore casing
-                var searchQueryForWhereClause = occurrenceBookResourceParameters.SearchQuery
-                    .Trim().ToLowerInvariant();
+            OccurreceStatistics collectionBeforePaging = new OccurreceStatistics();
 
-                collectionBeforePaging = collectionBeforePaging
-                    .Where(a =>
-                        a.StatusName.ToLowerInvariant().Contains(searchQueryForWhereClause)
-                    );
-            }
 
-            return PagedList<OccurreceStatistics>.Create(collectionBeforePaging,
-                occurrenceBookResourceParameters.PageNumber,
-                occurrenceBookResourceParameters.PageSize);
+            collectionBeforePaging.StatusWiseStats = statusStats;
+            collectionBeforePaging.PriorityWiseStats = priorityStats;
+            collectionBeforePaging.TotalOccurrences = count;
+
+            // var x =collectionBeforePaging.ToList().FirstOrDefault();
+            // collectionBeforePaging = collectionBeforePaging.ApplySort(occurrenceBookResourceParameters.OrderBy,
+            //          _propertyMappingService.GetPropertyMapping<OccurreceStatistics, MstOccurrenceBook>());
+
+            // if (!string.IsNullOrEmpty(occurrenceBookResourceParameters.SearchQuery))
+            // {
+            //     // trim & ignore casing
+            //     var searchQueryForWhereClause = occurrenceBookResourceParameters.SearchQuery
+            //         .Trim().ToLowerInvariant();
+
+            //     collectionBeforePaging = collectionBeforePaging
+            //         .Where(a =>
+            //             a.StatusName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+            //         );
+            // }
+
+            // return PagedList<OccurreceStatistics>.Create(collectionBeforePaging,
+            //     occurrenceBookResourceParameters.PageNumber,
+            //     occurrenceBookResourceParameters.PageSize);
+
+            return collectionBeforePaging;
         }
 
-
+        public OccurreceStatistics GetOfficersStatistics(OccurrenceStatisticsResourceParameters occurrenceBookResourceParameters)
+        {
+            IQueryable<StatusStatistics> statusStats = from p in _context.MstOccurrenceBook
+                                                       where p.AssignedTO != null
+                                                       group p by p.MstStatus.StatusName into g
+                                                       select new StatusStatistics
+                                                       {
+                                                           StatusName = g.Key,
+                                                           Count = g.Count()
+                                                       };
+            IQueryable<PriorityStatistics> priorityStats = from p in _context.MstOccurrenceBook
+                                                           where p.AssignedTO != null
+                                                           //group p by new { Priority = p.Priority } into g
+                                                           group p by p.Priority into g
+                                                           select new PriorityStatistics
+                                                           {
+                                                               Priority = g.Key,
+                                                               Count = g.Count(),
+                                                           };
+            int count = _context.MstEmployee.Count();
+            OccurreceStatistics collectionBeforePaging = new OccurreceStatistics();
+            collectionBeforePaging.StatusWiseStats = statusStats;
+            collectionBeforePaging.PriorityWiseStats = priorityStats;
+            collectionBeforePaging.TotalOccurrences = count;
+            return collectionBeforePaging;
+        }
         #endregion Reports
     }
 }

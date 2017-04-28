@@ -617,7 +617,8 @@ namespace ESPL.KP.Entities
                     Location = "Near CSIR-URDIP",
                     AssignedTO = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef4444"),	//SGT
             		AssignedComments = "Assigned to a SGT in CID",
-                    AssignedTime = DateTime.Now.AddDays(4)
+                    AssignedTime = DateTime.Now.AddDays(4),
+                    Priority = "Major"
                 },
                 new MstOccurrenceBook() {
                     OBID = new Guid("411bfab2-0d44-4fb9-8835-184db90f5678"),
@@ -636,7 +637,8 @@ namespace ESPL.KP.Entities
                     Location = "Near IARIRS Baner",
                     AssignedTO = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef3333"), //SAIG
             		AssignedComments = "Assigned to SAIG in CID",
-                    AssignedTime = DateTime.Now.AddHours(-5)
+                    AssignedTime = DateTime.Now.AddHours(-5),
+                    Priority = "Minor"
                 },
                 new MstOccurrenceBook() {
                     OBID = new Guid("411bfab2-0d44-4fb9-8835-184db90f8878"),
@@ -655,7 +657,8 @@ namespace ESPL.KP.Entities
                     Location = "Near baner road",
                     AssignedTO =new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222"),	//DIG
             		AssignedComments = "Assigned",
-                    AssignedTime = DateTime.Now.AddDays(-5)
+                    AssignedTime = DateTime.Now.AddDays(-5),
+                    Priority = "Major"
                 },
                 new MstOccurrenceBook() {
                     OBID = new Guid("411bfab2-0d44-4fb9-8835-184db90f7878"),
@@ -674,7 +677,8 @@ namespace ESPL.KP.Entities
                     Lattitude = 18.549613,
                     Longitude = 73.812145,
                     Location = "Near HDFC bank",
-                    AssignedTime = DateTime.Now
+                    AssignedTime = DateTime.Now,
+                    Priority = "Criticle"
                 },
                 new MstOccurrenceBook() {
                     OBID = new Guid("411bfab2-0d44-4fb9-8835-184db90f5545"),
@@ -693,7 +697,8 @@ namespace ESPL.KP.Entities
                     Lattitude = 18.551200,
                     Longitude = 73.813422,
                     Location = "Near The oval",
-                    AssignedTime = DateTime.Now
+                    AssignedTime = DateTime.Now,
+                    Priority = "Major"
                 }
 
             };

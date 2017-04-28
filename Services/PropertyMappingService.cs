@@ -99,6 +99,7 @@ namespace ESPL.KP.Services
             {"Longitude",new PropertyMappingValue(new List < string > () {"Longitude"})},
             {"Location",new PropertyMappingValue(new List < string > () {"Location"})},
             { "AssignedTime", new PropertyMappingValue(new List<string>() { "AssignedTime" } ) },
+            { "Priority", new PropertyMappingValue(new List<string>() { "Priority" } ) },
      };
 
         private Dictionary<string, PropertyMappingValue> _appModulesPropertyMapping =
