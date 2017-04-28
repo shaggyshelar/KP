@@ -55,6 +55,7 @@ namespace ESPL.KP.Entities
         public double Longitude { get; set; }
         public string Location { get; set; }
         public DateTime? AssignedTime {get; set;}
+        public string Priority { get; set; }  
 
         // public ICollection<OccurrenceAssignmentHistory> OccurrenceAssignmentHistory { get; set; } = new List<OccurrenceAssignmentHistory>();
 

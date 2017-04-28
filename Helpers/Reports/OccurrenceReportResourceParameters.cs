@@ -12,4 +12,10 @@ namespace ESPL.KP.Helpers.Reports
          public string OrderBy { get; set; } = "StatusName";
     }
    
+   
+    public class OfficersStatisticsResourceParameters:BaseResourceParameters
+    {
+         public string OrderBy { get; set; } = "StatusName";
+    }
+   
 }

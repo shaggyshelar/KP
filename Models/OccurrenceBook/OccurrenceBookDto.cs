@@ -1,6 +1,7 @@
 using System;
 using ESPL.KP.Models.Core;
 using ESPL.KP.Entities;
+using ESPL.KP.Enums;
 
 namespace ESPL.KP.Models
 {
@@ -44,5 +45,7 @@ namespace ESPL.KP.Models
         public MstStatus MstStatus { get; set; }
 
         public MstEmployee MstEmployee { get; set; }
+        
+        public OccurrencePriorities Priority { get; set; }  
     }
 }
