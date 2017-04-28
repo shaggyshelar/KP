@@ -157,6 +157,10 @@ namespace KP.Controllers.OccurrenceBook
 
             var occurrenceBookEntity = Mapper.Map<MstOccurrenceBook>(occurrenceBook);
 
+            //occurrenceBookEntity.OBNumber = Convert.ToString(DateTime.Now.Ticks);
+            Random randomObject = new Random();
+            occurrenceBookEntity.OBNumber = Convert.ToString(randomObject.Next(1, 100000));
+
             _libraryRepository.AddOccurrenceBook(occurrenceBookEntity);
 
             if (!_libraryRepository.Save())
