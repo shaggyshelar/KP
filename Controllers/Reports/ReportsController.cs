@@ -126,13 +126,13 @@ namespace KP.Controllers.ReportsController
         public IActionResult GetOccurrenceBooksStatistics(OccurrenceStatisticsResourceParameters occurrenceBookResourceParameters,
             [FromHeader(Name = "Accept")] string mediaType)
         {
-            if (!_propertyMappingService.ValidMappingExistsFor<OccurreceStatistics, MstOccurrenceBook>
+            if (!_propertyMappingService.ValidMappingExistsFor<Statistics, MstOccurrenceBook>
                (occurrenceBookResourceParameters.OrderBy))
             {
                 return BadRequest();
             }
 
-            if (!_typeHelperService.TypeHasProperties<OccurreceStatistics>
+            if (!_typeHelperService.TypeHasProperties<Statistics>
                 (occurrenceBookResourceParameters.Fields))
             {
                 return BadRequest();
@@ -209,27 +209,27 @@ namespace KP.Controllers.ReportsController
         }
 
 
-         [Route("GetOfficersStatistics")]
-        [HttpGet(Name = "GetOfficersStatistics")]
-        public IActionResult GetOfficersStatistics(OccurrenceStatisticsResourceParameters occurrenceBookResourceParameters,
-            [FromHeader(Name = "Accept")] string mediaType)
-        {
-            if (!_propertyMappingService.ValidMappingExistsFor<OccurreceStatistics, MstOccurrenceBook>
-               (occurrenceBookResourceParameters.OrderBy))
-            {
-                return BadRequest();
-            }
+        //  [Route("GetOfficersStatistics")]
+        // [HttpGet(Name = "GetOfficersStatistics")]
+        // public IActionResult GetOfficersStatistics(OccurrenceStatisticsResourceParameters occurrenceBookResourceParameters,
+        //     [FromHeader(Name = "Accept")] string mediaType)
+        // {
+        //     if (!_propertyMappingService.ValidMappingExistsFor<OccurreceStatistics, MstOccurrenceBook>
+        //        (occurrenceBookResourceParameters.OrderBy))
+        //     {
+        //         return BadRequest();
+        //     }
 
-            if (!_typeHelperService.TypeHasProperties<OccurreceStatistics>
-                (occurrenceBookResourceParameters.Fields))
-            {
-                return BadRequest();
-            }
+        //     if (!_typeHelperService.TypeHasProperties<OccurreceStatistics>
+        //         (occurrenceBookResourceParameters.Fields))
+        //     {
+        //         return BadRequest();
+        //     }
 
-            var occurrenceBookFromRepo = _libraryRepository.GetOfficersStatistics(occurrenceBookResourceParameters);
+        //     var occurrenceBookFromRepo = _libraryRepository.GetOfficersStatistics(occurrenceBookResourceParameters);
 
-            return Ok(occurrenceBookFromRepo);
-        }
+        //     return Ok(occurrenceBookFromRepo);
+        // }
         private string CreateOccurrenceBookResourceUri(
                   OccurrenceReportResourceParameters occurrenceReportResourceParameters,
                   ResourceUriType type)

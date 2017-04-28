@@ -337,7 +337,7 @@ namespace ESPL.KP
                     .ForMember(dest => dest.Status, opt => opt.MapFrom(src =>
                     src.MstStatus));
 
-                cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceBook, ESPL.KP.Models.OccurreceStatistics>();
+                cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceBook, ESPL.KP.Models.Statistics>();
                 //    .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src =>
                 //    src.MstStatus.StatusName));
             });
