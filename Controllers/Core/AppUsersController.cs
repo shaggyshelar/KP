@@ -13,10 +13,12 @@ using ESPL.KP.Models.Core;
 using ESPL.KP.Helpers.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ESPL.KP.Controllers.Core
 {
     [Route("api/appusers")]
+    [Authorize(Policy = "SystemAdmin")]
     public class AppUserController : Controller
     {
         private ILibraryRepository _libraryRepository;

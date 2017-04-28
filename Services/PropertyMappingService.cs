@@ -94,7 +94,12 @@ namespace ESPL.KP.Services
             { "Remark", new PropertyMappingValue(new List<string>() { "Remark" } ) },
             { "AssignedTO", new PropertyMappingValue(new List<string>() { "AssignedTO" } ) },
             { "AssignedComments", new PropertyMappingValue(new List<string>() { "AssignedComments" } ) },
+            {"MapZoomLevel",new PropertyMappingValue(new List < string > () {"MapZoomLevel"})},
+            {"Lattitude",new PropertyMappingValue(new List < string > () {"Lattitude"})},
+            {"Longitude",new PropertyMappingValue(new List < string > () {"Longitude"})},
+            {"Location",new PropertyMappingValue(new List < string > () {"Location"})},
             { "AssignedTime", new PropertyMappingValue(new List<string>() { "AssignedTime" } ) },
+            { "Priority", new PropertyMappingValue(new List<string>() { "Priority" } ) },
      };
 
         private Dictionary<string, PropertyMappingValue> _appModulesPropertyMapping =

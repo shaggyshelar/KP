@@ -50,7 +50,12 @@ namespace ESPL.KP.Entities
         [MaxLength(500)]
         public string AssignedComments { get; set; }
 
+        public int MapZoomLevel { get; set; }
+        public double Lattitude { get; set; }
+        public double Longitude { get; set; }
+        public string Location { get; set; }
         public DateTime? AssignedTime {get; set;}
+        public string Priority { get; set; }  
 
         // public ICollection<OccurrenceAssignmentHistory> OccurrenceAssignmentHistory { get; set; } = new List<OccurrenceAssignmentHistory>();
 

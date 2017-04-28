@@ -160,6 +160,7 @@ namespace ESPL.KP.Services
         #region Employee
         PagedList<MstEmployee> GetEmployees(EmployeesResourceParameters employeesResourceParameters);
         MstEmployee GetEmployee(Guid employeeId);
+        MstEmployee GetEmployeeByUserID(Guid userId);
         IEnumerable<MstEmployee> GetEmployees(IEnumerable<Guid> employeeIds);
         void AddEmployee(MstEmployee employee);
         void DeleteEmployee(MstEmployee employee);
@@ -170,7 +171,8 @@ namespace ESPL.KP.Services
 
         #region Reports
         PagedList<MstOccurrenceBook> GetOccurrenceBooks(OccurrenceReportResourceParameters occurrenceTypeResourceParameters);
-        PagedList<OccurreceStatistics> GetOccurrenceBooksStatistics(OccurrenceStatisticsResourceParameters occurrenceTypeResourceParameters);
+        OccurreceStatistics GetOccurrenceBooksStatistics(OccurrenceStatisticsResourceParameters occurrenceTypeResourceParameters);
+        OccurreceStatistics GetOfficersStatistics(OccurrenceStatisticsResourceParameters occurrenceTypeResourceParameters);
         #endregion
     }
 }

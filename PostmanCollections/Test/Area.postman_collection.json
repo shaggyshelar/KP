@@ -1,0 +1,542 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Area",
+		"_postman_id": "e06481d2-bbea-8f17-1e67-eafef3fa8042",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add New Area",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"tests[\"Response time is less than 200ms\"] = responseTime < 200;",
+							"",
+							"tests[\"areaId is Present\"] = responseBody.has(\"areaID\");",
+							"tests[\"areaName is Present\"] = responseBody.has(\"areaName\");",
+							"tests[\"areaCode is Present\"] = responseBody.has(\"areaCode\");",
+							"tests[\"pinCode is Present\"] = responseBody.has(\"pinCode\");",
+							"tests[\"createdOn is Present\"] = responseBody.has(\"createdOn\");",
+							"tests[\"createdBy is Present\"] = responseBody.has(\"createdBy\");",
+							"tests[\"updatedOn is Present\"] = responseBody.has(\"updatedOn\");",
+							"tests[\"updatedBy is Present\"] = responseBody.has(\"updatedBy\");",
+							"",
+							"",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Your test name\"] = jsonData.pinCode === 4110027;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:6058/api/areas",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.marvin.author.full+json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"AreaName\" : \"New Area Name\",\n\t\"AreaCode\" : \"A001\",\n\t\"PinCode\"  : \"411027\"\t\n}"
+				},
+				"description": "Create Area"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single Area",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"tests[\"Response time is less than 500ms\"] = responseTime < 500;",
+							"//check whether fields are present or not",
+							"tests[\"areaId is Present\"] = responseBody.has(\"areaID\");",
+							"tests[\"areaName is Present\"] = responseBody.has(\"areaName\");",
+							"tests[\"areaCode is Present\"] = responseBody.has(\"areaCode\");",
+							"tests[\"pinCode is Present\"] = responseBody.has(\"pinCode\");",
+							"tests[\"createdOn is Present\"] = responseBody.has(\"createdOn\");",
+							"tests[\"createdBy is Present\"] = responseBody.has(\"createdBy\");",
+							"tests[\"updatedOn is Present\"] = responseBody.has(\"updatedOn\");",
+							"tests[\"updatedBy is Present\"] = responseBody.has(\"updatedBy\");",
+							"",
+							"//response body schema structure check",
+							"var jsonData = JSON.parse(responseBody);",
+							"var schema = {",
+							"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"    \"properties\": {",
+							"        \"areaCode\": {",
+							"            \"maxLength\": 100,",
+							"            \"minLength\": 1,",
+							"            \"type\": \"string\"",
+							"        },",
+							"        \"areaID\": {",
+							"            \"maxLength\": 100,",
+							"            \"minLength\": 1,",
+							"            \"type\": \"string\"",
+							"        },",
+							"        \"areaName\": {",
+							"            \"maxLength\": 100,",
+							"            \"minLength\": 1,",
+							"            \"type\": \"string\"",
+							"        },",
+							"        \"createdBy\": {",
+							"            \"maxLength\": 100,",
+							"            \"minLength\": 1,",
+							"            \"type\": \"string\"",
+							"        },",
+							"        \"createdOn\": {",
+							"            \"maxLength\": 100,",
+							"            \"minLength\": 1,",
+							"            \"type\": \"string\"",
+							"        },",
+							"        \"isDelete\": {",
+							"            \"type\": \"boolean\"",
+							"        },",
+							"        \"links\": {",
+							"            \"items\": {",
+							"                \"properties\": {",
+							"                    \"href\": {",
+							"                        \"maxLength\": 100,",
+							"                        \"minLength\": 1,",
+							"                        \"type\": [\"string\",\"null\"]",
+							"                    },",
+							"                    \"method\": {",
+							"                        \"maxLength\": 100,",
+							"                        \"minLength\": 1,",
+							"                        \"type\": \"string\"",
+							"                    },",
+							"                    \"rel\": {",
+							"                        \"maxLength\": 100,",
+							"                        \"minLength\": 1,",
+							"                        \"type\": \"string\"",
+							"                    }",
+							"                },",
+							"                \"required\": [",
+							"                    \"href\",",
+							"                    \"method\",",
+							"                    \"rel\"",
+							"                ],",
+							"                \"type\": \"object\"",
+							"            },",
+							"            \"type\": \"array\"",
+							"        },",
+							"        \"pinCode\": {",
+							"            \"maxLength\": 100,",
+							"            \"minLength\": 1,",
+							"            \"type\": \"string\"",
+							"        },",
+							"        \"updatedBy\": {",
+							"            \"id\": \"/properties/updatedBy\",",
+							"            \"maxLength\": 100,",
+							"            \"minLength\": 1,",
+							"            \"type\": \"string\"",
+							"        },",
+							"        \"updatedOn\": {",
+							"            \"maxLength\": 100,",
+							"            \"minLength\": 1,",
+							"            \"type\": \"string\"",
+							"        }",
+							"    },",
+							"    \"required\": [",
+							"        \"areaID\",",
+							"        \"updatedOn\",",
+							"        \"areaCode\",",
+							"        \"createdOn\",",
+							"        \"pinCode\",",
+							"        \"createdBy\",",
+							"        \"updatedBy\",",
+							"        \"isDelete\",",
+							"        \"areaName\"",
+							"    ],",
+							"    \"type\": \"object\"",
+							"};",
+							"",
+							"tests[\"Valid schema\"] = tv4.validate(jsonData, schema);",
+							"console.log(\"Validation failed: \", tv4.error);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:6058/api/areas/DA00CA84-AFF0-4B07-ABD2-5777DD27BE3D",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Get Area By ID"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Area",
+			"request": {
+				"url": "http://localhost:6058/api/areas/DA00CA84-AFF0-4B07-ABD2-5777DD27BE3D",
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Areas",
+			"request": {
+				"url": "http://localhost:6058/api/areas",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Areas (pageNumber = 1, pageSize = 5)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Response is less or equal to 5\"]= jsonData.length <= 5;",
+							"",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:6058/api/areas?pageNumber=1&pageSize=5",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Areas (pageNumber = 1, pageSize = 100)",
+			"request": {
+				"url": "http://localhost:6058/api/areas?pageNumber=1&pageSize=100",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Areas (pageNumber = 2, pageSize = 5)",
+			"request": {
+				"url": "http://localhost:6058/api/areas?pageNumber=2&pageSize=5",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Areas (searchQuery = 2)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"",
+							"",
+							"",
+							"//check substring 2 present for areacode field",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Search Query is 2 \"] = jsonData.areaCode === \"A2\";",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"//tests[\"Body matches string\"] = responseBody.has(\"string_you_want_to_search\");",
+							"",
+							"var substring = \"2\";\\",
+							"var size = jsonData.size();",
+							"for(){",
+							"    tests[\"contains \" +substring] = _.includes(jsonData[0].areaCode, substring);    ",
+							"}",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:6058/api/areas?searchQuery=2",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Areas (orderBy = areaName)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"",
+							"",
+							"",
+							"//check substring 2 present for areacode field",
+							"",
+							"//tests[\"Search Query is 2 \"] = jsonData.areaCode === \"2\";",
+							"",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"var ar = jsonData.sort(function(a, b)",
+							"{",
+							"  var nA = a.areaName.toLowerCase();",
+							"  var nB = b.areaName.toLowerCase();",
+							"",
+							"  if(nA < nB)",
+							"   tests[\"Sorted List : \" ] ;",
+							"  else if(nA > nB)",
+							"   tests[\"Sorted List : \" ];",
+							" return 0;",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:6058/api/areas?orderBy=areaName",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Areas (orderBy = areaName desc)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"var filter = 'areaName';",
+							"",
+							"var compare = function (filter) {",
+							"    return function (a,b) { ",
+							"            a = a[filter],",
+							"            b = b[filter];",
+							"",
+							"        if (a < b) {",
+							"            return -1;",
+							"        }else if (a > b) {",
+							"            return 1;",
+							"        } else {",
+							"            return 0;",
+							"        }",
+							"    };",
+							"};",
+							"",
+							"filter = compare(filter);",
+							"sortedarry= jsonData.sort(filter);",
+							"",
+							"var x=0;",
+							"for(i=0;i<sortedarry.length;i++)",
+							"{",
+							"   if(sortedarry[i] != jsonData[i])",
+							"   {",
+							"      x=1;  ",
+							"   }",
+							"}",
+							"",
+							"if(x==1){",
+							"tests[\"unsorted\"];",
+							"}",
+							"else",
+							"tests[\"sorted\"];",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:6058/api/areas?orderBy=areaName desc",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET departments",
+			"request": {
+				"url": "http://localhost:6058/api/areas?orderBy=areaName desc&pageNumber=2&pageSize=5",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Areas (fields = areaName)",
+			"request": {
+				"url": "http://localhost:6058/api/areas?fields=areaName",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Areas (fields = areaID)",
+			"request": {
+				"url": "http://localhost:6058/api/areas?fields=areaID",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Areas (fields = areaCode)",
+			"request": {
+				"url": "http://localhost:6058/api/areas?fields=areaCode",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

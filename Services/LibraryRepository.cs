@@ -523,11 +523,11 @@ namespace ESPL.KP.Services
         {
             var collectionBeforePaging =
                 _context.MstOccurrenceBook
-                .Include(ob=>ob.MstArea)
-                .Include(ob=>ob.MstDepartment)
-                .Include(ob=>ob.MstOccurrenceType)
-                .Include(ob=>ob.MstStatus)
-                .Include(ob=>ob.MstEmployee).ThenInclude(e=>e.ESPLUser)
+                .Include(ob => ob.MstArea)
+                .Include(ob => ob.MstDepartment)
+                .Include(ob => ob.MstOccurrenceType)
+                .Include(ob => ob.MstStatus)
+                .Include(ob => ob.MstEmployee).ThenInclude(e => e.ESPLUser)
                 .ApplySort(occurrenceBookResourceParameters.OrderBy,
                 _propertyMappingService.GetPropertyMapping<OccurrenceBookDto, MstOccurrenceBook>());
 
@@ -539,15 +539,15 @@ namespace ESPL.KP.Services
 
                 collectionBeforePaging = collectionBeforePaging
                     .Where(a =>
-                        a.OBNumber.ToLowerInvariant().Contains(searchQueryForWhereClause) 
-                        || a.CaseFileNumber.ToLowerInvariant().Contains(searchQueryForWhereClause) 
-                        || a.NatureOfOccurrence.ToLowerInvariant().Contains(searchQueryForWhereClause) 
+                        a.OBNumber.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                        || a.CaseFileNumber.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                        || a.NatureOfOccurrence.ToLowerInvariant().Contains(searchQueryForWhereClause)
                         || a.Remark.ToLowerInvariant().Contains(searchQueryForWhereClause)
                         || a.MstOccurrenceType.OBTypeName.ToLowerInvariant().Contains(searchQueryForWhereClause)
                         || a.MstDepartment.DepartmentName.ToLowerInvariant().Contains(searchQueryForWhereClause)
                         || a.MstArea.AreaName.ToLowerInvariant().Contains(searchQueryForWhereClause)
                         || a.MstStatus.StatusName.ToLowerInvariant().Contains(searchQueryForWhereClause));
-                    
+
             }
 
             return PagedList<MstOccurrenceBook>.Create(collectionBeforePaging,
@@ -558,22 +558,22 @@ namespace ESPL.KP.Services
         public MstOccurrenceBook GetOccurrenceBook(Guid occurrenceBookId)
         {
             return _context.MstOccurrenceBook
-                .Include(ob=>ob.MstArea)
-                .Include(ob=>ob.MstDepartment)
-                .Include(ob=>ob.MstOccurrenceType)
-                .Include(ob=>ob.MstStatus)
-                .Include(ob=>ob.MstEmployee).ThenInclude(e=>e.ESPLUser)
+                .Include(ob => ob.MstArea)
+                .Include(ob => ob.MstDepartment)
+                .Include(ob => ob.MstOccurrenceType)
+                .Include(ob => ob.MstStatus)
+                .Include(ob => ob.MstEmployee).ThenInclude(e => e.ESPLUser)
                 .FirstOrDefault(a => a.OBID == occurrenceBookId);
         }
 
         public IEnumerable<MstOccurrenceBook> GetOccurrenceBooks(IEnumerable<Guid> occurrenceBookIds)
         {
             return _context.MstOccurrenceBook
-                .Include(ob=>ob.MstArea)
-                .Include(ob=>ob.MstDepartment)
-                .Include(ob=>ob.MstOccurrenceType)
-                .Include(ob=>ob.MstStatus)
-                .Include(ob=>ob.MstEmployee).ThenInclude(e=>e.ESPLUser)
+                .Include(ob => ob.MstArea)
+                .Include(ob => ob.MstDepartment)
+                .Include(ob => ob.MstOccurrenceType)
+                .Include(ob => ob.MstStatus)
+                .Include(ob => ob.MstEmployee).ThenInclude(e => e.ESPLUser)
                 .Where(a => occurrenceBookIds.Contains(a.OBID))
                 .OrderBy(a => a.OBTime)
                 .ToList();
@@ -791,12 +791,13 @@ namespace ESPL.KP.Services
         {
             var collectionBeforePaging =
                 _context.MstEmployee
-                .Include(e=>e.MstArea)
-                .Include(e=>e.MstDepartment)
-                .Include(e=>e.MstDesignation)
-                .Include(e=>e.MstShift)
-                .Include(e=>e.MstOccurrenceBooks).ThenInclude(ob=>ob.MstStatus)
-                .Include(e=>e.MstOccurrenceBooks).ThenInclude(ob=>ob.MstOccurrenceType)
+                .Include(e => e.MstArea)
+                .Include(e => e.MstDepartment)
+                .Include(e => e.MstDesignation)
+                .Include(e => e.MstShift)
+                .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstStatus)
+                .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstOccurrenceType)
+                .Include(e =>e.ESPLUser)
                 .ApplySort(employeesResourceParameters.OrderBy,
                 _propertyMappingService.GetPropertyMapping<EmployeeDto, MstEmployee>());
 
@@ -829,24 +830,40 @@ namespace ESPL.KP.Services
         public MstEmployee GetEmployee(Guid employeeId)
         {
             return _context.MstEmployee
-                .Include(e=>e.MstArea)
-                .Include(e=>e.MstDepartment)
-                .Include(e=>e.MstDesignation)
-                .Include(e=>e.MstShift)
-                .Include(e=>e.MstOccurrenceBooks).ThenInclude(ob=>ob.MstStatus)
-                .Include(e=>e.MstOccurrenceBooks).ThenInclude(ob=>ob.MstOccurrenceType)
+                .Include(e => e.MstArea)
+                .Include(e => e.MstDepartment)
+                .Include(e => e.MstDesignation)
+                .Include(e => e.MstShift)
+                .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstStatus)
+                .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstOccurrenceType)
+                .Include(e =>e.ESPLUser)
                 .FirstOrDefault(a => a.EmployeeID == employeeId);
         }
+
+        public MstEmployee GetEmployeeByUserID(Guid userId)
+        {
+            return _context.MstEmployee
+                .Include(e => e.MstArea)
+                .Include(e => e.MstDepartment)
+                .Include(e => e.MstDesignation)
+                .Include(e => e.MstShift)
+                .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstStatus)
+                .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstOccurrenceType)
+                .Include(e =>e.ESPLUser)
+                .FirstOrDefault(a => a.UserID == userId.ToString());
+        }
+
 
         public IEnumerable<MstEmployee> GetEmployees(IEnumerable<Guid> employeeIds)
         {
             return _context.MstEmployee
-                .Include(e=>e.MstArea)
-                .Include(e=>e.MstDepartment)
-                .Include(e=>e.MstDesignation)
-                .Include(e=>e.MstShift)
-                .Include(e=>e.MstOccurrenceBooks).ThenInclude(ob=>ob.MstStatus)
-                .Include(e=>e.MstOccurrenceBooks).ThenInclude(ob=>ob.MstOccurrenceType)
+                .Include(e => e.MstArea)
+                .Include(e => e.MstDepartment)
+                .Include(e => e.MstDesignation)
+                .Include(e => e.MstShift)
+                .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstStatus)
+                .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstOccurrenceType)
+                .Include(e =>e.ESPLUser)
                 .Where(a => employeeIds.Contains(a.EmployeeID))
                 .OrderBy(a => a.FirstName)
                 .ToList();
@@ -875,7 +892,7 @@ namespace ESPL.KP.Services
 
         #endregion Employee
 
-          #region Reports
+        #region Reports
         public PagedList<MstOccurrenceBook> GetOccurrenceBooks(OccurrenceReportResourceParameters occurrenceBookResourceParameters)
         {
             var collectionBeforePaging =
@@ -906,37 +923,81 @@ namespace ESPL.KP.Services
                 occurrenceBookResourceParameters.PageSize);
         }
 
-        public PagedList<OccurreceStatistics> GetOccurrenceBooksStatistics(OccurrenceStatisticsResourceParameters occurrenceBookResourceParameters)
+        public OccurreceStatistics GetOccurrenceBooksStatistics(OccurrenceStatisticsResourceParameters occurrenceBookResourceParameters)
         {
-            var collectionBeforePaging = from p in _context.MstOccurrenceBook
-            group p by p.MstStatus.StatusName into g
-            select new OccurreceStatistics
-            {
-              StatusName = g.Key,
-              Count = g.Count()
-            };
-           
-            collectionBeforePaging =  collectionBeforePaging.ApplySort(occurrenceBookResourceParameters.OrderBy,
-                     _propertyMappingService.GetPropertyMapping<OccurreceStatistics, MstOccurrenceBook>());
+            IQueryable<StatusStatistics> statusStats = from p in _context.MstOccurrenceBook
+                                                       group p by p.MstStatus.StatusName into g
+                                                       select new StatusStatistics
+                                                       {
+                                                           StatusName = g.Key,
+                                                           Count = g.Count()
+                                                       };
+            IQueryable<PriorityStatistics> priorityStats = from p in _context.MstOccurrenceBook
+                                                           group p by new { Priority = p.Priority } into g
+                                                           select new PriorityStatistics
+                                                           {
+                                                               Priority = g.Key.Priority,
+                                                               Count = g.Key.Priority.Count(),
+                                                           };
+            int count = _context.MstOccurrenceBook.Count();
 
-                if (!string.IsNullOrEmpty(occurrenceBookResourceParameters.SearchQuery))
-                {
-                    // trim & ignore casing
-                    var searchQueryForWhereClause = occurrenceBookResourceParameters.SearchQuery
-                        .Trim().ToLowerInvariant();
 
-                    collectionBeforePaging = collectionBeforePaging
-                        .Where(a =>
-                            a.StatusName.ToLowerInvariant().Contains(searchQueryForWhereClause)
-                        );
-                }
+            OccurreceStatistics collectionBeforePaging = new OccurreceStatistics();
 
-            return PagedList<OccurreceStatistics>.Create(collectionBeforePaging,
-                occurrenceBookResourceParameters.PageNumber,
-                occurrenceBookResourceParameters.PageSize);
+
+            collectionBeforePaging.StatusWiseStats = statusStats;
+            collectionBeforePaging.PriorityWiseStats = priorityStats;
+            collectionBeforePaging.TotalOccurrences = count;
+
+            // var x =collectionBeforePaging.ToList().FirstOrDefault();
+            // collectionBeforePaging = collectionBeforePaging.ApplySort(occurrenceBookResourceParameters.OrderBy,
+            //          _propertyMappingService.GetPropertyMapping<OccurreceStatistics, MstOccurrenceBook>());
+
+            // if (!string.IsNullOrEmpty(occurrenceBookResourceParameters.SearchQuery))
+            // {
+            //     // trim & ignore casing
+            //     var searchQueryForWhereClause = occurrenceBookResourceParameters.SearchQuery
+            //         .Trim().ToLowerInvariant();
+
+            //     collectionBeforePaging = collectionBeforePaging
+            //         .Where(a =>
+            //             a.StatusName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+            //         );
+            // }
+
+            // return PagedList<OccurreceStatistics>.Create(collectionBeforePaging,
+            //     occurrenceBookResourceParameters.PageNumber,
+            //     occurrenceBookResourceParameters.PageSize);
+
+            return collectionBeforePaging;
         }
 
-        
+        public OccurreceStatistics GetOfficersStatistics(OccurrenceStatisticsResourceParameters occurrenceBookResourceParameters)
+        {
+            IQueryable<StatusStatistics> statusStats = from p in _context.MstOccurrenceBook
+                                                       where p.AssignedTO != null
+                                                       group p by p.MstStatus.StatusName into g
+                                                       select new StatusStatistics
+                                                       {
+                                                           StatusName = g.Key,
+                                                           Count = g.Count()
+                                                       };
+            IQueryable<PriorityStatistics> priorityStats = from p in _context.MstOccurrenceBook
+                                                           where p.AssignedTO != null
+                                                           //group p by new { Priority = p.Priority } into g
+                                                           group p by p.Priority into g
+                                                           select new PriorityStatistics
+                                                           {
+                                                               Priority = g.Key,
+                                                               Count = g.Count(),
+                                                           };
+            int count = _context.MstEmployee.Count();
+            OccurreceStatistics collectionBeforePaging = new OccurreceStatistics();
+            collectionBeforePaging.StatusWiseStats = statusStats;
+            collectionBeforePaging.PriorityWiseStats = priorityStats;
+            collectionBeforePaging.TotalOccurrences = count;
+            return collectionBeforePaging;
+        }
         #endregion Reports
     }
 }

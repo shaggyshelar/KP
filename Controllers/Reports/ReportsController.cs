@@ -140,70 +140,95 @@ namespace KP.Controllers.ReportsController
 
             var occurrenceBookFromRepo = _libraryRepository.GetOccurrenceBooksStatistics(occurrenceBookResourceParameters);
 
-            var occurrenceBook = Mapper.Map<IEnumerable<OccurreceStatistics>>(occurrenceBookFromRepo);
+            // var occurrenceBook = Mapper.Map<IEnumerable<OccurreceStatistics>>(occurrenceBookFromRepo);
 
-            if (mediaType == "application/vnd.marvin.hateoas+json")
+            // if (mediaType == "application/vnd.marvin.hateoas+json")
+            // {
+            //     var paginationMetadata = new
+            //     {
+            //         totalCount = occurrenceBookFromRepo.TotalCount,
+            //         pageSize = occurrenceBookFromRepo.PageSize,
+            //         currentPage = occurrenceBookFromRepo.CurrentPage,
+            //         totalPages = occurrenceBookFromRepo.TotalPages,
+            //     };
+
+            //     Response.Headers.Add("X-Pagination",
+            //         Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+
+            //     var links = CreateLinksForOccurrenceBook(occurrenceBookResourceParameters,
+            //         occurrenceBookFromRepo.HasNext, occurrenceBookFromRepo.HasPrevious);
+
+            //     var shapedoccurrenceBook = occurrenceBook.ShapeData(occurrenceBookResourceParameters.Fields);
+
+            //     var shapedoccurrenceBookWithLinks = shapedoccurrenceBook.Select(occType =>
+            //     {
+            //         var occurrenceBookAsDictionary = occType as IDictionary<string, object>;
+            //         var occurrenceBookLinks = CreateLinksForOccurrenceBook(
+            //             (Guid)occurrenceBookAsDictionary["Id"], occurrenceBookResourceParameters.Fields);
+
+            //         occurrenceBookAsDictionary.Add("links", occurrenceBookLinks);
+
+            //         return occurrenceBookAsDictionary;
+            //     });
+
+            //     var linkedCollectionResource = new
+            //     {
+            //         value = shapedoccurrenceBookWithLinks,
+            //         links = links
+            //     };
+
+            //     return Ok(linkedCollectionResource);
+            // }
+            // else
+            // {
+            //     var previousPageLink = occurrenceBookFromRepo.HasPrevious ?
+            //         CreateOccurrenceBookResourceUri(occurrenceBookResourceParameters,
+            //         ResourceUriType.PreviousPage) : null;
+
+            //     var nextPageLink = occurrenceBookFromRepo.HasNext ?
+            //         CreateOccurrenceBookResourceUri(occurrenceBookResourceParameters,
+            //         ResourceUriType.NextPage) : null;
+
+            //     var paginationMetadata = new
+            //     {
+            //         previousPageLink = previousPageLink,
+            //         nextPageLink = nextPageLink,
+            //         totalCount = occurrenceBookFromRepo.TotalCount,
+            //         pageSize = occurrenceBookFromRepo.PageSize,
+            //         currentPage = occurrenceBookFromRepo.CurrentPage,
+            //         totalPages = occurrenceBookFromRepo.TotalPages
+            //     };
+
+            //     Response.Headers.Add("X-Pagination",
+            //         Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+
+            //     return Ok(occurrenceBook.ShapeData(occurrenceBookResourceParameters.Fields));
+            // }
+
+            return Ok(occurrenceBookFromRepo);
+        }
+
+
+         [Route("GetOfficersStatistics")]
+        [HttpGet(Name = "GetOfficersStatistics")]
+        public IActionResult GetOfficersStatistics(OccurrenceStatisticsResourceParameters occurrenceBookResourceParameters,
+            [FromHeader(Name = "Accept")] string mediaType)
+        {
+            if (!_propertyMappingService.ValidMappingExistsFor<OccurreceStatistics, MstOccurrenceBook>
+               (occurrenceBookResourceParameters.OrderBy))
             {
-                var paginationMetadata = new
-                {
-                    totalCount = occurrenceBookFromRepo.TotalCount,
-                    pageSize = occurrenceBookFromRepo.PageSize,
-                    currentPage = occurrenceBookFromRepo.CurrentPage,
-                    totalPages = occurrenceBookFromRepo.TotalPages,
-                };
-
-                Response.Headers.Add("X-Pagination",
-                    Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-
-                var links = CreateLinksForOccurrenceBook(occurrenceBookResourceParameters,
-                    occurrenceBookFromRepo.HasNext, occurrenceBookFromRepo.HasPrevious);
-
-                var shapedoccurrenceBook = occurrenceBook.ShapeData(occurrenceBookResourceParameters.Fields);
-
-                var shapedoccurrenceBookWithLinks = shapedoccurrenceBook.Select(occType =>
-                {
-                    var occurrenceBookAsDictionary = occType as IDictionary<string, object>;
-                    var occurrenceBookLinks = CreateLinksForOccurrenceBook(
-                        (Guid)occurrenceBookAsDictionary["Id"], occurrenceBookResourceParameters.Fields);
-
-                    occurrenceBookAsDictionary.Add("links", occurrenceBookLinks);
-
-                    return occurrenceBookAsDictionary;
-                });
-
-                var linkedCollectionResource = new
-                {
-                    value = shapedoccurrenceBookWithLinks,
-                    links = links
-                };
-
-                return Ok(linkedCollectionResource);
+                return BadRequest();
             }
-            else
+
+            if (!_typeHelperService.TypeHasProperties<OccurreceStatistics>
+                (occurrenceBookResourceParameters.Fields))
             {
-                var previousPageLink = occurrenceBookFromRepo.HasPrevious ?
-                    CreateOccurrenceBookResourceUri(occurrenceBookResourceParameters,
-                    ResourceUriType.PreviousPage) : null;
-
-                var nextPageLink = occurrenceBookFromRepo.HasNext ?
-                    CreateOccurrenceBookResourceUri(occurrenceBookResourceParameters,
-                    ResourceUriType.NextPage) : null;
-
-                var paginationMetadata = new
-                {
-                    previousPageLink = previousPageLink,
-                    nextPageLink = nextPageLink,
-                    totalCount = occurrenceBookFromRepo.TotalCount,
-                    pageSize = occurrenceBookFromRepo.PageSize,
-                    currentPage = occurrenceBookFromRepo.CurrentPage,
-                    totalPages = occurrenceBookFromRepo.TotalPages
-                };
-
-                Response.Headers.Add("X-Pagination",
-                    Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-
-                return Ok(occurrenceBook.ShapeData(occurrenceBookResourceParameters.Fields));
+                return BadRequest();
             }
+
+            var occurrenceBookFromRepo = _libraryRepository.GetOfficersStatistics(occurrenceBookResourceParameters);
+
+            return Ok(occurrenceBookFromRepo);
         }
         private string CreateOccurrenceBookResourceUri(
                   OccurrenceReportResourceParameters occurrenceReportResourceParameters,
