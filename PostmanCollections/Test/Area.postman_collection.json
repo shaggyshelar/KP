@@ -17,58 +17,7 @@
 						"exec": [
 							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
 							"tests[\"Response time is less than 200ms\"] = responseTime < 200;",
-							"",
-							"tests[\"areaId is Present\"] = responseBody.has(\"areaID\");",
-							"tests[\"areaName is Present\"] = responseBody.has(\"areaName\");",
-							"tests[\"areaCode is Present\"] = responseBody.has(\"areaCode\");",
-							"tests[\"pinCode is Present\"] = responseBody.has(\"pinCode\");",
-							"tests[\"createdOn is Present\"] = responseBody.has(\"createdOn\");",
-							"tests[\"createdBy is Present\"] = responseBody.has(\"createdBy\");",
-							"tests[\"updatedOn is Present\"] = responseBody.has(\"updatedOn\");",
-							"tests[\"updatedBy is Present\"] = responseBody.has(\"updatedBy\");",
-							"",
-							"",
-							"",
-							"var jsonData = JSON.parse(responseBody);",
-							"tests[\"Your test name\"] = jsonData.pinCode === 4110027;"
-						]
-					}
-				}
-			],
-			"request": {
-				"url": "http://localhost:6058/api/areas",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/vnd.marvin.author.full+json",
-						"description": ""
-					},
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"AreaName\" : \"New Area Name\",\n\t\"AreaCode\" : \"A001\",\n\t\"PinCode\"  : \"411027\"\t\n}"
-				},
-				"description": "Create Area"
-			},
-			"response": []
-		},
-		{
-			"name": "Get Single Area",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
-							"tests[\"Response time is less than 500ms\"] = responseTime < 500;",
-							"//check whether fields are present or not",
+							"//Check keys present or not",
 							"tests[\"areaId is Present\"] = responseBody.has(\"areaID\");",
 							"tests[\"areaName is Present\"] = responseBody.has(\"areaName\");",
 							"tests[\"areaCode is Present\"] = responseBody.has(\"areaCode\");",
@@ -140,7 +89,7 @@
 							"            \"type\": \"array\"",
 							"        },",
 							"        \"pinCode\": {",
-							"            \"maxLength\": 100,",
+							"            \"maxLength\": 15,",
 							"            \"minLength\": 1,",
 							"            \"type\": \"string\"",
 							"        },",
@@ -158,13 +107,10 @@
 							"    },",
 							"    \"required\": [",
 							"        \"areaID\",",
-							"        \"updatedOn\",",
 							"        \"areaCode\",",
 							"        \"createdOn\",",
 							"        \"pinCode\",",
 							"        \"createdBy\",",
-							"        \"updatedBy\",",
-							"        \"isDelete\",",
 							"        \"areaName\"",
 							"    ],",
 							"    \"type\": \"object\"",
@@ -172,6 +118,237 @@
 							"",
 							"tests[\"Valid schema\"] = tv4.validate(jsonData, schema);",
 							"console.log(\"Validation failed: \", tv4.error);",
+							"//Check response code",
+							"tests[\"Successful POST request\"] = responseCode.code === 201 || responseCode.code === 202;",
+							"",
+							"//check duplicate data",
+							"",
+							"",
+							"",
+							"//Check if optional fields are empty, form gets submitted",
+							"var jsonData = JSON.parse(responseBody);",
+							"var schema = {",
+							"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"    \"properties\": {",
+							"        \"areaCode\": {",
+							"            \"maxLength\": 100,",
+							"            \"minLength\": 1,",
+							"            \"type\": \"string\"",
+							"        },",
+							"        \"areaID\": {",
+							"            \"maxLength\": 100,",
+							"            \"minLength\": 1,",
+							"            \"type\": \"string\"",
+							"        },",
+							"        \"areaName\": {",
+							"            \"maxLength\": 100,",
+							"            \"minLength\": 1,",
+							"            \"type\": \"string\"",
+							"        },",
+							"        \"createdBy\": {",
+							"            \"maxLength\": 100,",
+							"            \"minLength\": 1,",
+							"            \"type\": \"string\"",
+							"        },",
+							"        \"createdOn\": {",
+							"            \"maxLength\": 100,",
+							"            \"minLength\": 1,",
+							"            \"type\": \"string\"",
+							"        },",
+							"        \"isDelete\": {",
+							"            \"type\": \"boolean\"",
+							"        },",
+							"        \"links\": {",
+							"            \"items\": {",
+							"                \"properties\": {",
+							"                    \"href\": {",
+							"                        \"maxLength\": 100,",
+							"                        \"minLength\": 1,",
+							"                        \"type\": [\"string\",\"null\"]",
+							"                    },",
+							"                    \"method\": {",
+							"                        \"maxLength\": 100,",
+							"                        \"minLength\": 1,",
+							"                        \"type\": \"string\"",
+							"                    },",
+							"                    \"rel\": {",
+							"                        \"maxLength\": 100,",
+							"                        \"minLength\": 1,",
+							"                        \"type\": \"string\"",
+							"                    }",
+							"                },",
+							"                \"required\": [",
+							"                    \"href\",",
+							"                    \"method\",",
+							"                    \"rel\"",
+							"                ],",
+							"                \"type\": \"object\"",
+							"            },",
+							"            \"type\": \"array\"",
+							"        },",
+							"        \"pinCode\": {",
+							"            \"maxLength\": 15,",
+							"            \"minLength\": 1,",
+							"            \"type\": \"string\"",
+							"        },",
+							"    },",
+							"    \"required\": [",
+							"        \"areaID\",",
+							"        \"areaCode\",",
+							"        \"createdOn\",",
+							"        \"pinCode\",",
+							"        \"createdBy\",",
+							"        \"areaName\"",
+							"    ],",
+							"    \"type\": \"object\"",
+							"};",
+							"",
+							"tests[\"Valid schema\"] = tv4.validate(jsonData, schema);",
+							"tests[\"Successful POST request\"] = responseCode.code === 201 || responseCode.code === 202;",
+							"",
+							"",
+							"//Check Cancel button do not submit the form ",
+							"",
+							"",
+							"//Check reset button resets the field values",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:6058/api/areas",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.marvin.author.full+json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"AreaName\" : \"New Area Name\",\n\t\"AreaCode\" : \"A001\",\n\t\"PinCode\"  : \"411027\"\t\n}"
+				},
+				"description": "Create Area"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single Area",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"tests[\"Response time is less than 500ms\"] = responseTime < 500;",
+							"//check whether fields are present or not",
+							"tests[\"areaId is Present\"] = responseBody.has(\"areaID\");",
+							"tests[\"areaName is Present\"] = responseBody.has(\"areaName\");",
+							"tests[\"areaCode is Present\"] = responseBody.has(\"areaCode\");",
+							"tests[\"pinCode is Present\"] = responseBody.has(\"pinCode\");",
+							"tests[\"createdOn is Present\"] = responseBody.has(\"createdOn\");",
+							"tests[\"createdBy is Present\"] = responseBody.has(\"createdBy\");",
+							"tests[\"updatedOn is Present\"] = responseBody.has(\"updatedOn\");",
+							"tests[\"updatedBy is Present\"] = responseBody.has(\"updatedBy\");",
+							"",
+							"//response body schema structure check(check onload all field values are fetched and displayed)",
+							"var jsonData = JSON.parse(responseBody);",
+							"var schema = {",
+							"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"    \"properties\": {",
+							"        \"areaCode\": {",
+							"            \"maxLength\": 100,",
+							"            \"minLength\": 1,",
+							"            \"type\": \"string\"",
+							"        },",
+							"        \"areaID\": {",
+							"            \"maxLength\": 100,",
+							"            \"minLength\": 1,",
+							"            \"type\": \"string\"",
+							"        },",
+							"        \"areaName\": {",
+							"            \"maxLength\": 100,",
+							"            \"minLength\": 1,",
+							"            \"type\": \"string\"",
+							"        },",
+							"        \"createdBy\": {",
+							"            \"maxLength\": 100,",
+							"            \"minLength\": 1,",
+							"            \"type\": \"string\"",
+							"        },",
+							"        \"createdOn\": {",
+							"            \"maxLength\": 100,",
+							"            \"minLength\": 1,",
+							"            \"type\": \"string\"",
+							"        },",
+							"        \"isDelete\": {",
+							"            \"type\": \"boolean\"",
+							"        },",
+							"        \"links\": {",
+							"            \"items\": {",
+							"                \"properties\": {",
+							"                    \"href\": {",
+							"                        \"maxLength\": 100,",
+							"                        \"minLength\": 1,",
+							"                        \"type\": [\"string\",\"null\"]",
+							"                    },",
+							"                    \"method\": {",
+							"                        \"maxLength\": 100,",
+							"                        \"minLength\": 1,",
+							"                        \"type\": \"string\"",
+							"                    },",
+							"                    \"rel\": {",
+							"                        \"maxLength\": 100,",
+							"                        \"minLength\": 1,",
+							"                        \"type\": \"string\"",
+							"                    }",
+							"                },",
+							"                \"required\": [",
+							"                    \"href\",",
+							"                    \"method\",",
+							"                    \"rel\"",
+							"                ],",
+							"                \"type\": \"object\"",
+							"            },",
+							"            \"type\": \"array\"",
+							"        },",
+							"        \"pinCode\": {",
+							"            \"maxLength\": 15,",
+							"            \"minLength\": 1,",
+							"            \"type\": \"string\"",
+							"        },",
+							"    },",
+							"    \"required\": [",
+							"        \"areaID\",",
+							"        \"areaCode\",",
+							"        \"createdOn\",",
+							"        \"pinCode\",",
+							"        \"createdBy\",",
+							"        \"areaName\"",
+							"    ],",
+							"    \"type\": \"object\"",
+							"};",
+							"",
+							"tests[\"Valid schema\"] = tv4.validate(jsonData, schema);",
+							"",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"//Check if new entries are added, response body should be updated and new entry should be displayed along with the exsisting entries",
+							"",
+							"",
+							"//Check if any exsisting entry is deleted, responsebody should get updated accordingly",
+							"",
+							"",
+							"",
 							""
 						]
 					}
@@ -188,20 +365,104 @@
 		},
 		{
 			"name": "DELETE Area",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"//tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"tests[\"Response time is less than 500ms\"] = responseTime < 500;",
+							"",
+							"//check deleted entry is not displyed in the grid",
+							"",
+							"",
+							"//check whether deleted entry can be added again in the system(should not be treated as duplicate entry)",
+							"",
+							""
+						]
+					}
+				}
+			],
 			"request": {
 				"url": "http://localhost:6058/api/areas/DA00CA84-AFF0-4B07-ABD2-5777DD27BE3D",
 				"method": "DELETE",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "GET Areas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"//response body schema structure check",
+							"var jsonData = JSON.parse(responseBody);",
+							"var schema = {",
+							"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"    \"items\": {",
+							"        \"id\": \"/items\",",
+							"        \"properties\": {",
+							"            \"areaCode\": {",
+							"                \"id\": \"/items/properties/areaCode\",",
+							"                \"type\": \"string\"",
+							"            },",
+							"            \"areaID\": {",
+							"                \"id\": \"/items/properties/areaID\",",
+							"                \"type\": \"string\"",
+							"            },",
+							"            \"areaName\": {",
+							"                \"id\": \"/items/properties/areaName\",",
+							"                \"type\": \"string\"",
+							"            },",
+							"            \"createdBy\": {",
+							"                \"id\": \"/items/properties/createdBy\",",
+							"                \"type\": \"string\"",
+							"            },",
+							"            \"createdOn\": {",
+							"                \"id\": \"/items/properties/createdOn\",",
+							"                \"type\": \"string\"",
+							"            },",
+							"            \"isDelete\": {",
+							"                \"id\": \"/items/properties/isDelete\",",
+							"                \"type\": \"boolean\"",
+							"            },",
+							"            \"pinCode\": {",
+							"                \"id\": \"/items/properties/pinCode\",",
+							"                \"type\": \"string\"",
+							"            },",
+							"            \"updatedBy\": {",
+							"                \"id\": \"/items/properties/updatedBy\",",
+							"                \"type\": \"string\"",
+							"            },",
+							"            \"updatedOn\": {",
+							"                \"id\": \"/items/properties/updatedOn\",",
+							"                \"type\": \"string\"",
+							"            }",
+							"        },",
+							"        \"type\": \"object\"",
+							"    },",
+							"    \"type\": \"array\"",
+							"};",
+							"",
+							"tests[\"Valid Data2\"] = tv4.validate(jsonData, schema);",
+							"console.log(\"Validation failed: \", tv4.error);",
+							"",
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Response time is less than 200ms\"] = responseTime < 200;",
+							""
+						]
+					}
+				}
+			],
 			"request": {
 				"url": "http://localhost:6058/api/areas",
 				"method": "GET",
@@ -212,10 +473,7 @@
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
@@ -229,11 +487,33 @@
 						"type": "text/javascript",
 						"exec": [
 							"tests[\"Status code is 200\"] = responseCode.code === 200;",
-							"",
 							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"//check whether fields are present or not",
+							"tests[\"areaId is Present\"] = responseBody.has(\"areaID\");",
+							"tests[\"areaName is Present\"] = responseBody.has(\"areaName\");",
+							"tests[\"areaCode is Present\"] = responseBody.has(\"areaCode\");",
+							"tests[\"pinCode is Present\"] = responseBody.has(\"pinCode\");",
+							"tests[\"createdOn is Present\"] = responseBody.has(\"createdOn\");",
+							"tests[\"createdBy is Present\"] = responseBody.has(\"createdBy\");",
+							"tests[\"updatedOn is Present\"] = responseBody.has(\"updatedOn\");",
+							"tests[\"updatedBy is Present\"] = responseBody.has(\"updatedBy\");",
 							"",
+							"//Check response is less than or equal to 5",
 							"var jsonData = JSON.parse(responseBody);",
 							"tests[\"Response is less or equal to 5\"]= jsonData.length <= 5;",
+							"",
+							"//Check response is greater than 5",
+							"tests[\"Response is greater than 5\"]= jsonData.length > 5;",
+							"",
+							"//Check response is equal to 0",
+							"tests[\"Response is equal to 0\"]= jsonData.length === 0;",
+							"",
+							"//check pagenumber is less than 5 ",
+							"tests[\"Response is less than 5\"] = jsonData.length < 5;",
+							"",
+							"",
+							"",
+							"",
 							"",
 							"",
 							"",
@@ -259,6 +539,41 @@
 		},
 		{
 			"name": "GET Areas (pageNumber = 1, pageSize = 100)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"//check whether fields are present or not",
+							"tests[\"areaId is Present\"] = responseBody.has(\"areaID\");",
+							"tests[\"areaName is Present\"] = responseBody.has(\"areaName\");",
+							"tests[\"areaCode is Present\"] = responseBody.has(\"areaCode\");",
+							"tests[\"pinCode is Present\"] = responseBody.has(\"pinCode\");",
+							"tests[\"createdOn is Present\"] = responseBody.has(\"createdOn\");",
+							"tests[\"createdBy is Present\"] = responseBody.has(\"createdBy\");",
+							"tests[\"updatedOn is Present\"] = responseBody.has(\"updatedOn\");",
+							"tests[\"updatedBy is Present\"] = responseBody.has(\"updatedBy\");",
+							"",
+							"",
+							"//Check response is less than or equal to 100",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Response is less or equal to 100\"]= jsonData.length <= 100;",
+							"",
+							"//Check response is greater than 100",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Response is greater than 100\"]= jsonData.length > 100;",
+							"",
+							"//Check response is equal to 0",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Response is equal to 0\"]= jsonData.length === 0;"
+						]
+					}
+				}
+			],
 			"request": {
 				"url": "http://localhost:6058/api/areas?pageNumber=1&pageSize=100",
 				"method": "GET",
@@ -269,16 +584,49 @@
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "GET Areas (pageNumber = 2, pageSize = 5)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"//check whether fields are present or not",
+							"tests[\"areaId is Present\"] = responseBody.has(\"areaID\");",
+							"tests[\"areaName is Present\"] = responseBody.has(\"areaName\");",
+							"tests[\"areaCode is Present\"] = responseBody.has(\"areaCode\");",
+							"tests[\"pinCode is Present\"] = responseBody.has(\"pinCode\");",
+							"tests[\"createdOn is Present\"] = responseBody.has(\"createdOn\");",
+							"tests[\"createdBy is Present\"] = responseBody.has(\"createdBy\");",
+							"tests[\"updatedOn is Present\"] = responseBody.has(\"updatedOn\");",
+							"tests[\"updatedBy is Present\"] = responseBody.has(\"updatedBy\");",
+							"",
+							"//Check response is less than or equal to 5",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Response is less or equal to 5\"]= jsonData.length <= 5;",
+							"",
+							"//Check response is greater than 5",
+							"tests[\"Response is greater than 5\"]= jsonData.length > 5;",
+							"",
+							"//Check response is equal to 0",
+							"tests[\"Response is equal to 0\"]= jsonData.length === 0;",
+							"",
+							"//check pagenumber is less than 5 ",
+							"tests[\"Response is less than 5\"] = jsonData.length < 5;",
+							"",
+							""
+						]
+					}
+				}
+			],
 			"request": {
 				"url": "http://localhost:6058/api/areas?pageNumber=2&pageSize=5",
 				"method": "GET",
@@ -289,10 +637,7 @@
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
@@ -307,25 +652,55 @@
 						"exec": [
 							"tests[\"Status code is 200\"] = responseCode.code === 200;",
 							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
-							"",
+							"//check whether fields are present or not",
+							"tests[\"areaId is Present\"] = responseBody.has(\"areaID\");",
+							"tests[\"areaName is Present\"] = responseBody.has(\"areaName\");",
+							"tests[\"areaCode is Present\"] = responseBody.has(\"areaCode\");",
+							"tests[\"pinCode is Present\"] = responseBody.has(\"pinCode\");",
+							"tests[\"createdOn is Present\"] = responseBody.has(\"createdOn\");",
+							"tests[\"createdBy is Present\"] = responseBody.has(\"createdBy\");",
+							"tests[\"updatedOn is Present\"] = responseBody.has(\"updatedOn\");",
+							"tests[\"updatedBy is Present\"] = responseBody.has(\"updatedBy\");",
 							"",
 							"",
 							"//check substring 2 present for areacode field",
 							"var jsonData = JSON.parse(responseBody);",
-							"tests[\"Search Query is 2 \"] = jsonData.areaCode === \"A2\";",
-							"",
-							"",
-							"",
-							"",
-							"",
-							"",
-							"//tests[\"Body matches string\"] = responseBody.has(\"string_you_want_to_search\");",
-							"",
-							"var substring = \"2\";\\",
-							"var size = jsonData.size();",
-							"for(){",
-							"    tests[\"contains \" +substring] = _.includes(jsonData[0].areaCode, substring);    ",
+							"var substring = \"2\";",
+							"var size = jsonData.length;",
+							"for(var i = 0; i<size; i++){",
+							"    tests[\"contains : \" +i] = _.includes(jsonData[i].areaCode, substring);    ",
 							"}",
+							"",
+							"//Check substring 2 present in AreaName field",
+							"var jsonData = JSON.parse(responseBody);",
+							"var substring = \"2\";",
+							"var size = jsonData.length;",
+							"for(var i = 0; i<size; i++){",
+							"    tests[\"contains : \" +i] = _.includes(jsonData[i].areaName, substring);    ",
+							"}",
+							"",
+							"//Check substring 2 present in pinCode field",
+							"var jsonData = JSON.parse(responseBody);",
+							"var substring = \"2\";",
+							"var size = jsonData.length;",
+							"for(var i = 0; i<size; i++){",
+							"    tests[\"contains : \" +i] = _.includes(jsonData[i].pinCode, substring);    ",
+							"}",
+							"",
+							"//Check substring 2 present in createdBy field",
+							"var jsonData = JSON.parse(responseBody);",
+							"var substring = \"2\";",
+							"var size = jsonData.length;",
+							"for(var i = 0; i<size; i++){",
+							"    tests[\"contains : \" +i] = _.includes(jsonData[i].createdBy, substring);    ",
+							"}",
+							"",
+							"//check deleted entries should not be displayed in the search results",
+							"",
+							"//Search also works on newly added entries ",
+							"",
+							"//Search works when the entry data is updated",
+							"",
 							""
 						]
 					}
@@ -357,52 +732,31 @@
 							"tests[\"Status code is 200\"] = responseCode.code === 200;",
 							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
 							"",
+							"//check whether fields are present or not",
+							"tests[\"areaId is Present\"] = responseBody.has(\"areaID\");",
+							"tests[\"areaName is Present\"] = responseBody.has(\"areaName\");",
+							"tests[\"areaCode is Present\"] = responseBody.has(\"areaCode\");",
+							"tests[\"pinCode is Present\"] = responseBody.has(\"pinCode\");",
+							"tests[\"createdOn is Present\"] = responseBody.has(\"createdOn\");",
+							"tests[\"createdBy is Present\"] = responseBody.has(\"createdBy\");",
+							"tests[\"updatedOn is Present\"] = responseBody.has(\"updatedOn\");",
+							"tests[\"updatedBy is Present\"] = responseBody.has(\"updatedBy\");",
+							"//default display",
 							"",
-							"",
-							"//check substring 2 present for areacode field",
-							"",
-							"//tests[\"Search Query is 2 \"] = jsonData.areaCode === \"2\";",
-							"",
-							"",
+							"//check responsebody is sorted according to areaName ",
 							"var jsonData = JSON.parse(responseBody);",
-							"var ar = jsonData.sort(function(a, b)",
-							"{",
-							"  var nA = a.areaName.toLowerCase();",
-							"  var nB = b.areaName.toLowerCase();",
+							"//var sortArray = dataArr['hello'];",
+							"jsonData.sort(function(a,b) {",
+							"    if ( a.areaName < b.areaName )",
+							"        return a.areaName;",
+							"    if ( a.areaName > b.areaName )",
+							"        return b.areaName;",
+							"    return 0;",
+							"} );",
 							"",
-							"  if(nA < nB)",
-							"   tests[\"Sorted List : \" ] ;",
-							"  else if(nA > nB)",
-							"   tests[\"Sorted List : \" ];",
-							" return 0;",
-							"});"
-						]
-					}
-				}
-			],
-			"request": {
-				"url": "http://localhost:6058/api/areas?orderBy=areaName",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "GET Areas (orderBy = areaName desc)",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
+							"tests[\"sorted response\"]= jsonData.sort() === JSON.parse(responseBody);",
+							"",
+							"/*",
 							"var jsonData = JSON.parse(responseBody);",
 							"var filter = 'areaName';",
 							"",
@@ -437,8 +791,82 @@
 							"tests[\"unsorted\"];",
 							"}",
 							"else",
-							"tests[\"sorted\"];",
+							"tests[\"sorted\"]; */",
+							"",
+							"//If new entry is added, check responsebody is sorted considering new entry added.",
+							"",
+							"//If any entry is deleted, check responsebody is sorted consisdering the deleted entry.",
+							"",
+							"//If any entry is updated, check responsebody is sorted consisdering the updation value",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
 							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:6058/api/areas?orderBy=areaName",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Areas (orderBy = areaName desc)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"//check whether fields are present or not",
+							"tests[\"areaId is Present\"] = responseBody.has(\"areaID\");",
+							"tests[\"areaName is Present\"] = responseBody.has(\"areaName\");",
+							"tests[\"areaCode is Present\"] = responseBody.has(\"areaCode\");",
+							"tests[\"pinCode is Present\"] = responseBody.has(\"pinCode\");",
+							"tests[\"createdOn is Present\"] = responseBody.has(\"createdOn\");",
+							"tests[\"createdBy is Present\"] = responseBody.has(\"createdBy\");",
+							"tests[\"updatedOn is Present\"] = responseBody.has(\"updatedOn\");",
+							"tests[\"updatedBy is Present\"] = responseBody.has(\"updatedBy\");",
+							"",
+							"//check list are dislpayed in descending order(areaName)",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"jsonData.sort(function(a,b) {",
+							"    if ( a.areaName < b.areaName )",
+							"        return a.areaName;",
+							"    if ( a.areaName > b.areaName )",
+							"        return b.areaName;",
+							"    return 0;",
+							"} );",
+							"",
+							"var ascendsort= jsonData.sort();",
+							"var reversesort = ascendsort.reverse();",
+							"tests[\"sorted response\"]= reversesort === JSON.parse(responseBody);",
+							"",
+							"",
+							"//If new entry is added, check responsebody is sorted considering new entry added.",
+							"",
+							"//If any entry is deleted, check responsebody is sorted consisdering the deleted entry.",
+							"",
+							"//If any entry is updated, check responsebody is sorted consisdering the updation value"
 						]
 					}
 				}
@@ -460,8 +888,71 @@
 		},
 		{
 			"name": "GET departments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");\r",
+							"\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							"\r",
+							"tests[\"Response time is less than 200ms\"] = responseTime < 200;\r",
+							"\r",
+							"//Check all fields values are fetched and displayed\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"var schema ={\r",
+							"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r",
+							"\r",
+							"    \"items\": {\r",
+							"        \"id\": \"/items\",\r",
+							"        \"properties\": {\r",
+							"            \"createdBy\": {\r",
+							"                \"id\": \"/items/properties/createdBy\",\r",
+							"                \"type\": \"string\"\r",
+							"            },\r",
+							"            \"createdOn\": {\r",
+							"                \"id\": \"/items/properties/createdOn\",\r",
+							"                \"type\": \"string\"\r",
+							"            },\r",
+							"            \"departmentDespcription\": {\r",
+							"                \"id\": \"/items/properties/departmentDespcription\",\r",
+							"                \"type\": \"string\"\r",
+							"            },\r",
+							"            \"departmentID\": {\r",
+							"                \"id\": \"/items/properties/departmentID\",\r",
+							"                \"type\": \"string\"\r",
+							"            },\r",
+							"            \"departmentName\": {\r",
+							"                \"id\": \"/items/properties/departmentName\",\r",
+							"                \"type\": \"string\"\r",
+							"            },\r",
+							"            \"isDelete\": {\r",
+							"                \"id\": \"/items/properties/isDelete\",\r",
+							"                \"type\": \"boolean\"\r",
+							"            },\r",
+							"            \"updatedBy\": {\r",
+							"                \"id\": \"/items/properties/updatedBy\",\r",
+							"                \"type\": \"string\"\r",
+							"            },\r",
+							"            \"updatedOn\": {\r",
+							"                \"id\": \"/items/properties/updatedOn\",\r",
+							"                \"type\": \"string\"\r",
+							"            }\r",
+							"        },\r",
+							"        \"type\": \"object\"\r",
+							"    },\r",
+							"    \"type\": \"array\"\r",
+							"};\r",
+							"\r",
+							"tests[\"Valid Data2\"] = tv4.validate(jsonData, schema);"
+						]
+					}
+				}
+			],
 			"request": {
-				"url": "http://localhost:6058/api/areas?orderBy=areaName desc&pageNumber=2&pageSize=5",
+				"url": "http://localhost:6058/api/departments",
 				"method": "GET",
 				"header": [
 					{
@@ -470,16 +961,55 @@
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "GET Areas (fields = areaName)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"tests[\"Response time is less than 200ms\"] = responseTime < 200;",
+							"",
+							"tests[\"areaName is Present\"] = responseBody.has(\"areaName\");",
+							"",
+							"//response body schema structure check",
+							"var jsonData = JSON.parse(responseBody);",
+							"var schema = {",
+							"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"    \"items\": {",
+							"        \"id\": \"/items\",",
+							"        \"properties\": {",
+							"            \"areaName\": {",
+							"                \"type\": \"string\"",
+							"            }",
+							"        },",
+							"        \"type\": \"object\"",
+							"    },",
+							"    \"type\": \"array\"",
+							"};",
+							"",
+							"tests[\"Valid response data\"] = tv4.validate(jsonData, schema);",
+							"console.log(\"Validation failed: \", tv4.error);",
+							"",
+							"//Check if new area gets added, responsebody shows the newly added area as well",
+							"",
+							"//check if any exsisitng area is removed/deleted, responsebody should be updated accordingly and the removed area should not be displayed.",
+							"",
+							"",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
 			"request": {
 				"url": "http://localhost:6058/api/areas?fields=areaName",
 				"method": "GET",
@@ -490,16 +1020,47 @@
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "GET Areas (fields = areaID)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"tests[\"Response time is less than 200ms\"] = responseTime < 200;",
+							"",
+							"tests[\"areaId is Present\"] = responseBody.has(\"areaID\");",
+							"",
+							"",
+							"//response body schema structure check",
+							"var jsonData = JSON.parse(responseBody);",
+							"var schema = {",
+							"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"    \"items\": {",
+							"        \"id\": \"/items\",",
+							"        \"properties\": {",
+							"            \"areaID\": {",
+							"                \"type\": \"string\"",
+							"            }",
+							"        },",
+							"        \"type\": \"object\"",
+							"    },",
+							"    \"type\": \"array\"",
+							"};",
+							"",
+							"tests[\"Valid response data\"] = tv4.validate(jsonData, schema);",
+							"console.log(\"Validation failed: \", tv4.error);"
+						]
+					}
+				}
+			],
 			"request": {
 				"url": "http://localhost:6058/api/areas?fields=areaID",
 				"method": "GET",
@@ -510,16 +1071,51 @@
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "GET Areas (fields = areaCode)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"tests[\"Response time is less than 200ms\"] = responseTime < 200;",
+							"",
+							"tests[\"areaCode is Present\"] = responseBody.has(\"areaCode\");",
+							"",
+							"//response body schema structure check",
+							"var jsonData = JSON.parse(responseBody);",
+							"var schema = {",
+							"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"    \"items\": {",
+							"        \"id\": \"/items\",",
+							"        \"properties\": {",
+							"            \"areaCode\": {",
+							"                \"type\": \"string\"",
+							"            }",
+							"        },",
+							"        \"type\": \"object\"",
+							"    },",
+							"    \"type\": \"array\"",
+							"};",
+							"",
+							"",
+							"tests[\"Valid response data\"] = tv4.validate(jsonData, schema);",
+							"console.log(\"Validation failed: \", tv4.error);",
+							"",
+							"//When new areacode are added, newly added areacodes should also be displayed in the list    ",
+							"",
+							""
+						]
+					}
+				}
+			],
 			"request": {
 				"url": "http://localhost:6058/api/areas?fields=areaCode",
 				"method": "GET",
@@ -530,10 +1126,7 @@
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
