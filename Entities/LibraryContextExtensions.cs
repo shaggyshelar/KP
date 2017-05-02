@@ -156,45 +156,7 @@ namespace ESPL.KP.Entities
 
 
 
-            // #region Shift
-            // context.MstShift.RemoveRange(context.MstShift);
-            // context.SaveChanges();
-            // var shifts = new List<MstShift>() {
-            //     new MstShift() {
-            //         ShiftID = new Guid("318DC4DF-684A-444F-9E5A-18BB5EED1123"),
-            //         ShiftName = "Open",
-            //         StartTime = TimeSpan.FromMinutes(1),
-            //         EndTime = TimeSpan.FromMinutes(1)
-            //     },
-            //     new MstShift() {
-            //         ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56285"),
-            //         ShiftName = "Under Investigation",
-            //         StartTime = TimeSpan.FromMinutes(1),
-            //         EndTime = TimeSpan.FromMinutes(1)
-            //     },
-            //     new MstShift() {
-            //         ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90111"),
-            //         ShiftName = "Closed",
-            //         StartTime = TimeSpan.FromMinutes(1),
-            //         EndTime = TimeSpan.FromMinutes(1)
-            //     },
-            //     new MstShift() {
-            //         ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90222"),
-            //         ShiftName = "Solved",
-            //         StartTime = TimeSpan.FromMinutes(1),
-            //         EndTime = TimeSpan.FromMinutes(1)
-            //     },
-            //     new MstShift() {
-            //         ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90333"),
-            //         ShiftName = "In Court",
-            //         StartTime = TimeSpan.FromMinutes(1),
-            //         EndTime = TimeSpan.FromMinutes(1)
-            //     }
-            // };
-
-            // context.MstShift.AddRange(shifts);
-            // context.SaveChanges();
-            // #endregion
+            
 
             UpdateDepartments(context);
             UpdateArea(context);
@@ -205,11 +167,46 @@ namespace ESPL.KP.Entities
             UpdateEmployee(context);
             UpdateOccurrenceBooks(context);
             UpdateAppModules(context);
+            UpdateOuccurrenceStatusHistory(context);
             
 
         }
 
+        private static void UpdateOuccurrenceStatusHistory(LibraryContext context)
+        {
+           context.OccurrenceStatusHistory.RemoveRange(context.OccurrenceStatusHistory);
+           context.SaveChanges();
+           var occurrenceStatusHistory=new List<OccurrenceStatusHistory>(){
+               new OccurrenceStatusHistory(){
+                   OccurrenceStatusHistoryID=new Guid(""),
+                   OBID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
+                   StatusID=new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
+                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111")
 
+               },
+               new OccurrenceStatusHistory(){
+                   OccurrenceStatusHistoryID=new Guid(""),
+                   OBID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
+                   StatusID=new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1111"),
+                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222")
+
+               },
+                new OccurrenceStatusHistory(){
+                   OccurrenceStatusHistoryID=new Guid(""),
+                   OBID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
+                   StatusID=new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1221"),
+                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222")
+
+               },
+                new OccurrenceStatusHistory(){
+                   OccurrenceStatusHistoryID=new Guid(""),
+                   OBID=new Guid("411bfab2-0d44-4fb9-8835-184db90f5678"),
+                   StatusID=new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
+                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222")
+
+               }
+           };
+        }
 
         private static void UpdateDesignation(LibraryContext context)
         {
