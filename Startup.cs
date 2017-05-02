@@ -145,7 +145,7 @@ namespace ESPL.KP
                 Type type = typeof(Permissions);
                 foreach (var p in type.GetFields())
                 {
-                     options.AddPolicy(Convert.ToString(p.GetValue(null)), policy => policy.RequireClaim(Convert.ToString(p.GetValue(null))));
+                    options.AddPolicy(Convert.ToString(p.GetValue(null)), policy => policy.RequireClaim(Convert.ToString(p.GetValue(null))));
                 }
             });
 
@@ -349,8 +349,10 @@ namespace ESPL.KP
                 cfg.CreateMap<ESPL.KP.Models.OccurrenceBookForAssignmentDto, ESPL.KP.Entities.MstOccurrenceBook>();
                 cfg.CreateMap<ESPL.KP.Entities.OccurrenceAssignmentHistory, ESPL.KP.Models.OccurrenceBookForAssignmentDto>();
                 cfg.CreateMap<ESPL.KP.Models.OccurrenceBookForAssignmentDto, ESPL.KP.Entities.OccurrenceAssignmentHistory>();
-
-
+                cfg.CreateMap<ESPL.KP.Models.OccurrenceBookReviewDto, ESPL.KP.Entities.OccurrenceReviewHistory>();
+                cfg.CreateMap<ESPL.KP.Entities.OccurrenceReviewHistory, ESPL.KP.Models.OccurrenceBookReviewDto>();
+                cfg.CreateMap<ESPL.KP.Models.OccurrenceBookReviewsForCreationDto, ESPL.KP.Entities.OccurrenceReviewHistory>();
+                cfg.CreateMap<ESPL.KP.Entities.OccurrenceReviewHistory, ESPL.KP.Models.OccurrenceBookReviewsForCreationDto>();
 
                 //    .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src =>
                 //    src.MstStatus.StatusName));

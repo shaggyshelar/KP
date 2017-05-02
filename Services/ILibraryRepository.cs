@@ -177,6 +177,13 @@ namespace ESPL.KP.Services
 
          #region OccurrenceAssignmentHistory
         void AddOccurrenceAssignmentHistory(OccurrenceAssignmentHistory occurrenceBookhistory);
+        PagedList<OccurrenceAssignmentHistory> GetAssignmentHistory(OccurrenceBookAssignedToResourceParameters occurrenceBookAssignedHistory);
         #endregion OccurrenceAssignmentHistory
+
+        #region OccurrenceReviewHistory
+        PagedList<OccurrenceReviewHistory> GetOccurrenceReviewHistories(OccurrenceBookReviewResourceParameters occurrenceBookReviewResourceParameters);
+        OccurrenceReviewHistory GetReviewById(Guid occurrenceBookId, Guid reviewId);
+        void AddOccurrenceReviewHistories(OccurrenceReviewHistory occurrenceReviewHistory);
+        #endregion OccurrenceReviewHistory
     }
 }
