@@ -8,26 +8,9 @@
 	},
 	"item": [
 		{
-			"name": "GET Officer Statistics",
-			"request": {
-				"url": "http://localhost:6058/api/statuses",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
 			"name": "GET Occurrence Statistics",
 			"request": {
-				"url": "http://localhost:6058/api/statuses?pageNumber=1&pageSize=100",
+				"url": "http://localhost:6058/api/reports/GetOccurrenceBooksStatistics",
 				"method": "GET",
 				"header": [
 					{

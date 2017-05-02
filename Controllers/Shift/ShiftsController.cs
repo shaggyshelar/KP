@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using ESPL.KP.Helpers.Core;
 using ESPL.KP.Helpers.Shift;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ESPL.KP.Controllers.Shift
 {
@@ -35,6 +36,7 @@ namespace ESPL.KP.Controllers.Shift
 
         [HttpGet(Name = "GetShifts")]
         [HttpHead]
+        [Authorize(Policy = Permissions.ShiftRead)]
         public IActionResult GetShifts(ShiftsResourceParameters shiftsResourceParameters,
             [FromHeader(Name = "Accept")] string mediaType)
         {
@@ -159,6 +161,7 @@ namespace ESPL.KP.Controllers.Shift
         }
 
         [HttpGet("{id}", Name = "GetShift")]
+        [Authorize(Policy = Permissions.ShiftRead)]
         public IActionResult GetShift(Guid id, [FromQuery] string fields)
         {
             if (!_typeHelperService.TypeHasProperties<ShiftDto>
@@ -187,6 +190,7 @@ namespace ESPL.KP.Controllers.Shift
         }
 
         [HttpPost(Name = "CreateShift")]
+        [Authorize(Policy = Permissions.ShiftCreate)]
         public IActionResult CreateShift([FromBody] ShiftForCreationDto shift)
         {
             if (shift == null)
@@ -230,6 +234,7 @@ namespace ESPL.KP.Controllers.Shift
         }
 
         [HttpDelete("{id}", Name = "DeleteShift")]
+        [Authorize(Policy = Permissions.ShiftDelete)]
         public IActionResult DeleteShift(Guid id)
         {
             var shiftFromRepo = _libraryRepository.GetShift(id);
@@ -249,6 +254,7 @@ namespace ESPL.KP.Controllers.Shift
         }
 
         [HttpPut("{id}", Name = "UpdateShift")]
+        [Authorize(Policy = Permissions.ShiftUpdate)]
         public IActionResult UpdateShift(Guid id, [FromBody] ShiftForUpdationDto shift)
         {
             if (shift == null)
@@ -295,6 +301,7 @@ namespace ESPL.KP.Controllers.Shift
         }
 
         [HttpPatch("{id}", Name = "PartiallyUpdateShift")]
+        [Authorize(Policy = Permissions.ShiftUpdate)]
         public IActionResult PartiallyUpdateShift(Guid id,
                     [FromBody] JsonPatchDocument<ShiftForUpdationDto> patchDoc)
         {

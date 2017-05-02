@@ -923,58 +923,28 @@ namespace ESPL.KP.Services
                 occurrenceBookResourceParameters.PageSize);
         }
 
-        public OccurreceStatistics GetOccurrenceBooksStatistics(OccurrenceStatisticsResourceParameters occurrenceBookResourceParameters)
+        public Statistics GetOccurrenceBooksStatistics(OccurrenceStatisticsResourceParameters occurrenceBookResourceParameters)
         {
-            IQueryable<StatusStatistics> statusStats = from p in _context.MstOccurrenceBook
+            #region Occurrence Stats
+            IQueryable<StatusStatistics> OccurrenceStatusStats = from p in _context.MstOccurrenceBook
                                                        group p by p.MstStatus.StatusName into g
                                                        select new StatusStatistics
                                                        {
                                                            StatusName = g.Key,
                                                            Count = g.Count()
                                                        };
-            IQueryable<PriorityStatistics> priorityStats = from p in _context.MstOccurrenceBook
+            IQueryable<PriorityStatistics> OccurrencePriorityStats = from p in _context.MstOccurrenceBook
                                                            group p by new { Priority = p.Priority } into g
                                                            select new PriorityStatistics
                                                            {
                                                                Priority = g.Key.Priority,
                                                                Count = g.Key.Priority.Count(),
                                                            };
-            int count = _context.MstOccurrenceBook.Count();
+            int OccurrenceCount = _context.MstOccurrenceBook.Count();
+            #endregion Occurrence Stats
 
-
-            OccurreceStatistics collectionBeforePaging = new OccurreceStatistics();
-
-
-            collectionBeforePaging.StatusWiseStats = statusStats;
-            collectionBeforePaging.PriorityWiseStats = priorityStats;
-            collectionBeforePaging.TotalOccurrences = count;
-
-            // var x =collectionBeforePaging.ToList().FirstOrDefault();
-            // collectionBeforePaging = collectionBeforePaging.ApplySort(occurrenceBookResourceParameters.OrderBy,
-            //          _propertyMappingService.GetPropertyMapping<OccurreceStatistics, MstOccurrenceBook>());
-
-            // if (!string.IsNullOrEmpty(occurrenceBookResourceParameters.SearchQuery))
-            // {
-            //     // trim & ignore casing
-            //     var searchQueryForWhereClause = occurrenceBookResourceParameters.SearchQuery
-            //         .Trim().ToLowerInvariant();
-
-            //     collectionBeforePaging = collectionBeforePaging
-            //         .Where(a =>
-            //             a.StatusName.ToLowerInvariant().Contains(searchQueryForWhereClause)
-            //         );
-            // }
-
-            // return PagedList<OccurreceStatistics>.Create(collectionBeforePaging,
-            //     occurrenceBookResourceParameters.PageNumber,
-            //     occurrenceBookResourceParameters.PageSize);
-
-            return collectionBeforePaging;
-        }
-
-        public OccurreceStatistics GetOfficersStatistics(OccurrenceStatisticsResourceParameters occurrenceBookResourceParameters)
-        {
-            IQueryable<StatusStatistics> statusStats = from p in _context.MstOccurrenceBook
+            #region Officers Stats
+             IQueryable<StatusStatistics> OfficersStatusStats = from p in _context.MstOccurrenceBook
                                                        where p.AssignedTO != null
                                                        group p by p.MstStatus.StatusName into g
                                                        select new StatusStatistics
@@ -982,7 +952,7 @@ namespace ESPL.KP.Services
                                                            StatusName = g.Key,
                                                            Count = g.Count()
                                                        };
-            IQueryable<PriorityStatistics> priorityStats = from p in _context.MstOccurrenceBook
+            IQueryable<PriorityStatistics> OfficersPriorityStats = from p in _context.MstOccurrenceBook
                                                            where p.AssignedTO != null
                                                            //group p by new { Priority = p.Priority } into g
                                                            group p by p.Priority into g
@@ -991,13 +961,38 @@ namespace ESPL.KP.Services
                                                                Priority = g.Key,
                                                                Count = g.Count(),
                                                            };
-            int count = _context.MstEmployee.Count();
-            OccurreceStatistics collectionBeforePaging = new OccurreceStatistics();
-            collectionBeforePaging.StatusWiseStats = statusStats;
-            collectionBeforePaging.PriorityWiseStats = priorityStats;
-            collectionBeforePaging.TotalOccurrences = count;
+            int OfficersCount = _context.MstEmployee.Count();
+            #endregion Officers Stats
+
+            
+
+            OccurrencesStatistics OccurrencesStats =new OccurrencesStatistics();
+            OfficersStatistics OfficersStats =new OfficersStatistics();
+
+            OccurrencesStats.StatusWiseStats = OccurrenceStatusStats;
+            OccurrencesStats.PriorityWiseStats = OccurrencePriorityStats;
+            OccurrencesStats.Total = OccurrenceCount;
+
+            OfficersStats.StatusWiseStats = OfficersStatusStats;
+            OfficersStats.PriorityWiseStats = OfficersPriorityStats;
+            OfficersStats.Total = OfficersCount;
+
+            Statistics collectionBeforePaging = new Statistics();
+            collectionBeforePaging.OccurrencesStatistics = OccurrencesStats;
+            collectionBeforePaging.OfficersStatistics = OfficersStats;
             return collectionBeforePaging;
         }
+
+        // public Statistics GetOfficersStatistics(OccurrenceStatisticsResourceParameters occurrenceBookResourceParameters)
+        // {
+           
+            
+        //     Statistics collectionBeforePaging = new Statistics();
+        //     collectionBeforePaging.OccurrencesStatistics.StatusWiseStats = statusStats;
+        //     collectionBeforePaging.PriorityWiseStats = priorityStats;
+        //     collectionBeforePaging.TotalOccurrences = count;
+        //     return collectionBeforePaging;
+        // }
         #endregion Reports
     }
 }

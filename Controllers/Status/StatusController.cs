@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using ESPL.KP.Helpers.Core;
 using ESPL.KP.Helpers.Status;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ESPL.KP.Controllers.Status
 {
@@ -35,6 +36,7 @@ namespace ESPL.KP.Controllers.Status
 
         [HttpGet(Name = "GetStatuses")]
         [HttpHead]
+        [Authorize(Policy = Permissions.StatusRead)]
         public IActionResult GetStatuses(StatusesResourceParameters statusesResourceParameters,
             [FromHeader(Name = "Accept")] string mediaType)
         {
@@ -159,6 +161,7 @@ namespace ESPL.KP.Controllers.Status
         }
 
         [HttpGet("{id}", Name = "GetStatus")]
+        [Authorize(Policy = Permissions.StatusRead)]
         public IActionResult GetStatus(Guid id, [FromQuery] string fields)
         {
             if (!_typeHelperService.TypeHasProperties<StatusDto>
@@ -187,6 +190,7 @@ namespace ESPL.KP.Controllers.Status
         }
 
         [HttpPost(Name = "CreateStatus")]
+        [Authorize(Policy = Permissions.StatusCreate)]
         public IActionResult CreateStatus([FromBody] StatusForCreationDto status)
         {
             if (status == null)
@@ -230,6 +234,7 @@ namespace ESPL.KP.Controllers.Status
         }
 
         [HttpDelete("{id}", Name = "DeleteStatus")]
+        [Authorize(Policy = Permissions.StatusDelete)]
         public IActionResult DeleteStatus(Guid id)
         {
             var statusFromRepo = _libraryRepository.GetStatus(id);
@@ -249,6 +254,7 @@ namespace ESPL.KP.Controllers.Status
         }
 
         [HttpPut("{id}", Name = "UpdateStatus")]
+        [Authorize(Policy = Permissions.StatusUpdate)]
         public IActionResult UpdateStatus(Guid id, [FromBody] StatusForUpdationDto status)
         {
             if (status == null)
@@ -295,6 +301,7 @@ namespace ESPL.KP.Controllers.Status
         }
 
         [HttpPatch("{id}", Name = "PartiallyUpdateStatus")]
+        [Authorize(Policy = Permissions.StatusUpdate)]
         public IActionResult PartiallyUpdateStatus(Guid id,
                     [FromBody] JsonPatchDocument<StatusForUpdationDto> patchDoc)
         {
