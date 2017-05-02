@@ -531,6 +531,34 @@ namespace ESPL.KP.Services
                 .ApplySort(occurrenceBookResourceParameters.OrderBy,
                 _propertyMappingService.GetPropertyMapping<OccurrenceBookDto, MstOccurrenceBook>());
 
+            //Filter Implementation
+            if (occurrenceBookResourceParameters.AreaIDs.Count > 0)
+            {
+                var areaIds = occurrenceBookResourceParameters.AreaIDs;
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(o => areaIds.Contains(o.AreaID.ToString().ToLowerInvariant()));
+            }
+            if (occurrenceBookResourceParameters.DepartmentIDs.Count > 0)
+            {
+                var departmentIDs = occurrenceBookResourceParameters.DepartmentIDs;
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(o => departmentIDs.Contains(o.DepartmentID.ToString().ToLowerInvariant()));
+            }
+            if (occurrenceBookResourceParameters.StatusIDs.Count > 0)
+            {
+                var statusIDs = occurrenceBookResourceParameters.StatusIDs;
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(o => statusIDs.Contains(o.StatusID.ToString().ToLowerInvariant()));
+            }
+            if (occurrenceBookResourceParameters.OBDates != null)
+            {
+                var oBDates=occurrenceBookResourceParameters.OBDates;
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(o=>oBDates.Contains(o.OBTime.ToString("MM/dd/yyyy")));
+            }
+            //Filter Ends
+            
+            
             if (!string.IsNullOrEmpty(occurrenceBookResourceParameters.SearchQuery))
             {
                 // trim & ignore casing
@@ -809,6 +837,34 @@ namespace ESPL.KP.Services
                 .ApplySort(employeesResourceParameters.OrderBy,
                 _propertyMappingService.GetPropertyMapping<EmployeeDto, MstEmployee>());
 
+            //Filter Implementation
+            if (employeesResourceParameters.AreaIDs.Count > 0)
+            {
+                var areaIds = employeesResourceParameters.AreaIDs;
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(e => areaIds.Contains(e.AreaID.ToString().ToLowerInvariant()));
+            }
+            if (employeesResourceParameters.DepartmentIDs.Count > 0)
+            {
+                var departmentIDs = employeesResourceParameters.DepartmentIDs;
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(e => departmentIDs.Contains(e.DepartmentID.ToString().ToLowerInvariant()));
+            }
+            if (employeesResourceParameters.DesignationIDs.Count > 0)
+            {
+                var designationIDs = employeesResourceParameters.DesignationIDs;
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(e => designationIDs.Contains(e.DesignationID.ToString().ToLowerInvariant()));
+            }
+            if (employeesResourceParameters.CaseAssigned != null)
+            {
+                var caseAssigned=employeesResourceParameters.CaseAssigned.Value;
+                collectionBeforePaging = caseAssigned ? collectionBeforePaging
+                    .Where(e => e.MstOccurrenceBooks.Count > 0) : collectionBeforePaging
+                    .Where(e => e.MstOccurrenceBooks.Count == 0);
+            }
+            //Filter Ends
+            
             if (!string.IsNullOrEmpty(employeesResourceParameters.SearchQuery))
             {
                 // trim & ignore casing
