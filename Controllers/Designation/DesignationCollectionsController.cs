@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ESPL.KP.Helpers.Core;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ESPL.KP.Controllers.Designation
 {
@@ -24,6 +26,7 @@ namespace ESPL.KP.Controllers.Designation
 
         //action methods
         [HttpPost]
+        [Authorize(Policy = Permissions.DesignationCreate)]
         public IActionResult CreateDesignationCollection(
             [FromBody] IEnumerable<DesignationForCreationDto> DesignationCollection)
         {
@@ -57,6 +60,7 @@ namespace ESPL.KP.Controllers.Designation
         // (key1,key2, ...)
 
         [HttpGet("({ids})", Name = "GetDesignationCollection")]
+        [Authorize(Policy = Permissions.DesignationRead)]
         public IActionResult GetDesignationCollection(
             [ModelBinder(BinderType = typeof(ArrayModelBinder))] IEnumerable<Guid> ids)
         {
