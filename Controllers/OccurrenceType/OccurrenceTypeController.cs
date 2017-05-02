@@ -4,9 +4,11 @@ using System.Linq;
 using AutoMapper;
 using ESPL.KP.Entities;
 using ESPL.KP.Helpers;
+using ESPL.KP.Helpers.Core;
 using ESPL.KP.Helpers.OccurrenceType;
 using ESPL.KP.Models;
 using ESPL.KP.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ESPL.KP.Controllers.OccurrenceType
 {
     [Route("api/occurrencetype")]
+    [Authorize]
     public class OccurrenceTypeController : Controller
     {
         private ILibraryRepository _libraryRepository;
@@ -34,6 +37,7 @@ namespace ESPL.KP.Controllers.OccurrenceType
 
         [HttpGet(Name = "GetOccurrenceTypes")]
         [HttpHead]
+        [Authorize(Policy = Permissions.OccurrenceTypeRead)]
         public IActionResult GetOccurrenceTypes(OccurrenceTypeResourceParameters occurrenceTypeResourceParameters,
             [FromHeader(Name = "Accept")] string mediaType)
         {
@@ -158,6 +162,7 @@ namespace ESPL.KP.Controllers.OccurrenceType
         }
 
         [HttpGet("{id}", Name = "GetOccurrenceType")]
+        [Authorize(Policy = Permissions.OccurrenceTypeRead)]
         public IActionResult GetOccurrenceType(Guid id, [FromQuery] string fields)
         {
             if (!_typeHelperService.TypeHasProperties<OccurrenceTypeDto>
@@ -186,6 +191,7 @@ namespace ESPL.KP.Controllers.OccurrenceType
         }
 
         [HttpPost(Name = "CreateOccurrenceType")]
+        [Authorize(Policy = Permissions.OccurrenceTypeCreate)]
         // [RequestHeaderMatchesMediaType("Content-Type",
         //     new[] { "application/vnd.marvin.occurrenceType.full+json" })]
         public IActionResult CreateOccurrenceType([FromBody] OccurrenceTypeForCreationDto occurrenceType)
@@ -231,6 +237,7 @@ namespace ESPL.KP.Controllers.OccurrenceType
         }
 
         [HttpDelete("{id}", Name = "DeleteOccurrenceType")]
+        [Authorize(Policy = Permissions.OccurrenceTypeDelete)]
         public IActionResult DeleteOccurrenceType(Guid id)
         {
             var occurrenceTypeFromRepo = _libraryRepository.GetOccurrenceType(id);
@@ -250,6 +257,7 @@ namespace ESPL.KP.Controllers.OccurrenceType
         }
 
         [HttpPut("{id}", Name = "UpdateOccurrenceType")]
+        [Authorize(Policy = Permissions.OccurrenceTypeUpdate)]
         public IActionResult UpdateOccurrenceType(Guid id, [FromBody] OccurrenceTypeForUpdationsDto occurrenceType)
         {
             if (occurrenceType == null)
@@ -296,6 +304,7 @@ namespace ESPL.KP.Controllers.OccurrenceType
         }
 
         [HttpPatch("{id}", Name = "PartiallyUpdateOccurrenceType")]
+        [Authorize(Policy = Permissions.OccurrenceTypeUpdate)]
         public IActionResult PartiallyUpdateOccurrenceType(Guid id,
                     [FromBody] JsonPatchDocument<OccurrenceTypeForUpdationsDto> patchDoc)
         {

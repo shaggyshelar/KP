@@ -4,10 +4,12 @@ using System.Linq;
 using AutoMapper;
 using ESPL.KP.Entities;
 using ESPL.KP.Helpers;
+using ESPL.KP.Helpers.Core;
 using ESPL.KP.Helpers.OccurrenceBook;
 using ESPL.KP.Helpers.Reports;
 using ESPL.KP.Models;
 using ESPL.KP.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace KP.Controllers.ReportsController
 {
     [Route("api/reports")]
+    [Authorize]
     public class ReportsController : Controller
     {
         private ILibraryRepository _libraryRepository;
@@ -37,6 +40,7 @@ namespace KP.Controllers.ReportsController
 #region Occurance Reports
         [Route("GetOccurrences")]
         [HttpGet(Name = "GetOccurrences")]
+        [Authorize(Policy = Permissions.ReportsRead)]
         public IActionResult GetOccurrences(OccurrenceReportResourceParameters occurrenceReportResourceParameters,
             [FromHeader(Name = "Accept")] string mediaType)
         {
@@ -123,16 +127,17 @@ namespace KP.Controllers.ReportsController
 
         [Route("GetOccurrenceBooksStatistics")]
         [HttpGet(Name = "GetOccurrenceBooksStatistics")]
+        [Authorize(Policy = Permissions.ReportsRead)]
         public IActionResult GetOccurrenceBooksStatistics(OccurrenceStatisticsResourceParameters occurrenceBookResourceParameters,
             [FromHeader(Name = "Accept")] string mediaType)
         {
-            if (!_propertyMappingService.ValidMappingExistsFor<OccurreceStatistics, MstOccurrenceBook>
+            if (!_propertyMappingService.ValidMappingExistsFor<Statistics, MstOccurrenceBook>
                (occurrenceBookResourceParameters.OrderBy))
             {
                 return BadRequest();
             }
 
-            if (!_typeHelperService.TypeHasProperties<OccurreceStatistics>
+            if (!_typeHelperService.TypeHasProperties<Statistics>
                 (occurrenceBookResourceParameters.Fields))
             {
                 return BadRequest();
@@ -140,71 +145,96 @@ namespace KP.Controllers.ReportsController
 
             var occurrenceBookFromRepo = _libraryRepository.GetOccurrenceBooksStatistics(occurrenceBookResourceParameters);
 
-            var occurrenceBook = Mapper.Map<IEnumerable<OccurreceStatistics>>(occurrenceBookFromRepo);
+            // var occurrenceBook = Mapper.Map<IEnumerable<OccurreceStatistics>>(occurrenceBookFromRepo);
 
-            if (mediaType == "application/vnd.marvin.hateoas+json")
-            {
-                var paginationMetadata = new
-                {
-                    totalCount = occurrenceBookFromRepo.TotalCount,
-                    pageSize = occurrenceBookFromRepo.PageSize,
-                    currentPage = occurrenceBookFromRepo.CurrentPage,
-                    totalPages = occurrenceBookFromRepo.TotalPages,
-                };
+            // if (mediaType == "application/vnd.marvin.hateoas+json")
+            // {
+            //     var paginationMetadata = new
+            //     {
+            //         totalCount = occurrenceBookFromRepo.TotalCount,
+            //         pageSize = occurrenceBookFromRepo.PageSize,
+            //         currentPage = occurrenceBookFromRepo.CurrentPage,
+            //         totalPages = occurrenceBookFromRepo.TotalPages,
+            //     };
 
-                Response.Headers.Add("X-Pagination",
-                    Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+            //     Response.Headers.Add("X-Pagination",
+            //         Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
 
-                var links = CreateLinksForOccurrenceBook(occurrenceBookResourceParameters,
-                    occurrenceBookFromRepo.HasNext, occurrenceBookFromRepo.HasPrevious);
+            //     var links = CreateLinksForOccurrenceBook(occurrenceBookResourceParameters,
+            //         occurrenceBookFromRepo.HasNext, occurrenceBookFromRepo.HasPrevious);
 
-                var shapedoccurrenceBook = occurrenceBook.ShapeData(occurrenceBookResourceParameters.Fields);
+            //     var shapedoccurrenceBook = occurrenceBook.ShapeData(occurrenceBookResourceParameters.Fields);
 
-                var shapedoccurrenceBookWithLinks = shapedoccurrenceBook.Select(occType =>
-                {
-                    var occurrenceBookAsDictionary = occType as IDictionary<string, object>;
-                    var occurrenceBookLinks = CreateLinksForOccurrenceBook(
-                        (Guid)occurrenceBookAsDictionary["Id"], occurrenceBookResourceParameters.Fields);
+            //     var shapedoccurrenceBookWithLinks = shapedoccurrenceBook.Select(occType =>
+            //     {
+            //         var occurrenceBookAsDictionary = occType as IDictionary<string, object>;
+            //         var occurrenceBookLinks = CreateLinksForOccurrenceBook(
+            //             (Guid)occurrenceBookAsDictionary["Id"], occurrenceBookResourceParameters.Fields);
 
-                    occurrenceBookAsDictionary.Add("links", occurrenceBookLinks);
+            //         occurrenceBookAsDictionary.Add("links", occurrenceBookLinks);
 
-                    return occurrenceBookAsDictionary;
-                });
+            //         return occurrenceBookAsDictionary;
+            //     });
 
-                var linkedCollectionResource = new
-                {
-                    value = shapedoccurrenceBookWithLinks,
-                    links = links
-                };
+            //     var linkedCollectionResource = new
+            //     {
+            //         value = shapedoccurrenceBookWithLinks,
+            //         links = links
+            //     };
 
-                return Ok(linkedCollectionResource);
-            }
-            else
-            {
-                var previousPageLink = occurrenceBookFromRepo.HasPrevious ?
-                    CreateOccurrenceBookResourceUri(occurrenceBookResourceParameters,
-                    ResourceUriType.PreviousPage) : null;
+            //     return Ok(linkedCollectionResource);
+            // }
+            // else
+            // {
+            //     var previousPageLink = occurrenceBookFromRepo.HasPrevious ?
+            //         CreateOccurrenceBookResourceUri(occurrenceBookResourceParameters,
+            //         ResourceUriType.PreviousPage) : null;
 
-                var nextPageLink = occurrenceBookFromRepo.HasNext ?
-                    CreateOccurrenceBookResourceUri(occurrenceBookResourceParameters,
-                    ResourceUriType.NextPage) : null;
+            //     var nextPageLink = occurrenceBookFromRepo.HasNext ?
+            //         CreateOccurrenceBookResourceUri(occurrenceBookResourceParameters,
+            //         ResourceUriType.NextPage) : null;
 
-                var paginationMetadata = new
-                {
-                    previousPageLink = previousPageLink,
-                    nextPageLink = nextPageLink,
-                    totalCount = occurrenceBookFromRepo.TotalCount,
-                    pageSize = occurrenceBookFromRepo.PageSize,
-                    currentPage = occurrenceBookFromRepo.CurrentPage,
-                    totalPages = occurrenceBookFromRepo.TotalPages
-                };
+            //     var paginationMetadata = new
+            //     {
+            //         previousPageLink = previousPageLink,
+            //         nextPageLink = nextPageLink,
+            //         totalCount = occurrenceBookFromRepo.TotalCount,
+            //         pageSize = occurrenceBookFromRepo.PageSize,
+            //         currentPage = occurrenceBookFromRepo.CurrentPage,
+            //         totalPages = occurrenceBookFromRepo.TotalPages
+            //     };
 
-                Response.Headers.Add("X-Pagination",
-                    Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+            //     Response.Headers.Add("X-Pagination",
+            //         Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
 
-                return Ok(occurrenceBook.ShapeData(occurrenceBookResourceParameters.Fields));
-            }
+            //     return Ok(occurrenceBook.ShapeData(occurrenceBookResourceParameters.Fields));
+            // }
+
+            return Ok(occurrenceBookFromRepo);
         }
+
+
+        //  [Route("GetOfficersStatistics")]
+        // [HttpGet(Name = "GetOfficersStatistics")]
+        // public IActionResult GetOfficersStatistics(OccurrenceStatisticsResourceParameters occurrenceBookResourceParameters,
+        //     [FromHeader(Name = "Accept")] string mediaType)
+        // {
+        //     if (!_propertyMappingService.ValidMappingExistsFor<OccurreceStatistics, MstOccurrenceBook>
+        //        (occurrenceBookResourceParameters.OrderBy))
+        //     {
+        //         return BadRequest();
+        //     }
+
+        //     if (!_typeHelperService.TypeHasProperties<OccurreceStatistics>
+        //         (occurrenceBookResourceParameters.Fields))
+        //     {
+        //         return BadRequest();
+        //     }
+
+        //     var occurrenceBookFromRepo = _libraryRepository.GetOfficersStatistics(occurrenceBookResourceParameters);
+
+        //     return Ok(occurrenceBookFromRepo);
+        // }
         private string CreateOccurrenceBookResourceUri(
                   OccurrenceReportResourceParameters occurrenceReportResourceParameters,
                   ResourceUriType type)

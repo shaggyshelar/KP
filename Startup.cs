@@ -27,6 +27,8 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using ESPL.KP.Helpers.Core;
+using System;
+using System.Reflection;
 
 namespace ESPL.KP
 {
@@ -131,15 +133,20 @@ namespace ESPL.KP
                 options.AddPolicy("AT.R", policy => policy.RequireClaim("AT.R"));
                 options.AddPolicy("AT.U", policy => policy.RequireClaim("AT.U"));
                 options.AddPolicy("AT.D", policy => policy.RequireClaim("AT.D"));
-                options.AddPolicy("SystemAdmin", policy => policy.RequireClaim("SystemAdmin"));
+                options.AddPolicy("IsSuperAdmin", policy => policy.RequireClaim("IsSuperAdmin"));
 
-                Config.GetAppModulesList().ToList().ForEach(name =>
+                // Config.GetAppModulesList().ToList().ForEach(name =>
+                // {
+                //     options.AddPolicy(string.Format("{0}.R", name), policy => policy.RequireClaim(string.Format("{0}.R", name)));
+                //     options.AddPolicy(string.Format("{0}.C", name), policy => policy.RequireClaim(string.Format("{0}.C", name)));
+                //     options.AddPolicy(string.Format("{0}.U", name), policy => policy.RequireClaim(string.Format("{0}.U", name)));
+                //     options.AddPolicy(string.Format("{0}.D", name), policy => policy.RequireClaim(string.Format("{0}.D", name)));
+                // });
+                Type type = typeof(Permissions);
+                foreach (var p in type.GetFields())
                 {
-                    options.AddPolicy(string.Format("{0}.R", name), policy => policy.RequireClaim(string.Format("{0}.R", name)));
-                    options.AddPolicy(string.Format("{0}.C", name), policy => policy.RequireClaim(string.Format("{0}.C", name)));
-                    options.AddPolicy(string.Format("{0}.U", name), policy => policy.RequireClaim(string.Format("{0}.U", name)));
-                    options.AddPolicy(string.Format("{0}.D", name), policy => policy.RequireClaim(string.Format("{0}.D", name)));
-                });
+                     options.AddPolicy(Convert.ToString(p.GetValue(null)), policy => policy.RequireClaim(Convert.ToString(p.GetValue(null))));
+                }
             });
 
             // register the repository
@@ -337,9 +344,9 @@ namespace ESPL.KP
                     .ForMember(dest => dest.Status, opt => opt.MapFrom(src =>
                     src.MstStatus));
 
-                cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceBook, ESPL.KP.Models.OccurreceStatistics>()
-                   .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src =>
-                   src.MstStatus.StatusName));
+                cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceBook, ESPL.KP.Models.Statistics>();
+                //    .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src =>
+                //    src.MstStatus.StatusName));
             });
 
             identitySeeder.Seed().Wait();

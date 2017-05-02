@@ -156,45 +156,7 @@ namespace ESPL.KP.Entities
 
 
 
-            // #region Shift
-            // context.MstShift.RemoveRange(context.MstShift);
-            // context.SaveChanges();
-            // var shifts = new List<MstShift>() {
-            //     new MstShift() {
-            //         ShiftID = new Guid("318DC4DF-684A-444F-9E5A-18BB5EED1123"),
-            //         ShiftName = "Open",
-            //         StartTime = TimeSpan.FromMinutes(1),
-            //         EndTime = TimeSpan.FromMinutes(1)
-            //     },
-            //     new MstShift() {
-            //         ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56285"),
-            //         ShiftName = "Under Investigation",
-            //         StartTime = TimeSpan.FromMinutes(1),
-            //         EndTime = TimeSpan.FromMinutes(1)
-            //     },
-            //     new MstShift() {
-            //         ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90111"),
-            //         ShiftName = "Closed",
-            //         StartTime = TimeSpan.FromMinutes(1),
-            //         EndTime = TimeSpan.FromMinutes(1)
-            //     },
-            //     new MstShift() {
-            //         ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90222"),
-            //         ShiftName = "Solved",
-            //         StartTime = TimeSpan.FromMinutes(1),
-            //         EndTime = TimeSpan.FromMinutes(1)
-            //     },
-            //     new MstShift() {
-            //         ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90333"),
-            //         ShiftName = "In Court",
-            //         StartTime = TimeSpan.FromMinutes(1),
-            //         EndTime = TimeSpan.FromMinutes(1)
-            //     }
-            // };
-
-            // context.MstShift.AddRange(shifts);
-            // context.SaveChanges();
-            // #endregion
+            
 
             UpdateDepartments(context);
             UpdateArea(context);
@@ -205,11 +167,46 @@ namespace ESPL.KP.Entities
             UpdateEmployee(context);
             UpdateOccurrenceBooks(context);
             UpdateAppModules(context);
+            UpdateOuccurrenceStatusHistory(context);
             
 
         }
 
+        private static void UpdateOuccurrenceStatusHistory(LibraryContext context)
+        {
+           context.OccurrenceStatusHistory.RemoveRange(context.OccurrenceStatusHistory);
+           context.SaveChanges();
+           var occurrenceStatusHistory=new List<OccurrenceStatusHistory>(){
+               new OccurrenceStatusHistory(){
+                   OccurrenceStatusHistoryID=new Guid(""),
+                   OBID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
+                   StatusID=new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
+                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111")
 
+               },
+               new OccurrenceStatusHistory(){
+                   OccurrenceStatusHistoryID=new Guid(""),
+                   OBID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
+                   StatusID=new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1111"),
+                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222")
+
+               },
+                new OccurrenceStatusHistory(){
+                   OccurrenceStatusHistoryID=new Guid(""),
+                   OBID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
+                   StatusID=new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1221"),
+                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222")
+
+               },
+                new OccurrenceStatusHistory(){
+                   OccurrenceStatusHistoryID=new Guid(""),
+                   OBID=new Guid("411bfab2-0d44-4fb9-8835-184db90f5678"),
+                   StatusID=new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
+                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222")
+
+               }
+           };
+        }
 
         private static void UpdateDesignation(LibraryContext context)
         {
@@ -568,16 +565,12 @@ namespace ESPL.KP.Entities
             context.SaveChanges();
             var status = new List<MstStatus>() {
                 new MstStatus() {
-                    StatusID = new Guid("1DD5458B-E136-4D03-B309-0089D4A9BD9D"),
-                    StatusName = "Open"
-                },
-                new MstStatus() {
                     StatusID = new Guid("EBEED096-EA34-43E2-948E-32BB98F31401"),
-                    StatusName = "Under Investigation"
+                    StatusName = "Under Review"
                 },
                 new MstStatus() {
                     StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
-                    StatusName = "Closed"
+                    StatusName = "Open"
                 },
                 new MstStatus() {
                     StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1111"),
@@ -606,7 +599,7 @@ namespace ESPL.KP.Entities
             		OBTypeID =  new Guid("758b1995-7f92-4d87-9588-b90800abf111"),	//carjacking
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		StatusID = new Guid("EBEED096-EA34-43E2-948E-32BB98F31401"),
-                    OBNumber = "123",
+                    OBNumber = "123456",
                     OBTime = Convert.ToDateTime("2017-04-20T19:23:14.9100866"),
                     CaseFileNumber = "1",
                     NatureOfOccurrence = "Preplanned.",
@@ -617,7 +610,8 @@ namespace ESPL.KP.Entities
                     Location = "Near CSIR-URDIP",
                     AssignedTO = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef4444"),	//SGT
             		AssignedComments = "Assigned to a SGT in CID",
-                    AssignedTime = DateTime.Now.AddDays(4)
+                    AssignedTime = DateTime.Now.AddDays(4),
+                    Priority = "Major"
                 },
                 new MstOccurrenceBook() {
                     OBID = new Guid("411bfab2-0d44-4fb9-8835-184db90f5678"),
@@ -625,7 +619,7 @@ namespace ESPL.KP.Entities
             		OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf222"),    //theft
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
-                    OBNumber = "456",
+                    OBNumber = "456789",
                     OBTime = Convert.ToDateTime("2017-04-10T19:25:14.9100866"),
                     CaseFileNumber = "2",
                     NatureOfOccurrence = "Nature 2",
@@ -636,7 +630,8 @@ namespace ESPL.KP.Entities
                     Location = "Near IARIRS Baner",
                     AssignedTO = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef3333"), //SAIG
             		AssignedComments = "Assigned to SAIG in CID",
-                    AssignedTime = DateTime.Now.AddHours(-5)
+                    AssignedTime = DateTime.Now.AddHours(-5),
+                    Priority = "Minor"
                 },
                 new MstOccurrenceBook() {
                     OBID = new Guid("411bfab2-0d44-4fb9-8835-184db90f8878"),
@@ -644,7 +639,7 @@ namespace ESPL.KP.Entities
             		OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf222"),	//theft
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709472222"),	//ASTU
             		StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1111"),
-                    OBNumber = "789",
+                    OBNumber = "789123",
                     OBTime = Convert.ToDateTime("2017-04-11T19:25:14.9100866"),
                     CaseFileNumber = "3",
                     NatureOfOccurrence = "Nature 3",
@@ -655,7 +650,8 @@ namespace ESPL.KP.Entities
                     Location = "Near baner road",
                     AssignedTO =new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222"),	//DIG
             		AssignedComments = "Assigned",
-                    AssignedTime = DateTime.Now.AddDays(-5)
+                    AssignedTime = DateTime.Now.AddDays(-5),
+                    Priority = "Major"
                 },
                 new MstOccurrenceBook() {
                     OBID = new Guid("411bfab2-0d44-4fb9-8835-184db90f7878"),
@@ -663,7 +659,7 @@ namespace ESPL.KP.Entities
             		OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf333"),
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
-                    OBNumber = "911",
+                    OBNumber = "911119",
                     OBTime = Convert.ToDateTime("2017-04-15T21:25:14.9100866"),
                     CaseFileNumber = "4",
                     NatureOfOccurrence = "Nature 4",
@@ -674,7 +670,8 @@ namespace ESPL.KP.Entities
                     Lattitude = 18.549613,
                     Longitude = 73.812145,
                     Location = "Near HDFC bank",
-                    AssignedTime = DateTime.Now
+                    AssignedTime = DateTime.Now,
+                    Priority = "Criticle"
                 },
                 new MstOccurrenceBook() {
                     OBID = new Guid("411bfab2-0d44-4fb9-8835-184db90f5545"),
@@ -682,7 +679,7 @@ namespace ESPL.KP.Entities
             		OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf333"),
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
-                    OBNumber = "112",
+                    OBNumber = "112211",
                     OBTime = Convert.ToDateTime("2017-04-15T21:25:14.9100866"),
                     CaseFileNumber = "5",
                     NatureOfOccurrence = "Nature 4",
@@ -693,7 +690,8 @@ namespace ESPL.KP.Entities
                     Lattitude = 18.551200,
                     Longitude = 73.813422,
                     Location = "Near The oval",
-                    AssignedTime = DateTime.Now
+                    AssignedTime = DateTime.Now,
+                    Priority = "Major"
                 }
 
             };
@@ -769,12 +767,12 @@ namespace ESPL.KP.Entities
                     MenuText = "Dashboard",
                     ShortName = "DB"
                 },
-                new AppModule() {
-                    Id = new Guid("1325360c-8253-473a-a23f-55c269c93456"),
-                    Name = "Permissions",
-                    MenuText = "Permissions",
-                    ShortName = "PR"
-                },
+                // new AppModule() {
+                //     Id = new Guid("1325360c-8253-473a-a23f-55c269c93456"),
+                //     Name = "Permissions",
+                //     MenuText = "Permissions",
+                //     ShortName = "PR"
+                // },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a23f-55c269c94567"),
                     Name = "Occurrence Assignment History",

@@ -8,10 +8,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ESPL.KP.Helpers.Core;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ESPL.KP.Controllers.Area
 {
     [Route("api/areacollections")]
+    [Authorize]
     public class AreaCollectionsController : Controller
     {
         //Global Declaration
@@ -24,6 +27,7 @@ namespace ESPL.KP.Controllers.Area
 
         //action methods
         [HttpPost]
+        [Authorize(Policy = Permissions.AreaCreate)]
         public IActionResult CreateAreaCollection(
             [FromBody] IEnumerable<AreaForCreationDto> AreaCollection)
         {
@@ -57,6 +61,7 @@ namespace ESPL.KP.Controllers.Area
         // (key1,key2, ...)
 
         [HttpGet("({ids})", Name = "GetAreaCollection")]
+        [Authorize(Policy = Permissions.AreaRead)]
         public IActionResult GetAreaCollection(
             [ModelBinder(BinderType = typeof(ArrayModelBinder))] IEnumerable<Guid> ids)
         {

@@ -4,14 +4,17 @@ using System.Linq;
 using AutoMapper;
 using ESPL.KP.Entities;
 using ESPL.KP.Helpers;
+using ESPL.KP.Helpers.Core;
 using ESPL.KP.Models;
 using ESPL.KP.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 
 namespace KP.Controllers.Employee
 {
-     [Route("api/EmployeeCollection")]
+    [Route("api/EmployeeCollection")]
+    [Authorize]
     public class EmployeeCollectionsController : Controller
     {
         private ILibraryRepository _libraryRepository;
@@ -22,6 +25,7 @@ namespace KP.Controllers.Employee
         }
 
         [HttpPost]
+        [Authorize(Policy = Permissions.EmployeeCreate)]
         public IActionResult CreateEmployeeCollection(
             [FromBody] IEnumerable<EmployeeForCreationDto> EmployeeCollection)
         {
@@ -55,6 +59,7 @@ namespace KP.Controllers.Employee
         // (key1,key2, ...)
 
         [HttpGet("({ids})", Name = "GetEmployeeCollection")]
+        [Authorize(Policy = Permissions.EmployeeRead)]
         public IActionResult GetEmployeeCollection(
             [ModelBinder(BinderType = typeof(ArrayModelBinder))] IEnumerable<Guid> ids)
         {

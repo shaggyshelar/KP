@@ -8,10 +8,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using ESPL.KP.Helpers.Core;
 
 namespace ESPL.KP.Controllers.Status
 {
     [Route("api/statuscollections")]
+    [Authorize]
     public class StatusCollectionsController : Controller
     {
         private ILibraryRepository _libraryRepository;
@@ -22,6 +25,7 @@ namespace ESPL.KP.Controllers.Status
         }
 
         [HttpPost]
+        [Authorize(Policy = Permissions.StatusCreate)]
         public IActionResult CreateStatusCollection(
             [FromBody] IEnumerable<StatusForCreationDto> statusCollection)
         {
@@ -55,6 +59,7 @@ namespace ESPL.KP.Controllers.Status
         // (key1,key2, ...)
 
         [HttpGet("({ids})", Name = "GetStatusCollection")]
+        [Authorize(Policy = Permissions.StatusRead)]
         public IActionResult GetStatusCollection(
             [ModelBinder(BinderType = typeof(ArrayModelBinder))] IEnumerable<Guid> ids)
         {

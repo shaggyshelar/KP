@@ -8,10 +8,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using ESPL.KP.Helpers.Core;
 
 namespace ESPL.KP.Controllers.Department
 {
     [Route("api/departmentcollections")]
+    [Authorize]
     public class DepartmentCollectionsController : Controller
     {
         private ILibraryRepository _libraryRepository;
@@ -22,6 +25,7 @@ namespace ESPL.KP.Controllers.Department
         }
 
         [HttpPost]
+        [Authorize(Policy = Permissions.DepartmentCreate)]
         public IActionResult CreateDepartmentCollection(
             [FromBody] IEnumerable<DepartmentForCreationDto> departmentCollection)
         {
@@ -55,6 +59,7 @@ namespace ESPL.KP.Controllers.Department
         // (key1,key2, ...)
 
         [HttpGet("({ids})", Name = "GetDepartmentCollection")]
+        [Authorize(Policy = Permissions.DepartmentRead)]
         public IActionResult GetDepartmentCollection(
             [ModelBinder(BinderType = typeof(ArrayModelBinder))] IEnumerable<Guid> ids)
         {

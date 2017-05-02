@@ -11,10 +11,12 @@ using ESPL.KP.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ESPL.KP.Controllerss.Designation
 {
     [Route("api/Designations")]
+    [Authorize]
     public class DesignationsController : Controller
     {
         private ILibraryRepository _libraryRepository;
@@ -35,6 +37,7 @@ namespace ESPL.KP.Controllerss.Designation
 
         [HttpGet(Name = "GetDesignations")]
         [HttpHead]
+        [Authorize(Policy = Permissions.DesignationRead)]
         public IActionResult GetDesignations(DesignationsResourceParameters DesignationsResourceParameters, [FromHeader(Name = "Accept")] string mediaType)
         {
             if (!_propertyMappingService.ValidMappingExistsFor<DesignationDto, MstDesignation>
@@ -158,6 +161,7 @@ namespace ESPL.KP.Controllerss.Designation
         }
 
         [HttpGet("{id}", Name = "GetDesignation")]
+        [Authorize(Policy = Permissions.DesignationRead)]
         public IActionResult GetDesignation(Guid id, [FromQuery] string fields)
         {
             if (!_typeHelperService.TypeHasProperties<DesignationDto>
@@ -186,6 +190,7 @@ namespace ESPL.KP.Controllerss.Designation
         }
 
         [HttpPost(Name = "CreateDesignation")]
+        [Authorize(Policy = Permissions.DesignationCreate)]
         public IActionResult CreateDesignation([FromBody] DesignationForCreationDto Designation)
         {
             if (Designation == null)
@@ -229,6 +234,7 @@ namespace ESPL.KP.Controllerss.Designation
         }
 
         [HttpDelete("{id}", Name = "DeleteDesignation")]
+        [Authorize(Policy = Permissions.DesignationDelete)]
         public IActionResult DeleteDesignation(Guid id)
         {
             var DesignationFromRepo = _libraryRepository.GetDesignation(id);
@@ -248,6 +254,7 @@ namespace ESPL.KP.Controllerss.Designation
         }
 
         [HttpPut("{id}", Name = "UpdateDesignation")]
+        [Authorize(Policy = Permissions.DesignationUpdate)]
         public IActionResult UpdateDesignation(Guid id, [FromBody] DesignationForUpdationDto designation)
         {
             if (designation == null)
@@ -279,6 +286,7 @@ namespace ESPL.KP.Controllerss.Designation
         }
 
         [HttpPatch("{id}", Name = "PartiallyUpdateDesignation")]
+        [Authorize(Policy = Permissions.DesignationUpdate)]
         public IActionResult PartiallyUpdateDesignation(Guid id,
                     [FromBody] JsonPatchDocument<DesignationForUpdationDto> patchDoc)
         {

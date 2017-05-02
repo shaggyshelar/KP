@@ -4,9 +4,11 @@ using System.Linq;
 using AutoMapper;
 using ESPL.KP.Entities;
 using ESPL.KP.Helpers;
+using ESPL.KP.Helpers.Core;
 using ESPL.KP.Helpers.Employee;
 using ESPL.KP.Models;
 using ESPL.KP.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace KP.Controllers.Employee
 {
     [Route("api/employees")]
+    [Authorize]
     public class EmployeeController : Controller
     {
         private ILibraryRepository _libraryRepository;
@@ -34,6 +37,7 @@ namespace KP.Controllers.Employee
 
         [HttpGet(Name = "GetEmployees")]
         [HttpHead]
+        [Authorize(Policy = Permissions.EmployeeRead)]
         public IActionResult GetEmployees(EmployeesResourceParameters employeesResourceParameters,
             [FromHeader(Name = "Accept")] string mediaType)
         {
@@ -118,6 +122,7 @@ namespace KP.Controllers.Employee
         }
 
         [HttpGet("{id}", Name = "GetEmployee")]
+        [Authorize(Policy = Permissions.EmployeeRead)]
         public IActionResult GetEmployee(Guid id, [FromQuery] string fields)
         {
             if (!_typeHelperService.TypeHasProperties<EmployeeDto>
@@ -146,6 +151,7 @@ namespace KP.Controllers.Employee
         }
 
         [HttpPost(Name = "CreateEmployee")]
+        [Authorize(Policy = Permissions.EmployeeCreate)]
         // [RequestHeaderMatchesMediaType("Content-Type",
         //     new[] { "application/vnd.marvin.employee.full+json" })]
         public IActionResult CreateEmployee([FromBody] EmployeeForCreationDto employee)
@@ -191,6 +197,7 @@ namespace KP.Controllers.Employee
         }
 
         [HttpDelete("{id}", Name = "DeleteEmployee")]
+        [Authorize(Policy = Permissions.EmployeeDelete)]
         public IActionResult DeleteEmployee(Guid id)
         {
             var employeeFromRepo = _libraryRepository.GetEmployee(id);
@@ -210,6 +217,7 @@ namespace KP.Controllers.Employee
         }
 
         [HttpPut("{id}", Name = "UpdateEmployee")]
+        [Authorize(Policy = Permissions.EmployeeUpdate)]
         public IActionResult UpdateEmployee(Guid id, [FromBody] EmployeeForUpdationDto employee)
         {
             if (employee == null)
@@ -256,6 +264,7 @@ namespace KP.Controllers.Employee
         }
 
         [HttpPatch("{id}", Name = "PartiallyUpdateEmployee")]
+        [Authorize(Policy = Permissions.EmployeeUpdate)]
         public IActionResult PartiallyUpdateEmployee(Guid id,
                     [FromBody] JsonPatchDocument<EmployeeForUpdationDto> patchDoc)
         {

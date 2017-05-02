@@ -1,0 +1,28 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Reports",
+		"_postman_id": "2bb7eb8f-4d41-f602-7508-8eb49ff4c2ac",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Occurrence Statistics",
+			"request": {
+				"url": "http://localhost:6058/api/reports/GetOccurrenceBooksStatistics",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

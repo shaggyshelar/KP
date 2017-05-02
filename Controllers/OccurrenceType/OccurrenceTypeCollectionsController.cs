@@ -4,13 +4,16 @@ using System.Linq;
 using AutoMapper;
 using ESPL.KP.Entities;
 using ESPL.KP.Helpers;
+using ESPL.KP.Helpers.Core;
 using ESPL.KP.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 
 namespace KP.Controllers.OccurrenceType
 {
     [Route("api/occurrenceTypecollections")]
+    [Authorize]
     public class OccurrenceTypeCollectionsController : Controller
     {
         private ILibraryRepository _libraryRepository;
@@ -20,6 +23,7 @@ namespace KP.Controllers.OccurrenceType
         }
 
         [HttpPost]
+        [Authorize(Policy = Permissions.OccurrenceTypeCreate)]
         public IActionResult CreateOccurrenceTypeCollection(
             [FromBody] IEnumerable<MstOccurrenceType> occurrenceTypeCollection)
         {
@@ -53,6 +57,7 @@ namespace KP.Controllers.OccurrenceType
         // (key1,key2, ...)
 
         [HttpGet("({ids})", Name = "GetOccurrenceTypeCollection")]
+        [Authorize(Policy = Permissions.OccurrenceTypeRead)]
         public IActionResult GetOccurrenceTypeCollection(
             [ModelBinder(BinderType = typeof(ArrayModelBinder))] IEnumerable<Guid> ids)
         {
