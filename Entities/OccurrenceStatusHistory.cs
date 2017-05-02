@@ -19,7 +19,7 @@ namespace ESPL.KP.Entities
         public Guid StatusID { get; set; }
 
         [MaxLength(500)]
-        public string Commnets { get; set; }
+        public string Comments { get; set; }
 
         
     }
