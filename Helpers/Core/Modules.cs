@@ -1,37 +1,35 @@
-using System.Collections.Generic;
-
 namespace ESPL.KP.Helpers.Core
 {
-    public class Modules
+    public static class Modules
     {
-        public string DepartmentShortName { get{
+        public static string DepartmentShortName { get{
             return "DP";
         } }
-        public string DesignationShortName { get{
+        public static string DesignationShortName { get{
             return "DS";
         } }
-        public string AreaShortName { get{
+        public static string AreaShortName { get{
             return "AR";
         } }
-        public string OccurrenceTypeShortName { get{
+        public static string OccurrenceTypeShortName { get{
             return "OT";
         } }
-        public string StatusShortName { get{
+        public static string StatusShortName { get{
             return "ST";
         } }
-        public string ShiftShortName { get{
+        public static string ShiftShortName { get{
             return "SF";
         } }
-        public string EmployeeShortName { get{
+        public static string EmployeeShortName { get{
             return "EP";
         } }
-        public string OccurrenceBookShortName { get{
+        public static string OccurrenceBookShortName { get{
             return "OB";
         } }
-        public string ReportsShortName { get{
+        public static string ReportsShortName { get{
             return "RP";
         } }
-        public string DashboardShortName { get{
+        public static string DashboardShortName { get{
             return "DB";
         } }
     }

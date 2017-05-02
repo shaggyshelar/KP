@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using ESPL.KP.Helpers.Core;
 
 namespace ESPL.KP.Controllers.Shift
 {
@@ -22,6 +24,7 @@ namespace ESPL.KP.Controllers.Shift
         }
 
         [HttpPost]
+        [Authorize(Policy = Permissions.ShiftCreate)]
         public IActionResult CreateShiftCollection(
             [FromBody] IEnumerable<ShiftForCreationDto> shiftCollection)
         {
@@ -55,6 +58,7 @@ namespace ESPL.KP.Controllers.Shift
         // (key1,key2, ...)
 
         [HttpGet("({ids})", Name = "GetShiftCollection")]
+        [Authorize(Policy = Permissions.ShiftRead)]
         public IActionResult GetShiftCollection(
             [ModelBinder(BinderType = typeof(ArrayModelBinder))] IEnumerable<Guid> ids)
         {

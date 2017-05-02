@@ -4,9 +4,11 @@ using System.Linq;
 using AutoMapper;
 using ESPL.KP.Entities;
 using ESPL.KP.Helpers;
+using ESPL.KP.Helpers.Core;
 using ESPL.KP.Helpers.OccurrenceBook;
 using ESPL.KP.Models;
 using ESPL.KP.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +36,7 @@ namespace KP.Controllers.OccurrenceBook
 
         [HttpGet(Name = "GetOccurrenceBooks")]
         [HttpHead]
+        [Authorize(Policy = Permissions.OccurrenceBookRead)]
         public IActionResult GetOccurrenceBooks(OccurrenceBookResourceParameters occurrenceBookResourceParameters,
             [FromHeader(Name = "Accept")] string mediaType)
         {
@@ -118,6 +121,7 @@ namespace KP.Controllers.OccurrenceBook
         }
 
         [HttpGet("{id}", Name = "GetOccurrenceBook")]
+        [Authorize(Policy = Permissions.OccurrenceBookRead)]
         public IActionResult GetOccurrenceBook(Guid id, [FromQuery] string fields)
         {
             if (!_typeHelperService.TypeHasProperties<OccurrenceBookDto>
@@ -146,6 +150,7 @@ namespace KP.Controllers.OccurrenceBook
         }
 
         [HttpPost(Name = "CreateOccurrenceBook")]
+        [Authorize(Policy = Permissions.OccurrenceBookCreate)]
         // [RequestHeaderMatchesMediaType("Content-Type",
         //     new[] { "application/vnd.marvin.occurrenceBook.full+json" })]
         public IActionResult CreateOccurrenceBook([FromBody] OccurrenceBookForCreationDto occurrenceBook)
@@ -195,6 +200,7 @@ namespace KP.Controllers.OccurrenceBook
         }
 
         [HttpDelete("{id}", Name = "DeleteOccurrenceBook")]
+        [Authorize(Policy = Permissions.OccurrenceBookDelete)]
         public IActionResult DeleteOccurrenceBook(Guid id)
         {
             var occurrenceBookFromRepo = _libraryRepository.GetOccurrenceBook(id);
@@ -214,6 +220,7 @@ namespace KP.Controllers.OccurrenceBook
         }
 
         [HttpPut("{id}", Name = "UpdateOccurrenceBook")]
+        [Authorize(Policy = Permissions.OccurrenceBookUpdate)]
         public IActionResult UpdateOccurrenceBook(Guid id, [FromBody] OccurrenceBookForUpdationDto occurrenceBook)
         {
             if (occurrenceBook == null)
@@ -260,6 +267,7 @@ namespace KP.Controllers.OccurrenceBook
         }
 
         [HttpPatch("{id}", Name = "PartiallyUpdateOccurrenceBook")]
+        [Authorize(Policy = Permissions.OccurrenceBookUpdate)]
         public IActionResult PartiallyUpdateOccurrenceBook(Guid id,
                     [FromBody] JsonPatchDocument<OccurrenceBookForUpdationDto> patchDoc)
         {

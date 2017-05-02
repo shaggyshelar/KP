@@ -8,6 +8,7 @@ using ESPL.KP.Helpers.Area;
 using ESPL.KP.Helpers.Core;
 using ESPL.KP.Models;
 using ESPL.KP.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +36,7 @@ namespace ESPL.KP.Controllerss.Area
 
         [HttpGet(Name = "GetAreas")]
         [HttpHead]
+        [Authorize(Policy = Permissions.AreaRead)]
         public IActionResult GetAreas(AreasResourceParameters AreasResourceParameters, [FromHeader(Name = "Accept")] string mediaType)
         {
             if (!_propertyMappingService.ValidMappingExistsFor<AreaDto, MstArea>
@@ -158,6 +160,7 @@ namespace ESPL.KP.Controllerss.Area
         }
 
         [HttpGet("{id}", Name = "GetArea")]
+        [Authorize(Policy = Permissions.AreaRead)]
         public IActionResult GetArea(Guid id, [FromQuery] string fields)
         {
             if (!_typeHelperService.TypeHasProperties<AreaDto>
@@ -186,6 +189,7 @@ namespace ESPL.KP.Controllerss.Area
         }
 
         [HttpPost(Name = "CreateArea")]
+        [Authorize(Policy = Permissions.AreaCreate)]
         public IActionResult CreateArea([FromBody] AreaForCreationDto Area)
         {
             if (Area == null)
@@ -229,6 +233,7 @@ namespace ESPL.KP.Controllerss.Area
         }
 
         [HttpDelete("{id}", Name = "DeleteArea")]
+        [Authorize(Policy = Permissions.AreaDelete)]
         public IActionResult DeleteArea(Guid id)
         {
             var AreaFromRepo = _libraryRepository.GetArea(id);
@@ -248,6 +253,7 @@ namespace ESPL.KP.Controllerss.Area
         }
 
         [HttpPut("{id}", Name = "UpdateArea")]
+        [Authorize(Policy = Permissions.AreaUpdate)]
         public IActionResult UpdateArea(Guid id, [FromBody] AreaForUpdationDto area)
         {
             if (area == null)
@@ -295,6 +301,7 @@ namespace ESPL.KP.Controllerss.Area
         }
 
         [HttpPatch("{id}", Name = "PartiallyUpdateArea")]
+        [Authorize(Policy = Permissions.AreaUpdate)]
         public IActionResult PartiallyUpdateArea(Guid id,
                     [FromBody] JsonPatchDocument<AreaForUpdationDto> patchDoc)
         {
