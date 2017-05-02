@@ -4,10 +4,12 @@ using System.Linq;
 using AutoMapper;
 using ESPL.KP.Entities;
 using ESPL.KP.Helpers;
+using ESPL.KP.Helpers.Core;
 using ESPL.KP.Helpers.OccurrenceBook;
 using ESPL.KP.Helpers.Reports;
 using ESPL.KP.Models;
 using ESPL.KP.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +39,7 @@ namespace KP.Controllers.ReportsController
 #region Occurance Reports
         [Route("GetOccurrences")]
         [HttpGet(Name = "GetOccurrences")]
+        [Authorize(Policy = Permissions.ReportsRead)]
         public IActionResult GetOccurrences(OccurrenceReportResourceParameters occurrenceReportResourceParameters,
             [FromHeader(Name = "Accept")] string mediaType)
         {
@@ -123,6 +126,7 @@ namespace KP.Controllers.ReportsController
 
         [Route("GetOccurrenceBooksStatistics")]
         [HttpGet(Name = "GetOccurrenceBooksStatistics")]
+        [Authorize(Policy = Permissions.ReportsRead)]
         public IActionResult GetOccurrenceBooksStatistics(OccurrenceStatisticsResourceParameters occurrenceBookResourceParameters,
             [FromHeader(Name = "Accept")] string mediaType)
         {

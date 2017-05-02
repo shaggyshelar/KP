@@ -37,7 +37,8 @@ namespace ESPL.KP.Controllers.Department
 
         [HttpGet(Name = "GetDepartments")]
         [HttpHead]
-        [Authorize(Policy = "DP.R")]
+        //[Authorize(Policy = "DP.R")]
+        [Authorize(Policy = Permissions.DepartmentRead)]
         public IActionResult GetDepartments(DepartmentsResourceParameters departmentsResourceParameters,
             [FromHeader(Name = "Accept")] string mediaType)
         {
@@ -162,7 +163,7 @@ namespace ESPL.KP.Controllers.Department
         }
 
         [HttpGet("{id}", Name = "GetDepartment")]
-        [Authorize(Policy = "DP.R")]
+        [Authorize(Policy = Permissions.DepartmentRead)]
         public IActionResult GetDepartment(Guid id, [FromQuery] string fields)
         {
             if (!_typeHelperService.TypeHasProperties<DepartmentDto>
@@ -191,7 +192,7 @@ namespace ESPL.KP.Controllers.Department
         }
 
         [HttpPost(Name = "CreateDepartment")]
-        [Authorize(Policy = "DP.C")]
+        [Authorize(Policy = Permissions.DepartmentCreate)]
         public IActionResult CreateDepartment([FromBody] DepartmentForCreationDto department)
         {
             if (department == null)
@@ -235,7 +236,7 @@ namespace ESPL.KP.Controllers.Department
         }
 
         [HttpDelete("{id}", Name = "DeleteDepartment")]
-        [Authorize(Policy = "DP.D")]
+        [Authorize(Policy = Permissions.DepartmentDelete)]
         public IActionResult DeleteDepartment(Guid id)
         {
             var departmentFromRepo = _libraryRepository.GetDepartment(id);
@@ -255,7 +256,7 @@ namespace ESPL.KP.Controllers.Department
         }
 
         [HttpPut("{id}", Name = "UpdateDepartment")]
-        [Authorize(Policy = "DP.U")]
+        [Authorize(Policy = Permissions.DepartmentUpdate)]
         public IActionResult UpdateDepartment(Guid id, [FromBody] DepartmentForUpdationDto department)
         {
             if (department == null)
@@ -287,7 +288,7 @@ namespace ESPL.KP.Controllers.Department
         }
 
         [HttpPatch("{id}", Name = "PartiallyUpdateDepartment")]
-        [Authorize(Policy = "DP.U")]
+        [Authorize(Policy = Permissions.DepartmentUpdate)]
         public IActionResult PartiallyUpdateDepartment(Guid id,
                     [FromBody] JsonPatchDocument<DepartmentForUpdationDto> patchDoc)
         {
