@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ESPL.KP.Controllers.OccurrenceType
 {
     [Route("api/occurrencetype")]
+    [Authorize]
     public class OccurrenceTypeController : Controller
     {
         private ILibraryRepository _libraryRepository;

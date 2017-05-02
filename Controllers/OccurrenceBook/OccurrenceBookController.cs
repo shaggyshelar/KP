@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace KP.Controllers.OccurrenceBook
 {
     [Route("api/occurrencebook")]
+    [Authorize]
     public class OccurrenceBookController : Controller
     {
         private ILibraryRepository _libraryRepository;

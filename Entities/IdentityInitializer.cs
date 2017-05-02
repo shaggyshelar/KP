@@ -277,10 +277,8 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.StatusRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardRead, ClaimValue = "True" });
-                //role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions "PR.R", ClaimValue = "True" });
-                //role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions "OA.R", ClaimValue = "True" });
-                //role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions "OR.R", ClaimValue = "True" });
-
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceAssignmentRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewRead, ClaimValue = "True" });
 
                 //----- write
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaCreate, ClaimValue = "True" });
@@ -293,6 +291,8 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.StatusCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardCreate, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceAssignmentCreate, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewCreate, ClaimValue = "True" });
 
                 //----- update
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaUpdate, ClaimValue = "True" });
@@ -305,6 +305,9 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.StatusUpdate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsUpdate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardUpdate, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceAssignmentUpdate, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewUpdate, ClaimValue = "True" });
+
 
                 //------ Delete
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaDelete, ClaimValue = "True" });
@@ -317,6 +320,8 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.StatusDelete, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsDelete, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardDelete, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceAssignmentDelete, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewDelete, ClaimValue = "True" });
 
 
                 await _roleMgr.CreateAsync(role);
@@ -364,16 +369,6 @@ namespace ESPL.KP.Entities
                     ClaimType = "IsConstable",
                     ClaimValue = "True"
                 });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DS.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "EP.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OB.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OT.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SF.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "ST.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OA.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OR.R", ClaimValue = "True" });
 
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DepartmentRead, ClaimValue = "True" });
@@ -385,17 +380,14 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.StatusRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceAssignmentRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewRead, ClaimValue = "True" });
 
                 //----- write
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OB.C", ClaimValue = "True" });
-
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceBookCreate, ClaimValue = "True" });
 
                 //----- update
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OB.U", ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaUpdate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceBookUpdate, ClaimValue = "True" });
 
@@ -429,18 +421,6 @@ namespace ESPL.KP.Entities
                     ClaimValue = "True"
                 });
                 //----read
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DS.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "EP.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OB.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OT.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "PR.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SF.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "ST.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OA.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OR.R", ClaimValue = "True" });
-
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DepartmentRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DesignationRead, ClaimValue = "True" });
@@ -451,18 +431,14 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.StatusRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceAssignmentRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewRead, ClaimValue = "True" });
 
                 //----- write
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OB.C", ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceBookCreate, ClaimValue = "True" });
 
                 //----- update
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OB.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SF.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "ST.U", ClaimValue = "True" });
-
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceBookUpdate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ShiftUpdate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ShiftUpdate, ClaimValue = "True" });
@@ -496,18 +472,6 @@ namespace ESPL.KP.Entities
                     ClaimValue = "True"
                 });
                 //----read
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DS.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "EP.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OB.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OT.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "PR.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SF.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "ST.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OA.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OR.R", ClaimValue = "True" });
-
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DepartmentRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DesignationRead, ClaimValue = "True" });
@@ -518,14 +482,10 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.StatusRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceAssignmentRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewRead, ClaimValue = "True" });
 
                 //----- write
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "EP.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OT.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "PR.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SF.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "ST.C", ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceTypeCreate, ClaimValue = "True" });
@@ -534,33 +494,19 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardRead, ClaimValue = "True" });
 
                 //----- update
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DS.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "EP.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "PR.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SF.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "ST.U", ClaimValue = "True" });
-
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaUpdate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardUpdate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeUpdate, ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsUpdate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ShiftUpdate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.StatusUpdate, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsUpdate, ClaimValue = "True" });
 
                 //------ Delete
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "EP.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "PR.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SF.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "ST.D", ClaimValue = "True" });
-
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaDelete, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeDelete, ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsDelete, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ShiftDelete, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.StatusDelete, ClaimValue = "True" });
-
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsDelete, ClaimValue = "True" });
 
                 await _roleMgr.CreateAsync(role);
             }
@@ -591,18 +537,6 @@ namespace ESPL.KP.Entities
                     ClaimValue = "True"
                 });
                 //----read
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DS.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "EP.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OB.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OT.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "PR.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SF.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "ST.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OA.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OR.R", ClaimValue = "True" });
-
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DepartmentRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DesignationRead, ClaimValue = "True" });
@@ -615,23 +549,12 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardRead, ClaimValue = "True" });
 
                 //----- write
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "EP.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SF.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "PR.C", ClaimValue = "True" });
-
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ShiftCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsCreate, ClaimValue = "True" });
 
                 //----- update
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "EP.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SF.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "ST.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "PR.U", ClaimValue = "True" });
-
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaUpdate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeUpdate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ShiftUpdate, ClaimValue = "True" });
@@ -639,15 +562,10 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsUpdate, ClaimValue = "True" });
 
                 //------ Delete
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "EP.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "PR.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SF.D", ClaimValue = "True" });
-
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaDelete, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeDelete, ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsDelete, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ShiftDelete, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsDelete, ClaimValue = "True" });
 
                 await _roleMgr.CreateAsync(role);
             }
@@ -678,18 +596,6 @@ namespace ESPL.KP.Entities
                     ClaimValue = "True"
                 });
                 //----read
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DS.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "EP.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OB.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OT.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "PR.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SF.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "ST.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OA.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OR.R", ClaimValue = "True" });
-
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DepartmentRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DesignationRead, ClaimValue = "True" });
@@ -700,16 +606,10 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.StatusRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceAssignmentRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewRead, ClaimValue = "True" });
 
                 //----- write
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DS.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "EP.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "PR.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SF.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "ST.C", ClaimValue = "True" });
-
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DepartmentCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DesignationCreate, ClaimValue = "True" });
@@ -719,14 +619,6 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsCreate, ClaimValue = "True" });
 
                 //----- update
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DS.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "EP.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "PR.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SF.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "ST.U", ClaimValue = "True" });
-
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaUpdate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DepartmentUpdate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DesignationUpdate, ClaimValue = "True" });
@@ -736,14 +628,6 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsUpdate, ClaimValue = "True" });
 
                 //------ Delete
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DS.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "EP.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "PR.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SF.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "ST.D", ClaimValue = "True" });
-
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaDelete, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DepartmentDelete, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DesignationDelete, ClaimValue = "True" });
@@ -777,18 +661,6 @@ namespace ESPL.KP.Entities
                 var role = new IdentityRole("ASP");
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "IsASP", ClaimValue = "True" });
                 //----read
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DS.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "EP.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OB.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OT.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "PR.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SF.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "ST.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OA.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OR.R", ClaimValue = "True" });
-
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DepartmentRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DesignationRead, ClaimValue = "True" });
@@ -799,13 +671,10 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.StatusRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceAssignmentRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewRead, ClaimValue = "True" });
 
                 //----- write
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "EP.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OB.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SF.C", ClaimValue = "True" });
-
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceBookCreate, ClaimValue = "True" });
@@ -813,11 +682,6 @@ namespace ESPL.KP.Entities
 
 
                 //----- update
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "EP.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SF.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OB.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "ST.U", ClaimValue = "True" });
-
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeUpdate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ShiftUpdate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceBookUpdate, ClaimValue = "True" });
@@ -849,18 +713,6 @@ namespace ESPL.KP.Entities
                 var role = new IdentityRole("SuperAdmin");
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "IsSuperAdmin", ClaimValue = "True" });
                 //----read
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DS.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "EP.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OB.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OT.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "PR.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SF.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "ST.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OA.R", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OR.R", ClaimValue = "True" });
-
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DepartmentRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DesignationRead, ClaimValue = "True" });
@@ -871,20 +723,10 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.StatusRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceAssignmentRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewRead, ClaimValue = "True" });
 
                 //----- write
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DS.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "EP.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OB.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OT.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "PR.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SF.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "ST.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OA.C", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OR.C", ClaimValue = "True" });
-
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DepartmentCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DesignationCreate, ClaimValue = "True" });
@@ -893,22 +735,12 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceTypeCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ShiftCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.StatusCreate, ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsCreate, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceAssignmentCreate, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardCreate, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsCreate, ClaimValue = "True" });
 
                 //----- update
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DS.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "EP.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OB.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OT.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "PR.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SF.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "ST.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OA.U", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OR.U", ClaimValue = "True" });
-
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaUpdate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DepartmentUpdate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DesignationUpdate, ClaimValue = "True" });
@@ -917,23 +749,13 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceTypeUpdate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ShiftUpdate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.StatusUpdate, ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsUpdate, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceAssignmentUpdate, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewUpdate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardUpdate, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsUpdate, ClaimValue = "True" });
 
 
                 //------ Delete
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "AR.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DP.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "DS.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "EP.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OB.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OT.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "PR.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "SF.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "ST.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OA.D", ClaimValue = "True" });
-                // role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = "OR.D", ClaimValue = "True" });
-
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaDelete, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DepartmentDelete, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DesignationDelete, ClaimValue = "True" });
@@ -942,8 +764,11 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceTypeDelete, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ShiftDelete, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.StatusDelete, ClaimValue = "True" });
-                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsDelete, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceAssignmentDelete, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewDelete, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardDelete, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsDelete, ClaimValue = "True" });
+
 
                 await _roleMgr.CreateAsync(role);
 
