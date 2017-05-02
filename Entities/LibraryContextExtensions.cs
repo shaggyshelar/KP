@@ -770,12 +770,12 @@ namespace ESPL.KP.Entities
                     MenuText = "Dashboard",
                     ShortName = "DB"
                 },
-                new AppModule() {
-                    Id = new Guid("1325360c-8253-473a-a23f-55c269c93456"),
-                    Name = "Permissions",
-                    MenuText = "Permissions",
-                    ShortName = "PR"
-                },
+                // new AppModule() {
+                //     Id = new Guid("1325360c-8253-473a-a23f-55c269c93456"),
+                //     Name = "Permissions",
+                //     MenuText = "Permissions",
+                //     ShortName = "PR"
+                // },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a23f-55c269c94567"),
                     Name = "Occurrence Assignment History",

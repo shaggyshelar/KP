@@ -14,6 +14,7 @@ using ESPL.KP.Helpers.Core;
 namespace ESPL.KP.Controllers.Shift
 {
     [Route("api/shiftcollections")]
+    [Authorize]
     public class ShiftCollectionsController : Controller
     {
         private ILibraryRepository _libraryRepository;
