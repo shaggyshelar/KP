@@ -167,7 +167,7 @@ namespace ESPL.KP.Services
         public PagedList<MstDepartment> GetDepartments(DepartmentsResourceParameters departmentResourceParameters)
         {
             var collectionBeforePaging =
-                _context.MstDepartment.ApplySort(departmentResourceParameters.OrderBy,
+                _context.MstDepartment.Where(a => a.IsDelete == false).ApplySort(departmentResourceParameters.OrderBy,
                 _propertyMappingService.GetPropertyMapping<DepartmentDto, MstDepartment>());
 
             if (!string.IsNullOrEmpty(departmentResourceParameters.SearchQuery))
@@ -188,12 +188,12 @@ namespace ESPL.KP.Services
 
         public MstDepartment GetDepartment(Guid departmentId)
         {
-            return _context.MstDepartment.FirstOrDefault(a => a.DepartmentID == departmentId);
+            return _context.MstDepartment.FirstOrDefault(a => a.DepartmentID == departmentId && a.IsDelete == false);
         }
 
         public IEnumerable<MstDepartment> GetDepartments(IEnumerable<Guid> departmentIds)
         {
-            return _context.MstDepartment.Where(a => departmentIds.Contains(a.DepartmentID))
+            return _context.MstDepartment.Where(a => departmentIds.Contains(a.DepartmentID) && a.IsDelete == false)
                 .OrderBy(a => a.DepartmentName)
                 .ToList();
         }
@@ -216,7 +216,7 @@ namespace ESPL.KP.Services
 
         public bool DepartmentExists(Guid departmentId)
         {
-            return _context.MstDepartment.Any(a => a.DepartmentID == departmentId);
+            return _context.MstDepartment.Any(a => a.DepartmentID == departmentId && a.IsDelete == false);
         }
 
         #endregion Department
@@ -226,7 +226,7 @@ namespace ESPL.KP.Services
         public PagedList<MstArea> GetAreas(AreasResourceParameters AreaResourceParameters)
         {
             var collectionBeforePaging =
-                _context.MstArea.ApplySort(AreaResourceParameters.OrderBy,
+                _context.MstArea.Where(a => a.IsDelete == false).ApplySort(AreaResourceParameters.OrderBy,
                 _propertyMappingService.GetPropertyMapping<AreaDto, MstArea>());
 
             if (!string.IsNullOrEmpty(AreaResourceParameters.SearchQuery))
@@ -247,12 +247,12 @@ namespace ESPL.KP.Services
 
         public MstArea GetArea(Guid AreaId)
         {
-            return _context.MstArea.FirstOrDefault(a => a.AreaID == AreaId);
+            return _context.MstArea.FirstOrDefault(a => a.AreaID == AreaId && a.IsDelete == false);
         }
 
         public IEnumerable<MstArea> GetAreas(IEnumerable<Guid> AreaIds)
         {
-            return _context.MstArea.Where(a => AreaIds.Contains(a.AreaID))
+            return _context.MstArea.Where(a => AreaIds.Contains(a.AreaID) && a.IsDelete == false)
                 .OrderBy(a => a.AreaName)
                 .ToList();
         }
@@ -275,7 +275,7 @@ namespace ESPL.KP.Services
 
         public bool AreaExists(Guid AreaId)
         {
-            return _context.MstArea.Any(a => a.AreaID == AreaId);
+            return _context.MstArea.Any(a => a.AreaID == AreaId && a.IsDelete == false);
         }
 
         #endregion Area
@@ -285,7 +285,7 @@ namespace ESPL.KP.Services
         public PagedList<MstDesignation> GetDesignations(DesignationsResourceParameters DesignationResourceParameters)
         {
             var collectionBeforePaging =
-                _context.MstDesignation.ApplySort(DesignationResourceParameters.OrderBy,
+                _context.MstDesignation.Where(a => a.IsDelete == false).ApplySort(DesignationResourceParameters.OrderBy,
                 _propertyMappingService.GetPropertyMapping<DesignationDto, MstDesignation>());
 
             if (!string.IsNullOrEmpty(DesignationResourceParameters.SearchQuery))
@@ -306,12 +306,12 @@ namespace ESPL.KP.Services
 
         public MstDesignation GetDesignation(Guid DesignationId)
         {
-            return _context.MstDesignation.FirstOrDefault(a => a.DesignationID == DesignationId);
+            return _context.MstDesignation.FirstOrDefault(a => a.DesignationID == DesignationId && a.IsDelete == false);
         }
 
         public IEnumerable<MstDesignation> GetDesignations(IEnumerable<Guid> DesignationIds)
         {
-            return _context.MstDesignation.Where(a => DesignationIds.Contains(a.DesignationID))
+            return _context.MstDesignation.Where(a => DesignationIds.Contains(a.DesignationID) && a.IsDelete == false)
                 .OrderBy(a => a.DesignationName)
                 .ToList();
         }
@@ -334,7 +334,7 @@ namespace ESPL.KP.Services
 
         public bool DesignationExists(Guid DesignationId)
         {
-            return _context.MstDesignation.Any(a => a.DesignationID == DesignationId);
+            return _context.MstDesignation.Any(a => a.DesignationID == DesignationId && a.IsDelete == false);
         }
 
         #endregion Designation
@@ -344,7 +344,7 @@ namespace ESPL.KP.Services
         public PagedList<MstOccurrenceType> GetOccurrenceTypes(OccurrenceTypeResourceParameters occurrenceTypeResourceParameters)
         {
             var collectionBeforePaging =
-                _context.MstOccurrenceType.ApplySort(occurrenceTypeResourceParameters.OrderBy,
+                _context.MstOccurrenceType.Where(a => a.IsDelete == false).ApplySort(occurrenceTypeResourceParameters.OrderBy,
                 _propertyMappingService.GetPropertyMapping<OccurrenceTypeDto, MstOccurrenceType>());
 
             if (!string.IsNullOrEmpty(occurrenceTypeResourceParameters.SearchQuery))
@@ -364,12 +364,12 @@ namespace ESPL.KP.Services
 
         public MstOccurrenceType GetOccurrenceType(Guid occurrenceTypeId)
         {
-            return _context.MstOccurrenceType.FirstOrDefault(a => a.OBTypeID == occurrenceTypeId);
+            return _context.MstOccurrenceType.FirstOrDefault(a => a.OBTypeID == occurrenceTypeId && a.IsDelete == false);
         }
 
         public IEnumerable<MstOccurrenceType> GetOccurrenceType(IEnumerable<Guid> occurrenceTypeIds)
         {
-            return _context.MstOccurrenceType.Where(a => occurrenceTypeIds.Contains(a.OBTypeID))
+            return _context.MstOccurrenceType.Where(a => occurrenceTypeIds.Contains(a.OBTypeID) && a.IsDelete == false)
                 .OrderBy(a => a.OBTypeName)
                 .ToList();
         }
@@ -392,7 +392,7 @@ namespace ESPL.KP.Services
 
         public bool OccurrenceTypeExists(Guid occurrenceTypeId)
         {
-            return _context.MstOccurrenceType.Any(a => a.OBTypeID == occurrenceTypeId);
+            return _context.MstOccurrenceType.Any(a => a.OBTypeID == occurrenceTypeId && a.IsDelete == false);
         }
 
         #endregion
@@ -402,7 +402,7 @@ namespace ESPL.KP.Services
         public PagedList<MstShift> GetShifts(ShiftsResourceParameters shiftResourceParameters)
         {
             var collectionBeforePaging =
-                _context.MstShift.ApplySort(shiftResourceParameters.OrderBy,
+                _context.MstShift.Where(a => a.IsDelete == false).ApplySort(shiftResourceParameters.OrderBy,
                 _propertyMappingService.GetPropertyMapping<ShiftDto, MstShift>());
 
             if (!string.IsNullOrEmpty(shiftResourceParameters.SearchQuery))
@@ -424,12 +424,12 @@ namespace ESPL.KP.Services
 
         public MstShift GetShift(Guid shiftId)
         {
-            return _context.MstShift.FirstOrDefault(a => a.ShiftID == shiftId);
+            return _context.MstShift.FirstOrDefault(a => a.ShiftID == shiftId && a.IsDelete == false);
         }
 
         public IEnumerable<MstShift> GetShifts(IEnumerable<Guid> shiftIds)
         {
-            return _context.MstShift.Where(a => shiftIds.Contains(a.ShiftID))
+            return _context.MstShift.Where(a => shiftIds.Contains(a.ShiftID) && a.IsDelete == false)
                 .OrderBy(a => a.ShiftName)
                 .ToList();
         }
@@ -452,7 +452,7 @@ namespace ESPL.KP.Services
 
         public bool ShiftExists(Guid shiftId)
         {
-            return _context.MstShift.Any(a => a.ShiftID == shiftId);
+            return _context.MstShift.Any(a => a.ShiftID == shiftId && a.IsDelete == false);
         }
 
         #endregion Shift
@@ -462,7 +462,7 @@ namespace ESPL.KP.Services
         public PagedList<MstStatus> GetStatuses(StatusesResourceParameters statusResourceParameters)
         {
             var collectionBeforePaging =
-                _context.MstStatus.ApplySort(statusResourceParameters.OrderBy,
+                _context.MstStatus.Where(a => a.IsDelete == false).ApplySort(statusResourceParameters.OrderBy,
                 _propertyMappingService.GetPropertyMapping<StatusDto, MstStatus>());
 
             if (!string.IsNullOrEmpty(statusResourceParameters.SearchQuery))
@@ -482,12 +482,12 @@ namespace ESPL.KP.Services
 
         public MstStatus GetStatus(Guid statusId)
         {
-            return _context.MstStatus.FirstOrDefault(a => a.StatusID == statusId);
+            return _context.MstStatus.FirstOrDefault(a => a.StatusID == statusId && a.IsDelete == false);
         }
 
         public IEnumerable<MstStatus> GetStatuses(IEnumerable<Guid> statusIds)
         {
-            return _context.MstStatus.Where(a => statusIds.Contains(a.StatusID))
+            return _context.MstStatus.Where(a => statusIds.Contains(a.StatusID) && a.IsDelete == false)
                 .OrderBy(a => a.StatusName)
                 .ToList();
         }
@@ -510,7 +510,7 @@ namespace ESPL.KP.Services
 
         public bool StatusExists(Guid statusId)
         {
-            return _context.MstStatus.Any(a => a.StatusID == statusId);
+            return _context.MstStatus.Any(a => a.StatusID == statusId && a.IsDelete == false);
         }
 
         #endregion Status
@@ -522,7 +522,7 @@ namespace ESPL.KP.Services
         public PagedList<MstOccurrenceBook> GetOccurrenceBooks(OccurrenceBookResourceParameters occurrenceBookResourceParameters)
         {
             var collectionBeforePaging =
-                _context.MstOccurrenceBook
+                _context.MstOccurrenceBook.Where(a => a.IsDelete == false)
                 .Include(ob => ob.MstArea)
                 .Include(ob => ob.MstDepartment)
                 .Include(ob => ob.MstOccurrenceType)
@@ -558,6 +558,7 @@ namespace ESPL.KP.Services
         public MstOccurrenceBook GetOccurrenceBook(Guid occurrenceBookId)
         {
             return _context.MstOccurrenceBook
+                .Where(a => a.IsDelete == false)
                 .Include(ob => ob.MstArea)
                 .Include(ob => ob.MstDepartment)
                 .Include(ob => ob.MstOccurrenceType)
@@ -569,6 +570,7 @@ namespace ESPL.KP.Services
         public IEnumerable<MstOccurrenceBook> GetOccurrenceBooks(IEnumerable<Guid> occurrenceBookIds)
         {
             return _context.MstOccurrenceBook
+                .Where(a => a.IsDelete == false)
                 .Include(ob => ob.MstArea)
                 .Include(ob => ob.MstDepartment)
                 .Include(ob => ob.MstOccurrenceType)
@@ -597,7 +599,7 @@ namespace ESPL.KP.Services
 
         public bool OccurrenceBookExists(Guid occurrenceBookId)
         {
-            return _context.MstOccurrenceBook.Any(a => a.OBID == occurrenceBookId);
+            return _context.MstOccurrenceBook.Any(a => a.OBID == occurrenceBookId && a.IsDelete == false);
         }
 
         public void UpdateOccurrenceBookAssignment(MstOccurrenceBook occurrenceBook)
@@ -796,6 +798,7 @@ namespace ESPL.KP.Services
         {
             var collectionBeforePaging =
                 _context.MstEmployee
+                .Where(a => a.IsDelete == false)
                 .Include(e => e.MstArea)
                 .Include(e => e.MstDepartment)
                 .Include(e => e.MstDesignation)
@@ -835,6 +838,7 @@ namespace ESPL.KP.Services
         public MstEmployee GetEmployee(Guid employeeId)
         {
             return _context.MstEmployee
+                .Where(a => a.IsDelete == false)
                 .Include(e => e.MstArea)
                 .Include(e => e.MstDepartment)
                 .Include(e => e.MstDesignation)
@@ -848,6 +852,7 @@ namespace ESPL.KP.Services
         public MstEmployee GetEmployeeByUserID(Guid userId)
         {
             return _context.MstEmployee
+                .Where(a => a.IsDelete == false)
                 .Include(e => e.MstArea)
                 .Include(e => e.MstDepartment)
                 .Include(e => e.MstDesignation)
@@ -862,6 +867,7 @@ namespace ESPL.KP.Services
         public IEnumerable<MstEmployee> GetEmployees(IEnumerable<Guid> employeeIds)
         {
             return _context.MstEmployee
+                .Where(a => a.IsDelete == false)
                 .Include(e => e.MstArea)
                 .Include(e => e.MstDepartment)
                 .Include(e => e.MstDesignation)
@@ -892,7 +898,7 @@ namespace ESPL.KP.Services
 
         public bool EmployeeExists(Guid employeeId)
         {
-            return _context.MstEmployee.Any(a => a.EmployeeID == employeeId);
+            return _context.MstEmployee.Any(a => a.EmployeeID == employeeId && a.IsDelete == false);
         }
 
         #endregion Employee
@@ -902,6 +908,7 @@ namespace ESPL.KP.Services
         {
             var collectionBeforePaging =
                 _context.MstOccurrenceBook
+                .Where(a => a.IsDelete == false)
                 .Include(occurrence => occurrence.MstArea)
                 .Include(occurrence => occurrence.MstDepartment)
                 .Include(occurrence => occurrence.MstStatus)
@@ -932,6 +939,7 @@ namespace ESPL.KP.Services
         {
             #region Occurrence Stats
             IQueryable<StatusStatistics> OccurrenceStatusStats = from p in _context.MstOccurrenceBook
+                                                                 where p.IsDelete == false
                                                                  group p by p.MstStatus.StatusName into g
                                                                  select new StatusStatistics
                                                                  {
@@ -939,17 +947,19 @@ namespace ESPL.KP.Services
                                                                      Count = g.Count()
                                                                  };
             IQueryable<PriorityStatistics> OccurrencePriorityStats = from p in _context.MstOccurrenceBook
+                                                                     where p.IsDelete == false
                                                                      group p by new { Priority = p.Priority } into g
                                                                      select new PriorityStatistics
                                                                      {
                                                                          Priority = g.Key.Priority,
                                                                          Count = g.Key.Priority.Count(),
                                                                      };
-            int OccurrenceCount = _context.MstOccurrenceBook.Count();
+            int OccurrenceCount = _context.MstOccurrenceBook.Where(a => a.IsDelete == false).Count();
             #endregion Occurrence Stats
 
             #region Officers Stats
             IQueryable<StatusStatistics> OfficersStatusStats = from p in _context.MstOccurrenceBook
+                                                               where p.IsDelete == false
                                                                where p.AssignedTO != null
                                                                group p by p.MstStatus.StatusName into g
                                                                select new StatusStatistics
@@ -958,6 +968,7 @@ namespace ESPL.KP.Services
                                                                    Count = g.Count()
                                                                };
             IQueryable<PriorityStatistics> OfficersPriorityStats = from p in _context.MstOccurrenceBook
+                                                                   where p.IsDelete == false
                                                                    where p.AssignedTO != null
                                                                    //group p by new { Priority = p.Priority } into g
                                                                    group p by p.Priority into g
@@ -966,7 +977,7 @@ namespace ESPL.KP.Services
                                                                        Priority = g.Key,
                                                                        Count = g.Count(),
                                                                    };
-            int OfficersCount = _context.MstEmployee.Count();
+            int OfficersCount = _context.MstEmployee.Where(a => a.IsDelete == false).Count();
             #endregion Officers Stats
 
 
