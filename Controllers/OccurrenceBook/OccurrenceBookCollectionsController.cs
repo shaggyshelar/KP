@@ -4,8 +4,10 @@ using System.Linq;
 using AutoMapper;
 using ESPL.KP.Entities;
 using ESPL.KP.Helpers;
+using ESPL.KP.Helpers.Core;
 using ESPL.KP.Models;
 using ESPL.KP.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 
@@ -22,6 +24,7 @@ namespace KP.Controllers.OccurrenceBook
         }
 
         [HttpPost]
+        [Authorize(Policy = Permissions.OccurrenceBookCreate)]
         public IActionResult CreateOccurrenceBookCollection(
             [FromBody] IEnumerable<OccurrenceBookForCreationDto> occurrenceBookCollection)
         {
@@ -55,6 +58,7 @@ namespace KP.Controllers.OccurrenceBook
         // (key1,key2, ...)
 
         [HttpGet("({ids})", Name = "GetOccurrenceBookCollection")]
+        [Authorize(Policy = Permissions.OccurrenceBookRead)]
         public IActionResult GetOccurrenceBookCollection(
             [ModelBinder(BinderType = typeof(ArrayModelBinder))] IEnumerable<Guid> ids)
         {
