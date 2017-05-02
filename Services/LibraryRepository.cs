@@ -532,33 +532,33 @@ namespace ESPL.KP.Services
                 _propertyMappingService.GetPropertyMapping<OccurrenceBookDto, MstOccurrenceBook>());
 
             //Filter Implementation
-            if (occurrenceBookResourceParameters.AreaIDs.Count > 0)
+            if (!string.IsNullOrEmpty(occurrenceBookResourceParameters.AreaID))
             {
-                var areaIds = occurrenceBookResourceParameters.AreaIDs;
+                var areaIds = occurrenceBookResourceParameters.AreaID.Split(',');
                 collectionBeforePaging = collectionBeforePaging
                     .Where(o => areaIds.Contains(o.AreaID.ToString().ToLowerInvariant()));
             }
-            if (occurrenceBookResourceParameters.DepartmentIDs.Count > 0)
+            if (!string.IsNullOrEmpty(occurrenceBookResourceParameters.DepartmentID))
             {
-                var departmentIDs = occurrenceBookResourceParameters.DepartmentIDs;
+                var departmentIDs = occurrenceBookResourceParameters.DepartmentID.Split(',');
                 collectionBeforePaging = collectionBeforePaging
                     .Where(o => departmentIDs.Contains(o.DepartmentID.ToString().ToLowerInvariant()));
             }
-            if (occurrenceBookResourceParameters.StatusIDs.Count > 0)
+            if (!string.IsNullOrEmpty(occurrenceBookResourceParameters.StatusID))
             {
-                var statusIDs = occurrenceBookResourceParameters.StatusIDs;
+                var statusIDs = occurrenceBookResourceParameters.StatusID.Split(',');
                 collectionBeforePaging = collectionBeforePaging
                     .Where(o => statusIDs.Contains(o.StatusID.ToString().ToLowerInvariant()));
             }
-            if (occurrenceBookResourceParameters.OBDates != null)
+            if (!string.IsNullOrEmpty(occurrenceBookResourceParameters.OBDate))
             {
-                var oBDates=occurrenceBookResourceParameters.OBDates;
+                var oBDates = occurrenceBookResourceParameters.OBDate.Split(',');
                 collectionBeforePaging = collectionBeforePaging
-                    .Where(o=>oBDates.Contains(o.OBTime.ToString("MM/dd/yyyy")));
+                    .Where(o => oBDates.Contains(o.OBTime.ToString("MM/dd/yyyy")));
             }
             //Filter Ends
-            
-            
+
+
             if (!string.IsNullOrEmpty(occurrenceBookResourceParameters.SearchQuery))
             {
                 // trim & ignore casing
@@ -838,33 +838,33 @@ namespace ESPL.KP.Services
                 _propertyMappingService.GetPropertyMapping<EmployeeDto, MstEmployee>());
 
             //Filter Implementation
-            if (employeesResourceParameters.AreaIDs.Count > 0)
+            if (!string.IsNullOrEmpty(employeesResourceParameters.AreaID))
             {
-                var areaIds = employeesResourceParameters.AreaIDs;
+                var areaIds = employeesResourceParameters.AreaID.Split(',');
                 collectionBeforePaging = collectionBeforePaging
-                    .Where(e => areaIds.Contains(e.AreaID.ToString().ToLowerInvariant()));
+                    .Where(o => areaIds.Contains(o.AreaID.ToString().ToLowerInvariant()));
             }
-            if (employeesResourceParameters.DepartmentIDs.Count > 0)
+            if (!string.IsNullOrEmpty(employeesResourceParameters.DepartmentID))
             {
-                var departmentIDs = employeesResourceParameters.DepartmentIDs;
+                var departmentIDs = employeesResourceParameters.DepartmentID.Split(',');
                 collectionBeforePaging = collectionBeforePaging
-                    .Where(e => departmentIDs.Contains(e.DepartmentID.ToString().ToLowerInvariant()));
+                    .Where(o => departmentIDs.Contains(o.DepartmentID.ToString().ToLowerInvariant()));
             }
-            if (employeesResourceParameters.DesignationIDs.Count > 0)
+            if (!string.IsNullOrEmpty(employeesResourceParameters.DesignationID))
             {
-                var designationIDs = employeesResourceParameters.DesignationIDs;
+                var designationIDs = employeesResourceParameters.DesignationID.Split(',');
                 collectionBeforePaging = collectionBeforePaging
-                    .Where(e => designationIDs.Contains(e.DesignationID.ToString().ToLowerInvariant()));
+                    .Where(o => designationIDs.Contains(o.DesignationID.ToString().ToLowerInvariant()));
             }
             if (employeesResourceParameters.CaseAssigned != null)
             {
-                var caseAssigned=employeesResourceParameters.CaseAssigned.Value;
+                var caseAssigned = employeesResourceParameters.CaseAssigned.Value;
                 collectionBeforePaging = caseAssigned ? collectionBeforePaging
                     .Where(e => e.MstOccurrenceBooks.Count > 0) : collectionBeforePaging
                     .Where(e => e.MstOccurrenceBooks.Count == 0);
             }
             //Filter Ends
-            
+
             if (!string.IsNullOrEmpty(employeesResourceParameters.SearchQuery))
             {
                 // trim & ignore casing
