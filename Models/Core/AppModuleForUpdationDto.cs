@@ -1,20 +1,23 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using ESPL.KP.Models.Core;
 
-namespace ESPL.KP.Entities.Core
+namespace ESPL.KP.Models
 {
-    public class AppModule : BaseEntity
+    public class AppModuleForUpdationDto : BaseDto
     {
-        [Key]
-        public Guid Id { get; set; }
+        public AppModuleForUpdationDto()
+        {
+        }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(20), MinLength(4)]
         public string MenuText { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(50), MinLength(4)]
         public string Name { get; set; }
+
         [Required]
         [MaxLength(2), MinLength(2)]
         public string ShortName { get; set; }
