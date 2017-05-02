@@ -1,0 +1,2291 @@
+{
+	"variables": [],
+	"info": {
+		"name": "KP Tests",
+		"_postman_id": "d9fd16fe-9951-83b6-1a17-0999ee485a2f",
+		"description": "KP Test Suite",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "01 Authentication & Authorization",
+			"description": "",
+			"item": [
+				{
+					"name": "Set SuperAdmin Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setEnvironmentVariable(\"superAdminToken\", jsonData.token);",
+									"",
+									"",
+									"var schema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"    \"definitions\": {},",
+									"    \"id\": \"http://example.com/example.json\",",
+									"    \"properties\": {",
+									"        \"expiration\": {",
+									"            \"id\": \"/properties/expiration\",",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"token\": {",
+									"            \"id\": \"/properties/token\",",
+									"            \"type\": \"string\"",
+									"        }",
+									"    },",
+									"    \"required\": [",
+									"        \"token\",",
+									"        \"expiration\"",
+									"    ],",
+									"    \"type\": \"object\"",
+									"}",
+									";",
+									"",
+									"tests[\"Validate Schema\"] = tv4.validate(jsonData, schema);",
+									"console.log(\"Validation failed: \", tv4.error);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/auth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"UserName\":\"nickjones\",\n\t\"Password\":\"Espl@123\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Set ASP Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setEnvironmentVariable(\"aspToken\", jsonData.token);",
+									"",
+									"",
+									"var schema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"    \"definitions\": {},",
+									"    \"id\": \"http://example.com/example.json\",",
+									"    \"properties\": {",
+									"        \"expiration\": {",
+									"            \"id\": \"/properties/expiration\",",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"token\": {",
+									"            \"id\": \"/properties/token\",",
+									"            \"type\": \"string\"",
+									"        }",
+									"    },",
+									"    \"required\": [",
+									"        \"token\",",
+									"        \"expiration\"",
+									"    ],",
+									"    \"type\": \"object\"",
+									"}",
+									";",
+									"",
+									"tests[\"Validate Schema\"] = tv4.validate(jsonData, schema);",
+									"console.log(\"Validation failed: \", tv4.error);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/auth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"UserName\":\"johnydepp\",\n\t\"Password\":\"Espl@123\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Set IG Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setEnvironmentVariable(\"igToken\", jsonData.token);",
+									"",
+									"",
+									"var schema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"    \"definitions\": {},",
+									"    \"id\": \"http://example.com/example.json\",",
+									"    \"properties\": {",
+									"        \"expiration\": {",
+									"            \"id\": \"/properties/expiration\",",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"token\": {",
+									"            \"id\": \"/properties/token\",",
+									"            \"type\": \"string\"",
+									"        }",
+									"    },",
+									"    \"required\": [",
+									"        \"token\",",
+									"        \"expiration\"",
+									"    ],",
+									"    \"type\": \"object\"",
+									"}",
+									";",
+									"",
+									"tests[\"Validate Schema\"] = tv4.validate(jsonData, schema);",
+									"console.log(\"Validation failed: \", tv4.error);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/auth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"UserName\":\"johndoe\",\n\t\"Password\":\"Espl@123\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Set DIG Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setEnvironmentVariable(\"digToken\", jsonData.token);",
+									"",
+									"",
+									"var schema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"    \"definitions\": {},",
+									"    \"id\": \"http://example.com/example.json\",",
+									"    \"properties\": {",
+									"        \"expiration\": {",
+									"            \"id\": \"/properties/expiration\",",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"token\": {",
+									"            \"id\": \"/properties/token\",",
+									"            \"type\": \"string\"",
+									"        }",
+									"    },",
+									"    \"required\": [",
+									"        \"token\",",
+									"        \"expiration\"",
+									"    ],",
+									"    \"type\": \"object\"",
+									"}",
+									";",
+									"",
+									"tests[\"Validate Schema\"] = tv4.validate(jsonData, schema);",
+									"console.log(\"Validation failed: \", tv4.error);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/auth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"UserName\":\"jacksparrow\",\n\t\"Password\":\"Espl@123\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Set Senior Assistant Inspector-General (SAIG) Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setEnvironmentVariable(\"saigToken\", jsonData.token);",
+									"",
+									"",
+									"var schema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"    \"definitions\": {},",
+									"    \"id\": \"http://example.com/example.json\",",
+									"    \"properties\": {",
+									"        \"expiration\": {",
+									"            \"id\": \"/properties/expiration\",",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"token\": {",
+									"            \"id\": \"/properties/token\",",
+									"            \"type\": \"string\"",
+									"        }",
+									"    },",
+									"    \"required\": [",
+									"        \"token\",",
+									"        \"expiration\"",
+									"    ],",
+									"    \"type\": \"object\"",
+									"}",
+									";",
+									"",
+									"tests[\"Validate Schema\"] = tv4.validate(jsonData, schema);",
+									"console.log(\"Validation failed: \", tv4.error);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/auth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"UserName\":\"angelinajolie\",\n\t\"Password\":\"Espl@123\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Set Senior Sergeant Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setEnvironmentVariable(\"sergeantToken\", jsonData.token);",
+									"",
+									"",
+									"var schema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"    \"definitions\": {},",
+									"    \"id\": \"http://example.com/example.json\",",
+									"    \"properties\": {",
+									"        \"expiration\": {",
+									"            \"id\": \"/properties/expiration\",",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"token\": {",
+									"            \"id\": \"/properties/token\",",
+									"            \"type\": \"string\"",
+									"        }",
+									"    },",
+									"    \"required\": [",
+									"        \"token\",",
+									"        \"expiration\"",
+									"    ],",
+									"    \"type\": \"object\"",
+									"}",
+									";",
+									"",
+									"tests[\"Validate Schema\"] = tv4.validate(jsonData, schema);",
+									"console.log(\"Validation failed: \", tv4.error);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/auth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"UserName\":\"bradpitt\",\n\t\"Password\":\"Espl@123\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Set Constable Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setEnvironmentVariable(\"constableToken\", jsonData.token);",
+									"",
+									"",
+									"var schema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"    \"definitions\": {},",
+									"    \"id\": \"http://example.com/example.json\",",
+									"    \"properties\": {",
+									"        \"expiration\": {",
+									"            \"id\": \"/properties/expiration\",",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"token\": {",
+									"            \"id\": \"/properties/token\",",
+									"            \"type\": \"string\"",
+									"        }",
+									"    },",
+									"    \"required\": [",
+									"        \"token\",",
+									"        \"expiration\"",
+									"    ],",
+									"    \"type\": \"object\"",
+									"}",
+									";",
+									"",
+									"tests[\"Validate Schema\"] = tv4.validate(jsonData, schema);",
+									"console.log(\"Validation failed: \", tv4.error);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/auth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"UserName\":\"steverogers\",\n\t\"Password\":\"Espl@123\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Set Admin Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setEnvironmentVariable(\"adminToken\", jsonData.token);",
+									"",
+									"",
+									"var schema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"    \"definitions\": {},",
+									"    \"id\": \"http://example.com/example.json\",",
+									"    \"properties\": {",
+									"        \"expiration\": {",
+									"            \"id\": \"/properties/expiration\",",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"token\": {",
+									"            \"id\": \"/properties/token\",",
+									"            \"type\": \"string\"",
+									"        }",
+									"    },",
+									"    \"required\": [",
+									"        \"token\",",
+									"        \"expiration\"",
+									"    ],",
+									"    \"type\": \"object\"",
+									"}",
+									";",
+									"",
+									"tests[\"Validate Schema\"] = tv4.validate(jsonData, schema);",
+									"console.log(\"Validation failed: \", tv4.error);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/auth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"UserName\":\"tomcruise\",\n\t\"Password\":\"Espl@123\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 400;",
+									"",
+									"",
+									"",
+									"tests[\"Error Message Is Valid\"] = responseBody.has(\"Invalid Username or Password.\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/auth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"UserName\":\"test\",\n\t\"Password\":\"test\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Empty Username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 400;",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"var schema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"    \"definitions\": {},",
+									"    \"id\": \"http://example.com/example.json\",",
+									"    \"properties\": {",
+									"        \"userName\": {",
+									"            \"id\": \"/properties/userName\",",
+									"            \"items\": {",
+									"                \"id\": \"/properties/userName/items\",",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"type\": \"array\"",
+									"        }",
+									"    },",
+									"    \"required\": [",
+									"        \"userName\"",
+									"    ],",
+									"    \"type\": \"object\"",
+									"};",
+									"",
+									"tests[\"Validate Schema\"] = tv4.validate(jsonData, schema);",
+									"console.log(\"Validation failed: \", tv4.error);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/auth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Password\":\"test\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Empty Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 400;",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"var schema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"    \"definitions\": {},",
+									"    \"id\": \"http://example.com/example.json\",",
+									"    \"properties\": {",
+									"        \"password\": {",
+									"            \"id\": \"/properties/password\",",
+									"            \"items\": {",
+									"                \"id\": \"/properties/password/items\",",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"type\": \"array\"",
+									"        }",
+									"    },",
+									"    \"required\": [",
+									"        \"password\"",
+									"    ],",
+									"    \"type\": \"object\"",
+									"};",
+									"",
+									"tests[\"Validate Schema\"] = tv4.validate(jsonData, schema);",
+									"console.log(\"Validation failed: \", tv4.error);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/auth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"UserName\":\"test\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Empty Username, Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 400;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/auth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Long Username",
+					"request": {
+						"url": "{{URL}}/api/auth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"UserName\":\"test\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Long Password",
+					"request": {
+						"url": "{{URL}}/api/auth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"UserName\":\"test\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Short Username",
+					"request": {
+						"url": "{{URL}}/api/auth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"UserName\":\"test\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Short Password",
+					"request": {
+						"url": "{{URL}}/api/auth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"UserName\":\"test\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "02-01 AppModules Get API",
+			"description": "",
+			"item": [
+				{
+					"name": "api/appmodules - Unauthorized Access Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 401\"] = responseCode.code === 401;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules - Forbidden For Constable",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{constableToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules - Forbidden For Sergeant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sergeantToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules - Forbidden For Senior Assistant Inspector-General (SAIG)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{saigToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules - Forbidden For DIG",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{digToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules - Forbidden For IG",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{igToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules - Forbidden For ASP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{aspToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules - Get List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"var schema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"    \"definitions\": {},",
+									"    \"id\": \"http://localhost:6058/api/appmodules\",",
+									"    \"items\": {",
+									"        \"id\": \"/items\",",
+									"        \"properties\": {",
+									"            \"createdBy\": {",
+									"                \"id\": \"/items/properties/createdBy\",",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"createdOn\": {",
+									"                \"id\": \"/items/properties/createdOn\",",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"id\": {",
+									"                \"id\": \"/items/properties/id\",",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"isDelete\": {",
+									"                \"id\": \"/items/properties/isDelete\",",
+									"                \"type\": \"boolean\"",
+									"            },",
+									"            \"menuText\": {",
+									"                \"id\": \"/items/properties/menuText\",",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"name\": {",
+									"                \"id\": \"/items/properties/name\",",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"shortName\": {",
+									"                \"id\": \"/items/properties/shortName\",",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"updatedBy\": {",
+									"                \"id\": \"/items/properties/updatedBy\",",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"updatedOn\": {",
+									"                \"id\": \"/items/properties/updatedOn\",",
+									"                \"type\": \"null\"",
+									"            }",
+									"        },",
+									"        \"required\": [",
+									"            \"name\",",
+									"            \"updatedOn\",",
+									"            \"createdOn\",",
+									"            \"createdBy\",",
+									"            \"updatedBy\",",
+									"            \"menuText\",",
+									"            \"isDelete\",",
+									"            \"shortName\",",
+									"            \"id\"",
+									"        ],",
+									"        \"type\": \"object\"",
+									"    },",
+									"    \"type\": \"array\"",
+									"};",
+									"tests[\"Validate Schema\"] = tv4.validate(jsonData, schema);",
+									"console.log(\"Validation failed: \", tv4.error);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{superAdminToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - Unauthorized Access Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 401\"] = responseCode.code === 401;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a23f-55c269c34567",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - Forbidden For Constable",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a23f-55c269c34567",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{constableToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - Forbidden For Sergeant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a23f-55c269c34567",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sergeantToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - Forbidden For Senior Assistant Inspector-General (SAIG)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a23f-55c269c34567",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{saigToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - Forbidden For DIG",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a23f-55c269c34567",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{digToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - Forbidden For IG",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a23f-55c269c34567",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{igToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - Forbidden For ASP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a23f-55c269c34567",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{aspToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - Get Single AppModule",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"var schema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"    \"definitions\": {},",
+									"    \"id\": \"http://localhost:6058/api/appmodules/1325360c-8253-473a-a23f-55c269c34567\",",
+									"    \"properties\": {",
+									"        \"createdBy\": {",
+									"            \"id\": \"/properties/createdBy\",",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"createdOn\": {",
+									"            \"id\": \"/properties/createdOn\",",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"id\": {",
+									"            \"id\": \"/properties/id\",",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"menuText\": {",
+									"            \"id\": \"/properties/menuText\",",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"name\": {",
+									"            \"id\": \"/properties/name\",",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"shortName\": {",
+									"            \"id\": \"/properties/shortName\",",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"updatedBy\": {",
+									"            \"id\": \"/properties/updatedBy\",",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"updatedOn\": {",
+									"            \"id\": \"/properties/updatedOn\",",
+									"            \"type\": \"null\"",
+									"        }",
+									"    },",
+									"    \"type\": \"object\"",
+									"};",
+									"tests[\"Validate Schema\"] = tv4.validate(jsonData, schema);",
+									"console.log(\"Validation failed: \", tv4.error);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a23f-55c269c34567",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{superAdminToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "02-02 AppModules POST API",
+			"description": "",
+			"item": [
+				{
+					"name": "api/appmodules - Unauthorized Access Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 401\"] = responseCode.code === 401;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Test Menu\",\n\t\"menuText\": \"Test Menu\",\n\t\"shortName\": \"TM\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules - Forbidden For Constable",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{constableToken}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Test Menu\",\n\t\"menuText\": \"Test Menu\",\n\t\"shortName\": \"TM\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules - Forbidden For Sergeant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sergeantToken}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Test Menu\",\n\t\"menuText\": \"Test Menu\",\n\t\"shortName\": \"TM\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules - Forbidden For Senior Assistant Inspector-General (SAIG)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{saigToken}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Test Menu\",\n\t\"menuText\": \"Test Menu\",\n\t\"shortName\": \"TM\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules - Forbidden For DIG",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{digToken}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Test Menu\",\n\t\"menuText\": \"Test Menu\",\n\t\"shortName\": \"TM\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules - Forbidden For IG",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{igToken}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Test Menu\",\n\t\"menuText\": \"Test Menu\",\n\t\"shortName\": \"TM\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules - Forbidden For ASP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{aspToken}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Test Menu\",\n\t\"menuText\": \"Test Menu\",\n\t\"shortName\": \"TM\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules - Add AppModule",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"var schema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"    \"definitions\": {},",
+									"    \"id\": \"http://localhost:6058/api/appmodules\",",
+									"    \"properties\": {",
+									"        \"createdBy\": {",
+									"            \"id\": \"/properties/createdBy\",",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"createdOn\": {",
+									"            \"id\": \"/properties/createdOn\",",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"id\": {",
+									"            \"id\": \"/properties/id\",",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"isDelete\": {",
+									"            \"id\": \"/properties/isDelete\",",
+									"            \"type\": \"boolean\"",
+									"        },",
+									"        \"menuText\": {",
+									"            \"id\": \"/properties/menuText\",",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"name\": {",
+									"            \"id\": \"/properties/name\",",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"shortName\": {",
+									"            \"id\": \"/properties/shortName\",",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"updatedBy\": {",
+									"            \"id\": \"/properties/updatedBy\",",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"updatedOn\": {",
+									"            \"id\": \"/properties/updatedOn\",",
+									"            \"type\": \"null\"",
+									"        }",
+									"    },",
+									"    \"type\": \"object\"",
+									"};",
+									"tests[\"Validate Schema\"] = tv4.validate(jsonData, schema);",
+									"console.log(\"Validation failed: \", tv4.error);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{superAdminToken}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Test Menu\",\n\t\"menuText\": \"Test Menu\",\n\t\"shortName\": \"TM\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "02-03 AppModules DELETE API",
+			"description": "",
+			"item": [
+				{
+					"name": "api/appmodules/{id} - Unauthorized Access Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 401\"] = responseCode.code === 401;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a23f-55c269c34567",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - Forbidden For Constable",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a23f-55c269c34567",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{constableToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - Forbidden For Sergeant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a23f-55c269c34567",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sergeantToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - Forbidden For Senior Assistant Inspector-General (SAIG)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a23f-55c269c34567",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{saigToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - Forbidden For DIG",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a23f-55c269c34567",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{digToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - Forbidden For IG",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a23f-55c269c34567",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{igToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - Forbidden For ASP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a23f-55c269c34567",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{aspToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - DELETE Single AppModule",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a23f-55c269c34567",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{superAdminToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - DELETE NonExisting AppModule",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 404\"] = responseCode.code === 404;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-12345-473a-a23f-55c269c34567",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{superAdminToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "02-04 AppModules PATCH API",
+			"description": "",
+			"item": [
+				{
+					"name": "api/appmodules/{id} - Unauthorized Access Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 401\"] = responseCode.code === 401;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a22f-55c269c23456",
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"op\":\"replace\",\n\t\"path\":\"/menuText\",\n\t\"value\":\"test after patch\"\n}]"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - Forbidden For Constable",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a22f-55c269c23456",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{constableToken}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"op\":\"replace\",\n\t\"path\":\"/menuText\",\n\t\"value\":\"test after patch\"\n}]"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - Forbidden For Sergeant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a22f-55c269c23456",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sergeantToken}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"op\":\"replace\",\n\t\"path\":\"/menuText\",\n\t\"value\":\"test after patch\"\n}]"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - Forbidden For Senior Assistant Inspector-General (SAIG)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a22f-55c269c23456",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{saigToken}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"op\":\"replace\",\n\t\"path\":\"/menuText\",\n\t\"value\":\"test after patch\"\n}]"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - Forbidden For DIG",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a22f-55c269c23456",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{digToken}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"op\":\"replace\",\n\t\"path\":\"/menuText\",\n\t\"value\":\"test after patch\"\n}]"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - Forbidden For IG",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a22f-55c269c23456",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{igToken}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"op\":\"replace\",\n\t\"path\":\"/menuText\",\n\t\"value\":\"test after patch\"\n}]"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - Forbidden For ASP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a22f-55c269c23456",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{aspToken}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"op\":\"replace\",\n\t\"path\":\"/menuText\",\n\t\"value\":\"test after patch\"\n}]"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - PATCH Single AppModule",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-8253-473a-a22f-55c269c23456",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{superAdminToken}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"op\":\"replace\",\n\t\"path\":\"/menuText\",\n\t\"value\":\"test after patch\"\n}]"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/appmodules/{id} - PATCH NonExisting AppModule",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 404\"] = responseCode.code === 404;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:6058/api/appmodules/1325360c-1234-473a-a22f-55c269c23456",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{superAdminToken}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"op\":\"replace\",\n\t\"path\":\"/menuText\",\n\t\"value\":\"test after patch\"\n}]"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -13,6 +13,7 @@ using ESPL.KP.Helpers.Core;
 using ESPL.KP.Models.Core;
 using ESPL.KP.Entities.Core;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace ESPL.KP.Controllers.Core
 {
@@ -250,6 +251,80 @@ namespace ESPL.KP.Controllers.Core
             }
 
             return NoContent();
+        }
+
+        [HttpPut("{id}", Name = "UpdateAppModule")]
+        public IActionResult UpdateAppModule(Guid id, [FromBody] AppModuleForUpdationDto appModule)
+        {
+            if (appModule == null)
+            {
+                return BadRequest();
+            }
+
+            var appModuleRepo = _libraryRepository.GetAppModule(id);
+            if (appModuleRepo == null)
+            {
+                return NotFound();
+            }
+
+            SetItemHistoryData(appModule, appModuleRepo);
+
+            Mapper.Map(appModule, appModuleRepo);
+
+            _libraryRepository.UpdateAppModule(appModuleRepo);
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception("Updating an appModule failed on save.");
+            }
+
+
+            return Ok(appModuleRepo);
+        }
+
+        [HttpPatch("{id}", Name = "PartiallyUpdateAppModule")]
+        public IActionResult PartiallyUpdateAppModule(Guid id,
+                    [FromBody] JsonPatchDocument<AppModuleForUpdationDto> patchDoc)
+        {
+            if (patchDoc == null)
+            {
+                return BadRequest();
+            }
+
+            var appModuleFromRepo = _libraryRepository.GetAppModule(id);
+
+            if (appModuleFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            var appModuleToPatch = Mapper.Map<AppModuleForUpdationDto>(appModuleFromRepo);
+
+            patchDoc.ApplyTo(appModuleToPatch, ModelState);
+
+            TryValidateModel(appModuleToPatch);
+
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
+
+            SetItemHistoryData(appModuleToPatch, appModuleFromRepo);
+            Mapper.Map(appModuleToPatch, appModuleFromRepo);
+
+            _libraryRepository.UpdateAppModule(appModuleFromRepo);
+
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception($"Patching  appModule {id} failed on save.");
+            }
+
+            return NoContent();
+        }
+
+        private void SetItemHistoryData(AppModuleForUpdationDto model, AppModule modelRepo)
+        {
+            model.CreatedOn = modelRepo.CreatedOn;
+            model.UpdatedOn = DateTime.Now;
         }
 
         private IEnumerable<LinkDto> CreateLinksForAppModule(Guid id, string fields)
