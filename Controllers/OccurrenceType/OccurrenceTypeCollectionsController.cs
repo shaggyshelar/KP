@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 namespace KP.Controllers.OccurrenceType
 {
     [Route("api/occurrenceTypecollections")]
+    [Authorize]
     public class OccurrenceTypeCollectionsController : Controller
     {
         private ILibraryRepository _libraryRepository;

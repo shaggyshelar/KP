@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace ESPL.KP.Controllers.Status
 {
     [Route("api/statuses")]
+    [Authorize]
     public class StatusesController : Controller
     {
         private ILibraryRepository _libraryRepository;

@@ -13,7 +13,8 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 
 namespace KP.Controllers.Employee
 {
-     [Route("api/EmployeeCollection")]
+    [Route("api/EmployeeCollection")]
+    [Authorize]
     public class EmployeeCollectionsController : Controller
     {
         private ILibraryRepository _libraryRepository;

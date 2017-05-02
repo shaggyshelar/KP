@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace ESPL.KP.Controllerss.Designation
 {
     [Route("api/Designations")]
+    [Authorize]
     public class DesignationsController : Controller
     {
         private ILibraryRepository _libraryRepository;

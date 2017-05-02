@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ESPL.KP.Controllerss.Area
 {
     [Route("api/areas")]
+    [Authorize]
     public class AreasController : Controller
     {
         private ILibraryRepository _libraryRepository;

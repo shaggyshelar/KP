@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace KP.Controllers.ReportsController
 {
     [Route("api/reports")]
+    [Authorize]
     public class ReportsController : Controller
     {
         private ILibraryRepository _libraryRepository;

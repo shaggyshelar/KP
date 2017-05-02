@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 namespace KP.Controllers.OccurrenceBook
 {
      [Route("api/OccurrenceBookCollection")]
+     [Authorize]
     public class OccurrenceBookCollectionsController : Controller
     {
         private ILibraryRepository _libraryRepository;
