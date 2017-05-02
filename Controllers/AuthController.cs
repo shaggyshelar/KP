@@ -45,6 +45,11 @@ namespace ESPL.KP.Controllers
         [HttpPost("api/auth/token")]
         public async Task<IActionResult> CreateToken([FromBody] CredentialModel model)
         {
+            if (model == null)
+            {
+                return BadRequest("Invalid Username or Password.");
+            }
+
             var user = await _userMgr.FindByNameAsync(model.UserName);
             if (user != null)
             {
@@ -87,7 +92,7 @@ namespace ESPL.KP.Controllers
                 }
             }
 
-            return BadRequest("Failed to generate token");
+            return BadRequest("Invalid Username or Password.");
         }
 
         [Authorize(Policy = "Auth.CanCreate")]

@@ -131,7 +131,7 @@ namespace ESPL.KP
                 options.AddPolicy("AT.R", policy => policy.RequireClaim("AT.R"));
                 options.AddPolicy("AT.U", policy => policy.RequireClaim("AT.U"));
                 options.AddPolicy("AT.D", policy => policy.RequireClaim("AT.D"));
-                options.AddPolicy("SystemAdmin", policy => policy.RequireClaim("SystemAdmin"));
+                options.AddPolicy("IsSuperAdmin", policy => policy.RequireClaim("IsSuperAdmin"));
 
                 Config.GetAppModulesList().ToList().ForEach(name =>
                 {
