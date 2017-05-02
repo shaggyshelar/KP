@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace ESPL.KP.Controllers.Area
 {
     [Route("api/areacollections")]
+    [Authorize]
     public class AreaCollectionsController : Controller
     {
         //Global Declaration

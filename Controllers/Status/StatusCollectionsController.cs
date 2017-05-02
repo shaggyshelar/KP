@@ -14,6 +14,7 @@ using ESPL.KP.Helpers.Core;
 namespace ESPL.KP.Controllers.Status
 {
     [Route("api/statuscollections")]
+    [Authorize]
     public class StatusCollectionsController : Controller
     {
         private ILibraryRepository _libraryRepository;

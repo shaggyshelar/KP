@@ -46,6 +46,8 @@ namespace ESPL.KP.Entities
 
         public DbSet<OccurrenceReviewHistory> OccurrenceReviewHistory { get; set; }
 
+        public DbSet<OccurrenceStatusHistory> OccurrenceStatusHistory { get; set; }
+
         public DbSet<MstEmployee> MstEmployee { get; set; }
         public DbSet<AppModule> AppModules { get; set; }
 

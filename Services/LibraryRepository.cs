@@ -600,6 +600,11 @@ namespace ESPL.KP.Services
             return _context.MstOccurrenceBook.Any(a => a.OBID == occurrenceBookId);
         }
 
+        public void UpdateOccurrenceBookAssignment(MstOccurrenceBook occurrenceBook)
+        {
+            // no code in this implementation
+        }
+
         #endregion OccurrenceBook
 
         #region AppModule
@@ -797,7 +802,7 @@ namespace ESPL.KP.Services
                 .Include(e => e.MstShift)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstStatus)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstOccurrenceType)
-                .Include(e =>e.ESPLUser)
+                .Include(e => e.ESPLUser)
                 .ApplySort(employeesResourceParameters.OrderBy,
                 _propertyMappingService.GetPropertyMapping<EmployeeDto, MstEmployee>());
 
@@ -836,7 +841,7 @@ namespace ESPL.KP.Services
                 .Include(e => e.MstShift)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstStatus)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstOccurrenceType)
-                .Include(e =>e.ESPLUser)
+                .Include(e => e.ESPLUser)
                 .FirstOrDefault(a => a.EmployeeID == employeeId);
         }
 
@@ -849,7 +854,7 @@ namespace ESPL.KP.Services
                 .Include(e => e.MstShift)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstStatus)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstOccurrenceType)
-                .Include(e =>e.ESPLUser)
+                .Include(e => e.ESPLUser)
                 .FirstOrDefault(a => a.UserID == userId.ToString());
         }
 
@@ -863,7 +868,7 @@ namespace ESPL.KP.Services
                 .Include(e => e.MstShift)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstStatus)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstOccurrenceType)
-                .Include(e =>e.ESPLUser)
+                .Include(e => e.ESPLUser)
                 .Where(a => employeeIds.Contains(a.EmployeeID))
                 .OrderBy(a => a.FirstName)
                 .ToList();
@@ -927,47 +932,47 @@ namespace ESPL.KP.Services
         {
             #region Occurrence Stats
             IQueryable<StatusStatistics> OccurrenceStatusStats = from p in _context.MstOccurrenceBook
-                                                       group p by p.MstStatus.StatusName into g
-                                                       select new StatusStatistics
-                                                       {
-                                                           StatusName = g.Key,
-                                                           Count = g.Count()
-                                                       };
+                                                                 group p by p.MstStatus.StatusName into g
+                                                                 select new StatusStatistics
+                                                                 {
+                                                                     StatusName = g.Key,
+                                                                     Count = g.Count()
+                                                                 };
             IQueryable<PriorityStatistics> OccurrencePriorityStats = from p in _context.MstOccurrenceBook
-                                                           group p by new { Priority = p.Priority } into g
-                                                           select new PriorityStatistics
-                                                           {
-                                                               Priority = g.Key.Priority,
-                                                               Count = g.Key.Priority.Count(),
-                                                           };
+                                                                     group p by new { Priority = p.Priority } into g
+                                                                     select new PriorityStatistics
+                                                                     {
+                                                                         Priority = g.Key.Priority,
+                                                                         Count = g.Key.Priority.Count(),
+                                                                     };
             int OccurrenceCount = _context.MstOccurrenceBook.Count();
             #endregion Occurrence Stats
 
             #region Officers Stats
-             IQueryable<StatusStatistics> OfficersStatusStats = from p in _context.MstOccurrenceBook
-                                                       where p.AssignedTO != null
-                                                       group p by p.MstStatus.StatusName into g
-                                                       select new StatusStatistics
-                                                       {
-                                                           StatusName = g.Key,
-                                                           Count = g.Count()
-                                                       };
+            IQueryable<StatusStatistics> OfficersStatusStats = from p in _context.MstOccurrenceBook
+                                                               where p.AssignedTO != null
+                                                               group p by p.MstStatus.StatusName into g
+                                                               select new StatusStatistics
+                                                               {
+                                                                   StatusName = g.Key,
+                                                                   Count = g.Count()
+                                                               };
             IQueryable<PriorityStatistics> OfficersPriorityStats = from p in _context.MstOccurrenceBook
-                                                           where p.AssignedTO != null
-                                                           //group p by new { Priority = p.Priority } into g
-                                                           group p by p.Priority into g
-                                                           select new PriorityStatistics
-                                                           {
-                                                               Priority = g.Key,
-                                                               Count = g.Count(),
-                                                           };
+                                                                   where p.AssignedTO != null
+                                                                   //group p by new { Priority = p.Priority } into g
+                                                                   group p by p.Priority into g
+                                                                   select new PriorityStatistics
+                                                                   {
+                                                                       Priority = g.Key,
+                                                                       Count = g.Count(),
+                                                                   };
             int OfficersCount = _context.MstEmployee.Count();
             #endregion Officers Stats
 
-            
 
-            OccurrencesStatistics OccurrencesStats =new OccurrencesStatistics();
-            OfficersStatistics OfficersStats =new OfficersStatistics();
+
+            OccurrencesStatistics OccurrencesStats = new OccurrencesStatistics();
+            OfficersStatistics OfficersStats = new OfficersStatistics();
 
             OccurrencesStats.StatusWiseStats = OccurrenceStatusStats;
             OccurrencesStats.PriorityWiseStats = OccurrencePriorityStats;
@@ -985,8 +990,8 @@ namespace ESPL.KP.Services
 
         // public Statistics GetOfficersStatistics(OccurrenceStatisticsResourceParameters occurrenceBookResourceParameters)
         // {
-           
-            
+
+
         //     Statistics collectionBeforePaging = new Statistics();
         //     collectionBeforePaging.OccurrencesStatistics.StatusWiseStats = statusStats;
         //     collectionBeforePaging.PriorityWiseStats = priorityStats;
@@ -994,5 +999,13 @@ namespace ESPL.KP.Services
         //     return collectionBeforePaging;
         // }
         #endregion Reports
+
+        #region OccurrenceAssignmentHistory
+        public void AddOccurrenceAssignmentHistory(OccurrenceAssignmentHistory occurrenceBookhistory)
+        {
+            occurrenceBookhistory.OBAssignmentID = Guid.NewGuid();
+            _context.OccurrenceAssignmentHistory.Add(occurrenceBookhistory);
+        }
+        #endregion OccurrenceAssignmentHistory
     }
 }
