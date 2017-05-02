@@ -333,6 +333,44 @@ namespace KP.Controllers.OccurrenceBook
             return NoContent();
         }
 
+        [Route("{id}/UpdateAssignedOfficer")]
+        [HttpPost("{id}")]
+        public IActionResult SetAssignedTo(Guid id, [FromBody] OccurrenceBookForAssignmentDto occurrenceBook)
+        {
+            if (occurrenceBook == null)
+            {
+                return BadRequest();
+            }
+            var occurrenceBookFromRepo = _libraryRepository.GetOccurrenceBook(id);
+
+            if (occurrenceBookFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            Mapper.Map(occurrenceBook, occurrenceBookFromRepo);
+            _libraryRepository.UpdateOccurrenceBook(occurrenceBookFromRepo);
+            if (!_libraryRepository.Save())
+            {
+                return StatusCode(500, "A problem happened with handling your request.");
+            }
+
+
+            var occurrenceBookHistoryEntity = Mapper.Map<OccurrenceAssignmentHistory>(occurrenceBook);
+            occurrenceBookHistoryEntity.OBID = id;
+
+            _libraryRepository.AddOccurrenceAssignmentHistory(occurrenceBookHistoryEntity);
+
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception("Creating an occurrenceBook failed on save.");
+                // return StatusCode(500, "A problem happened with handling your request.");
+            }
+
+
+            return Ok(occurrenceBookFromRepo);
+        }
+
         [HttpOptions]
         public IActionResult GetOccurrenceBookOptions()
         {
@@ -447,7 +485,6 @@ namespace KP.Controllers.OccurrenceBook
 
             return links;
         }
-
         private void SetItemHistoryData(OccurrenceBookForUpdationDto model, MstOccurrenceBook modelRepo)
         {
             model.CreatedOn = modelRepo.CreatedOn;

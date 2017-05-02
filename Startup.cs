@@ -345,6 +345,13 @@ namespace ESPL.KP
                     src.MstStatus));
 
                 cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceBook, ESPL.KP.Models.Statistics>();
+                cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceBook, ESPL.KP.Models.OccurrenceBookForAssignmentDto>();
+                cfg.CreateMap<ESPL.KP.Models.OccurrenceBookForAssignmentDto, ESPL.KP.Entities.MstOccurrenceBook>();
+                cfg.CreateMap<ESPL.KP.Entities.OccurrenceAssignmentHistory, ESPL.KP.Models.OccurrenceBookForAssignmentDto>();
+                cfg.CreateMap<ESPL.KP.Models.OccurrenceBookForAssignmentDto, ESPL.KP.Entities.OccurrenceAssignmentHistory>();
+
+
+
                 //    .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src =>
                 //    src.MstStatus.StatusName));
             });
@@ -377,7 +384,7 @@ namespace ESPL.KP
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-            
+
         }
     }
 }

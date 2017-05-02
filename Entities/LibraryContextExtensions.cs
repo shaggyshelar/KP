@@ -152,12 +152,6 @@ namespace ESPL.KP.Entities
 
             context.Authors.AddRange(authors);
             context.SaveChanges();
-
-
-
-
-            
-
             UpdateDepartments(context);
             UpdateArea(context);
             UpdateDesignation(context);
@@ -167,45 +161,47 @@ namespace ESPL.KP.Entities
             UpdateEmployee(context);
             UpdateOccurrenceBooks(context);
             UpdateAppModules(context);
+            UpdateOccurrenceBookAssignedToHistory(context);
+            UpdateOccurrenceBookReviewHistory(context);
             UpdateOuccurrenceStatusHistory(context);
-            
-
         }
 
         private static void UpdateOuccurrenceStatusHistory(LibraryContext context)
         {
-           context.OccurrenceStatusHistory.RemoveRange(context.OccurrenceStatusHistory);
-           context.SaveChanges();
-           var occurrenceStatusHistory=new List<OccurrenceStatusHistory>(){
+            context.OccurrenceStatusHistory.RemoveRange(context.OccurrenceStatusHistory);
+            context.SaveChanges();
+            var occurrenceStatusHistory = new List<OccurrenceStatusHistory>(){
                new OccurrenceStatusHistory(){
-                   OccurrenceStatusHistoryID=new Guid(""),
+                   OccurrenceStatusHistoryID=new Guid("2b72f829-5195-46c3-a6a4-06f817f12345"),
                    OBID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
                    StatusID=new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111")
 
                },
                new OccurrenceStatusHistory(){
-                   OccurrenceStatusHistoryID=new Guid(""),
+                   OccurrenceStatusHistoryID=new Guid("2b72f829-5195-46c3-a6a4-06f817f23456"),
                    OBID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
                    StatusID=new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1111"),
                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222")
 
                },
                 new OccurrenceStatusHistory(){
-                   OccurrenceStatusHistoryID=new Guid(""),
+                   OccurrenceStatusHistoryID=new Guid("2b72f829-5195-46c3-a6a4-06f817f34567"),
                    OBID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
                    StatusID=new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1221"),
                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222")
 
                },
                 new OccurrenceStatusHistory(){
-                   OccurrenceStatusHistoryID=new Guid(""),
+                   OccurrenceStatusHistoryID=new Guid("2b72f829-5195-46c3-a6a4-06f817f45678"),
                    OBID=new Guid("411bfab2-0d44-4fb9-8835-184db90f5678"),
                    StatusID=new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222")
 
                }
-           };
+            };
+            context.OccurrenceStatusHistory.AddRange(occurrenceStatusHistory);
+            context.SaveChanges();
         }
 
         private static void UpdateDesignation(LibraryContext context)
@@ -611,7 +607,8 @@ namespace ESPL.KP.Entities
                     AssignedTO = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef4444"),	//SGT
             		AssignedComments = "Assigned to a SGT in CID",
                     AssignedTime = DateTime.Now.AddDays(4),
-                    Priority = "Major"
+                    Priority = "Major",
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111")
                 },
                 new MstOccurrenceBook() {
                     OBID = new Guid("411bfab2-0d44-4fb9-8835-184db90f5678"),
@@ -631,7 +628,8 @@ namespace ESPL.KP.Entities
                     AssignedTO = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef3333"), //SAIG
             		AssignedComments = "Assigned to SAIG in CID",
                     AssignedTime = DateTime.Now.AddHours(-5),
-                    Priority = "Minor"
+                    Priority = "Minor",
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111")
                 },
                 new MstOccurrenceBook() {
                     OBID = new Guid("411bfab2-0d44-4fb9-8835-184db90f8878"),
@@ -651,7 +649,8 @@ namespace ESPL.KP.Entities
                     AssignedTO =new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222"),	//DIG
             		AssignedComments = "Assigned",
                     AssignedTime = DateTime.Now.AddDays(-5),
-                    Priority = "Major"
+                    Priority = "Major",
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111")
                 },
                 new MstOccurrenceBook() {
                     OBID = new Guid("411bfab2-0d44-4fb9-8835-184db90f7878"),
@@ -671,7 +670,8 @@ namespace ESPL.KP.Entities
                     Longitude = 73.812145,
                     Location = "Near HDFC bank",
                     AssignedTime = DateTime.Now,
-                    Priority = "Criticle"
+                    Priority = "Criticle",
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111")
                 },
                 new MstOccurrenceBook() {
                     OBID = new Guid("411bfab2-0d44-4fb9-8835-184db90f5545"),
@@ -691,7 +691,9 @@ namespace ESPL.KP.Entities
                     Longitude = 73.813422,
                     Location = "Near The oval",
                     AssignedTime = DateTime.Now,
-                    Priority = "Major"
+                    Priority = "Major",
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111"),
+                    UpdatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222")
                 }
 
             };
@@ -812,7 +814,7 @@ namespace ESPL.KP.Entities
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709471111"),	//GSU
             		ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90555"),			//General Officers
                     UserID= "56c385ae-ce46-41d4-b7fe-08df9aef7301"
-            	},
+                },
                 new MstEmployee{
                     EmployeeID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222"),
                     FirstName = "Jack",
@@ -888,7 +890,7 @@ namespace ESPL.KP.Entities
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90333"),			//reg night
                     UserID = "56c385ae-ce46-41d4-b7fe-08df9aef7202"
-            	},
+                },
                 new MstEmployee{
                     EmployeeID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666"),
                     FirstName = "Tony",
@@ -907,7 +909,7 @@ namespace ESPL.KP.Entities
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56111"),		//reg mid day
                     UserID = "56c385ae-ce46-41d4-b7fe-08df9aef7201"
-            	},
+                },
                 new MstEmployee{
                     EmployeeID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7777"),
                     FirstName = "Johny",
@@ -962,10 +964,74 @@ namespace ESPL.KP.Entities
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56111")		//reg mid day
             	},
-                
+
             };
 
             context.MstEmployee.AddRange(employee);
+            context.SaveChanges();
+        }
+
+        private static void UpdateOccurrenceBookAssignedToHistory(LibraryContext context)
+        {
+            context.OccurrenceAssignmentHistory.RemoveRange(context.OccurrenceAssignmentHistory);
+            context.SaveChanges();
+            var occAssignmentHistory = new List<OccurrenceAssignmentHistory>() {
+                new OccurrenceAssignmentHistory() {
+                    OBAssignmentID=new Guid("56c385ae-ce46-41d4-b7fe-08df9ae12345"),
+                    OBID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
+                    AssignedTO= new Guid("56c385ae-ce46-41d4-b7fe-08df9aef4444"),
+                    CreatedOn=DateTime.Now.AddHours(-1),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111")
+                },
+                new OccurrenceAssignmentHistory() {
+                    OBAssignmentID=new Guid("56c385ae-ce46-41d4-b7fe-08df9ae23456"),
+                    OBID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
+                    AssignedTO= new Guid("56c385ae-ce46-41d4-b7fe-08df9aef3333"),
+                    CreatedOn=DateTime.Now.AddHours(-2),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111")
+                },
+                new OccurrenceAssignmentHistory() {
+                    OBAssignmentID=new Guid("56c385ae-ce46-41d4-b7fe-08df9ae34567"),
+                    OBID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
+                    AssignedTO= new Guid("56c385ae-ce46-41d4-b7fe-08df9aef4444"),
+                    CreatedOn=DateTime.Now.AddHours(-3),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111")
+                }
+            };
+
+            context.OccurrenceAssignmentHistory.AddRange(occAssignmentHistory);
+            context.SaveChanges();
+        }
+
+        private static void UpdateOccurrenceBookReviewHistory(LibraryContext context)
+        {
+            context.OccurrenceReviewHistory.RemoveRange(context.OccurrenceReviewHistory);
+            context.SaveChanges();
+            var occAssignmentHistory = new List<OccurrenceReviewHistory>() {
+                new OccurrenceReviewHistory() {
+                    OBReviewHistoryID = new Guid("56c385ae-ce46-41d4-b7fe-08df9ae12345"),
+                    OBID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
+                    ReveiwComments = "test review comments 1",
+                    CreatedOn = DateTime.Now.AddHours(-1),
+                    CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111")
+                },
+                new OccurrenceReviewHistory() {
+                    OBReviewHistoryID = new Guid("56c385ae-ce46-41d4-b7fe-08df9ae23456"),
+                    OBID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
+                    ReveiwComments = "test review comments 2",
+                    CreatedOn = DateTime.Now.AddHours(-2),
+                    CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111")
+                },
+                new OccurrenceReviewHistory() {
+                    OBReviewHistoryID = new Guid("56c385ae-ce46-41d4-b7fe-08df9ae34567"),
+                    OBID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
+                    ReveiwComments = "test review comments 3",
+                    CreatedOn = DateTime.Now.AddHours(-3),
+                    CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111")
+                }
+            };
+
+            context.OccurrenceReviewHistory.AddRange(occAssignmentHistory);
             context.SaveChanges();
         }
     }
