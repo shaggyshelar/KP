@@ -48,7 +48,7 @@ namespace ESPL.KP.Controllers.Core
         [HttpHead]
         public async Task<IActionResult> GetRolePermissions(Guid roleId)
         {
-            var roleFromDB = _libraryRepository.GetESPLRole(roleId);
+            var roleFromDB = _libraryRepository.GetAppRole(roleId);
             if (roleFromDB == null)
             {
                 return NotFound("Role Not Found");
@@ -74,7 +74,7 @@ namespace ESPL.KP.Controllers.Core
                 return BadRequest();
             }
 
-            var roleFromDB = _libraryRepository.GetESPLRole(roleId);
+            var roleFromDB = _libraryRepository.GetAppRole(roleId);
             if (roleFromDB == null)
             {
                 return NotFound("Role Not Found");
@@ -101,7 +101,7 @@ namespace ESPL.KP.Controllers.Core
                 return BadRequest();
             }
 
-            var roleFromDB = _libraryRepository.GetESPLRole(roleId);
+            var roleFromDB = _libraryRepository.GetAppRole(roleId);
             if (roleFromDB == null)
             {
                 return NotFound("Role Not Found");

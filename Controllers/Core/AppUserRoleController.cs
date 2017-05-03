@@ -76,7 +76,7 @@ namespace ESPL.KP.Controllers.Core
             }
 
 
-            var roleFromDB = _libraryRepository.GetESPLRole(user.RoleId);
+            var roleFromDB = _libraryRepository.GetAppRole(user.RoleId);
             if (roleFromDB == null)
             {
                 return NotFound("Role Not Found");
@@ -109,7 +109,7 @@ namespace ESPL.KP.Controllers.Core
             }
 
 
-            var roleFromDB = _libraryRepository.GetESPLRole(user.RoleId);
+            var roleFromDB = _libraryRepository.GetAppRole(user.RoleId);
             if (roleFromDB == null)
             {
                 return NotFound("Role Not Found");

@@ -37,9 +37,9 @@ namespace ESPL.KP.Controllers.Core
             _typeHelperService = typeHelperService;
         }
 
-        [HttpGet(Name = "GetESPLRoles")]
+        [HttpGet(Name = "GetAppRoles")]
         [HttpHead]
-        public IActionResult GetESPLRoles(AppRolesResourceParameters esplRolesResourceParameters,
+        public IActionResult GetAppRoles(AppRolesResourceParameters esplRolesResourceParameters,
             [FromHeader(Name = "Accept")] string mediaType)
         {
             if (!_propertyMappingService.ValidMappingExistsFor<AppRoleDto, IdentityRole>
@@ -54,7 +54,7 @@ namespace ESPL.KP.Controllers.Core
                 return BadRequest();
             }
 
-            var esplRolesFromRepo = _libraryRepository.GetESPLRoles(esplRolesResourceParameters);
+            var esplRolesFromRepo = _libraryRepository.GetAppRoles(esplRolesResourceParameters);
 
             var esplRoles = new List<AppRoleDto>();
             esplRolesFromRepo.ForEach(esplRole =>
@@ -80,13 +80,13 @@ namespace ESPL.KP.Controllers.Core
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
 
-                var links = CreateLinksForESPLRoles(esplRolesResourceParameters,
+                var links = CreateLinksForAppRoles(esplRolesResourceParameters,
                     esplRolesFromRepo.HasNext, esplRolesFromRepo.HasPrevious);
 
-                var shapedESPLRoles = esplRoles.ShapeData(esplRolesResourceParameters.Fields);
+                var shapedAppRoles = esplRoles.ShapeData(esplRolesResourceParameters.Fields);
                 var linkedCollectionResource = new
                 {
-                    value = shapedESPLRoles,
+                    value = shapedAppRoles,
                     links = links
                 };
 
@@ -95,11 +95,11 @@ namespace ESPL.KP.Controllers.Core
             else
             {
                 var previousPageLink = esplRolesFromRepo.HasPrevious ?
-                    CreateESPLRolesResourceUri(esplRolesResourceParameters,
+                    CreateAppRolesResourceUri(esplRolesResourceParameters,
                     ResourceUriType.PreviousPage) : null;
 
                 var nextPageLink = esplRolesFromRepo.HasNext ?
-                    CreateESPLRolesResourceUri(esplRolesResourceParameters,
+                    CreateAppRolesResourceUri(esplRolesResourceParameters,
                     ResourceUriType.NextPage) : null;
 
                 var paginationMetadata = new
@@ -119,14 +119,14 @@ namespace ESPL.KP.Controllers.Core
             }
         }
 
-        private string CreateESPLRolesResourceUri(
+        private string CreateAppRolesResourceUri(
             AppRolesResourceParameters esplRolesResourceParameters,
             ResourceUriType type)
         {
             switch (type)
             {
                 case ResourceUriType.PreviousPage:
-                    return _urlHelper.Link("GetESPLRoles",
+                    return _urlHelper.Link("GetAppRoles",
                       new
                       {
                           fields = esplRolesResourceParameters.Fields,
@@ -136,7 +136,7 @@ namespace ESPL.KP.Controllers.Core
                           pageSize = esplRolesResourceParameters.PageSize
                       });
                 case ResourceUriType.NextPage:
-                    return _urlHelper.Link("GetESPLRoles",
+                    return _urlHelper.Link("GetAppRoles",
                       new
                       {
                           fields = esplRolesResourceParameters.Fields,
@@ -147,7 +147,7 @@ namespace ESPL.KP.Controllers.Core
                       });
                 case ResourceUriType.Current:
                 default:
-                    return _urlHelper.Link("GetESPLRoles",
+                    return _urlHelper.Link("GetAppRoles",
                     new
                     {
                         fields = esplRolesResourceParameters.Fields,
@@ -159,8 +159,8 @@ namespace ESPL.KP.Controllers.Core
             }
         }
 
-        [HttpGet("{id}", Name = "GetESPLRole")]
-        public IActionResult GetESPLRole(Guid id, [FromQuery] string fields)
+        [HttpGet("{id}", Name = "GetAppRole")]
+        public IActionResult GetAppRole(Guid id, [FromQuery] string fields)
         {
             if (!_typeHelperService.TypeHasProperties<AppRoleDto>
               (fields))
@@ -168,7 +168,7 @@ namespace ESPL.KP.Controllers.Core
                 return BadRequest();
             }
 
-            var esplRoleFromRepo = _libraryRepository.GetESPLRole(id);
+            var esplRoleFromRepo = _libraryRepository.GetAppRole(id);
 
             if (esplRoleFromRepo == null)
             {
@@ -177,7 +177,7 @@ namespace ESPL.KP.Controllers.Core
 
             var esplRole = Mapper.Map<AppRoleDto>(esplRoleFromRepo);
 
-            var links = CreateLinksForESPLRole(id, fields);
+            var links = CreateLinksForAppRole(id, fields);
 
             var linkedResourceToReturn = esplRole.ShapeData(fields)
                 as IDictionary<string, object>;
@@ -187,8 +187,8 @@ namespace ESPL.KP.Controllers.Core
             return Ok(linkedResourceToReturn);
         }
 
-        [HttpPost(Name = "CreateESPLRole")]
-        public IActionResult CreateESPLRole([FromBody] AppRoleForCreationDto esplRole)
+        [HttpPost(Name = "CreateAppRole")]
+        public IActionResult CreateAppRole([FromBody] AppRoleForCreationDto esplRole)
         {
             if (esplRole == null)
             {
@@ -197,7 +197,7 @@ namespace ESPL.KP.Controllers.Core
 
             var esplRoleEntity = Mapper.Map<IdentityRole>(esplRole);
 
-            _libraryRepository.AddESPLRole(esplRoleEntity);
+            _libraryRepository.AddAppRole(esplRoleEntity);
 
             if (!_libraryRepository.Save())
             {
@@ -207,23 +207,23 @@ namespace ESPL.KP.Controllers.Core
 
             var esplRoleToReturn = Mapper.Map<AppRoleDto>(esplRoleEntity);
 
-            var links = CreateLinksForESPLRole(esplRoleToReturn.Id, null);
+            var links = CreateLinksForAppRole(esplRoleToReturn.Id, null);
 
             var linkedResourceToReturn = esplRoleToReturn.ShapeData(null)
                 as IDictionary<string, object>;
 
             linkedResourceToReturn.Add("links", links);
 
-            return CreatedAtRoute("GetESPLRole",
+            return CreatedAtRoute("GetAppRole",
                 new { id = linkedResourceToReturn["Id"] },
                 linkedResourceToReturn);
         }
 
 
         [HttpPost("{id}")]
-        public IActionResult BlockESPLRoleCreation(Guid id)
+        public IActionResult BlockAppRoleCreation(Guid id)
         {
-            if (_libraryRepository.ESPLRoleExists(id))
+            if (_libraryRepository.AppRoleExists(id))
             {
                 return new StatusCodeResult(StatusCodes.Status409Conflict);
             }
@@ -231,16 +231,16 @@ namespace ESPL.KP.Controllers.Core
             return NotFound();
         }
 
-        [HttpDelete("{id}", Name = "DeleteESPLRole")]
-        public IActionResult DeleteESPLRole(Guid id)
+        [HttpDelete("{id}", Name = "DeleteAppRole")]
+        public IActionResult DeleteAppRole(Guid id)
         {
-            var esplRoleFromRepo = _libraryRepository.GetESPLRole(id);
+            var esplRoleFromRepo = _libraryRepository.GetAppRole(id);
             if (esplRoleFromRepo == null)
             {
                 return NotFound();
             }
 
-            _libraryRepository.DeleteESPLRole(esplRoleFromRepo);
+            _libraryRepository.DeleteAppRole(esplRoleFromRepo);
 
             if (!_libraryRepository.Save())
             {
@@ -250,44 +250,44 @@ namespace ESPL.KP.Controllers.Core
             return NoContent();
         }
 
-        private IEnumerable<LinkDto> CreateLinksForESPLRole(Guid id, string fields)
+        private IEnumerable<LinkDto> CreateLinksForAppRole(Guid id, string fields)
         {
             var links = new List<LinkDto>();
 
             if (string.IsNullOrWhiteSpace(fields))
             {
                 links.Add(
-                  new LinkDto(_urlHelper.Link("GetESPLRole", new { id = id }),
+                  new LinkDto(_urlHelper.Link("GetAppRole", new { id = id }),
                   "self",
                   "GET"));
             }
             else
             {
                 links.Add(
-                  new LinkDto(_urlHelper.Link("GetESPLRole", new { id = id, fields = fields }),
+                  new LinkDto(_urlHelper.Link("GetAppRole", new { id = id, fields = fields }),
                   "self",
                   "GET"));
             }
 
             links.Add(
-              new LinkDto(_urlHelper.Link("DeleteESPLRole", new { id = id }),
+              new LinkDto(_urlHelper.Link("DeleteAppRole", new { id = id }),
               "delete_esplRole",
               "DELETE"));
 
             links.Add(
-              new LinkDto(_urlHelper.Link("CreateBookForESPLRole", new { esplRoleId = id }),
+              new LinkDto(_urlHelper.Link("CreateBookForAppRole", new { esplRoleId = id }),
               "create_book_for_esplRole",
               "POST"));
 
             links.Add(
-               new LinkDto(_urlHelper.Link("GetBooksForESPLRole", new { esplRoleId = id }),
+               new LinkDto(_urlHelper.Link("GetBooksForAppRole", new { esplRoleId = id }),
                "books",
                "GET"));
 
             return links;
         }
 
-        private IEnumerable<LinkDto> CreateLinksForESPLRoles(
+        private IEnumerable<LinkDto> CreateLinksForAppRoles(
             AppRolesResourceParameters esplRolesResourceParameters,
             bool hasNext, bool hasPrevious)
         {
@@ -295,14 +295,14 @@ namespace ESPL.KP.Controllers.Core
 
             // self 
             links.Add(
-               new LinkDto(CreateESPLRolesResourceUri(esplRolesResourceParameters,
+               new LinkDto(CreateAppRolesResourceUri(esplRolesResourceParameters,
                ResourceUriType.Current)
                , "self", "GET"));
 
             if (hasNext)
             {
                 links.Add(
-                  new LinkDto(CreateESPLRolesResourceUri(esplRolesResourceParameters,
+                  new LinkDto(CreateAppRolesResourceUri(esplRolesResourceParameters,
                   ResourceUriType.NextPage),
                   "nextPage", "GET"));
             }
@@ -310,7 +310,7 @@ namespace ESPL.KP.Controllers.Core
             if (hasPrevious)
             {
                 links.Add(
-                    new LinkDto(CreateESPLRolesResourceUri(esplRolesResourceParameters,
+                    new LinkDto(CreateAppRolesResourceUri(esplRolesResourceParameters,
                     ResourceUriType.PreviousPage),
                     "previousPage", "GET"));
             }
@@ -319,7 +319,7 @@ namespace ESPL.KP.Controllers.Core
         }
 
         [HttpOptions]
-        public IActionResult GetESPLRolesOptions()
+        public IActionResult GetAppRolesOptions()
         {
             Response.Headers.Add("Allow", "GET,OPTIONS,POST");
             return Ok();

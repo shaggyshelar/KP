@@ -145,17 +145,17 @@ namespace ESPL.KP.Services
         #endregion AppUser
 
 
-        #region ESPLRole
+        #region AppRole
 
-        PagedList<IdentityRole> GetESPLRoles(AppRolesResourceParameters esplRoleResourceParameters);
-        IdentityRole GetESPLRole(Guid esplRoleId);
-        IEnumerable<IdentityRole> GetESPLRoles(IEnumerable<Guid> esplRoleIds);
-        void AddESPLRole(IdentityRole esplRole);
-        void DeleteESPLRole(IdentityRole esplRole);
-        void UpdateESPLRole(IdentityRole esplRole);
-        bool ESPLRoleExists(Guid esplRoleId);
+        PagedList<IdentityRole> GetAppRoles(AppRolesResourceParameters esplRoleResourceParameters);
+        IdentityRole GetAppRole(Guid esplRoleId);
+        IEnumerable<IdentityRole> GetAppRoles(IEnumerable<Guid> esplRoleIds);
+        void AddAppRole(IdentityRole esplRole);
+        void DeleteAppRole(IdentityRole esplRole);
+        void UpdateAppRole(IdentityRole esplRole);
+        bool AppRoleExists(Guid esplRoleId);
 
-        #endregion ESPLRole
+        #endregion AppRole
 
         #region Employee
         PagedList<MstEmployee> GetEmployees(EmployeesResourceParameters employeesResourceParameters);

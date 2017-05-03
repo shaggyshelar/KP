@@ -764,9 +764,9 @@ namespace ESPL.KP.Services
         #endregion AppUser
 
 
-        #region ESPLRole
+        #region AppRole
 
-        public PagedList<IdentityRole> GetESPLRoles(AppRolesResourceParameters esplRoleResourceParameters)
+        public PagedList<IdentityRole> GetAppRoles(AppRolesResourceParameters esplRoleResourceParameters)
         {
             var collectionBeforePaging =
                _roleMgr.Roles.ApplySort(esplRoleResourceParameters.OrderBy,
@@ -787,39 +787,39 @@ namespace ESPL.KP.Services
                 esplRoleResourceParameters.PageSize);
         }
 
-        public IdentityRole GetESPLRole(Guid esplRoleId)
+        public IdentityRole GetAppRole(Guid esplRoleId)
         {
             return _roleMgr.Roles.FirstOrDefault(a => a.Id == esplRoleId.ToString());
         }
 
-        public IEnumerable<IdentityRole> GetESPLRoles(IEnumerable<Guid> esplRoleIds)
+        public IEnumerable<IdentityRole> GetAppRoles(IEnumerable<Guid> esplRoleIds)
         {
             return _roleMgr.Roles.Where(a => esplRoleIds.Contains(new Guid(a.Id)))
                 .OrderBy(a => a.Name)
                 .ToList();
         }
 
-        public void AddESPLRole(IdentityRole esplRole)
+        public void AddAppRole(IdentityRole esplRole)
         {
             _roleMgr.CreateAsync(esplRole);
         }
 
-        public async void DeleteESPLRole(IdentityRole esplRole)
+        public async void DeleteAppRole(IdentityRole esplRole)
         {
             await _roleMgr.DeleteAsync(esplRole);
         }
 
-        public void UpdateESPLRole(IdentityRole esplRole)
+        public void UpdateAppRole(IdentityRole esplRole)
         {
             // no code in this implementation
         }
 
-        public bool ESPLRoleExists(Guid esplRoleId)
+        public bool AppRoleExists(Guid esplRoleId)
         {
             return _roleMgr.Roles.Any(a => a.Id == esplRoleId.ToString());
         }
 
-        #endregion ESPLRole
+        #endregion AppRole
 
         #region Employee
         public PagedList<MstEmployee> GetEmployees(EmployeesResourceParameters employeesResourceParameters)
