@@ -766,7 +766,7 @@ namespace ESPL.KP.Services
 
         #region ESPLRole
 
-        public PagedList<IdentityRole> GetESPLRoles(ESPLRolesResourceParameters esplRoleResourceParameters)
+        public PagedList<IdentityRole> GetESPLRoles(AppRolesResourceParameters esplRoleResourceParameters)
         {
             var collectionBeforePaging =
                _roleMgr.Roles.ApplySort(esplRoleResourceParameters.OrderBy,

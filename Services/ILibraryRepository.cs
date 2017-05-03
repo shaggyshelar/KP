@@ -147,7 +147,7 @@ namespace ESPL.KP.Services
 
         #region ESPLRole
 
-        PagedList<IdentityRole> GetESPLRoles(ESPLRolesResourceParameters esplRoleResourceParameters);
+        PagedList<IdentityRole> GetESPLRoles(AppRolesResourceParameters esplRoleResourceParameters);
         IdentityRole GetESPLRole(Guid esplRoleId);
         IEnumerable<IdentityRole> GetESPLRoles(IEnumerable<Guid> esplRoleIds);
         void AddESPLRole(IdentityRole esplRole);

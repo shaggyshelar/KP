@@ -209,7 +209,7 @@ namespace ESPL.KP.Services
             propertyMappings.Add(new PropertyMapping<StatusDto, MstStatus>(_statusPropertyMapping));
             propertyMappings.Add(new PropertyMapping<OccurrenceBookDto, MstOccurrenceBook>(_occurrencBookPropertyMapping));
             propertyMappings.Add(new PropertyMapping<AppModuleDto, AppModule>(_appModulesPropertyMapping));
-            propertyMappings.Add(new PropertyMapping<ESPLRoleDto, IdentityRole>(_esplRolesPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<AppRoleDto, IdentityRole>(_esplRolesPropertyMapping));
             propertyMappings.Add(new PropertyMapping<EmployeeDto, MstEmployee>(_employeePropertyMapping));
             propertyMappings.Add(new PropertyMapping<OccurrenceReportDto, MstOccurrenceBook>(_occurrenceReportPropertyMapping));
             propertyMappings.Add(new PropertyMapping<Statistics, MstOccurrenceBook>(_occurrenceStatisticsPropertyMapping));

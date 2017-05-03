@@ -39,16 +39,16 @@ namespace ESPL.KP.Controllers.Core
 
         [HttpGet(Name = "GetESPLRoles")]
         [HttpHead]
-        public IActionResult GetESPLRoles(ESPLRolesResourceParameters esplRolesResourceParameters,
+        public IActionResult GetESPLRoles(AppRolesResourceParameters esplRolesResourceParameters,
             [FromHeader(Name = "Accept")] string mediaType)
         {
-            if (!_propertyMappingService.ValidMappingExistsFor<ESPLRoleDto, IdentityRole>
+            if (!_propertyMappingService.ValidMappingExistsFor<AppRoleDto, IdentityRole>
                (esplRolesResourceParameters.OrderBy))
             {
                 return BadRequest();
             }
 
-            if (!_typeHelperService.TypeHasProperties<ESPLRoleDto>
+            if (!_typeHelperService.TypeHasProperties<AppRoleDto>
                 (esplRolesResourceParameters.Fields))
             {
                 return BadRequest();
@@ -56,11 +56,11 @@ namespace ESPL.KP.Controllers.Core
 
             var esplRolesFromRepo = _libraryRepository.GetESPLRoles(esplRolesResourceParameters);
 
-            var esplRoles = new List<ESPLRoleDto>();
+            var esplRoles = new List<AppRoleDto>();
             esplRolesFromRepo.ForEach(esplRole =>
             {
                 esplRoles.Add(
-                new ESPLRoleDto()
+                new AppRoleDto()
                 {
                     Id = new Guid(esplRole.Id),
                     Name = esplRole.Name
@@ -120,7 +120,7 @@ namespace ESPL.KP.Controllers.Core
         }
 
         private string CreateESPLRolesResourceUri(
-            ESPLRolesResourceParameters esplRolesResourceParameters,
+            AppRolesResourceParameters esplRolesResourceParameters,
             ResourceUriType type)
         {
             switch (type)
@@ -162,7 +162,7 @@ namespace ESPL.KP.Controllers.Core
         [HttpGet("{id}", Name = "GetESPLRole")]
         public IActionResult GetESPLRole(Guid id, [FromQuery] string fields)
         {
-            if (!_typeHelperService.TypeHasProperties<ESPLRoleDto>
+            if (!_typeHelperService.TypeHasProperties<AppRoleDto>
               (fields))
             {
                 return BadRequest();
@@ -175,7 +175,7 @@ namespace ESPL.KP.Controllers.Core
                 return NotFound();
             }
 
-            var esplRole = Mapper.Map<ESPLRoleDto>(esplRoleFromRepo);
+            var esplRole = Mapper.Map<AppRoleDto>(esplRoleFromRepo);
 
             var links = CreateLinksForESPLRole(id, fields);
 
@@ -188,7 +188,7 @@ namespace ESPL.KP.Controllers.Core
         }
 
         [HttpPost(Name = "CreateESPLRole")]
-        public IActionResult CreateESPLRole([FromBody] ESPLRoleForCreationDto esplRole)
+        public IActionResult CreateESPLRole([FromBody] AppRoleForCreationDto esplRole)
         {
             if (esplRole == null)
             {
@@ -205,7 +205,7 @@ namespace ESPL.KP.Controllers.Core
                 // return StatusCode(500, "A problem happened with handling your request.");
             }
 
-            var esplRoleToReturn = Mapper.Map<ESPLRoleDto>(esplRoleEntity);
+            var esplRoleToReturn = Mapper.Map<AppRoleDto>(esplRoleEntity);
 
             var links = CreateLinksForESPLRole(esplRoleToReturn.Id, null);
 
@@ -288,7 +288,7 @@ namespace ESPL.KP.Controllers.Core
         }
 
         private IEnumerable<LinkDto> CreateLinksForESPLRoles(
-            ESPLRolesResourceParameters esplRolesResourceParameters,
+            AppRolesResourceParameters esplRolesResourceParameters,
             bool hasNext, bool hasPrevious)
         {
             var links = new List<LinkDto>();
