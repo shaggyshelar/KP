@@ -174,5 +174,9 @@ namespace ESPL.KP.Services
         Statistics GetOccurrenceBooksStatistics(OccurrenceStatisticsResourceParameters occurrenceTypeResourceParameters);
         //OccurreceStatistics GetOfficersStatistics(OccurrenceStatisticsResourceParameters occurrenceTypeResourceParameters);
         #endregion
+
+         #region OccurrenceAssignmentHistory
+        void AddOccurrenceAssignmentHistory(OccurrenceAssignmentHistory occurrenceBookhistory);
+        #endregion OccurrenceAssignmentHistory
     }
 }

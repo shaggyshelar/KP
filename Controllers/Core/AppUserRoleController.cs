@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace ESPL.KP.Controllers.Core
 {
     [Route("api/appusers/{userId}/roles")]
-    [Authorize(Policy = "SystemAdmin")]
+    [Authorize(Policy = "IsSuperAdmin")]
     public class AppUserRoleController : Controller
     {
         private ILibraryRepository _libraryRepository;

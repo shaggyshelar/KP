@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace ESPL.KP.Controllers.Designation
 {
     [Route("api/Designationcollections")]
+    [Authorize]
     public class DesignationCollectionsController : Controller
     {
         //Global Declaration

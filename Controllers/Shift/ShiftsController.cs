@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace ESPL.KP.Controllers.Shift
 {
     [Route("api/shifts")]
+    [Authorize]
     public class ShiftsController : Controller
     {
         private ILibraryRepository _libraryRepository;

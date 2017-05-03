@@ -14,6 +14,7 @@ using ESPL.KP.Helpers.Core;
 namespace ESPL.KP.Controllers.Department
 {
     [Route("api/departmentcollections")]
+    [Authorize]
     public class DepartmentCollectionsController : Controller
     {
         private ILibraryRepository _libraryRepository;

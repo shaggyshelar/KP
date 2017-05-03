@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace KP.Controllers.Employee
 {
     [Route("api/employees")]
+    [Authorize]
     public class EmployeeController : Controller
     {
         private ILibraryRepository _libraryRepository;

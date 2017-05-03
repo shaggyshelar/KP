@@ -32,5 +32,13 @@ namespace ESPL.KP.Helpers.Core
         public static string DashboardShortName { get{
             return "DB";
         } }
+
+         public static string OccurrenceAssignmentShortName { get{
+            return "OA";
+        } }
+
+         public static string OccurrenceReviewShortName { get{
+            return "OR";
+        } }
     }
 }
