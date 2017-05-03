@@ -650,7 +650,7 @@ namespace KP.Controllers.OccurrenceBook
         [HttpGet("{id}/statushistory", Name = "GetStatusHistory")]
         [Authorize(Policy = Permissions.OccurrenceBookRead)]
         public IActionResult GetStatusHistory(Guid id, OccurrenceBookStatusResourceParameters occurrenceBookStatusResourceParameters,
-    [FromHeader(Name = "Accept")]string mediaType)
+        [FromHeader(Name = "Accept")]string mediaType)
         {
             if (!_propertyMappingService.ValidMappingExistsFor<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>
                 (occurrenceBookStatusResourceParameters.OrderBy))
@@ -794,7 +794,7 @@ namespace KP.Controllers.OccurrenceBook
             switch (type)
             {
                 case ResourceUriType.PreviousPage:
-                    return _urlHelper.Link("GetOccurrenceBookReviews",
+                    return _urlHelper.Link("GetOccurrenceBookStatuses",
                         new
                         {
                             fields = occurrenceBookStatusResourceParameters.Fields,
@@ -804,7 +804,7 @@ namespace KP.Controllers.OccurrenceBook
                             pageSize = occurrenceBookStatusResourceParameters.PageSize
                         });
                 case ResourceUriType.NextPage:
-                    return _urlHelper.Link("GetOccurrenceBookReviews",
+                    return _urlHelper.Link("GetOccurrenceBookStatuses",
                         new
                         {
                             fields = occurrenceBookStatusResourceParameters.Fields,
@@ -815,7 +815,7 @@ namespace KP.Controllers.OccurrenceBook
                         });
                 case ResourceUriType.Current:
                 default:
-                    return _urlHelper.Link("GetOccurrenceBookReviews",
+                    return _urlHelper.Link("GetOccurrenceBookStatuses",
                         new
                         {
                             fields = occurrenceBookStatusResourceParameters.Fields,
@@ -1009,7 +1009,7 @@ namespace KP.Controllers.OccurrenceBook
 
             links.Add(
               new LinkDto(_urlHelper.Link("CreateBookForOccurrenceBookReview", new { departmentId = id }),
-              "create_book_for_department",
+              "create_review_for_OccurrenceBook",
               "POST"));
 
             return links;
