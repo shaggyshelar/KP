@@ -245,8 +245,9 @@ namespace ESPL.KP.Controllers.Department
                 return NotFound();
             }
 
-            _libraryRepository.DeleteDepartment(departmentFromRepo);
-
+            //_libraryRepository.DeleteDepartment(departmentFromRepo);
+            //....... Soft Delete
+            departmentFromRepo.IsDelete = true;
             if (!_libraryRepository.Save())
             {
                 throw new Exception($"Deleting department {id} failed on save.");

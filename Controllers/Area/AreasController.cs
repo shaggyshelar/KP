@@ -243,8 +243,9 @@ namespace ESPL.KP.Controllerss.Area
                 return NotFound();
             }
 
-            _libraryRepository.DeleteArea(AreaFromRepo);
-
+            //_libraryRepository.DeleteArea(AreaFromRepo);
+            //....... Soft Delete
+            AreaFromRepo.IsDelete = true;
             if (!_libraryRepository.Save())
             {
                 throw new Exception($"Deleting Area {id} failed on save.");

@@ -244,8 +244,9 @@ namespace ESPL.KP.Controllers.Shift
                 return NotFound();
             }
 
-            _libraryRepository.DeleteShift(shiftFromRepo);
-
+            //_libraryRepository.DeleteShift(shiftFromRepo);
+            //....... Soft Delete
+            shiftFromRepo.IsDelete = true;
             if (!_libraryRepository.Save())
             {
                 throw new Exception($"Deleting shift {id} failed on save.");

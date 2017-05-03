@@ -10,6 +10,7 @@ namespace ESPL.KP.Entities
         {
             // first, clear the database.  This ensures we can always start 
             // fresh with each demo.  Not advised for production environments, obviously :-)
+            context.Books.RemoveRange(context.Books);
             context.Authors.RemoveRange(context.Authors);
             context.SaveChanges();
 
@@ -152,24 +153,39 @@ namespace ESPL.KP.Entities
 
             context.Authors.AddRange(authors);
             context.SaveChanges();
+            
+            context.OccurrenceAssignmentHistory.RemoveRange(context.OccurrenceAssignmentHistory);
+            context.OccurrenceReviewHistory.RemoveRange(context.OccurrenceReviewHistory);
+            context.OccurrenceStatusHistory.RemoveRange(context.OccurrenceStatusHistory);
+            context.MstOccurrenceBook.RemoveRange(context.MstOccurrenceBook);
+            context.MstEmployee.RemoveRange(context.MstEmployee);
+            context.MstArea.RemoveRange(context.MstArea);
+            context.MstDepartment.RemoveRange(context.MstDepartment);
+            context.MstDesignation.RemoveRange(context.MstDesignation);
+            context.MstOccurrenceType.RemoveRange(context.MstOccurrenceType);
+            context.MstStatus.RemoveRange(context.MstStatus);
+            context.MstShift.RemoveRange(context.MstShift);
+            context.AppModules.RemoveRange(context.AppModules);
+            context.SaveChanges();
+            
             UpdateDepartments(context);
             UpdateArea(context);
             UpdateDesignation(context);
             UpdateOccurrenceType(context);
             UpdateShifts(context);
-            UpdateStatus(context);
+            UpdateStatus(context);            
             UpdateEmployee(context);
             UpdateOccurrenceBooks(context);
-            UpdateAppModules(context);
             UpdateOccurrenceBookAssignedToHistory(context);
             UpdateOccurrenceBookReviewHistory(context);
-            UpdateOuccurrenceStatusHistory(context);
+            UpdateOuccurrenceStatusHistory(context);           
+            UpdateAppModules(context);
+
         }
 
         private static void UpdateOuccurrenceStatusHistory(LibraryContext context)
         {
-            context.OccurrenceStatusHistory.RemoveRange(context.OccurrenceStatusHistory);
-            context.SaveChanges();
+           
             var occurrenceStatusHistory = new List<OccurrenceStatusHistory>(){
                new OccurrenceStatusHistory(){
                    OccurrenceStatusHistoryID=new Guid("2b72f829-5195-46c3-a6a4-06f817f12345"),
@@ -206,8 +222,7 @@ namespace ESPL.KP.Entities
 
         private static void UpdateDesignation(LibraryContext context)
         {
-            context.MstDesignation.RemoveRange(context.MstDesignation);
-            context.SaveChanges();
+            
             var designations = new List<MstDesignation>() {
                 new MstDesignation() {
                     DesignationID = new Guid("2b72f829-5195-46c3-a6a4-06f817f11093"),
@@ -289,8 +304,7 @@ namespace ESPL.KP.Entities
         private static void UpdateArea(LibraryContext context)
         {
             #region Area
-            context.MstArea.RemoveRange(context.MstArea);
-            context.SaveChanges();
+            
             var areas = new List<MstArea>() {
                 new MstArea() {
                     AreaID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9579"),
@@ -389,8 +403,7 @@ namespace ESPL.KP.Entities
 
         public static void UpdateDepartments(this LibraryContext context)
         {
-            context.MstDepartment.RemoveRange(context.MstDepartment);
-            context.SaveChanges();
+            
 
             var departments = new List<MstDepartment>() {
                 new MstDepartment() {
@@ -462,8 +475,7 @@ namespace ESPL.KP.Entities
 
         private static void UpdateOccurrenceType(LibraryContext context)
         {
-            context.MstOccurrenceType.RemoveRange(context.MstOccurrenceType);
-            context.SaveChanges();
+            
             var occurrenceTypes = new List<MstOccurrenceType>() {
                 new MstOccurrenceType() {
                     OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf111"),
@@ -499,8 +511,7 @@ namespace ESPL.KP.Entities
 
         public static void UpdateShifts(this LibraryContext context)
         {
-            context.MstShift.RemoveRange(context.MstShift);
-            context.SaveChanges();
+            
             var shifts = new List<MstShift>() {
                 new MstShift() {
                     ShiftID = new Guid("318DC4DF-684A-444F-9E5A-18BB5EED1123"),
@@ -557,8 +568,6 @@ namespace ESPL.KP.Entities
 
         public static void UpdateStatus(this LibraryContext context)
         {
-            context.MstStatus.RemoveRange(context.MstStatus);
-            context.SaveChanges();
             var status = new List<MstStatus>() {
                 new MstStatus() {
                     StatusID = new Guid("EBEED096-EA34-43E2-948E-32BB98F31401"),
@@ -586,8 +595,7 @@ namespace ESPL.KP.Entities
 
         private static void UpdateOccurrenceBooks(LibraryContext context)
         {
-            context.MstOccurrenceBook.RemoveRange(context.MstOccurrenceBook);
-            context.SaveChanges();
+            
             var occurrenceBooks = new List<MstOccurrenceBook>() {
                 new MstOccurrenceBook() {
                     OBID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
@@ -705,8 +713,7 @@ namespace ESPL.KP.Entities
 
         public static void UpdateAppModules(this LibraryContext context)
         {
-            context.AppModules.RemoveRange(context.AppModules);
-            context.SaveChanges();
+            
 
             var appModules = new List<AppModule>() {
                 new AppModule() {
@@ -769,12 +776,6 @@ namespace ESPL.KP.Entities
                     MenuText = "Dashboard",
                     ShortName = "DB"
                 },
-                // new AppModule() {
-                //     Id = new Guid("1325360c-8253-473a-a23f-55c269c93456"),
-                //     Name = "Permissions",
-                //     MenuText = "Permissions",
-                //     ShortName = "PR"
-                // },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a23f-55c269c94567"),
                     Name = "Occurrence Assignment History",
@@ -793,8 +794,8 @@ namespace ESPL.KP.Entities
         }
         private static void UpdateEmployee(LibraryContext context)
         {
-            context.MstEmployee.RemoveRange(context.MstEmployee);
-            context.SaveChanges();
+
+            
             var employee = new List<MstEmployee>() {
                 new MstEmployee{
                     EmployeeID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111"),
@@ -973,8 +974,7 @@ namespace ESPL.KP.Entities
 
         private static void UpdateOccurrenceBookAssignedToHistory(LibraryContext context)
         {
-            context.OccurrenceAssignmentHistory.RemoveRange(context.OccurrenceAssignmentHistory);
-            context.SaveChanges();
+            
             var occAssignmentHistory = new List<OccurrenceAssignmentHistory>() {
                 new OccurrenceAssignmentHistory() {
                     OBAssignmentID=new Guid("56c385ae-ce46-41d4-b7fe-08df9ae12345"),
@@ -1005,8 +1005,7 @@ namespace ESPL.KP.Entities
 
         private static void UpdateOccurrenceBookReviewHistory(LibraryContext context)
         {
-            context.OccurrenceReviewHistory.RemoveRange(context.OccurrenceReviewHistory);
-            context.SaveChanges();
+            
             var occAssignmentHistory = new List<OccurrenceReviewHistory>() {
                 new OccurrenceReviewHistory() {
                     OBReviewHistoryID = new Guid("56c385ae-ce46-41d4-b7fe-08df9ae12345"),
