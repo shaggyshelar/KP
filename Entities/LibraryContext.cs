@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace ESPL.KP.Entities
 {
-    public class LibraryContext : IdentityDbContext<ESPLUser>
+    public class LibraryContext : IdentityDbContext<AppUser>
     {
         public LibraryContext(DbContextOptions<LibraryContext> options) : base(options)
         {

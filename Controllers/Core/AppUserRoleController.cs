@@ -26,14 +26,14 @@ namespace ESPL.KP.Controllers.Core
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
         private RoleManager<IdentityRole> _roleMgr;
-        private UserManager<ESPLUser> _userMgr;
+        private UserManager<AppUser> _userMgr;
 
 
         public AppUserRoleController(ILibraryRepository libraryRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService,
-            UserManager<ESPLUser> userMgr,
+            UserManager<AppUser> userMgr,
             RoleManager<IdentityRole> roleMgr)
         {
             _libraryRepository = libraryRepository;

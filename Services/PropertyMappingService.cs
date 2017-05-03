@@ -178,28 +178,28 @@ namespace ESPL.KP.Services
                { "StatusName", new PropertyMappingValue(new List<string>() { "StatusName" } )}
           };
 
-          private Dictionary<string, PropertyMappingValue> _occurrenceBooksReviewPropertyMapping =
-          new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
-          {
+        private Dictionary<string, PropertyMappingValue> _occurrenceBooksReviewPropertyMapping =
+        new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+        {
                { "OBReviewHistoryID", new PropertyMappingValue(new List<string>() { "OBReviewHistoryID" } )},
                { "OBID", new PropertyMappingValue(new List<string>() { "OBID" } )},
                 { "ReveiwComments", new PropertyMappingValue(new List<string>() { "ReveiwComments" } )},
-          };
+        };
 
-          private Dictionary<string, PropertyMappingValue> _occurrenceBooksStatusPropertyMapping =
-          new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
-          {
+        private Dictionary<string, PropertyMappingValue> _occurrenceBooksStatusPropertyMapping =
+        new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+        {
                { "OccurrenceStatusHistoryID", new PropertyMappingValue(new List<string>() { "OccurrenceStatusHistoryID" } )},
                { "OBID", new PropertyMappingValue(new List<string>() { "OBID" } )},
                 { "StatusID", new PropertyMappingValue(new List<string>() { "StatusID" } )},
                 { "Comments", new PropertyMappingValue(new List<string>() { "Comments" } )},
-          };
+        };
 
         private IList<IPropertyMapping> propertyMappings = new List<IPropertyMapping>();
 
         public PropertyMappingService()
         {
-            propertyMappings.Add(new PropertyMapping<ESPLUserDto, ESPLUser>(_esplUserPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<ESPLUserDto, AppUser>(_esplUserPropertyMapping));
             propertyMappings.Add(new PropertyMapping<AuthorDto, Author>(_authorPropertyMapping));
             propertyMappings.Add(new PropertyMapping<DepartmentDto, MstDepartment>(_departmentPropertyMapping));
             propertyMappings.Add(new PropertyMapping<OccurrenceTypeDto, MstOccurrenceType>(_occurrenctTypePropertyMapping));

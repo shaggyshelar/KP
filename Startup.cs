@@ -58,7 +58,7 @@ namespace ESPL.KP
             var connectionString = Configuration["connectionStrings:libraryDBConnectionString"];
             services.AddDbContext<LibraryContext>(o => o.UseSqlServer(connectionString));
             services.AddTransient<IdentityInitializer>();
-            services.AddIdentity<ESPLUser, IdentityRole>().AddEntityFrameworkStores<LibraryContext>();
+            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<LibraryContext>();
             services.Configure<IdentityOptions>(config =>
             {
                 config.Cookies.ApplicationCookie.Events =
@@ -271,9 +271,9 @@ namespace ESPL.KP
                 cfg.CreateMap<ESPL.KP.Models.Core.AppModuleForCreationDto, ESPL.KP.Entities.Core.AppModule>();
                 cfg.CreateMap<KP.Models.AppModuleForUpdationDto, ESPL.KP.Entities.Core.AppModule>();
                 cfg.CreateMap<ESPL.KP.Entities.Core.AppModule, ESPL.KP.Models.AppModuleForUpdationDto>();
-                cfg.CreateMap<ESPL.KP.Entities.ESPLUser, ESPL.KP.Models.Core.ESPLUserDto>();
+                cfg.CreateMap<ESPL.KP.Entities.AppUser, ESPL.KP.Models.Core.ESPLUserDto>();
 
-                cfg.CreateMap<ESPL.KP.Models.Core.ESPLUserForCreationDto, ESPL.KP.Entities.ESPLUser>();
+                cfg.CreateMap<ESPL.KP.Models.Core.ESPLUserForCreationDto, ESPL.KP.Entities.AppUser>();
                 cfg.CreateMap<IdentityRole, ESPL.KP.Models.Core.ESPLRoleDto>();
                 cfg.CreateMap<ESPL.KP.Models.Core.ESPLRoleForCreationDto, IdentityRole>();
 

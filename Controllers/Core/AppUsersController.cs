@@ -26,14 +26,14 @@ namespace ESPL.KP.Controllers.Core
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
         private RoleManager<IdentityRole> _roleMgr;
-        private UserManager<ESPLUser> _userMgr;
+        private UserManager<AppUser> _userMgr;
 
 
         public AppUserController(ILibraryRepository libraryRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService,
-            UserManager<ESPLUser> userMgr,
+            UserManager<AppUser> userMgr,
             RoleManager<IdentityRole> roleMgr)
         {
             _libraryRepository = libraryRepository;
@@ -48,7 +48,7 @@ namespace ESPL.KP.Controllers.Core
         public IActionResult GetESPLUsers(ESPLUsersResourceParameters esplUsersResourceParameters,
             [FromHeader(Name = "Accept")] string mediaType)
         {
-            if (!_propertyMappingService.ValidMappingExistsFor<ESPLUserDto, ESPLUser>
+            if (!_propertyMappingService.ValidMappingExistsFor<ESPLUserDto, AppUser>
                (esplUsersResourceParameters.OrderBy))
             {
                 return BadRequest();
@@ -204,7 +204,7 @@ namespace ESPL.KP.Controllers.Core
                 return BadRequest();
             }
 
-            var esplUserEntity = Mapper.Map<ESPLUser>(esplUser);
+            var esplUserEntity = Mapper.Map<AppUser>(esplUser);
 
             _libraryRepository.AddESPLUser(esplUserEntity);
 

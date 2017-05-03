@@ -71,7 +71,7 @@ namespace ESPL.KP.Entities
         public Guid ShiftID { get; set; }
 
         [ForeignKey ("UserID")]
-        public ESPLUser ESPLUser { get; set; }
+        public AppUser ESPLUser { get; set; }
         public string UserID { get; set; }
 
 

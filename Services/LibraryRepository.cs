@@ -27,11 +27,11 @@ namespace ESPL.KP.Services
         private LibraryContext _context;
         private IPropertyMappingService _propertyMappingService;
         private RoleManager<IdentityRole> _roleMgr;
-        private UserManager<ESPLUser> _userMgr;
+        private UserManager<AppUser> _userMgr;
 
         public LibraryRepository(LibraryContext context,
             IPropertyMappingService propertyMappingService,
-            UserManager<ESPLUser> userMgr,
+            UserManager<AppUser> userMgr,
             RoleManager<IdentityRole> roleMgr)
         {
             _context = context;
@@ -705,11 +705,11 @@ namespace ESPL.KP.Services
 
         #region ESPLUser
 
-        public PagedList<ESPLUser> GetESPLUsers(ESPLUsersResourceParameters esplUserResourceParameters)
+        public PagedList<AppUser> GetESPLUsers(ESPLUsersResourceParameters esplUserResourceParameters)
         {
             var collectionBeforePaging =
                _userMgr.Users.ApplySort(esplUserResourceParameters.OrderBy,
-                _propertyMappingService.GetPropertyMapping<ESPLUserDto, ESPLUser>());
+                _propertyMappingService.GetPropertyMapping<ESPLUserDto, AppUser>());
 
             if (!string.IsNullOrEmpty(esplUserResourceParameters.SearchQuery))
             {
@@ -723,17 +723,17 @@ namespace ESPL.KP.Services
                     || a.Email.ToLowerInvariant().Contains(searchQueryForWhereClause));
             }
 
-            return PagedList<ESPLUser>.Create(collectionBeforePaging,
+            return PagedList<AppUser>.Create(collectionBeforePaging,
                 esplUserResourceParameters.PageNumber,
                 esplUserResourceParameters.PageSize);
         }
 
-        public ESPLUser GetESPLUser(Guid esplUserId)
+        public AppUser GetESPLUser(Guid esplUserId)
         {
             return _userMgr.Users.FirstOrDefault(a => a.Id == esplUserId.ToString());
         }
 
-        public IEnumerable<ESPLUser> GetESPLUsers(IEnumerable<Guid> esplUserIds)
+        public IEnumerable<AppUser> GetESPLUsers(IEnumerable<Guid> esplUserIds)
         {
             return _userMgr.Users.Where(a => esplUserIds.Contains(new Guid(a.Id)))
                 .OrderBy(a => a.FirstName)
@@ -741,17 +741,17 @@ namespace ESPL.KP.Services
                 .ToList();
         }
 
-        public void AddESPLUser(ESPLUser esplUser)
+        public void AddESPLUser(AppUser esplUser)
         {
             _userMgr.CreateAsync(esplUser);
         }
 
-        public async void DeleteESPLUser(ESPLUser esplUser)
+        public async void DeleteESPLUser(AppUser esplUser)
         {
             await _userMgr.DeleteAsync(esplUser);
         }
 
-        public void UpdateESPLUser(ESPLUser esplUser)
+        public void UpdateESPLUser(AppUser esplUser)
         {
             // no code in this implementation
         }
@@ -761,7 +761,7 @@ namespace ESPL.KP.Services
             return _userMgr.Users.Any(a => a.Id == esplUserId.ToString());
         }
 
-        #endregion ESPLUser
+        #endregion AppUser
 
 
         #region ESPLRole

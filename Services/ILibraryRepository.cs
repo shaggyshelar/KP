@@ -134,12 +134,12 @@ namespace ESPL.KP.Services
 
         #region ESPLUser
 
-        PagedList<ESPLUser> GetESPLUsers(ESPLUsersResourceParameters esplUserResourceParameters);
-        ESPLUser GetESPLUser(Guid esplUserId);
-        IEnumerable<ESPLUser> GetESPLUsers(IEnumerable<Guid> esplUserIds);
-        void AddESPLUser(ESPLUser esplUser);
-        void DeleteESPLUser(ESPLUser esplUser);
-        void UpdateESPLUser(ESPLUser esplUser);
+        PagedList<AppUser> GetESPLUsers(ESPLUsersResourceParameters esplUserResourceParameters);
+        AppUser GetESPLUser(Guid esplUserId);
+        IEnumerable<AppUser> GetESPLUsers(IEnumerable<Guid> esplUserIds);
+        void AddESPLUser(AppUser esplUser);
+        void DeleteESPLUser(AppUser esplUser);
+        void UpdateESPLUser(AppUser esplUser);
         bool ESPLUserExists(Guid esplUserId);
 
         #endregion ESPLUser

@@ -11,9 +11,9 @@ namespace ESPL.KP.Entities
     public class IdentityInitializer
     {
         private RoleManager<IdentityRole> _roleMgr;
-        private UserManager<ESPLUser> _userMgr;
+        private UserManager<AppUser> _userMgr;
 
-        public IdentityInitializer(UserManager<ESPLUser> userMgr, RoleManager<IdentityRole> roleMgr)
+        public IdentityInitializer(UserManager<AppUser> userMgr, RoleManager<IdentityRole> roleMgr)
         {
             _userMgr = userMgr;
             _roleMgr = roleMgr;
@@ -28,7 +28,7 @@ namespace ESPL.KP.Entities
                 await _roleMgr.CreateAsync(role);
             }
 
-            var adminUser = new ESPLUser()
+            var adminUser = new AppUser()
             {
                 UserName = "espladmin",
                 FirstName = "ESPL",
@@ -54,7 +54,7 @@ namespace ESPL.KP.Entities
                 await _roleMgr.CreateAsync(role);
             }
 
-            var user = new ESPLUser()
+            var user = new AppUser()
             {
                 UserName = "esplmanager",
                 FirstName = "ESPL",
@@ -84,7 +84,7 @@ namespace ESPL.KP.Entities
                 await _roleMgr.CreateAsync(role);
             }
 
-            var user = new ESPLUser()
+            var user = new AppUser()
             {
                 UserName = "esplemployee",
                 FirstName = "ESPL",
@@ -130,30 +130,30 @@ namespace ESPL.KP.Entities
 
         public async Task AddAllEmployees()
         {
-            List<ESPLUser> allUsers = new List<ESPLUser>()
+            List<AppUser> allUsers = new List<AppUser>()
             {
-                new ESPLUser()
+                new AppUser()
                 {
                     UserName = "esplemployee",
                     Id = "56c385ae-ce46-41d4-b7fe-08df9aef7301",
                     FirstName = "ESPL",
                     LastName = "Employee",
                     Email = "espl.employee@eternussolutions.com"
-                },new ESPLUser()
+                },new AppUser()
                 {
                     UserName = "esplemployee1",
                     Id = "56c385ae-ce46-41d4-b7fe-08df9aef7302",
                     FirstName = "ESPL 1",
                     LastName = "Employee 1",
                     Email = "espl.employee1@eternussolutions.com"
-                },new ESPLUser()
+                },new AppUser()
                 {
                     UserName = "esplemployee2",
                     Id = "56c385ae-ce46-41d4-b7fe-08df9aef7303",
                     FirstName = "ESPL 2",
                     LastName = "Employee 2",
                     Email = "espl.employee2@eternussolutions.com"
-                },new ESPLUser()
+                },new AppUser()
                 {
                     UserName = "esplemployee3",
                     Id = "56c385ae-ce46-41d4-b7fe-08df9aef7304",
@@ -174,7 +174,7 @@ namespace ESPL.KP.Entities
                 await _roleMgr.CreateAsync(role);
             }
 
-            foreach (ESPLUser user in allUsers)
+            foreach (AppUser user in allUsers)
             {
                 var userResult = await _userMgr.CreateAsync(user, "Espl@123");
                 var roleResult = await _userMgr.AddToRoleAsync(user, "Employee");
@@ -189,22 +189,22 @@ namespace ESPL.KP.Entities
 
         public async Task AddAllManagers()
         {
-            List<ESPLUser> allUsers = new List<ESPLUser>() {
-                new ESPLUser() {
+            List<AppUser> allUsers = new List<AppUser>() {
+                new AppUser() {
                     UserName = "esplmanager",
                     Id = "56c385ae-ce46-41d4-b7fe-08df9aef7201",
                     FirstName = "ESPL 1",
                     LastName = "Manager",
                     Email = "espl.manager1@eternussolutions.com"
                 },
-                new ESPLUser() {
+                new AppUser() {
                     UserName = "esplmanager1",
                     Id = "56c385ae-ce46-41d4-b7fe-08df9aef7202",
                     FirstName = "ESPL 2",
                     LastName = "Manager",
                     Email = "espl.manager2@eternussolutions.com"
                 },
-                new ESPLUser() {
+                new AppUser() {
                     UserName = "esplmanager2",
                     Id = "56c385ae-ce46-41d4-b7fe-08df9aef7203",
                     FirstName = "ESPL 3",
@@ -239,8 +239,8 @@ namespace ESPL.KP.Entities
 
         public async Task AddAllAdmins()
         {
-            List<ESPLUser> allUsers = new List<ESPLUser>() {
-                new ESPLUser() {
+            List<AppUser> allUsers = new List<AppUser>() {
+                new AppUser() {
                     UserName = "tomcruise",
                     Id = "56c385ae-ce46-41d4-b7fe-08df9aef7102",
                     FirstName = "Tom",
@@ -342,16 +342,16 @@ namespace ESPL.KP.Entities
 
         public async Task AddAllConstables()
         {
-            List<ESPLUser> allUsers = new List<ESPLUser>()
+            List<AppUser> allUsers = new List<AppUser>()
             {
-                new ESPLUser()
+                new AppUser()
                 {
                     Id = "56c385ae-ce46-41d4-b7fe-08df9aef7301",
                     UserName = "tonystark",
                     FirstName = "Tony",
                     LastName = "Stark",
                     Email = "tony.stark@kenyapolice.com"
-                },new ESPLUser()
+                },new AppUser()
                 {
                     Id = "56c385ae-ce46-41d4-b7fe-08df9aef7302",
                     UserName = "steverogers",
@@ -400,9 +400,9 @@ namespace ESPL.KP.Entities
 
         public async Task AddAllSergeant()
         {
-            List<ESPLUser> allUsers = new List<ESPLUser>()
+            List<AppUser> allUsers = new List<AppUser>()
             {
-                new ESPLUser()
+                new AppUser()
                 {
                     Id = "56c385ae-ce46-41d4-b7fe-08df9aef7303",
                     UserName = "bradpitt",
@@ -451,9 +451,9 @@ namespace ESPL.KP.Entities
 
         public async Task AddAllSAIG()
         {
-            List<ESPLUser> allUsers = new List<ESPLUser>()
+            List<AppUser> allUsers = new List<AppUser>()
             {
-                new ESPLUser()
+                new AppUser()
                 {
                     Id = "56c385ae-ce46-41d4-b7fe-08df9aef7201",
                     UserName = "angelinajolie",
@@ -516,9 +516,9 @@ namespace ESPL.KP.Entities
 
         public async Task AddAllDIG()
         {
-            List<ESPLUser> allUsers = new List<ESPLUser>()
+            List<AppUser> allUsers = new List<AppUser>()
             {
-                new ESPLUser()
+                new AppUser()
                 {
                     Id = "56c385ae-ce46-41d4-b7fe-08df9aef7202",
                     UserName = "jacksparrow",
@@ -575,9 +575,9 @@ namespace ESPL.KP.Entities
 
         public async Task AddAllIG()
         {
-            List<ESPLUser> allUsers = new List<ESPLUser>()
+            List<AppUser> allUsers = new List<AppUser>()
             {
-                new ESPLUser()
+                new AppUser()
                 {
                     Id = "56c385ae-ce46-41d4-b7fe-08df9aef7203",
                     UserName = "johndoe",
@@ -644,9 +644,9 @@ namespace ESPL.KP.Entities
 
         public async Task AddAllASP()
         {
-            List<ESPLUser> allUsers = new List<ESPLUser>()
+            List<AppUser> allUsers = new List<AppUser>()
             {
-                new ESPLUser()
+                new AppUser()
                 {
                     Id = "56c385ae-ce46-41d4-b7fe-08df9aef7204",
                     UserName = "johnydepp",
@@ -696,9 +696,9 @@ namespace ESPL.KP.Entities
 
         public async Task AddAllSuperAdmins()
         {
-            List<ESPLUser> allUsers = new List<ESPLUser>()
+            List<AppUser> allUsers = new List<AppUser>()
             {
-                new ESPLUser()
+                new AppUser()
                 {
                     Id = "56c385ae-ce46-41d4-b7fe-08df9aef7101",
                     UserName = "nickjones",
@@ -777,11 +777,11 @@ namespace ESPL.KP.Entities
             await AddUserWithRole(allUsers, "SuperAdmin", "Espl@123");
         }
 
-        public async Task AddUserWithRole(List<ESPLUser> allUsers, string roleName, string password)
+        public async Task AddUserWithRole(List<AppUser> allUsers, string roleName, string password)
         {
 
 
-            foreach (ESPLUser user in allUsers)
+            foreach (AppUser user in allUsers)
             {
                 var userResult = await _userMgr.CreateAsync(user, password);
                 var roleResult = await _userMgr.AddToRoleAsync(user, roleName);
