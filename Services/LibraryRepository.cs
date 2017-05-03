@@ -527,7 +527,7 @@ namespace ESPL.KP.Services
                 .Include(ob => ob.MstDepartment)
                 .Include(ob => ob.MstOccurrenceType)
                 .Include(ob => ob.MstStatus)
-                .Include(ob => ob.MstEmployee).ThenInclude(e => e.ESPLUser)
+                .Include(ob => ob.MstEmployee).ThenInclude(e => e.AppUser)
                 .ApplySort(occurrenceBookResourceParameters.OrderBy,
                 _propertyMappingService.GetPropertyMapping<OccurrenceBookDto, MstOccurrenceBook>());
 
@@ -591,7 +591,7 @@ namespace ESPL.KP.Services
                 .Include(ob => ob.MstDepartment)
                 .Include(ob => ob.MstOccurrenceType)
                 .Include(ob => ob.MstStatus)
-                .Include(ob => ob.MstEmployee).ThenInclude(e => e.ESPLUser)
+                .Include(ob => ob.MstEmployee).ThenInclude(e => e.AppUser)
                 .FirstOrDefault(a => a.OBID == occurrenceBookId);
         }
 
@@ -603,7 +603,7 @@ namespace ESPL.KP.Services
                 .Include(ob => ob.MstDepartment)
                 .Include(ob => ob.MstOccurrenceType)
                 .Include(ob => ob.MstStatus)
-                .Include(ob => ob.MstEmployee).ThenInclude(e => e.ESPLUser)
+                .Include(ob => ob.MstEmployee).ThenInclude(e => e.AppUser)
                 .Where(a => occurrenceBookIds.Contains(a.OBID))
                 .OrderBy(a => a.OBTime)
                 .ToList();
@@ -703,13 +703,13 @@ namespace ESPL.KP.Services
 
 
 
-        #region ESPLUser
+        #region AppUser
 
-        public PagedList<AppUser> GetESPLUsers(ESPLUsersResourceParameters esplUserResourceParameters)
+        public PagedList<AppUser> GetAppUsers(AppUsersResourceParameters esplUserResourceParameters)
         {
             var collectionBeforePaging =
                _userMgr.Users.ApplySort(esplUserResourceParameters.OrderBy,
-                _propertyMappingService.GetPropertyMapping<ESPLUserDto, AppUser>());
+                _propertyMappingService.GetPropertyMapping<AppUserDto, AppUser>());
 
             if (!string.IsNullOrEmpty(esplUserResourceParameters.SearchQuery))
             {
@@ -728,12 +728,12 @@ namespace ESPL.KP.Services
                 esplUserResourceParameters.PageSize);
         }
 
-        public AppUser GetESPLUser(Guid esplUserId)
+        public AppUser GetAppUser(Guid esplUserId)
         {
             return _userMgr.Users.FirstOrDefault(a => a.Id == esplUserId.ToString());
         }
 
-        public IEnumerable<AppUser> GetESPLUsers(IEnumerable<Guid> esplUserIds)
+        public IEnumerable<AppUser> GetAppUsers(IEnumerable<Guid> esplUserIds)
         {
             return _userMgr.Users.Where(a => esplUserIds.Contains(new Guid(a.Id)))
                 .OrderBy(a => a.FirstName)
@@ -741,22 +741,22 @@ namespace ESPL.KP.Services
                 .ToList();
         }
 
-        public void AddESPLUser(AppUser esplUser)
+        public void AddAppUser(AppUser esplUser)
         {
             _userMgr.CreateAsync(esplUser);
         }
 
-        public async void DeleteESPLUser(AppUser esplUser)
+        public async void DeleteAppUser(AppUser esplUser)
         {
             await _userMgr.DeleteAsync(esplUser);
         }
 
-        public void UpdateESPLUser(AppUser esplUser)
+        public void UpdateAppUser(AppUser esplUser)
         {
             // no code in this implementation
         }
 
-        public bool ESPLUserExists(Guid esplUserId)
+        public bool AppUserExists(Guid esplUserId)
         {
             return _userMgr.Users.Any(a => a.Id == esplUserId.ToString());
         }
@@ -833,7 +833,7 @@ namespace ESPL.KP.Services
                 .Include(e => e.MstShift)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstStatus)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstOccurrenceType)
-                .Include(e => e.ESPLUser)
+                .Include(e => e.AppUser)
                 .ApplySort(employeesResourceParameters.OrderBy,
                 _propertyMappingService.GetPropertyMapping<EmployeeDto, MstEmployee>());
 
@@ -882,7 +882,7 @@ namespace ESPL.KP.Services
                     || a.MstDesignation.DesignationName.ToLowerInvariant().Contains(searchQueryForWhereClause)
                     || a.MstDepartment.DepartmentName.ToLowerInvariant().Contains(searchQueryForWhereClause)
                     || a.MstArea.AreaName.ToLowerInvariant().Contains(searchQueryForWhereClause)
-                    || a.ESPLUser.UserName.ToLowerInvariant().Contains(searchQueryForWhereClause));
+                    || a.AppUser.UserName.ToLowerInvariant().Contains(searchQueryForWhereClause));
 
             }
 
@@ -901,7 +901,7 @@ namespace ESPL.KP.Services
                 .Include(e => e.MstShift)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstStatus)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstOccurrenceType)
-                .Include(e => e.ESPLUser)
+                .Include(e => e.AppUser)
                 .FirstOrDefault(a => a.EmployeeID == employeeId);
         }
 
@@ -915,7 +915,7 @@ namespace ESPL.KP.Services
                 .Include(e => e.MstShift)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstStatus)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstOccurrenceType)
-                .Include(e => e.ESPLUser)
+                .Include(e => e.AppUser)
                 .FirstOrDefault(a => a.UserID == userId.ToString());
         }
 
@@ -930,7 +930,7 @@ namespace ESPL.KP.Services
                 .Include(e => e.MstShift)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstStatus)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstOccurrenceType)
-                .Include(e => e.ESPLUser)
+                .Include(e => e.AppUser)
                 .Where(a => employeeIds.Contains(a.EmployeeID))
                 .OrderBy(a => a.FirstName)
                 .ToList();

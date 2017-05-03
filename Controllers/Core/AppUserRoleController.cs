@@ -48,7 +48,7 @@ namespace ESPL.KP.Controllers.Core
         [HttpHead]
         public async Task<IActionResult> GetUserRoles(Guid userId)
         {
-            var userFromDB = _libraryRepository.GetESPLUser(userId);
+            var userFromDB = _libraryRepository.GetAppUser(userId);
             if (userFromDB == null)
             {
                 return NotFound("User Not Found");
@@ -69,7 +69,7 @@ namespace ESPL.KP.Controllers.Core
                 return BadRequest();
             }
 
-            var userFromDB = _libraryRepository.GetESPLUser(userId);
+            var userFromDB = _libraryRepository.GetAppUser(userId);
             if (userFromDB == null)
             {
                 return NotFound("User Not Found");
@@ -102,7 +102,7 @@ namespace ESPL.KP.Controllers.Core
                 return BadRequest();
             }
 
-            var userFromDB = _libraryRepository.GetESPLUser(userId);
+            var userFromDB = _libraryRepository.GetAppUser(userId);
             if (userFromDB == null)
             {
                 return NotFound("User Not Found");

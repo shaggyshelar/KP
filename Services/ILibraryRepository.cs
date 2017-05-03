@@ -132,17 +132,17 @@ namespace ESPL.KP.Services
 
         #endregion AppModule
 
-        #region ESPLUser
+        #region AppUser
 
-        PagedList<AppUser> GetESPLUsers(ESPLUsersResourceParameters esplUserResourceParameters);
-        AppUser GetESPLUser(Guid esplUserId);
-        IEnumerable<AppUser> GetESPLUsers(IEnumerable<Guid> esplUserIds);
-        void AddESPLUser(AppUser esplUser);
-        void DeleteESPLUser(AppUser esplUser);
-        void UpdateESPLUser(AppUser esplUser);
-        bool ESPLUserExists(Guid esplUserId);
+        PagedList<AppUser> GetAppUsers(AppUsersResourceParameters esplUserResourceParameters);
+        AppUser GetAppUser(Guid esplUserId);
+        IEnumerable<AppUser> GetAppUsers(IEnumerable<Guid> esplUserIds);
+        void AddAppUser(AppUser esplUser);
+        void DeleteAppUser(AppUser esplUser);
+        void UpdateAppUser(AppUser esplUser);
+        bool AppUserExists(Guid esplUserId);
 
-        #endregion ESPLUser
+        #endregion AppUser
 
 
         #region ESPLRole

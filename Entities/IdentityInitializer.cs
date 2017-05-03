@@ -247,7 +247,7 @@ namespace ESPL.KP.Entities
                     LastName = "Cruise",
                     Email = "tom.cruise@eternussolutions.com"
                 },
-                // new ESPLUser() {
+                // new AppUser() {
                 //     UserName = "espladmin1",
                 //     Id = "56c385ae-ce46-41d4-b7fe-08df9aef7102",
                 //     FirstName = "ESPL1",

@@ -144,7 +144,7 @@ namespace ESPL.KP.Services
             { "MstShift.ShiftName", new PropertyMappingValue(new List<string>() { "MstShift.ShiftName" } ) },
             { "MstOccurrenceBooks.MstStatus.StatusName", new PropertyMappingValue(new List<string>() { "MstOccurrenceBooks.MstStatus.StatusName" } ) },
             { "MstOccurrenceBooks.MstOccurrenceType.OBTypeName", new PropertyMappingValue(new List<string>() { "MstOccurrenceBooks.MstOccurrenceType.OBTypeName" } ) },
-            { "ESPLUser.UserName", new PropertyMappingValue(new List<string>() { "ESPLUser.UserName" } ) }
+            { "AppUser.UserName", new PropertyMappingValue(new List<string>() { "AppUser.UserName" } ) }
         };
 
         private Dictionary<string, PropertyMappingValue> _occurrenceReportPropertyMapping =
@@ -169,7 +169,7 @@ namespace ESPL.KP.Services
             { "MstStatus.StatusName", new PropertyMappingValue(new List<string>() { "MstStatus.StatusName" } ) },
             { "MstDepartment.DepartmentName", new PropertyMappingValue(new List<string>() { "MstDepartment.DepartmentName" } ) },
             { "MstEmployee.FirstName", new PropertyMappingValue(new List<string>() { "MstEmployee.FirstName" } ) },
-            { "MstEmployee.ESPLUser.UserName", new PropertyMappingValue(new List<string>() { "MstEmployee.ESPLUser.UserName" } ) }
+            { "MstEmployee.AppUser.UserName", new PropertyMappingValue(new List<string>() { "MstEmployee.AppUser.UserName" } ) }
         };
 
         private Dictionary<string, PropertyMappingValue> _occurrenceStatisticsPropertyMapping =
@@ -199,7 +199,7 @@ namespace ESPL.KP.Services
 
         public PropertyMappingService()
         {
-            propertyMappings.Add(new PropertyMapping<ESPLUserDto, AppUser>(_esplUserPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<AppUserDto, AppUser>(_esplUserPropertyMapping));
             propertyMappings.Add(new PropertyMapping<AuthorDto, Author>(_authorPropertyMapping));
             propertyMappings.Add(new PropertyMapping<DepartmentDto, MstDepartment>(_departmentPropertyMapping));
             propertyMappings.Add(new PropertyMapping<OccurrenceTypeDto, MstOccurrenceType>(_occurrenctTypePropertyMapping));

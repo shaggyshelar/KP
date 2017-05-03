@@ -51,7 +51,7 @@ namespace ESPL.KP.Models
         public MstShift MstShift { get; set; }
         public ICollection<MstOccurrenceBook> MstOccurrenceBooks { get; set; }
 
-        public AppUser ESPLUser { get; set; }
+        public AppUser AppUser { get; set; }
         
 
     }

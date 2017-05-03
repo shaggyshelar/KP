@@ -271,9 +271,9 @@ namespace ESPL.KP
                 cfg.CreateMap<ESPL.KP.Models.Core.AppModuleForCreationDto, ESPL.KP.Entities.Core.AppModule>();
                 cfg.CreateMap<KP.Models.AppModuleForUpdationDto, ESPL.KP.Entities.Core.AppModule>();
                 cfg.CreateMap<ESPL.KP.Entities.Core.AppModule, ESPL.KP.Models.AppModuleForUpdationDto>();
-                cfg.CreateMap<ESPL.KP.Entities.AppUser, ESPL.KP.Models.Core.ESPLUserDto>();
+                cfg.CreateMap<ESPL.KP.Entities.AppUser, ESPL.KP.Models.Core.AppUserDto>();
 
-                cfg.CreateMap<ESPL.KP.Models.Core.ESPLUserForCreationDto, ESPL.KP.Entities.AppUser>();
+                cfg.CreateMap<ESPL.KP.Models.Core.AppUserForCreationDto, ESPL.KP.Entities.AppUser>();
                 cfg.CreateMap<IdentityRole, ESPL.KP.Models.Core.ESPLRoleDto>();
                 cfg.CreateMap<ESPL.KP.Models.Core.ESPLRoleForCreationDto, IdentityRole>();
 
