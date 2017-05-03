@@ -603,6 +603,228 @@ namespace KP.Controllers.OccurrenceBook
             return Ok(occurrenceBookFromRepo);
         }
 
+
+        [Route("{id}/UpdateStatus")]
+        [HttpPost("{id}")]
+        [Authorize(Policy = Permissions.OccurrenceBookUpdate)]
+        public IActionResult SetStatus(Guid id, [FromBody]OccurrenceBookForStatusHistoryCreationDto occurrenceBookStatusHistory)
+        {
+            if (occurrenceBookStatusHistory == null)
+            {
+                return BadRequest();
+            }
+            var occurrenceBookFromRepo = _libraryRepository.GetOccurrenceBook(id);
+
+            if (occurrenceBookFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            //Mapper.Map(occurrenceBookStatusHistory, occurrenceBookFromRepo);
+            occurrenceBookFromRepo.StatusID=occurrenceBookStatusHistory.StatusID;
+            occurrenceBookFromRepo.Remark=occurrenceBookStatusHistory.Comments;
+            _libraryRepository.UpdateOccurrenceBook(occurrenceBookFromRepo);
+            if (!_libraryRepository.Save())
+            {
+                return StatusCode(500, "A problem happened with handling your request.");
+            }
+
+            var occurrenceBookHistoryEntity = Mapper.Map<OccurrenceStatusHistory>(occurrenceBookStatusHistory);
+            occurrenceBookHistoryEntity.OBID = id;
+
+            _libraryRepository.AddOccurrenceStatusHistory(occurrenceBookHistoryEntity);
+
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception("Creating an occurrenceBookStatusHistory failed on save.");
+                // return StatusCode(500, "A problem happened with handling your request.");
+            }
+
+            return Ok(occurrenceBookFromRepo);
+        }
+
+        [Route("{id}/statushistory")]
+        [HttpGet("{id}/statushistory", Name = "GetStatusHistory")]
+        [Authorize(Policy = Permissions.OccurrenceBookRead)]
+        public IActionResult GetStatusHistory(Guid id, OccurrenceBookStatusResourceParameters occurrenceBookStatusResourceParameters,
+    [FromHeader(Name = "Accept")]string mediaType)
+        {
+            if (!_propertyMappingService.ValidMappingExistsFor<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>
+                (occurrenceBookStatusResourceParameters.OrderBy))
+            {
+                return BadRequest();
+            }
+
+            if (!_typeHelperService.TypeHasProperties<OccurrenceBookStatusHistoryDto>
+                (occurrenceBookStatusResourceParameters.Fields))
+            {
+                return BadRequest();
+            }
+
+            var occurrenceBookStatusFromRepo = _libraryRepository.GetStatusHistory(occurrenceBookStatusResourceParameters);
+
+            var occurrenceBookStatus = Mapper.Map<IEnumerable<OccurrenceBookStatusHistoryDto>>(occurrenceBookStatusFromRepo);
+
+            if (mediaType == "application/vnd.marvin.hateoas+json")
+            {
+                var paginationMetadata = new
+                {
+                    totalCount = occurrenceBookStatusFromRepo.TotalCount,
+                    pageSize = occurrenceBookStatusFromRepo.PageSize,
+                    currentPage = occurrenceBookStatusFromRepo.CurrentPage,
+                    totalPages = occurrenceBookStatusFromRepo.TotalPages,
+                };
+
+                Response.Headers.Add("X-Pagination",
+                    Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+
+                var links = CreateLinksForOccurrenceBookStatusHistory(occurrenceBookStatusResourceParameters,
+                        occurrenceBookStatusFromRepo.HasNext, occurrenceBookStatusFromRepo.HasPrevious);
+
+                var shapedOccurrenceBookStatus = occurrenceBookStatus.ShapeData(occurrenceBookStatusResourceParameters.Fields);
+
+                var shapedOccurrenceBookStatusWithLinks = shapedOccurrenceBookStatus.Select(_occurrenceBookStatus =>
+                {
+                    var occurrenceBookStatusAsDictionary = _occurrenceBookStatus as IDictionary<string, object>;
+                    var occurrenceBookStatusLinks = CreateLinksForOccurrenceBookStatushistory((Guid)occurrenceBookStatusAsDictionary["Id"], occurrenceBookStatusResourceParameters.Fields);
+
+                    occurrenceBookStatusAsDictionary.Add("links", occurrenceBookStatusLinks);
+
+                    return occurrenceBookStatusAsDictionary;
+                });
+
+                var linkedCollectionResource = new
+                {
+                    value = shapedOccurrenceBookStatusWithLinks,
+                    links = links
+                };
+
+                return Ok(linkedCollectionResource);
+            }
+            else
+            {
+                var previousPageLink = occurrenceBookStatusFromRepo.HasPrevious ?
+                    CreateOccurrenceBookStatusHistoryResourceUri(occurrenceBookStatusResourceParameters,
+                        ResourceUriType.PreviousPage) : null;
+
+                var nextPageLink = occurrenceBookStatusFromRepo.HasNext ?
+                    CreateOccurrenceBookStatusHistoryResourceUri(occurrenceBookStatusResourceParameters,
+                        ResourceUriType.NextPage) : null;
+
+                var paginationMetadata = new
+                {
+                    previousPageLink = previousPageLink,
+                    nextPageLink = nextPageLink,
+                    totalCount = occurrenceBookStatusFromRepo.TotalCount,
+                    pageSize = occurrenceBookStatusFromRepo.PageSize,
+                    currentPage = occurrenceBookStatusFromRepo.CurrentPage,
+                    totalPages = occurrenceBookStatusFromRepo.TotalPages
+                };
+
+                Response.Headers.Add("X-Pagination",
+                    Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+
+                return Ok(occurrenceBookStatus.ShapeData(occurrenceBookStatusResourceParameters.Fields));
+            }
+        }
+
+        private IEnumerable<LinkDto> CreateLinksForOccurrenceBookStatushistory(Guid id, string fields)
+        {
+            var links = new List<LinkDto>();
+
+            if (string.IsNullOrWhiteSpace(fields))
+            {
+                links.Add(
+                  new LinkDto(_urlHelper.Link("GetStatuses", new { id = id }),
+                  "self",
+                  "GET"));
+            }
+            else
+            {
+                links.Add(
+                  new LinkDto(_urlHelper.Link("GetStatuses", new { id = id, fields = fields }),
+                  "self",
+                  "GET"));
+            }
+
+            links.Add(
+              new LinkDto(_urlHelper.Link("UpdateStatus", new { OccurrenceStatusHistoryID = id }),
+              "update_status_for_OccurrenceBook",
+              "POST"));
+
+            return links;
+        }
+        private IEnumerable<LinkDto> CreateLinksForOccurrenceBookStatusHistory(
+            OccurrenceBookStatusResourceParameters occurrenceBookStatusResourceParameters,
+            bool hasNext, bool hasPrevious)
+        {
+            var links = new List<LinkDto>();
+
+            // self
+            links.Add(
+                new LinkDto(CreateOccurrenceBookStatusHistoryResourceUri(occurrenceBookStatusResourceParameters,
+                        ResourceUriType.Current), "self", "GET"));
+
+            if (hasNext)
+            {
+                links.Add(
+                    new LinkDto(CreateOccurrenceBookStatusHistoryResourceUri(occurrenceBookStatusResourceParameters,
+                            ResourceUriType.NextPage),
+                        "nextPage", "GET"));
+            }
+
+            if (hasPrevious)
+            {
+                links.Add(
+                    new LinkDto(CreateOccurrenceBookStatusHistoryResourceUri(occurrenceBookStatusResourceParameters,
+                            ResourceUriType.PreviousPage),
+                        "previousPage", "GET"));
+            }
+
+            return links;
+        }
+
+        private string CreateOccurrenceBookStatusHistoryResourceUri(
+            OccurrenceBookStatusResourceParameters occurrenceBookStatusResourceParameters,
+            ResourceUriType type)
+        {
+            switch (type)
+            {
+                case ResourceUriType.PreviousPage:
+                    return _urlHelper.Link("GetOccurrenceBookReviews",
+                        new
+                        {
+                            fields = occurrenceBookStatusResourceParameters.Fields,
+                            orderBy = occurrenceBookStatusResourceParameters.OrderBy,
+                            searchQuery = occurrenceBookStatusResourceParameters.SearchQuery,
+                            pageNumber = occurrenceBookStatusResourceParameters.PageNumber - 1,
+                            pageSize = occurrenceBookStatusResourceParameters.PageSize
+                        });
+                case ResourceUriType.NextPage:
+                    return _urlHelper.Link("GetOccurrenceBookReviews",
+                        new
+                        {
+                            fields = occurrenceBookStatusResourceParameters.Fields,
+                            orderBy = occurrenceBookStatusResourceParameters.OrderBy,
+                            searchQuery = occurrenceBookStatusResourceParameters.SearchQuery,
+                            pageNumber = occurrenceBookStatusResourceParameters.PageNumber + 1,
+                            pageSize = occurrenceBookStatusResourceParameters.PageSize
+                        });
+                case ResourceUriType.Current:
+                default:
+                    return _urlHelper.Link("GetOccurrenceBookReviews",
+                        new
+                        {
+                            fields = occurrenceBookStatusResourceParameters.Fields,
+                            orderBy = occurrenceBookStatusResourceParameters.OrderBy,
+                            searchQuery = occurrenceBookStatusResourceParameters.SearchQuery,
+                            pageNumber = occurrenceBookStatusResourceParameters.PageNumber,
+                            pageSize = occurrenceBookStatusResourceParameters.PageSize
+                        });
+            }
+        }
+
+
         [HttpOptions]
         public IActionResult GetOccurrenceBookOptions()
         {

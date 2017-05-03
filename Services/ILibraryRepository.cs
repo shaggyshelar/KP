@@ -185,5 +185,10 @@ namespace ESPL.KP.Services
         OccurrenceReviewHistory GetReviewById(Guid occurrenceBookId, Guid reviewId);
         void AddOccurrenceReviewHistories(OccurrenceReviewHistory occurrenceReviewHistory);
         #endregion OccurrenceReviewHistory
+
+        #region Status
+        PagedList<OccurrenceStatusHistory> GetStatusHistory(OccurrenceBookStatusResourceParameters occurrenceBookStatusHistory);
+        void AddOccurrenceStatusHistory(OccurrenceStatusHistory occurrenceBookStatusHistory);
+        #endregion status
     }
 }

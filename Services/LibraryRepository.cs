@@ -1135,5 +1135,37 @@ namespace ESPL.KP.Services
             _context.OccurrenceReviewHistory.Add(occurrenceReviewHistory);
         }
         #endregion OccurrenceReviewHistory
+
+        #region Status
+        public PagedList<OccurrenceStatusHistory> GetStatusHistory(OccurrenceBookStatusResourceParameters occurrenceBookStatusHistoryParams)
+        {
+           var collectionBeforePaging =
+                _context.OccurrenceStatusHistory
+                .ApplySort(occurrenceBookStatusHistoryParams.OrderBy,
+                _propertyMappingService.GetPropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>());
+
+            if (!string.IsNullOrEmpty(occurrenceBookStatusHistoryParams.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = occurrenceBookStatusHistoryParams.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a =>
+                        a.Comments.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    );
+            }
+
+            return PagedList<OccurrenceStatusHistory>.Create(collectionBeforePaging,
+                occurrenceBookStatusHistoryParams.PageNumber,
+                occurrenceBookStatusHistoryParams.PageSize);
+        }
+
+        public void AddOccurrenceStatusHistory(OccurrenceStatusHistory occurrenceBookStatusHistory)
+        {
+            occurrenceBookStatusHistory.OccurrenceStatusHistoryID = Guid.NewGuid();
+            _context.OccurrenceStatusHistory.Add(occurrenceBookStatusHistory);
+        }
+        #endregion status
     }
 }

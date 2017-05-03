@@ -355,6 +355,10 @@ namespace ESPL.KP
                 cfg.CreateMap<ESPL.KP.Entities.OccurrenceReviewHistory, ESPL.KP.Models.OccurrenceBookReviewDto>();
                 cfg.CreateMap<ESPL.KP.Models.OccurrenceBookReviewsForCreationDto, ESPL.KP.Entities.OccurrenceReviewHistory>();
                 cfg.CreateMap<ESPL.KP.Entities.OccurrenceReviewHistory, ESPL.KP.Models.OccurrenceBookReviewsForCreationDto>();
+                cfg.CreateMap<ESPL.KP.Models.OccurrenceBookStatusHistoryDto, ESPL.KP.Entities.OccurrenceStatusHistory>();
+                cfg.CreateMap<ESPL.KP.Entities.OccurrenceStatusHistory, ESPL.KP.Models.OccurrenceBookStatusHistoryDto>();
+                cfg.CreateMap<ESPL.KP.Models.OccurrenceBookForStatusHistoryCreationDto, ESPL.KP.Entities.OccurrenceStatusHistory>();
+                cfg.CreateMap<ESPL.KP.Entities.OccurrenceStatusHistory, ESPL.KP.Models.OccurrenceBookForStatusHistoryCreationDto>();
 
                 //    .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src =>
                 //    src.MstStatus.StatusName));
