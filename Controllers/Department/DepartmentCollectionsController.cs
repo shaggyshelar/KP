@@ -17,11 +17,11 @@ namespace ESPL.KP.Controllers.Department
     [Authorize]
     public class DepartmentCollectionsController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
 
-        public DepartmentCollectionsController(ILibraryRepository libraryRepository)
+        public DepartmentCollectionsController(IAppRepository appRepository)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
         }
 
         [HttpPost]
@@ -38,10 +38,10 @@ namespace ESPL.KP.Controllers.Department
 
             foreach (var department in departmentEntities)
             {
-                _libraryRepository.AddDepartment(department);
+                _appRepository.AddDepartment(department);
             }
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an department collection failed on save.");
             }
@@ -68,7 +68,7 @@ namespace ESPL.KP.Controllers.Department
                 return BadRequest();
             }
 
-            var departmentEntities = _libraryRepository.GetDepartments(ids);
+            var departmentEntities = _appRepository.GetDepartments(ids);
 
             if (ids.Count() != departmentEntities.Count())
             {

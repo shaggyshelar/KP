@@ -19,17 +19,17 @@ namespace ESPL.KP.Controllers.OccurrenceType
     [Authorize]
     public class OccurrenceTypeController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
 
-        public OccurrenceTypeController(ILibraryRepository libraryRepository,
+        public OccurrenceTypeController(IAppRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
@@ -53,7 +53,7 @@ namespace ESPL.KP.Controllers.OccurrenceType
                 return BadRequest();
             }
 
-            var occurrenceTypeFromRepo = _libraryRepository.GetOccurrenceTypes(occurrenceTypeResourceParameters);
+            var occurrenceTypeFromRepo = _appRepository.GetOccurrenceTypes(occurrenceTypeResourceParameters);
 
             var occurrenceType = Mapper.Map<IEnumerable<OccurrenceTypeDto>>(occurrenceTypeFromRepo);
 
@@ -171,7 +171,7 @@ namespace ESPL.KP.Controllers.OccurrenceType
                 return BadRequest();
             }
 
-            var occurrenceTypeFromRepo = _libraryRepository.GetOccurrenceType(id);
+            var occurrenceTypeFromRepo = _appRepository.GetOccurrenceType(id);
 
             if (occurrenceTypeFromRepo == null)
             {
@@ -203,9 +203,9 @@ namespace ESPL.KP.Controllers.OccurrenceType
 
             var occurrenceTypeEntity = Mapper.Map<MstOccurrenceType>(occurrenceType);
 
-            _libraryRepository.AddOccurrenceType(occurrenceTypeEntity);
+            _appRepository.AddOccurrenceType(occurrenceTypeEntity);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an occurrenceType failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
@@ -228,7 +228,7 @@ namespace ESPL.KP.Controllers.OccurrenceType
         [HttpPost("{id}")]
         public IActionResult BlockOccurrenceTypeCreation(Guid id)
         {
-            if (_libraryRepository.OccurrenceTypeExists(id))
+            if (_appRepository.OccurrenceTypeExists(id))
             {
                 return new StatusCodeResult(StatusCodes.Status409Conflict);
             }
@@ -240,18 +240,18 @@ namespace ESPL.KP.Controllers.OccurrenceType
         [Authorize(Policy = Permissions.OccurrenceTypeDelete)]
         public IActionResult DeleteOccurrenceType(Guid id)
         {
-            var occurrenceTypeFromRepo = _libraryRepository.GetOccurrenceType(id);
+            var occurrenceTypeFromRepo = _appRepository.GetOccurrenceType(id);
             if (occurrenceTypeFromRepo == null)
             {
                 return NotFound();
             }
 
-            //_libraryRepository.DeleteOccurrenceType(occurrenceTypeFromRepo);
+            //_appRepository.DeleteOccurrenceType(occurrenceTypeFromRepo);
 
             //....... Soft Delete
             occurrenceTypeFromRepo.IsDelete = true;
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Deleting occurrenceType {id} failed on save.");
             }
@@ -267,21 +267,21 @@ namespace ESPL.KP.Controllers.OccurrenceType
             {
                 return BadRequest();
             }
-            // if (!_libraryRepository.OccurrenceBookExists(id))
+            // if (!_appRepository.OccurrenceBookExists(id))
             // {
             //     return NotFound();
             // }
             //Mapper.Map(source,destination);
-            var occurrenceTypeRepo = _libraryRepository.GetOccurrenceType(id);
+            var occurrenceTypeRepo = _appRepository.GetOccurrenceType(id);
 
             if (occurrenceTypeRepo == null)
             {
                 // var occurrenceTypeAdd = Mapper.Map<MstOccurrenceType>(occurrenceType);
                 // occurrenceTypeAdd.OBTypeID = id;
 
-                // _libraryRepository.AddOccurrenceType(occurrenceTypeAdd);
+                // _appRepository.AddOccurrenceType(occurrenceTypeAdd);
 
-                // if (!_libraryRepository.Save())
+                // if (!_appRepository.Save())
                 // {
                 //     throw new Exception($"Upserting occurrenceType {id} failed on save.");
                 // }
@@ -295,8 +295,8 @@ namespace ESPL.KP.Controllers.OccurrenceType
             }
             SetItemHistoryData(occurrenceType, occurrenceTypeRepo);
             Mapper.Map(occurrenceType, occurrenceTypeRepo);
-            _libraryRepository.UpdateOccurrenceType(occurrenceTypeRepo);
-            if (!_libraryRepository.Save())
+            _appRepository.UpdateOccurrenceType(occurrenceTypeRepo);
+            if (!_appRepository.Save())
             {
                 throw new Exception("Updating an occurrenceType failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
@@ -316,7 +316,7 @@ namespace ESPL.KP.Controllers.OccurrenceType
                 return BadRequest();
             }
 
-            var occurrenceTypeFromRepo = _libraryRepository.GetOccurrenceType(id);
+            var occurrenceTypeFromRepo = _appRepository.GetOccurrenceType(id);
 
             if (occurrenceTypeFromRepo == null)
             {
@@ -333,9 +333,9 @@ namespace ESPL.KP.Controllers.OccurrenceType
                 // var occurrenceTypeToAdd = Mapper.Map<MstOccurrenceType>(occurrenceTypeDto);
                 // occurrenceTypeToAdd.OBTypeID = id;
 
-                // _libraryRepository.AddOccurrenceType(occurrenceTypeToAdd);
+                // _appRepository.AddOccurrenceType(occurrenceTypeToAdd);
 
-                // if (!_libraryRepository.Save())
+                // if (!_appRepository.Save())
                 // {
                 //     throw new Exception($"Upserting in occurrenceType {id} failed on save.");
                 // }
@@ -362,9 +362,9 @@ namespace ESPL.KP.Controllers.OccurrenceType
             SetItemHistoryData(occurrenceTypeToPatch, occurrenceTypeFromRepo);
             Mapper.Map(occurrenceTypeToPatch, occurrenceTypeFromRepo);
 
-            _libraryRepository.UpdateOccurrenceType(occurrenceTypeFromRepo);
+            _appRepository.UpdateOccurrenceType(occurrenceTypeFromRepo);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Patching  occurrenceType {id} failed on save.");
             }

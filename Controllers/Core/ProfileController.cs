@@ -20,21 +20,21 @@ namespace ESPL.KP.Controllers.Core
     [Authorize]
     public class ProfileController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
         private RoleManager<IdentityRole> _roleMgr;
         private UserManager<AppUser> _userMgr;
 
-        public ProfileController(ILibraryRepository libraryRepository,
+        public ProfileController(IAppRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService,
             UserManager<AppUser> userMgr,
             RoleManager<IdentityRole> roleMgr)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
@@ -51,7 +51,7 @@ namespace ESPL.KP.Controllers.Core
             {
                 return NotFound("Invalid Token");
             }
-            var user = _libraryRepository.GetEmployeeByUserID(new Guid(userId.Value));
+            var user = _appRepository.GetEmployeeByUserID(new Guid(userId.Value));
             if (user == null)
             {
                 return NotFound("User Not Found");

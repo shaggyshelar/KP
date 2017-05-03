@@ -18,7 +18,7 @@ using ESPL.KP.Models;
 
 namespace ESPL.KP.Services
 {
-    public interface ILibraryRepository
+    public interface IAppRepository
     {
         #region Authors
         PagedList<Author> GetAuthors(AuthorsResourceParameters authorsResourceParameters);

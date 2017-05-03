@@ -4,9 +4,9 @@ using ESPL.KP.Entities.Core;
 
 namespace ESPL.KP.Entities
 {
-    public static class LibraryContextExtensions
+    public static class AppContextExtensions
     {
-        public static void EnsureSeedDataForContext(this LibraryContext context)
+        public static void EnsureSeedDataForContext(this AppContext context)
         {
             // first, clear the database.  This ensures we can always start 
             // fresh with each demo.  Not advised for production environments, obviously :-)
@@ -183,7 +183,7 @@ namespace ESPL.KP.Entities
 
         }
 
-        private static void UpdateOuccurrenceStatusHistory(LibraryContext context)
+        private static void UpdateOuccurrenceStatusHistory(AppContext context)
         {
            
             var occurrenceStatusHistory = new List<OccurrenceStatusHistory>(){
@@ -220,7 +220,7 @@ namespace ESPL.KP.Entities
             context.SaveChanges();
         }
 
-        private static void UpdateDesignation(LibraryContext context)
+        private static void UpdateDesignation(AppContext context)
         {
             
             var designations = new List<MstDesignation>() {
@@ -301,7 +301,7 @@ namespace ESPL.KP.Entities
 
         }
 
-        private static void UpdateArea(LibraryContext context)
+        private static void UpdateArea(AppContext context)
         {
             #region Area
             
@@ -401,7 +401,7 @@ namespace ESPL.KP.Entities
             #endregion
         }
 
-        public static void UpdateDepartments(this LibraryContext context)
+        public static void UpdateDepartments(this AppContext context)
         {
             
 
@@ -473,7 +473,7 @@ namespace ESPL.KP.Entities
             context.SaveChanges();
         }
 
-        private static void UpdateOccurrenceType(LibraryContext context)
+        private static void UpdateOccurrenceType(AppContext context)
         {
             
             var occurrenceTypes = new List<MstOccurrenceType>() {
@@ -509,7 +509,7 @@ namespace ESPL.KP.Entities
 
         #region Shifts
 
-        public static void UpdateShifts(this LibraryContext context)
+        public static void UpdateShifts(this AppContext context)
         {
             
             var shifts = new List<MstShift>() {
@@ -566,7 +566,7 @@ namespace ESPL.KP.Entities
 
         #region Status
 
-        public static void UpdateStatus(this LibraryContext context)
+        public static void UpdateStatus(this AppContext context)
         {
             var status = new List<MstStatus>() {
                 new MstStatus() {
@@ -593,7 +593,7 @@ namespace ESPL.KP.Entities
         }
         #endregion
 
-        private static void UpdateOccurrenceBooks(LibraryContext context)
+        private static void UpdateOccurrenceBooks(AppContext context)
         {
             
             var occurrenceBooks = new List<MstOccurrenceBook>() {
@@ -711,7 +711,7 @@ namespace ESPL.KP.Entities
 
         }
 
-        public static void UpdateAppModules(this LibraryContext context)
+        public static void UpdateAppModules(this AppContext context)
         {
             
 
@@ -792,7 +792,7 @@ namespace ESPL.KP.Entities
             context.AppModules.AddRange(appModules);
             context.SaveChanges();
         }
-        private static void UpdateEmployee(LibraryContext context)
+        private static void UpdateEmployee(AppContext context)
         {
 
             
@@ -972,7 +972,7 @@ namespace ESPL.KP.Entities
             context.SaveChanges();
         }
 
-        private static void UpdateOccurrenceBookAssignedToHistory(LibraryContext context)
+        private static void UpdateOccurrenceBookAssignedToHistory(AppContext context)
         {
             
             var occAssignmentHistory = new List<OccurrenceAssignmentHistory>() {
@@ -1003,7 +1003,7 @@ namespace ESPL.KP.Entities
             context.SaveChanges();
         }
 
-        private static void UpdateOccurrenceBookReviewHistory(LibraryContext context)
+        private static void UpdateOccurrenceBookReviewHistory(AppContext context)
         {
             
             var occAssignmentHistory = new List<OccurrenceReviewHistory>() {

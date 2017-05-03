@@ -7,9 +7,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace ESPL.KP.Entities
 {
-    public class LibraryContext : IdentityDbContext<AppUser>
+    public class AppContext : IdentityDbContext<AppUser>
     {
-        public LibraryContext(DbContextOptions<LibraryContext> options) : base(options)
+        public AppContext(DbContextOptions<AppContext> options) : base(options)
         {
             Database.Migrate();
         }

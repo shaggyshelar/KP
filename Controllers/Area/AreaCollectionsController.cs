@@ -18,11 +18,11 @@ namespace ESPL.KP.Controllers.Area
     public class AreaCollectionsController : Controller
     {
         //Global Declaration
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
         //Constructor
-        public AreaCollectionsController(ILibraryRepository libraryRepository)
+        public AreaCollectionsController(IAppRepository appRepository)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
         }
 
         //action methods
@@ -40,10 +40,10 @@ namespace ESPL.KP.Controllers.Area
 
             foreach (var Area in AreaEntities)
             {
-                _libraryRepository.AddArea(Area);
+                _appRepository.AddArea(Area);
             }
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an Area collection failed on save.");
             }
@@ -70,7 +70,7 @@ namespace ESPL.KP.Controllers.Area
                 return BadRequest();
             }
 
-            var AreaEntities = _libraryRepository.GetAreas(ids);
+            var AreaEntities = _appRepository.GetAreas(ids);
 
             if (ids.Count() != AreaEntities.Count())
             {

@@ -21,7 +21,7 @@ namespace ESPL.KP.Controllers.Core
     [Authorize(Policy = "IsSuperAdmin")]
     public class AppUserController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
@@ -29,14 +29,14 @@ namespace ESPL.KP.Controllers.Core
         private UserManager<AppUser> _userMgr;
 
 
-        public AppUserController(ILibraryRepository libraryRepository,
+        public AppUserController(IAppRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService,
             UserManager<AppUser> userMgr,
             RoleManager<IdentityRole> roleMgr)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
@@ -60,7 +60,7 @@ namespace ESPL.KP.Controllers.Core
                 return BadRequest();
             }
 
-            var esplUsersFromRepo = _libraryRepository.GetAppUsers(esplUsersResourceParameters);
+            var esplUsersFromRepo = _appRepository.GetAppUsers(esplUsersResourceParameters);
 
             var esplUsers = new List<AppUserDto>();
             esplUsersFromRepo.ForEach(esplUser =>
@@ -177,7 +177,7 @@ namespace ESPL.KP.Controllers.Core
                 return BadRequest();
             }
 
-            var esplUserFromRepo = _libraryRepository.GetAppUser(id);
+            var esplUserFromRepo = _appRepository.GetAppUser(id);
 
             if (esplUserFromRepo == null)
             {
@@ -206,9 +206,9 @@ namespace ESPL.KP.Controllers.Core
 
             var esplUserEntity = Mapper.Map<AppUser>(esplUser);
 
-            _libraryRepository.AddAppUser(esplUserEntity);
+            _appRepository.AddAppUser(esplUserEntity);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an esplUser failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
@@ -232,7 +232,7 @@ namespace ESPL.KP.Controllers.Core
         [HttpPost("{id}")]
         public IActionResult BlockAppUserCreation(Guid id)
         {
-            if (_libraryRepository.AppUserExists(id))
+            if (_appRepository.AppUserExists(id))
             {
                 return new StatusCodeResult(StatusCodes.Status409Conflict);
             }
@@ -243,15 +243,15 @@ namespace ESPL.KP.Controllers.Core
         [HttpDelete("{id}", Name = "DeleteAppUser")]
         public IActionResult DeleteAppUser(Guid id)
         {
-            var esplUserFromRepo = _libraryRepository.GetAppUser(id);
+            var esplUserFromRepo = _appRepository.GetAppUser(id);
             if (esplUserFromRepo == null)
             {
                 return NotFound();
             }
 
-            _libraryRepository.DeleteAppUser(esplUserFromRepo);
+            _appRepository.DeleteAppUser(esplUserFromRepo);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Deleting esplUser {id} failed on save.");
             }

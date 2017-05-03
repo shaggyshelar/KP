@@ -21,17 +21,17 @@ namespace ESPL.KP.Controllers.Core
     [Authorize(Policy = "IsSuperAdmin")]
     public class RolesController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
 
-        public RolesController(ILibraryRepository libraryRepository,
+        public RolesController(IAppRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
@@ -54,7 +54,7 @@ namespace ESPL.KP.Controllers.Core
                 return BadRequest();
             }
 
-            var esplRolesFromRepo = _libraryRepository.GetAppRoles(esplRolesResourceParameters);
+            var esplRolesFromRepo = _appRepository.GetAppRoles(esplRolesResourceParameters);
 
             var esplRoles = new List<AppRoleDto>();
             esplRolesFromRepo.ForEach(esplRole =>
@@ -168,7 +168,7 @@ namespace ESPL.KP.Controllers.Core
                 return BadRequest();
             }
 
-            var esplRoleFromRepo = _libraryRepository.GetAppRole(id);
+            var esplRoleFromRepo = _appRepository.GetAppRole(id);
 
             if (esplRoleFromRepo == null)
             {
@@ -197,9 +197,9 @@ namespace ESPL.KP.Controllers.Core
 
             var esplRoleEntity = Mapper.Map<IdentityRole>(esplRole);
 
-            _libraryRepository.AddAppRole(esplRoleEntity);
+            _appRepository.AddAppRole(esplRoleEntity);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an esplRole failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
@@ -223,7 +223,7 @@ namespace ESPL.KP.Controllers.Core
         [HttpPost("{id}")]
         public IActionResult BlockAppRoleCreation(Guid id)
         {
-            if (_libraryRepository.AppRoleExists(id))
+            if (_appRepository.AppRoleExists(id))
             {
                 return new StatusCodeResult(StatusCodes.Status409Conflict);
             }
@@ -234,15 +234,15 @@ namespace ESPL.KP.Controllers.Core
         [HttpDelete("{id}", Name = "DeleteAppRole")]
         public IActionResult DeleteAppRole(Guid id)
         {
-            var esplRoleFromRepo = _libraryRepository.GetAppRole(id);
+            var esplRoleFromRepo = _appRepository.GetAppRole(id);
             if (esplRoleFromRepo == null)
             {
                 return NotFound();
             }
 
-            _libraryRepository.DeleteAppRole(esplRoleFromRepo);
+            _appRepository.DeleteAppRole(esplRoleFromRepo);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Deleting esplRole {id} failed on save.");
             }

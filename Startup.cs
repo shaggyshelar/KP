@@ -56,9 +56,9 @@ namespace ESPL.KP
             // appSettings (note: use this during development; in a production environment,
             // it's better to store the connection string in an environment variable)
             var connectionString = Configuration["connectionStrings:libraryDBConnectionString"];
-            services.AddDbContext<LibraryContext>(o => o.UseSqlServer(connectionString));
+            services.AddDbContext<Entities.AppContext>(o => o.UseSqlServer(connectionString));
             services.AddTransient<IdentityInitializer>();
-            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<LibraryContext>();
+            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<Entities.AppContext>();
             services.Configure<IdentityOptions>(config =>
             {
                 config.Cookies.ApplicationCookie.Events =
@@ -150,7 +150,7 @@ namespace ESPL.KP
             });
 
             // register the repository
-            services.AddScoped<ILibraryRepository, LibraryRepository>();
+            services.AddScoped<IAppRepository, AppRepository>();
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
@@ -210,7 +210,7 @@ namespace ESPL.KP
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env,
-            ILoggerFactory loggerFactory, LibraryContext libraryContext,
+            ILoggerFactory loggerFactory, Entities.AppContext libraryContext,
             IdentityInitializer identitySeeder)
         {
             loggerFactory.AddConsole();

@@ -22,21 +22,21 @@ namespace ESPL.KP.Controllers.Core
     [Authorize(Policy = "IsSuperAdmin")]
     public class RolePermissionsController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
         private RoleManager<IdentityRole> _roleMgr;
         private UserManager<AppUser> _userMgr;
 
-        public RolePermissionsController(ILibraryRepository libraryRepository,
+        public RolePermissionsController(IAppRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService,
             UserManager<AppUser> userMgr,
             RoleManager<IdentityRole> roleMgr)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
@@ -48,7 +48,7 @@ namespace ESPL.KP.Controllers.Core
         [HttpHead]
         public async Task<IActionResult> GetRolePermissions(Guid roleId)
         {
-            var roleFromDB = _libraryRepository.GetAppRole(roleId);
+            var roleFromDB = _appRepository.GetAppRole(roleId);
             if (roleFromDB == null)
             {
                 return NotFound("Role Not Found");
@@ -74,13 +74,13 @@ namespace ESPL.KP.Controllers.Core
                 return BadRequest();
             }
 
-            var roleFromDB = _libraryRepository.GetAppRole(roleId);
+            var roleFromDB = _appRepository.GetAppRole(roleId);
             if (roleFromDB == null)
             {
                 return NotFound("Role Not Found");
             }
 
-            var appModule = _libraryRepository.AppModuleExists(model.AppModuleName);
+            var appModule = _appRepository.AppModuleExists(model.AppModuleName);
             if (!appModule)
             {
                 return NotFound("App Module Not Found");
@@ -101,13 +101,13 @@ namespace ESPL.KP.Controllers.Core
                 return BadRequest();
             }
 
-            var roleFromDB = _libraryRepository.GetAppRole(roleId);
+            var roleFromDB = _appRepository.GetAppRole(roleId);
             if (roleFromDB == null)
             {
                 return NotFound("Role Not Found");
             }
 
-            var appModule = _libraryRepository.AppModuleExists(model.AppModuleName);
+            var appModule = _appRepository.AppModuleExists(model.AppModuleName);
             if (!appModule)
             {
                 return NotFound("App Module Not Found");

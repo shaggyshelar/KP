@@ -22,14 +22,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ESPL.KP.Services
 {
-    public class LibraryRepository : ILibraryRepository
+    public class AppRepository : IAppRepository
     {
-        private LibraryContext _context;
+        private Entities.AppContext _context;
         private IPropertyMappingService _propertyMappingService;
         private RoleManager<IdentityRole> _roleMgr;
         private UserManager<AppUser> _userMgr;
 
-        public LibraryRepository(LibraryContext context,
+        public AppRepository(Entities.AppContext context,
             IPropertyMappingService propertyMappingService,
             UserManager<AppUser> userMgr,
             RoleManager<IdentityRole> roleMgr)

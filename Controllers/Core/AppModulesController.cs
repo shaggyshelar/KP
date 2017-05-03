@@ -21,17 +21,17 @@ namespace ESPL.KP.Controllers.Core
     [Authorize(Policy = "IsSuperAdmin")]
     public class AppModulesController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
 
-        public AppModulesController(ILibraryRepository libraryRepository,
+        public AppModulesController(IAppRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
@@ -54,7 +54,7 @@ namespace ESPL.KP.Controllers.Core
                 return BadRequest();
             }
 
-            var appModulesFromRepo = _libraryRepository.GetAppModules(appModulesResourceParameters);
+            var appModulesFromRepo = _appRepository.GetAppModules(appModulesResourceParameters);
 
             var appModules = Mapper.Map<IEnumerable<AppModuleDto>>(appModulesFromRepo);
 
@@ -171,7 +171,7 @@ namespace ESPL.KP.Controllers.Core
                 return BadRequest();
             }
 
-            var appModuleFromRepo = _libraryRepository.GetAppModule(id);
+            var appModuleFromRepo = _appRepository.GetAppModule(id);
 
             if (appModuleFromRepo == null)
             {
@@ -200,9 +200,9 @@ namespace ESPL.KP.Controllers.Core
 
             var appModuleEntity = Mapper.Map<AppModule>(appModule);
 
-            _libraryRepository.AddAppModule(appModuleEntity);
+            _appRepository.AddAppModule(appModuleEntity);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an appModule failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
@@ -226,7 +226,7 @@ namespace ESPL.KP.Controllers.Core
         [HttpPost("{id}")]
         public IActionResult BlockAppModuleCreation(Guid id)
         {
-            if (_libraryRepository.AppModuleExists(id))
+            if (_appRepository.AppModuleExists(id))
             {
                 return new StatusCodeResult(StatusCodes.Status409Conflict);
             }
@@ -237,15 +237,15 @@ namespace ESPL.KP.Controllers.Core
         [HttpDelete("{id}", Name = "DeleteAppModule")]
         public IActionResult DeleteAppModule(Guid id)
         {
-            var appModuleFromRepo = _libraryRepository.GetAppModule(id);
+            var appModuleFromRepo = _appRepository.GetAppModule(id);
             if (appModuleFromRepo == null)
             {
                 return NotFound();
             }
 
-            _libraryRepository.DeleteAppModule(appModuleFromRepo);
+            _appRepository.DeleteAppModule(appModuleFromRepo);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Deleting appModule {id} failed on save.");
             }
@@ -261,7 +261,7 @@ namespace ESPL.KP.Controllers.Core
                 return BadRequest();
             }
 
-            var appModuleRepo = _libraryRepository.GetAppModule(id);
+            var appModuleRepo = _appRepository.GetAppModule(id);
             if (appModuleRepo == null)
             {
                 return NotFound();
@@ -271,8 +271,8 @@ namespace ESPL.KP.Controllers.Core
 
             Mapper.Map(appModule, appModuleRepo);
 
-            _libraryRepository.UpdateAppModule(appModuleRepo);
-            if (!_libraryRepository.Save())
+            _appRepository.UpdateAppModule(appModuleRepo);
+            if (!_appRepository.Save())
             {
                 throw new Exception("Updating an appModule failed on save.");
             }
@@ -290,7 +290,7 @@ namespace ESPL.KP.Controllers.Core
                 return BadRequest();
             }
 
-            var appModuleFromRepo = _libraryRepository.GetAppModule(id);
+            var appModuleFromRepo = _appRepository.GetAppModule(id);
 
             if (appModuleFromRepo == null)
             {
@@ -311,9 +311,9 @@ namespace ESPL.KP.Controllers.Core
             SetItemHistoryData(appModuleToPatch, appModuleFromRepo);
             Mapper.Map(appModuleToPatch, appModuleFromRepo);
 
-            _libraryRepository.UpdateAppModule(appModuleFromRepo);
+            _appRepository.UpdateAppModule(appModuleFromRepo);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Patching  appModule {id} failed on save.");
             }

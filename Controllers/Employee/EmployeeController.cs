@@ -19,17 +19,17 @@ namespace KP.Controllers.Employee
     [Authorize]
     public class EmployeeController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
 
-        public EmployeeController(ILibraryRepository libraryRepository,
+        public EmployeeController(IAppRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
@@ -53,7 +53,7 @@ namespace KP.Controllers.Employee
                 return BadRequest();
             }
 
-            var employeeFromRepo = _libraryRepository.GetEmployees(employeesResourceParameters);
+            var employeeFromRepo = _appRepository.GetEmployees(employeesResourceParameters);
 
             var employee = Mapper.Map<IEnumerable<EmployeeDto>>(employeeFromRepo);
 
@@ -131,7 +131,7 @@ namespace KP.Controllers.Employee
                 return BadRequest();
             }
 
-            var employeeFromRepo = _libraryRepository.GetEmployee(id);
+            var employeeFromRepo = _appRepository.GetEmployee(id);
 
             if (employeeFromRepo == null)
             {
@@ -163,9 +163,9 @@ namespace KP.Controllers.Employee
 
             var employeeEntity = Mapper.Map<MstEmployee>(employee);
 
-            _libraryRepository.AddEmployee(employeeEntity);
+            _appRepository.AddEmployee(employeeEntity);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an employee failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
@@ -188,7 +188,7 @@ namespace KP.Controllers.Employee
         [HttpPost("{id}")]
         public IActionResult BlockEmployeeCreation(Guid id)
         {
-            if (_libraryRepository.EmployeeExists(id))
+            if (_appRepository.EmployeeExists(id))
             {
                 return new StatusCodeResult(StatusCodes.Status409Conflict);
             }
@@ -200,17 +200,17 @@ namespace KP.Controllers.Employee
         [Authorize(Policy = Permissions.EmployeeDelete)]
         public IActionResult DeleteEmployee(Guid id)
         {
-            var employeeFromRepo = _libraryRepository.GetEmployee(id);
+            var employeeFromRepo = _appRepository.GetEmployee(id);
             if (employeeFromRepo == null)
             {
                 return NotFound();
             }
 
-            //_libraryRepository.DeleteEmployee(employeeFromRepo);
+            //_appRepository.DeleteEmployee(employeeFromRepo);
             //....... Soft Delete
             employeeFromRepo.IsDelete = true;
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Deleting employee {id} failed on save.");
             }
@@ -226,21 +226,21 @@ namespace KP.Controllers.Employee
             {
                 return BadRequest();
             }
-            // if (!_libraryRepository.EmployeeExists(id))
+            // if (!_appRepository.EmployeeExists(id))
             // {
             //     return NotFound();
             // }
             //Mapper.Map(source,destination);
-            var employeeFromRepo = _libraryRepository.GetEmployee(id);
+            var employeeFromRepo = _appRepository.GetEmployee(id);
 
             if (employeeFromRepo == null)
             {
                 // var employeeAdd = Mapper.Map<MstEmployee>(employee);
                 // employeeAdd.EmployeeID = id;
 
-                // _libraryRepository.AddEmployee(employeeAdd);
+                // _appRepository.AddEmployee(employeeAdd);
 
-                // if (!_libraryRepository.Save())
+                // if (!_appRepository.Save())
                 // {
                 //     throw new Exception($"Upserting book {id} for author {id} failed on save.");
                 // }
@@ -254,8 +254,8 @@ namespace KP.Controllers.Employee
             }
             SetItemHistoryData(employee, employeeFromRepo);
             Mapper.Map(employee, employeeFromRepo);
-            _libraryRepository.UpdateEmployee(employeeFromRepo);
-            if (!_libraryRepository.Save())
+            _appRepository.UpdateEmployee(employeeFromRepo);
+            if (!_appRepository.Save())
             {
                 throw new Exception("Updating an employee failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
@@ -275,7 +275,7 @@ namespace KP.Controllers.Employee
                 return BadRequest();
             }
 
-            var bookForAuthorFromRepo = _libraryRepository.GetEmployee(id);
+            var bookForAuthorFromRepo = _appRepository.GetEmployee(id);
 
             if (bookForAuthorFromRepo == null)
             {
@@ -292,9 +292,9 @@ namespace KP.Controllers.Employee
                 // var bookToAdd = Mapper.Map<MstEmployee>(bookDto);
                 // bookToAdd.EmployeeID = id;
 
-                // _libraryRepository.AddEmployee(bookToAdd);
+                // _appRepository.AddEmployee(bookToAdd);
 
-                // if (!_libraryRepository.Save())
+                // if (!_appRepository.Save())
                 // {
                 //     throw new Exception($"Upserting in Occurrence Book {id} failed on save.");
                 // }
@@ -322,9 +322,9 @@ namespace KP.Controllers.Employee
             SetItemHistoryData(bookToPatch, bookForAuthorFromRepo);
             Mapper.Map(bookToPatch, bookForAuthorFromRepo);
 
-            _libraryRepository.UpdateEmployee(bookForAuthorFromRepo);
+            _appRepository.UpdateEmployee(bookForAuthorFromRepo);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Patching  Occurrence Book {id} failed on save.");
             }

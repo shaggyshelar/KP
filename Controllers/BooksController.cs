@@ -16,28 +16,28 @@ namespace ESPL.KP.Controllers
     [Route("api/authors/{authorId}/books")]
     public class BooksController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
         private ILogger<BooksController> _logger;
         private IUrlHelper _urlHelper;
 
-        public BooksController(ILibraryRepository libraryRepository,
+        public BooksController(IAppRepository appRepository,
             ILogger<BooksController> logger,
             IUrlHelper urlHelper)
         {
             _logger = logger;
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
             _urlHelper = urlHelper;
         }
 
         [HttpGet(Name = "GetBooksForAuthor")]
         public IActionResult GetBooksForAuthor(Guid authorId)
         {
-            if (!_libraryRepository.AuthorExists(authorId))
+            if (!_appRepository.AuthorExists(authorId))
             {
                 return NotFound();
             }
 
-            var booksForAuthorFromRepo = _libraryRepository.GetBooksForAuthor(authorId);
+            var booksForAuthorFromRepo = _appRepository.GetBooksForAuthor(authorId);
 
             var booksForAuthor = Mapper.Map<IEnumerable<BookDto>>(booksForAuthorFromRepo);
 
@@ -55,12 +55,12 @@ namespace ESPL.KP.Controllers
         [HttpGet("{id}", Name = "GetBookForAuthor")]
         public IActionResult GetBookForAuthor(Guid authorId, Guid id)
         {
-            if (!_libraryRepository.AuthorExists(authorId))
+            if (!_appRepository.AuthorExists(authorId))
             {
                 return NotFound();
             }
 
-            var bookForAuthorFromRepo = _libraryRepository.GetBookForAuthor(authorId, id);
+            var bookForAuthorFromRepo = _appRepository.GetBookForAuthor(authorId, id);
             if (bookForAuthorFromRepo == null)
             {
                 return NotFound();
@@ -91,16 +91,16 @@ namespace ESPL.KP.Controllers
                 return new UnprocessableEntityObjectResult(ModelState);
             }
 
-            if (!_libraryRepository.AuthorExists(authorId))
+            if (!_appRepository.AuthorExists(authorId))
             {
                 return NotFound();
             }
 
             var bookEntity = Mapper.Map<Book>(book);
 
-            _libraryRepository.AddBookForAuthor(authorId, bookEntity);
+            _appRepository.AddBookForAuthor(authorId, bookEntity);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Creating a book for author {authorId} failed on save.");
             }
@@ -115,20 +115,20 @@ namespace ESPL.KP.Controllers
         [HttpDelete("{id}", Name ="DeleteBookForAuthor")]
         public IActionResult DeleteBookForAuthor(Guid authorId, Guid id)
         {
-            if (!_libraryRepository.AuthorExists(authorId))
+            if (!_appRepository.AuthorExists(authorId))
             {
                 return NotFound();
             }
 
-            var bookForAuthorFromRepo = _libraryRepository.GetBookForAuthor(authorId, id);
+            var bookForAuthorFromRepo = _appRepository.GetBookForAuthor(authorId, id);
             if (bookForAuthorFromRepo == null)
             {
                 return NotFound();
             }
 
-            _libraryRepository.DeleteBook(bookForAuthorFromRepo);
+            _appRepository.DeleteBook(bookForAuthorFromRepo);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Deleting book {id} for author {authorId} failed on save.");
             }
@@ -159,20 +159,20 @@ namespace ESPL.KP.Controllers
             }
 
 
-            if (!_libraryRepository.AuthorExists(authorId))
+            if (!_appRepository.AuthorExists(authorId))
             {
                 return NotFound();
             }
 
-            var bookForAuthorFromRepo = _libraryRepository.GetBookForAuthor(authorId, id);
+            var bookForAuthorFromRepo = _appRepository.GetBookForAuthor(authorId, id);
             if (bookForAuthorFromRepo == null)
             {
                 var bookToAdd = Mapper.Map<Book>(book);
                 bookToAdd.Id = id;
 
-                _libraryRepository.AddBookForAuthor(authorId, bookToAdd);
+                _appRepository.AddBookForAuthor(authorId, bookToAdd);
 
-                if (!_libraryRepository.Save())
+                if (!_appRepository.Save())
                 {
                     throw new Exception($"Upserting book {id} for author {authorId} failed on save.");
                 }
@@ -186,9 +186,9 @@ namespace ESPL.KP.Controllers
 
             Mapper.Map(book, bookForAuthorFromRepo);
 
-            _libraryRepository.UpdateBookForAuthor(bookForAuthorFromRepo);
+            _appRepository.UpdateBookForAuthor(bookForAuthorFromRepo);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Updating book {id} for author {authorId} failed on save.");
             }
@@ -205,12 +205,12 @@ namespace ESPL.KP.Controllers
                 return BadRequest();
             }
 
-            if (!_libraryRepository.AuthorExists(authorId))
+            if (!_appRepository.AuthorExists(authorId))
             {
                 return NotFound();
             }
 
-            var bookForAuthorFromRepo = _libraryRepository.GetBookForAuthor(authorId, id);
+            var bookForAuthorFromRepo = _appRepository.GetBookForAuthor(authorId, id);
 
             if (bookForAuthorFromRepo == null)
             {
@@ -233,9 +233,9 @@ namespace ESPL.KP.Controllers
                 var bookToAdd = Mapper.Map<Book>(bookDto);
                 bookToAdd.Id = id;
 
-                _libraryRepository.AddBookForAuthor(authorId, bookToAdd);
+                _appRepository.AddBookForAuthor(authorId, bookToAdd);
 
-                if (!_libraryRepository.Save())
+                if (!_appRepository.Save())
                 {
                     throw new Exception($"Upserting book {id} for author {authorId} failed on save.");
                 }
@@ -267,9 +267,9 @@ namespace ESPL.KP.Controllers
            
             Mapper.Map(bookToPatch, bookForAuthorFromRepo);
 
-            _libraryRepository.UpdateBookForAuthor(bookForAuthorFromRepo);
+            _appRepository.UpdateBookForAuthor(bookForAuthorFromRepo);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Patching book {id} for author {authorId} failed on save.");
             }
