@@ -20,16 +20,16 @@ namespace ESPL.KP.Controllers
 {
     public class AuthController : Controller
     {
-        private SignInManager<ESPLUser> _signInMgr;
-        private UserManager<ESPLUser> _userMgr;
-        private IPasswordHasher<ESPLUser> _hasher;
+        private SignInManager<AppUser> _signInMgr;
+        private UserManager<AppUser> _userMgr;
+        private IPasswordHasher<AppUser> _hasher;
         private IConfigurationRoot _config;
         private RoleManager<IdentityRole> _roleMgr;
 
         public AuthController(
-          SignInManager<ESPLUser> signInMgr,
-          UserManager<ESPLUser> userMgr,
-          IPasswordHasher<ESPLUser> hasher,
+          SignInManager<AppUser> signInMgr,
+          UserManager<AppUser> userMgr,
+          IPasswordHasher<AppUser> hasher,
           ILogger<AuthController> logger,
           IConfigurationRoot config,
           RoleManager<IdentityRole> roleMgr)

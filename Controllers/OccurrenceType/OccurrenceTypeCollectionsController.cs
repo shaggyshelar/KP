@@ -16,10 +16,10 @@ namespace KP.Controllers.OccurrenceType
     [Authorize]
     public class OccurrenceTypeCollectionsController : Controller
     {
-        private ILibraryRepository _libraryRepository;
-        public OccurrenceTypeCollectionsController(ILibraryRepository libraryRepository)
+        private IAppRepository _appRepository;
+        public OccurrenceTypeCollectionsController(IAppRepository appRepository)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
         }
 
         [HttpPost]
@@ -36,10 +36,10 @@ namespace KP.Controllers.OccurrenceType
 
             foreach (var occurrenceType in occurrenceTypeEntities)
             {
-                _libraryRepository.AddOccurrenceType(occurrenceType);
+                _appRepository.AddOccurrenceType(occurrenceType);
             }
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an occurrenceType collection failed on save.");
             }
@@ -66,7 +66,7 @@ namespace KP.Controllers.OccurrenceType
                 return BadRequest();
             }
 
-            var occurrenceTypeEntities = _libraryRepository.GetOccurrenceType(ids);
+            var occurrenceTypeEntities = _appRepository.GetOccurrenceType(ids);
 
             if (ids.Count() != occurrenceTypeEntities.Count())
             {

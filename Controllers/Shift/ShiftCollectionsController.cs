@@ -17,11 +17,11 @@ namespace ESPL.KP.Controllers.Shift
     [Authorize]
     public class ShiftCollectionsController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
 
-        public ShiftCollectionsController(ILibraryRepository libraryRepository)
+        public ShiftCollectionsController(IAppRepository appRepository)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
         }
 
         [HttpPost]
@@ -38,10 +38,10 @@ namespace ESPL.KP.Controllers.Shift
 
             foreach (var shift in shiftEntities)
             {
-                _libraryRepository.AddShift(shift);
+                _appRepository.AddShift(shift);
             }
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an shift collection failed on save.");
             }
@@ -68,7 +68,7 @@ namespace ESPL.KP.Controllers.Shift
                 return BadRequest();
             }
 
-            var shiftEntities = _libraryRepository.GetShifts(ids);
+            var shiftEntities = _appRepository.GetShifts(ids);
 
             if (ids.Count() != shiftEntities.Count())
             {

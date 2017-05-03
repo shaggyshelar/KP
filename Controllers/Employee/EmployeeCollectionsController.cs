@@ -17,11 +17,11 @@ namespace KP.Controllers.Employee
     [Authorize]
     public class EmployeeCollectionsController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
 
-        public EmployeeCollectionsController(ILibraryRepository libraryRepository)
+        public EmployeeCollectionsController(IAppRepository appRepository)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
         }
 
         [HttpPost]
@@ -38,10 +38,10 @@ namespace KP.Controllers.Employee
 
             foreach (var Employee in EmployeeEntities)
             {
-                _libraryRepository.AddEmployee(Employee);
+                _appRepository.AddEmployee(Employee);
             }
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an Employee collection failed on save.");
             }
@@ -68,7 +68,7 @@ namespace KP.Controllers.Employee
                 return BadRequest();
             }
 
-            var EmployeeEntities = _libraryRepository.GetEmployees(ids);
+            var EmployeeEntities = _appRepository.GetEmployees(ids);
 
             if (ids.Count() != EmployeeEntities.Count())
             {
