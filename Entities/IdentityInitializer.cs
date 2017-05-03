@@ -103,7 +103,7 @@ namespace ESPL.KP.Entities
 
         public async Task Seed()
         {
-            var user = await _userMgr.FindByNameAsync("espladmin");
+            var user = await _userMgr.FindByNameAsync("tomcruise");
 
             // Add User
             if (user == null)

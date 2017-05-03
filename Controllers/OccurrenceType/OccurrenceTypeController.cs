@@ -246,7 +246,10 @@ namespace ESPL.KP.Controllers.OccurrenceType
                 return NotFound();
             }
 
-            _libraryRepository.DeleteOccurrenceType(occurrenceTypeFromRepo);
+            //_libraryRepository.DeleteOccurrenceType(occurrenceTypeFromRepo);
+
+            //....... Soft Delete
+            occurrenceTypeFromRepo.IsDelete = true;
 
             if (!_libraryRepository.Save())
             {
