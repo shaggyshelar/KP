@@ -263,7 +263,7 @@ namespace KP.Controllers.OccurrenceBook
             {
                 isAssignedToChange = true;
             }
-            else if (occurrenceBookFromRepo.StatusID != occurrenceBook.StatusID)
+            if (occurrenceBookFromRepo.StatusID != occurrenceBook.StatusID)
             {
                 isStatusChange = true;
             }
@@ -283,7 +283,7 @@ namespace KP.Controllers.OccurrenceBook
                 Mapper.Map(occurrenceBookFromRepo, occurrenceBookAssignment);
                 AddAssignedToHistory(id, occurrenceBookAssignment);
             }
-            else if (isStatusChange)
+            if (isStatusChange)
             {
                 OccurrenceBookForStatusHistoryCreationDto occurrenceBookStatusHistory = new OccurrenceBookForStatusHistoryCreationDto();
                 Mapper.Map(occurrenceBookFromRepo, occurrenceBookStatusHistory);
