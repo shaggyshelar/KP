@@ -206,7 +206,9 @@ namespace KP.Controllers.Employee
                 return NotFound();
             }
 
-            _libraryRepository.DeleteEmployee(employeeFromRepo);
+            //_libraryRepository.DeleteEmployee(employeeFromRepo);
+            //....... Soft Delete
+            employeeFromRepo.IsDelete = true;
 
             if (!_libraryRepository.Save())
             {

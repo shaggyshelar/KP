@@ -244,8 +244,9 @@ namespace ESPL.KP.Controllers.Status
                 return NotFound();
             }
 
-            _libraryRepository.DeleteStatus(statusFromRepo);
-
+            //_libraryRepository.DeleteStatus(statusFromRepo);
+            //....... Soft Delete
+            statusFromRepo.IsDelete = true;
             if (!_libraryRepository.Save())
             {
                 throw new Exception($"Deleting department {id} failed on save.");
