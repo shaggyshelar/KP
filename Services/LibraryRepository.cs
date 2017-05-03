@@ -1073,6 +1073,99 @@ namespace ESPL.KP.Services
             occurrenceBookhistory.OBAssignmentID = Guid.NewGuid();
             _context.OccurrenceAssignmentHistory.Add(occurrenceBookhistory);
         }
+
+        public PagedList<OccurrenceAssignmentHistory> GetAssignmentHistory(OccurrenceBookAssignedToResourceParameters occurrenceBookAssignedHistory)
+        {
+            var collectionBeforePaging =
+                _context.OccurrenceAssignmentHistory
+                .ApplySort(occurrenceBookAssignedHistory.OrderBy,
+                _propertyMappingService.GetPropertyMapping<OccurrenceBookForAssignmentDto, OccurrenceAssignmentHistory>());
+
+            if (!string.IsNullOrEmpty(occurrenceBookAssignedHistory.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = occurrenceBookAssignedHistory.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                // collectionBeforePaging = collectionBeforePaging
+                //     .Where(a =>
+                //         a.ReveiwComments.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                //     );
+            }
+
+            return PagedList<OccurrenceAssignmentHistory>.Create(collectionBeforePaging,
+                occurrenceBookAssignedHistory.PageNumber,
+                occurrenceBookAssignedHistory.PageSize);
+        }
         #endregion OccurrenceAssignmentHistory
+
+        #region OccurrenceReviewHistory
+        public PagedList<OccurrenceReviewHistory> GetOccurrenceReviewHistories(OccurrenceBookReviewResourceParameters occurrenceBookReviewResourceParameters)
+        {
+            var collectionBeforePaging =
+                _context.OccurrenceReviewHistory
+                .ApplySort(occurrenceBookReviewResourceParameters.OrderBy,
+                _propertyMappingService.GetPropertyMapping<OccurrenceBookReviewDto, OccurrenceReviewHistory>());
+
+            if (!string.IsNullOrEmpty(occurrenceBookReviewResourceParameters.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = occurrenceBookReviewResourceParameters.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a =>
+                        a.ReveiwComments.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    );
+            }
+
+            return PagedList<OccurrenceReviewHistory>.Create(collectionBeforePaging,
+                occurrenceBookReviewResourceParameters.PageNumber,
+                occurrenceBookReviewResourceParameters.PageSize);
+        }
+
+        public OccurrenceReviewHistory GetReviewById(Guid occurrenceBookId, Guid reviewId)
+        {
+            return _context.OccurrenceReviewHistory.FirstOrDefault(a => a.OBReviewHistoryID == reviewId && a.OBID == occurrenceBookId);
+        }
+
+        public void AddOccurrenceReviewHistories(OccurrenceReviewHistory occurrenceReviewHistory)
+        {
+            occurrenceReviewHistory.OBReviewHistoryID = Guid.NewGuid();
+            _context.OccurrenceReviewHistory.Add(occurrenceReviewHistory);
+        }
+        #endregion OccurrenceReviewHistory
+
+        #region Status
+        public PagedList<OccurrenceStatusHistory> GetStatusHistory(OccurrenceBookStatusResourceParameters occurrenceBookStatusHistoryParams)
+        {
+           var collectionBeforePaging =
+                _context.OccurrenceStatusHistory
+                .ApplySort(occurrenceBookStatusHistoryParams.OrderBy,
+                _propertyMappingService.GetPropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>());
+
+            if (!string.IsNullOrEmpty(occurrenceBookStatusHistoryParams.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = occurrenceBookStatusHistoryParams.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a =>
+                        a.Comments.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    );
+            }
+
+            return PagedList<OccurrenceStatusHistory>.Create(collectionBeforePaging,
+                occurrenceBookStatusHistoryParams.PageNumber,
+                occurrenceBookStatusHistoryParams.PageSize);
+        }
+
+        public void AddOccurrenceStatusHistory(OccurrenceStatusHistory occurrenceBookStatusHistory)
+        {
+            occurrenceBookStatusHistory.OccurrenceStatusHistoryID = Guid.NewGuid();
+            _context.OccurrenceStatusHistory.Add(occurrenceBookStatusHistory);
+        }
+        #endregion status
     }
 }
