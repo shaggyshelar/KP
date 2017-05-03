@@ -24,12 +24,12 @@ namespace ESPL.KP.Services
 {
     public class AppRepository : IAppRepository
     {
-        private Entities.AppContext _context;
+        private Entities.ApplicationContext _context;
         private IPropertyMappingService _propertyMappingService;
         private RoleManager<IdentityRole> _roleMgr;
         private UserManager<AppUser> _userMgr;
 
-        public AppRepository(Entities.AppContext context,
+        public AppRepository(Entities.ApplicationContext context,
             IPropertyMappingService propertyMappingService,
             UserManager<AppUser> userMgr,
             RoleManager<IdentityRole> roleMgr)
