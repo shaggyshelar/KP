@@ -21,22 +21,22 @@ namespace ESPL.KP.Controllers.Core
     [Authorize(Policy = "IsSuperAdmin")]
     public class AppUserController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
         private RoleManager<IdentityRole> _roleMgr;
-        private UserManager<ESPLUser> _userMgr;
+        private UserManager<AppUser> _userMgr;
 
 
-        public AppUserController(ILibraryRepository libraryRepository,
+        public AppUserController(IAppRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService,
-            UserManager<ESPLUser> userMgr,
+            UserManager<AppUser> userMgr,
             RoleManager<IdentityRole> roleMgr)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
@@ -44,29 +44,29 @@ namespace ESPL.KP.Controllers.Core
             _roleMgr = roleMgr;
         }
 
-        [HttpGet(Name = "GetESPLUsers")]
-        public IActionResult GetESPLUsers(ESPLUsersResourceParameters esplUsersResourceParameters,
+        [HttpGet(Name = "GetAppUsers")]
+        public IActionResult GetAppUsers(AppUsersResourceParameters esplUsersResourceParameters,
             [FromHeader(Name = "Accept")] string mediaType)
         {
-            if (!_propertyMappingService.ValidMappingExistsFor<ESPLUserDto, ESPLUser>
+            if (!_propertyMappingService.ValidMappingExistsFor<AppUserDto, AppUser>
                (esplUsersResourceParameters.OrderBy))
             {
                 return BadRequest();
             }
 
-            if (!_typeHelperService.TypeHasProperties<ESPLUserDto>
+            if (!_typeHelperService.TypeHasProperties<AppUserDto>
                 (esplUsersResourceParameters.Fields))
             {
                 return BadRequest();
             }
 
-            var esplUsersFromRepo = _libraryRepository.GetESPLUsers(esplUsersResourceParameters);
+            var esplUsersFromRepo = _appRepository.GetAppUsers(esplUsersResourceParameters);
 
-            var esplUsers = new List<ESPLUserDto>();
+            var esplUsers = new List<AppUserDto>();
             esplUsersFromRepo.ForEach(esplUser =>
             {
                 esplUsers.Add(
-                new ESPLUserDto()
+                new AppUserDto()
                 {
                     Id = new Guid(esplUser.Id),
                     FirstName = esplUser.FirstName,
@@ -89,13 +89,13 @@ namespace ESPL.KP.Controllers.Core
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
 
-                var links = CreateLinksForESPLUsers(esplUsersResourceParameters,
+                var links = CreateLinksForAppUsers(esplUsersResourceParameters,
                     esplUsersFromRepo.HasNext, esplUsersFromRepo.HasPrevious);
 
-                var shapedESPLUsers = esplUsers.ShapeData(esplUsersResourceParameters.Fields);
+                var shapedAppUsers = esplUsers.ShapeData(esplUsersResourceParameters.Fields);
                 var linkedCollectionResource = new
                 {
-                    value = shapedESPLUsers,
+                    value = shapedAppUsers,
                     links = links
                 };
 
@@ -104,11 +104,11 @@ namespace ESPL.KP.Controllers.Core
             else
             {
                 var previousPageLink = esplUsersFromRepo.HasPrevious ?
-                    CreateESPLUsersResourceUri(esplUsersResourceParameters,
+                    CreateAppUsersResourceUri(esplUsersResourceParameters,
                     ResourceUriType.PreviousPage) : null;
 
                 var nextPageLink = esplUsersFromRepo.HasNext ?
-                    CreateESPLUsersResourceUri(esplUsersResourceParameters,
+                    CreateAppUsersResourceUri(esplUsersResourceParameters,
                     ResourceUriType.NextPage) : null;
 
                 var paginationMetadata = new
@@ -128,14 +128,14 @@ namespace ESPL.KP.Controllers.Core
             }
         }
 
-        private string CreateESPLUsersResourceUri(
-            ESPLUsersResourceParameters esplUsersResourceParameters,
+        private string CreateAppUsersResourceUri(
+            AppUsersResourceParameters esplUsersResourceParameters,
             ResourceUriType type)
         {
             switch (type)
             {
                 case ResourceUriType.PreviousPage:
-                    return _urlHelper.Link("GetESPLUsers",
+                    return _urlHelper.Link("GetAppUsers",
                       new
                       {
                           fields = esplUsersResourceParameters.Fields,
@@ -145,7 +145,7 @@ namespace ESPL.KP.Controllers.Core
                           pageSize = esplUsersResourceParameters.PageSize
                       });
                 case ResourceUriType.NextPage:
-                    return _urlHelper.Link("GetESPLUsers",
+                    return _urlHelper.Link("GetAppUsers",
                       new
                       {
                           fields = esplUsersResourceParameters.Fields,
@@ -156,7 +156,7 @@ namespace ESPL.KP.Controllers.Core
                       });
                 case ResourceUriType.Current:
                 default:
-                    return _urlHelper.Link("GetESPLUsers",
+                    return _urlHelper.Link("GetAppUsers",
                     new
                     {
                         fields = esplUsersResourceParameters.Fields,
@@ -168,25 +168,25 @@ namespace ESPL.KP.Controllers.Core
             }
         }
 
-        [HttpGet("{id}", Name = "GetESPLUser")]
-        public IActionResult GetESPLUser(Guid id, [FromQuery] string fields)
+        [HttpGet("{id}", Name = "GetAppUser")]
+        public IActionResult GetAppUser(Guid id, [FromQuery] string fields)
         {
-            if (!_typeHelperService.TypeHasProperties<ESPLUserDto>
+            if (!_typeHelperService.TypeHasProperties<AppUserDto>
               (fields))
             {
                 return BadRequest();
             }
 
-            var esplUserFromRepo = _libraryRepository.GetESPLUser(id);
+            var esplUserFromRepo = _appRepository.GetAppUser(id);
 
             if (esplUserFromRepo == null)
             {
                 return NotFound();
             }
 
-            var esplUser = Mapper.Map<ESPLUserDto>(esplUserFromRepo);
+            var esplUser = Mapper.Map<AppUserDto>(esplUserFromRepo);
 
-            var links = CreateLinksForESPLUser(id, fields);
+            var links = CreateLinksForAppUser(id, fields);
 
             var linkedResourceToReturn = esplUser.ShapeData(fields)
                 as IDictionary<string, object>;
@@ -196,43 +196,43 @@ namespace ESPL.KP.Controllers.Core
             return Ok(linkedResourceToReturn);
         }
 
-        [HttpPost(Name = "CreateESPLUser")]
-        public IActionResult CreateESPLUser([FromBody] ESPLUserForCreationDto esplUser)
+        [HttpPost(Name = "CreateAppUser")]
+        public IActionResult CreateAppUser([FromBody] AppUserForCreationDto esplUser)
         {
             if (esplUser == null)
             {
                 return BadRequest();
             }
 
-            var esplUserEntity = Mapper.Map<ESPLUser>(esplUser);
+            var esplUserEntity = Mapper.Map<AppUser>(esplUser);
 
-            _libraryRepository.AddESPLUser(esplUserEntity);
+            _appRepository.AddAppUser(esplUserEntity);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an esplUser failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
             }
 
-            var esplUserToReturn = Mapper.Map<ESPLUserDto>(esplUserEntity);
+            var esplUserToReturn = Mapper.Map<AppUserDto>(esplUserEntity);
 
-            var links = CreateLinksForESPLUser(esplUserToReturn.Id, null);
+            var links = CreateLinksForAppUser(esplUserToReturn.Id, null);
 
             var linkedResourceToReturn = esplUserToReturn.ShapeData(null)
                 as IDictionary<string, object>;
 
             linkedResourceToReturn.Add("links", links);
 
-            return CreatedAtRoute("GetESPLUser",
+            return CreatedAtRoute("GetAppUser",
                 new { id = linkedResourceToReturn["Id"] },
                 linkedResourceToReturn);
         }
 
 
         [HttpPost("{id}")]
-        public IActionResult BlockESPLUserCreation(Guid id)
+        public IActionResult BlockAppUserCreation(Guid id)
         {
-            if (_libraryRepository.ESPLUserExists(id))
+            if (_appRepository.AppUserExists(id))
             {
                 return new StatusCodeResult(StatusCodes.Status409Conflict);
             }
@@ -240,18 +240,18 @@ namespace ESPL.KP.Controllers.Core
             return NotFound();
         }
 
-        [HttpDelete("{id}", Name = "DeleteESPLUser")]
-        public IActionResult DeleteESPLUser(Guid id)
+        [HttpDelete("{id}", Name = "DeleteAppUser")]
+        public IActionResult DeleteAppUser(Guid id)
         {
-            var esplUserFromRepo = _libraryRepository.GetESPLUser(id);
+            var esplUserFromRepo = _appRepository.GetAppUser(id);
             if (esplUserFromRepo == null)
             {
                 return NotFound();
             }
 
-            _libraryRepository.DeleteESPLUser(esplUserFromRepo);
+            _appRepository.DeleteAppUser(esplUserFromRepo);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Deleting esplUser {id} failed on save.");
             }
@@ -259,59 +259,59 @@ namespace ESPL.KP.Controllers.Core
             return NoContent();
         }
 
-        private IEnumerable<LinkDto> CreateLinksForESPLUser(Guid id, string fields)
+        private IEnumerable<LinkDto> CreateLinksForAppUser(Guid id, string fields)
         {
             var links = new List<LinkDto>();
 
             if (string.IsNullOrWhiteSpace(fields))
             {
                 links.Add(
-                  new LinkDto(_urlHelper.Link("GetESPLUser", new { id = id }),
+                  new LinkDto(_urlHelper.Link("GetAppUser", new { id = id }),
                   "self",
                   "GET"));
             }
             else
             {
                 links.Add(
-                  new LinkDto(_urlHelper.Link("GetESPLUser", new { id = id, fields = fields }),
+                  new LinkDto(_urlHelper.Link("GetAppUser", new { id = id, fields = fields }),
                   "self",
                   "GET"));
             }
 
             links.Add(
-              new LinkDto(_urlHelper.Link("DeleteESPLUser", new { id = id }),
+              new LinkDto(_urlHelper.Link("DeleteAppUser", new { id = id }),
               "delete_esplUser",
               "DELETE"));
 
             links.Add(
-              new LinkDto(_urlHelper.Link("CreateBookForESPLUser", new { esplUserId = id }),
+              new LinkDto(_urlHelper.Link("CreateBookForAppUser", new { esplUserId = id }),
               "create_book_for_esplUser",
               "POST"));
 
             links.Add(
-               new LinkDto(_urlHelper.Link("GetBooksForESPLUser", new { esplUserId = id }),
+               new LinkDto(_urlHelper.Link("GetBooksForAppUser", new { esplUserId = id }),
                "books",
                "GET"));
 
             return links;
         }
 
-        private IEnumerable<LinkDto> CreateLinksForESPLUsers(
-            ESPLUsersResourceParameters esplUsersResourceParameters,
+        private IEnumerable<LinkDto> CreateLinksForAppUsers(
+            AppUsersResourceParameters esplUsersResourceParameters,
             bool hasNext, bool hasPrevious)
         {
             var links = new List<LinkDto>();
 
             // self 
             links.Add(
-               new LinkDto(CreateESPLUsersResourceUri(esplUsersResourceParameters,
+               new LinkDto(CreateAppUsersResourceUri(esplUsersResourceParameters,
                ResourceUriType.Current)
                , "self", "GET"));
 
             if (hasNext)
             {
                 links.Add(
-                  new LinkDto(CreateESPLUsersResourceUri(esplUsersResourceParameters,
+                  new LinkDto(CreateAppUsersResourceUri(esplUsersResourceParameters,
                   ResourceUriType.NextPage),
                   "nextPage", "GET"));
             }
@@ -319,7 +319,7 @@ namespace ESPL.KP.Controllers.Core
             if (hasPrevious)
             {
                 links.Add(
-                    new LinkDto(CreateESPLUsersResourceUri(esplUsersResourceParameters,
+                    new LinkDto(CreateAppUsersResourceUri(esplUsersResourceParameters,
                     ResourceUriType.PreviousPage),
                     "previousPage", "GET"));
             }
@@ -328,7 +328,7 @@ namespace ESPL.KP.Controllers.Core
         }
 
         [HttpOptions]
-        public IActionResult GetESPLUsersOptions()
+        public IActionResult GetAppUsersOptions()
         {
             Response.Headers.Add("Allow", "GET,OPTIONS,POST");
             return Ok();

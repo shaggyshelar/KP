@@ -18,11 +18,11 @@ namespace ESPL.KP.Controllers.Designation
     public class DesignationCollectionsController : Controller
     {
         //Global Declaration
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
         //Constructor
-        public DesignationCollectionsController(ILibraryRepository libraryRepository)
+        public DesignationCollectionsController(IAppRepository appRepository)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
         }
 
         //action methods
@@ -40,10 +40,10 @@ namespace ESPL.KP.Controllers.Designation
 
             foreach (var Designation in DesignationEntities)
             {
-                _libraryRepository.AddDesignation(Designation);
+                _appRepository.AddDesignation(Designation);
             }
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an Designation collection failed on save.");
             }
@@ -70,7 +70,7 @@ namespace ESPL.KP.Controllers.Designation
                 return BadRequest();
             }
 
-            var DesignationEntities = _libraryRepository.GetDesignations(ids);
+            var DesignationEntities = _appRepository.GetDesignations(ids);
 
             if (ids.Count() != DesignationEntities.Count())
             {

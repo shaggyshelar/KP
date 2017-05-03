@@ -56,9 +56,9 @@ namespace ESPL.KP
             // appSettings (note: use this during development; in a production environment,
             // it's better to store the connection string in an environment variable)
             var connectionString = Configuration["connectionStrings:libraryDBConnectionString"];
-            services.AddDbContext<LibraryContext>(o => o.UseSqlServer(connectionString));
+            services.AddDbContext<Entities.ApplicationContext>(o => o.UseSqlServer(connectionString));
             services.AddTransient<IdentityInitializer>();
-            services.AddIdentity<ESPLUser, IdentityRole>().AddEntityFrameworkStores<LibraryContext>();
+            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<Entities.ApplicationContext>();
             services.Configure<IdentityOptions>(config =>
             {
                 config.Cookies.ApplicationCookie.Events =
@@ -150,7 +150,7 @@ namespace ESPL.KP
             });
 
             // register the repository
-            services.AddScoped<ILibraryRepository, LibraryRepository>();
+            services.AddScoped<IAppRepository, AppRepository>();
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
@@ -210,7 +210,7 @@ namespace ESPL.KP
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env,
-            ILoggerFactory loggerFactory, LibraryContext libraryContext,
+            ILoggerFactory loggerFactory, Entities.ApplicationContext libraryContext,
             IdentityInitializer identitySeeder)
         {
             loggerFactory.AddConsole();
@@ -271,11 +271,11 @@ namespace ESPL.KP
                 cfg.CreateMap<ESPL.KP.Models.Core.AppModuleForCreationDto, ESPL.KP.Entities.Core.AppModule>();
                 cfg.CreateMap<KP.Models.AppModuleForUpdationDto, ESPL.KP.Entities.Core.AppModule>();
                 cfg.CreateMap<ESPL.KP.Entities.Core.AppModule, ESPL.KP.Models.AppModuleForUpdationDto>();
-                cfg.CreateMap<ESPL.KP.Entities.ESPLUser, ESPL.KP.Models.Core.ESPLUserDto>();
+                cfg.CreateMap<ESPL.KP.Entities.AppUser, ESPL.KP.Models.Core.AppUserDto>();
 
-                cfg.CreateMap<ESPL.KP.Models.Core.ESPLUserForCreationDto, ESPL.KP.Entities.ESPLUser>();
-                cfg.CreateMap<IdentityRole, ESPL.KP.Models.Core.ESPLRoleDto>();
-                cfg.CreateMap<ESPL.KP.Models.Core.ESPLRoleForCreationDto, IdentityRole>();
+                cfg.CreateMap<ESPL.KP.Models.Core.AppUserForCreationDto, ESPL.KP.Entities.AppUser>();
+                cfg.CreateMap<IdentityRole, ESPL.KP.Models.Core.AppRoleDto>();
+                cfg.CreateMap<ESPL.KP.Models.Core.AppRoleForCreationDto, IdentityRole>();
 
                 cfg.CreateMap<ESPL.KP.Entities.MstDepartment, ESPL.KP.Models.DepartmentDto>();
                 cfg.CreateMap<ESPL.KP.Models.DepartmentForCreationDto, ESPL.KP.Entities.MstDepartment>();

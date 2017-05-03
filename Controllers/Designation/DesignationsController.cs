@@ -19,17 +19,17 @@ namespace ESPL.KP.Controllerss.Designation
     [Authorize]
     public class DesignationsController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
 
-        public DesignationsController(ILibraryRepository libraryRepository,
+        public DesignationsController(IAppRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
@@ -52,7 +52,7 @@ namespace ESPL.KP.Controllerss.Designation
                 return BadRequest();
             }
 
-            var DesignationsFromRepo = _libraryRepository.GetDesignations(DesignationsResourceParameters);
+            var DesignationsFromRepo = _appRepository.GetDesignations(DesignationsResourceParameters);
 
             var Designations = Mapper.Map<IEnumerable<DesignationDto>>(DesignationsFromRepo);
 
@@ -170,7 +170,7 @@ namespace ESPL.KP.Controllerss.Designation
                 return BadRequest();
             }
 
-            var DesignationFromRepo = _libraryRepository.GetDesignation(id);
+            var DesignationFromRepo = _appRepository.GetDesignation(id);
 
             if (DesignationFromRepo == null)
             {
@@ -200,9 +200,9 @@ namespace ESPL.KP.Controllerss.Designation
 
             var DesignationEntity = Mapper.Map<MstDesignation>(Designation);
 
-            _libraryRepository.AddDesignation(DesignationEntity);
+            _appRepository.AddDesignation(DesignationEntity);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an Designation failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
@@ -225,7 +225,7 @@ namespace ESPL.KP.Controllerss.Designation
         [HttpPost("{id}")]
         public IActionResult BlockDesignationCreation(Guid id)
         {
-            if (_libraryRepository.DesignationExists(id))
+            if (_appRepository.DesignationExists(id))
             {
                 return new StatusCodeResult(StatusCodes.Status409Conflict);
             }
@@ -237,17 +237,17 @@ namespace ESPL.KP.Controllerss.Designation
         [Authorize(Policy = Permissions.DesignationDelete)]
         public IActionResult DeleteDesignation(Guid id)
         {
-            var DesignationFromRepo = _libraryRepository.GetDesignation(id);
+            var DesignationFromRepo = _appRepository.GetDesignation(id);
             if (DesignationFromRepo == null)
             {
                 return NotFound();
             }
 
-            //_libraryRepository.DeleteDesignation(DesignationFromRepo);
+            //_appRepository.DeleteDesignation(DesignationFromRepo);
             //....... Soft Delete
             DesignationFromRepo.IsDelete = true;
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Deleting Designation {id} failed on save.");
             }
@@ -263,12 +263,12 @@ namespace ESPL.KP.Controllerss.Designation
             {
                 return BadRequest();
             }
-            // if (!_libraryRepository.OccurrenceBookExists(id))
+            // if (!_appRepository.OccurrenceBookExists(id))
             // {
             //     return NotFound();
             // }
             //Mapper.Map(source,destination);
-            var designationRepo = _libraryRepository.GetDesignation(id);
+            var designationRepo = _appRepository.GetDesignation(id);
 
             if (designationRepo == null)
             {
@@ -276,8 +276,8 @@ namespace ESPL.KP.Controllerss.Designation
             }
             SetItemHistoryData(designation, designationRepo);
             Mapper.Map(designation, designationRepo);
-            _libraryRepository.UpdateDesignation(designationRepo);
-            if (!_libraryRepository.Save())
+            _appRepository.UpdateDesignation(designationRepo);
+            if (!_appRepository.Save())
             {
                 throw new Exception("Updating an designation failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
@@ -297,7 +297,7 @@ namespace ESPL.KP.Controllerss.Designation
                 return BadRequest();
             }
 
-            var designationFromRepo = _libraryRepository.GetDesignation(id);
+            var designationFromRepo = _appRepository.GetDesignation(id);
 
             if (designationFromRepo == null)
             {
@@ -314,9 +314,9 @@ namespace ESPL.KP.Controllerss.Designation
                 // var designationToAdd = Mapper.Map<MstDesignation>(designationDto);
                 // designationToAdd.DesignationID = id;
 
-                // _libraryRepository.AddDesignation(designationToAdd);
+                // _appRepository.AddDesignation(designationToAdd);
 
-                // if (!_libraryRepository.Save())
+                // if (!_appRepository.Save())
                 // {
                 //     throw new Exception($"Upserting in designation {id} failed on save.");
                 // }
@@ -343,9 +343,9 @@ namespace ESPL.KP.Controllerss.Designation
             SetItemHistoryData(designationToPatch, designationFromRepo);
             Mapper.Map(designationToPatch, designationFromRepo);
 
-            _libraryRepository.UpdateDesignation(designationFromRepo);
+            _appRepository.UpdateDesignation(designationFromRepo);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Patching  designation {id} failed on save.");
             }

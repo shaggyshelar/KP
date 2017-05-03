@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ESPL.KP.Entities {
-    public class ESPLUser : IdentityUser {
+    public class AppUser : IdentityUser {
         [Required]
         [MaxLength (50)]
         public string FirstName { get; set; }
