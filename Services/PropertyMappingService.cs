@@ -194,6 +194,15 @@ namespace ESPL.KP.Services
                 { "StatusID", new PropertyMappingValue(new List<string>() { "StatusID" } )},
                 { "Comments", new PropertyMappingValue(new List<string>() { "Comments" } )},
           };
+          private Dictionary<string, PropertyMappingValue> _occurrenceBookForStatusHistoryCreationDto =
+          new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+          {
+               { "OccurrenceStatusHistoryID", new PropertyMappingValue(new List<string>() { "OccurrenceStatusHistoryID" } )},
+               { "OBID", new PropertyMappingValue(new List<string>() { "OBID" } )},
+                { "StatusID", new PropertyMappingValue(new List<string>() { "StatusID" } )},
+                { "Comments", new PropertyMappingValue(new List<string>() { "Comments" } )},
+          };
+          
 
         private IList<IPropertyMapping> propertyMappings = new List<IPropertyMapping>();
 
@@ -216,6 +225,8 @@ namespace ESPL.KP.Services
             propertyMappings.Add(new PropertyMapping<OccurrenceBookReviewDto, OccurrenceReviewHistory>(_occurrenceBooksReviewPropertyMapping));
             propertyMappings.Add(new PropertyMapping<OccurrenceBookForAssignmentDto, OccurrenceAssignmentHistory>(_occurrenceBooksReviewPropertyMapping));
             propertyMappings.Add(new PropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>(_occurrenceBooksStatusPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<OccurrenceBookForStatusHistoryCreationDto, OccurrenceStatusHistory>(_occurrenceBookForStatusHistoryCreationDto));
+            
         }
         public Dictionary<string, PropertyMappingValue> GetPropertyMapping
             <TSource, TDestination>()

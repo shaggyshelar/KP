@@ -211,7 +211,7 @@ namespace KP.Controllers.OccurrenceBook
             }
 
             //_libraryRepository.DeleteOccurrenceBook(occurrenceBookFromRepo);
-            
+
             //....... Soft Delete
             occurrenceBookFromRepo.IsDelete = true;
 
@@ -257,6 +257,17 @@ namespace KP.Controllers.OccurrenceBook
                 //     occurrenceBookReturnVal);
                 return NotFound();
             }
+
+            bool isStatusChange = false, isAssignedToChange = false;
+            if (occurrenceBookFromRepo.AssignedTO != occurrenceBook.AssignedTO)
+            {
+                isAssignedToChange = true;
+            }
+            else if (occurrenceBookFromRepo.StatusID != occurrenceBook.StatusID)
+            {
+                isStatusChange = true;
+            }
+
             SetItemHistoryData(occurrenceBook, occurrenceBookFromRepo);
             Mapper.Map(occurrenceBook, occurrenceBookFromRepo);
             _libraryRepository.UpdateOccurrenceBook(occurrenceBookFromRepo);
@@ -266,6 +277,19 @@ namespace KP.Controllers.OccurrenceBook
                 // return StatusCode(500, "A problem happened with handling your request.");
             }
 
+            //check for updates
+            if (isAssignedToChange)
+            {
+                OccurrenceBookForAssignmentDto occurrenceBookAssignment = new OccurrenceBookForAssignmentDto();
+                Mapper.Map(occurrenceBookFromRepo, occurrenceBookAssignment);
+                AddAssignedToHistory(id, occurrenceBookAssignment);
+            }
+            else if (isStatusChange)
+            {
+                OccurrenceBookForStatusHistoryCreationDto occurrenceBookStatusHistory = new OccurrenceBookForStatusHistoryCreationDto();
+                Mapper.Map(occurrenceBookFromRepo, occurrenceBookStatusHistory);
+                AddStatusHistory(id, occurrenceBookStatusHistory);
+            }
 
             return Ok(occurrenceBookFromRepo);
         }
@@ -333,6 +357,22 @@ namespace KP.Controllers.OccurrenceBook
                 throw new Exception($"Patching  Occurrence Book {id} failed on save.");
             }
 
+            foreach (var path in patchDoc.Operations)
+            {
+                if (path.path.ToLowerInvariant().Equals("/assignedto"))
+                {
+                    OccurrenceBookForAssignmentDto occurrenceBook = new OccurrenceBookForAssignmentDto();
+                    Mapper.Map(bookForAuthorFromRepo, occurrenceBook);
+                    AddAssignedToHistory(id, occurrenceBook);
+                }
+                else if (path.path.ToLowerInvariant().Equals("/statusid"))
+                {
+                    OccurrenceBookForStatusHistoryCreationDto occurrenceBookStatusHistory = new OccurrenceBookForStatusHistoryCreationDto();
+                    Mapper.Map(bookForAuthorFromRepo, occurrenceBookStatusHistory);
+                    AddStatusHistory(id, occurrenceBookStatusHistory);
+                }
+            }
+
             return NoContent();
         }
 
@@ -360,20 +400,14 @@ namespace KP.Controllers.OccurrenceBook
             }
 
 
-            var occurrenceBookHistoryEntity = Mapper.Map<OccurrenceAssignmentHistory>(occurrenceBook);
-            occurrenceBookHistoryEntity.OBID = id;
-
-            _libraryRepository.AddOccurrenceAssignmentHistory(occurrenceBookHistoryEntity);
-
-            if (!_libraryRepository.Save())
-            {
-                throw new Exception("Creating an occurrenceBook failed on save.");
-                // return StatusCode(500, "A problem happened with handling your request.");
-            }
+            
+            AddAssignedToHistory(id, occurrenceBook);
 
 
             return Ok(occurrenceBookFromRepo);
         }
+
+
 
         [Route("{id}/assignedhistory")]
         [HttpGet("{id}/assignedhistory", Name = "GetAssignmentHistory")]
@@ -624,24 +658,16 @@ namespace KP.Controllers.OccurrenceBook
             }
 
             //Mapper.Map(occurrenceBookStatusHistory, occurrenceBookFromRepo);
-            occurrenceBookFromRepo.StatusID=occurrenceBookStatusHistory.StatusID;
-            occurrenceBookFromRepo.Remark=occurrenceBookStatusHistory.Comments;
+            occurrenceBookFromRepo.StatusID = occurrenceBookStatusHistory.StatusID;
+            occurrenceBookFromRepo.Remark = occurrenceBookStatusHistory.Comments;
             _libraryRepository.UpdateOccurrenceBook(occurrenceBookFromRepo);
             if (!_libraryRepository.Save())
             {
                 return StatusCode(500, "A problem happened with handling your request.");
             }
 
-            var occurrenceBookHistoryEntity = Mapper.Map<OccurrenceStatusHistory>(occurrenceBookStatusHistory);
-            occurrenceBookHistoryEntity.OBID = id;
-
-            _libraryRepository.AddOccurrenceStatusHistory(occurrenceBookHistoryEntity);
-
-            if (!_libraryRepository.Save())
-            {
-                throw new Exception("Creating an occurrenceBookStatusHistory failed on save.");
-                // return StatusCode(500, "A problem happened with handling your request.");
-            }
+            AddStatusHistory(id, occurrenceBookStatusHistory);
+           
 
             return Ok(occurrenceBookFromRepo);
         }
@@ -728,6 +754,34 @@ namespace KP.Controllers.OccurrenceBook
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
 
                 return Ok(occurrenceBookStatus.ShapeData(occurrenceBookStatusResourceParameters.Fields));
+            }
+        }
+
+        private void AddAssignedToHistory(Guid id, OccurrenceBookForAssignmentDto occurrenceBook)
+        {
+            var occurrenceBookHistoryEntity = Mapper.Map<OccurrenceAssignmentHistory>(occurrenceBook);
+            occurrenceBookHistoryEntity.OBID = id;
+
+            _libraryRepository.AddOccurrenceAssignmentHistory(occurrenceBookHistoryEntity);
+
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception("Creating an occurrenceBook failed on save.");
+                // return StatusCode(500, "A problem happened with handling your request.");
+            }
+        }
+
+        private void AddStatusHistory(Guid id, OccurrenceBookForStatusHistoryCreationDto occurrenceBookStatusHistory)
+        {
+            var occurrenceBookHistoryEntity = Mapper.Map<OccurrenceStatusHistory>(occurrenceBookStatusHistory);
+            occurrenceBookHistoryEntity.OBID = id;
+
+            _libraryRepository.AddOccurrenceStatusHistory(occurrenceBookHistoryEntity);
+
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception("Creating an occurrenceBookStatusHistory failed on save.");
+                // return StatusCode(500, "A problem happened with handling your request.");
             }
         }
 

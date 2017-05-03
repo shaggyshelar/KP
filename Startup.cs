@@ -359,7 +359,8 @@ namespace ESPL.KP
                 cfg.CreateMap<ESPL.KP.Entities.OccurrenceStatusHistory, ESPL.KP.Models.OccurrenceBookStatusHistoryDto>();
                 cfg.CreateMap<ESPL.KP.Models.OccurrenceBookForStatusHistoryCreationDto, ESPL.KP.Entities.OccurrenceStatusHistory>();
                 cfg.CreateMap<ESPL.KP.Entities.OccurrenceStatusHistory, ESPL.KP.Models.OccurrenceBookForStatusHistoryCreationDto>();
-
+                cfg.CreateMap<ESPL.KP.Models.OccurrenceBookForStatusHistoryCreationDto, ESPL.KP.Entities.MstOccurrenceBook>();
+                cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceBook, ESPL.KP.Models.OccurrenceBookForStatusHistoryCreationDto>();
                 //    .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src =>
                 //    src.MstStatus.StatusName));
             });
