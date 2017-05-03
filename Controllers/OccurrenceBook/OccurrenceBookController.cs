@@ -210,7 +210,10 @@ namespace KP.Controllers.OccurrenceBook
                 return NotFound();
             }
 
-            _libraryRepository.DeleteOccurrenceBook(occurrenceBookFromRepo);
+            //_libraryRepository.DeleteOccurrenceBook(occurrenceBookFromRepo);
+            
+            //....... Soft Delete
+            occurrenceBookFromRepo.IsDelete = true;
 
             if (!_libraryRepository.Save())
             {

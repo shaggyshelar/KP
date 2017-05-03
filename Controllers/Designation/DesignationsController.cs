@@ -243,7 +243,9 @@ namespace ESPL.KP.Controllerss.Designation
                 return NotFound();
             }
 
-            _libraryRepository.DeleteDesignation(DesignationFromRepo);
+            //_libraryRepository.DeleteDesignation(DesignationFromRepo);
+            //....... Soft Delete
+            DesignationFromRepo.IsDelete = true;
 
             if (!_libraryRepository.Save())
             {
