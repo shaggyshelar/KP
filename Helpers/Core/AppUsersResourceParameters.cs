@@ -1,6 +1,6 @@
 namespace ESPL.KP.Helpers.Core
 {
-    public class ESPLUsersResourceParameters : BaseResourceParameters
+    public class AppUsersResourceParameters : BaseResourceParameters
     {
         public string OrderBy { get; set; } = "FirstName";
 

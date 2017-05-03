@@ -21,17 +21,17 @@ namespace KP.Controllers.ReportsController
     [Authorize]
     public class ReportsController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
 
-        public ReportsController(ILibraryRepository libraryRepository,
+        public ReportsController(IAppRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
@@ -56,7 +56,7 @@ namespace KP.Controllers.ReportsController
                 return BadRequest();
             }
 
-            var occurrenceBookFromRepo = _libraryRepository.GetOccurrenceBooks(occurrenceReportResourceParameters);
+            var occurrenceBookFromRepo = _appRepository.GetOccurrenceBooks(occurrenceReportResourceParameters);
 
             var occurrenceBook = Mapper.Map<IEnumerable<OccurrenceReportDto>>(occurrenceBookFromRepo);
 
@@ -143,7 +143,7 @@ namespace KP.Controllers.ReportsController
                 return BadRequest();
             }
 
-            var occurrenceBookFromRepo = _libraryRepository.GetOccurrenceBooksStatistics(occurrenceBookResourceParameters);
+            var occurrenceBookFromRepo = _appRepository.GetOccurrenceBooksStatistics(occurrenceBookResourceParameters);
 
             // var occurrenceBook = Mapper.Map<IEnumerable<OccurreceStatistics>>(occurrenceBookFromRepo);
 
@@ -231,7 +231,7 @@ namespace KP.Controllers.ReportsController
         //         return BadRequest();
         //     }
 
-        //     var occurrenceBookFromRepo = _libraryRepository.GetOfficersStatistics(occurrenceBookResourceParameters);
+        //     var occurrenceBookFromRepo = _appRepository.GetOfficersStatistics(occurrenceBookResourceParameters);
 
         //     return Ok(occurrenceBookFromRepo);
         // }

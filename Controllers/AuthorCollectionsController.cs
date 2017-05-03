@@ -14,11 +14,11 @@ namespace ESPL.KP.Controllers
     [Route("api/authorcollections")]
     public class AuthorCollectionsController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
 
-        public AuthorCollectionsController(ILibraryRepository libraryRepository)
+        public AuthorCollectionsController(IAppRepository appRepository)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
         }
 
         [HttpPost]
@@ -34,10 +34,10 @@ namespace ESPL.KP.Controllers
 
             foreach (var author in authorEntities)
             {
-                _libraryRepository.AddAuthor(author);
+                _appRepository.AddAuthor(author);
             }
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an author collection failed on save.");
             }
@@ -63,7 +63,7 @@ namespace ESPL.KP.Controllers
                 return BadRequest();
             }
 
-            var authorEntities = _libraryRepository.GetAuthors(ids);
+            var authorEntities = _appRepository.GetAuthors(ids);
 
             if (ids.Count() != authorEntities.Count())
             {

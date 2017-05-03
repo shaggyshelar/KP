@@ -19,17 +19,17 @@ namespace ESPL.KP.Controllers.Status
     [Authorize]
     public class StatusesController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
 
-        public StatusesController(ILibraryRepository libraryRepository,
+        public StatusesController(IAppRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
@@ -53,7 +53,7 @@ namespace ESPL.KP.Controllers.Status
                 return BadRequest();
             }
 
-            var statusesFromRepo = _libraryRepository.GetStatuses(statusesResourceParameters);
+            var statusesFromRepo = _appRepository.GetStatuses(statusesResourceParameters);
 
             var statuses = Mapper.Map<IEnumerable<StatusDto>>(statusesFromRepo);
 
@@ -171,7 +171,7 @@ namespace ESPL.KP.Controllers.Status
                 return BadRequest();
             }
 
-            var statusFromRepo = _libraryRepository.GetStatus(id);
+            var statusFromRepo = _appRepository.GetStatus(id);
 
             if (statusFromRepo == null)
             {
@@ -201,9 +201,9 @@ namespace ESPL.KP.Controllers.Status
 
             var statusEntity = Mapper.Map<MstStatus>(status);
 
-            _libraryRepository.AddStatus(statusEntity);
+            _appRepository.AddStatus(statusEntity);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an status failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
@@ -226,7 +226,7 @@ namespace ESPL.KP.Controllers.Status
         [HttpPost("{id}")]
         public IActionResult BlockStatusCreation(Guid id)
         {
-            if (_libraryRepository.StatusExists(id))
+            if (_appRepository.StatusExists(id))
             {
                 return new StatusCodeResult(StatusCodes.Status409Conflict);
             }
@@ -238,16 +238,16 @@ namespace ESPL.KP.Controllers.Status
         [Authorize(Policy = Permissions.StatusDelete)]
         public IActionResult DeleteStatus(Guid id)
         {
-            var statusFromRepo = _libraryRepository.GetStatus(id);
+            var statusFromRepo = _appRepository.GetStatus(id);
             if (statusFromRepo == null)
             {
                 return NotFound();
             }
 
-            //_libraryRepository.DeleteStatus(statusFromRepo);
+            //_appRepository.DeleteStatus(statusFromRepo);
             //....... Soft Delete
             statusFromRepo.IsDelete = true;
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Deleting department {id} failed on save.");
             }
@@ -263,21 +263,21 @@ namespace ESPL.KP.Controllers.Status
             {
                 return BadRequest();
             }
-            // if (!_libraryRepository.OccurrenceBookExists(id))
+            // if (!_appRepository.OccurrenceBookExists(id))
             // {
             //     return NotFound();
             // }
             //Mapper.Map(source,destination);
-            var statusRepo = _libraryRepository.GetStatus(id);
+            var statusRepo = _appRepository.GetStatus(id);
 
             if (statusRepo == null)
             {
                 // var statusAdd = Mapper.Map<MstStatus>(status);
                 // statusAdd.StatusID = id;
 
-                // _libraryRepository.AddStatus(statusAdd);
+                // _appRepository.AddStatus(statusAdd);
 
-                // if (!_libraryRepository.Save())
+                // if (!_appRepository.Save())
                 // {
                 //     throw new Exception($"Upserting status {id} failed on save.");
                 // }
@@ -291,8 +291,8 @@ namespace ESPL.KP.Controllers.Status
             }
             SetItemHistoryData(status, statusRepo);
             Mapper.Map(status, statusRepo);
-            _libraryRepository.UpdateStatus(statusRepo);
-            if (!_libraryRepository.Save())
+            _appRepository.UpdateStatus(statusRepo);
+            if (!_appRepository.Save())
             {
                 throw new Exception("Updating an status failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
@@ -312,7 +312,7 @@ namespace ESPL.KP.Controllers.Status
                 return BadRequest();
             }
 
-            var statusFromRepo = _libraryRepository.GetStatus(id);
+            var statusFromRepo = _appRepository.GetStatus(id);
 
             if (statusFromRepo == null)
             {
@@ -329,9 +329,9 @@ namespace ESPL.KP.Controllers.Status
                 // var statusToAdd = Mapper.Map<MstStatus>(statusDto);
                 // statusToAdd.StatusID = id;
 
-                // _libraryRepository.AddStatus(statusToAdd);
+                // _appRepository.AddStatus(statusToAdd);
 
-                // if (!_libraryRepository.Save())
+                // if (!_appRepository.Save())
                 // {
                 //     throw new Exception($"Upserting in status {id} failed on save.");
                 // }
@@ -358,9 +358,9 @@ namespace ESPL.KP.Controllers.Status
             SetItemHistoryData(statusToPatch, statusFromRepo);
             Mapper.Map(statusToPatch, statusFromRepo);
 
-            _libraryRepository.UpdateStatus(statusFromRepo);
+            _appRepository.UpdateStatus(statusFromRepo);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Patching  status {id} failed on save.");
             }

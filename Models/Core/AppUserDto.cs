@@ -2,7 +2,7 @@ using System;
 
 namespace ESPL.KP.Models.Core
 {
-    public class ESPLUserDto
+    public class AppUserDto
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }
