@@ -201,6 +201,8 @@ namespace ESPL.KP.Controllers.Shift
 
             var shiftEntity = Mapper.Map<MstShift>(shift);
 
+            SetCreationUserData(shiftEntity);
+
             _appRepository.AddShift(shiftEntity);
 
             if (!_appRepository.Save())
@@ -446,7 +448,17 @@ namespace ESPL.KP.Controllers.Shift
         private void SetItemHistoryData(ShiftForUpdationDto model, MstShift modelRepo)
         {
             model.CreatedOn = modelRepo.CreatedOn;
+            if (modelRepo.CreatedBy != null)
+                model.CreatedBy = modelRepo.CreatedBy.Value;
             model.UpdatedOn = DateTime.Now;
+            var userId = User.Claims.FirstOrDefault(cl => cl.Type == "UserId");
+            model.UpdatedBy = new Guid(userId.Value);
+        }
+
+        private void SetCreationUserData(MstShift model)
+        {
+            var userId = User.Claims.FirstOrDefault(cl => cl.Type == "UserId");
+            model.CreatedBy = new Guid(userId.Value);
         }
     }
 }

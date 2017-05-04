@@ -201,6 +201,8 @@ namespace ESPL.KP.Controllers.Status
 
             var statusEntity = Mapper.Map<MstStatus>(status);
 
+            SetCreationUserData(statusEntity);
+
             _appRepository.AddStatus(statusEntity);
 
             if (!_appRepository.Save())
@@ -445,8 +447,18 @@ namespace ESPL.KP.Controllers.Status
 
         private void SetItemHistoryData(StatusForUpdationDto model, MstStatus modelRepo)
         {
-            model.CreatedOn = modelRepo.CreatedOn;
+             model.CreatedOn = modelRepo.CreatedOn;
+            if (modelRepo.CreatedBy != null)
+                model.CreatedBy = modelRepo.CreatedBy.Value;
             model.UpdatedOn = DateTime.Now;
+            var userId = User.Claims.FirstOrDefault(cl => cl.Type == "UserId");
+            model.UpdatedBy = new Guid(userId.Value);
+        }
+
+        private void SetCreationUserData(MstStatus model)
+        {
+            var userId = User.Claims.FirstOrDefault(cl => cl.Type == "UserId");
+            model.CreatedBy = new Guid(userId.Value);
         }
     }
 }

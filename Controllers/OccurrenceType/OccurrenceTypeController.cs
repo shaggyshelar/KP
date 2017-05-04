@@ -203,6 +203,8 @@ namespace ESPL.KP.Controllers.OccurrenceType
 
             var occurrenceTypeEntity = Mapper.Map<MstOccurrenceType>(occurrenceType);
 
+            SetCreationUserData(occurrenceTypeEntity);
+
             _appRepository.AddOccurrenceType(occurrenceTypeEntity);
 
             if (!_appRepository.Save())
@@ -450,7 +452,17 @@ namespace ESPL.KP.Controllers.OccurrenceType
         private void SetItemHistoryData(OccurrenceTypeForUpdationsDto model, MstOccurrenceType modelRepo)
         {
             model.CreatedOn = modelRepo.CreatedOn;
+            if (modelRepo.CreatedBy != null)
+                model.CreatedBy = modelRepo.CreatedBy.Value;
             model.UpdatedOn = DateTime.Now;
+            var userId = User.Claims.FirstOrDefault(cl => cl.Type == "UserId");
+            model.UpdatedBy = new Guid(userId.Value);
+        }
+
+        private void SetCreationUserData(MstOccurrenceType model)
+        {
+            var userId = User.Claims.FirstOrDefault(cl => cl.Type == "UserId");
+            model.CreatedBy = new Guid(userId.Value);
         }
 
 
