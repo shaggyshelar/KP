@@ -814,7 +814,7 @@ namespace ESPL.KP.Entities
             		DesignationID = new Guid("2b72f829-5195-46c3-a6a4-06f817f11093"),	//IG
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709471111"),	//GSU
             		ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90555"),			//General Officers
-                    UserID= "56c385ae-ce46-41d4-b7fe-08df9aef7301"
+                    UserID= "56c385ae-ce46-41d4-b7fe-08df9aef7203"
                 },
                 new MstEmployee{
                     EmployeeID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222"),
@@ -833,7 +833,7 @@ namespace ESPL.KP.Entities
             		DesignationID = new Guid("f6b0d655-5afd-44e1-a1d4-5d6bec3a7c81"),	//DIG
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709472222"),	//ASTU
             		ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90555"),			//General Officers
-                    UserID= "56c385ae-ce46-41d4-b7fe-08df9aef7102"
+                    UserID= "56c385ae-ce46-41d4-b7fe-08df9aef7202"
                 },
                 new MstEmployee{
                     EmployeeID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef3333"),
@@ -852,7 +852,7 @@ namespace ESPL.KP.Entities
             		DesignationID = new Guid("aff1592e-ba8e-4791-831c-5df49da69054"),	//SAIG
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56285"),			//officers morning
-                    UserID= "56c385ae-ce46-41d4-b7fe-08df9aef7101"
+                    UserID= "56c385ae-ce46-41d4-b7fe-08df9aef7201"
                 },
                 new MstEmployee{
                     EmployeeID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef4444"),
@@ -871,7 +871,7 @@ namespace ESPL.KP.Entities
             		DesignationID = new Guid("1f573249-6ee2-4506-97a6-cb0d9ce14ab9"),	//SGT
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90222"),
-                    UserID= "56c385ae-ce46-41d4-b7fe-08df9aef7203"
+                    UserID= "56c385ae-ce46-41d4-b7fe-08df9aef7303"
                 },
                 new MstEmployee{
                     EmployeeID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef5555"),
@@ -890,7 +890,7 @@ namespace ESPL.KP.Entities
             		DesignationID = new Guid("57bf3249-6ee2-4506-97a6-cb0d9ce14896"),	//Constable
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90333"),			//reg night
-                    UserID = "56c385ae-ce46-41d4-b7fe-08df9aef7202"
+                    UserID = "56c385ae-ce46-41d4-b7fe-08df9aef7302"
                 },
                 new MstEmployee{
                     EmployeeID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666"),
@@ -909,7 +909,7 @@ namespace ESPL.KP.Entities
             		DesignationID = new Guid("57bf3249-6ee2-4506-97a6-cb0d9ce14896"),	//Constable
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56111"),		//reg mid day
-                    UserID = "56c385ae-ce46-41d4-b7fe-08df9aef7201"
+                    UserID = "56c385ae-ce46-41d4-b7fe-08df9aef7301"
                 },
                 new MstEmployee{
                     EmployeeID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7777"),
@@ -927,7 +927,8 @@ namespace ESPL.KP.Entities
                     AreaID = new Guid("411bfab2-0d44-4fb9-8835-184db90f44fa"),	//LKPC
             		DesignationID = new Guid("836bf2d2-7eb2-454a-a298-72a9d6aea480"),	//ASP
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
-            		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56111")		//reg mid day
+            		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56111"),		//reg mid day
+                    UserID = "56c385ae-ce46-41d4-b7fe-08df9aef7204"
             	},
                                 new MstEmployee{
                     EmployeeID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef8888"),
@@ -945,7 +946,8 @@ namespace ESPL.KP.Entities
                     AreaID = new Guid("411bfab2-0d44-4fb9-8835-184db90f44fa"),	//LKPC
             		DesignationID = new Guid("57bf3249-6ee2-4506-97a6-cb0d9ce14897"),	//Admin
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
-            		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56111")		//reg mid day
+            		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56111"),		//reg mid day
+                    UserID="56c385ae-ce46-41d4-b7fe-08df9aef7101"
             	},
                  new MstEmployee{
                     EmployeeID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
@@ -963,7 +965,8 @@ namespace ESPL.KP.Entities
                     AreaID = new Guid("411bfab2-0d44-4fb9-8835-184db90f44fa"),	//LKPC
             		DesignationID = new Guid("57bf3249-6ee2-4506-97a6-cb0d9ce14898"),	//Admin
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
-            		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56111")		//reg mid day
+            		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56111"),		//reg mid day
+                    UserID="56c385ae-ce46-41d4-b7fe-08df9aef7102"
             	},
 
             };
