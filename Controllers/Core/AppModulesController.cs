@@ -200,6 +200,8 @@ namespace ESPL.KP.Controllers.Core
 
             var appModuleEntity = Mapper.Map<AppModule>(appModule);
 
+            SetCreationUserData(appModuleEntity);
+
             _appRepository.AddAppModule(appModuleEntity);
 
             if (!_appRepository.Save())
@@ -324,7 +326,17 @@ namespace ESPL.KP.Controllers.Core
         private void SetItemHistoryData(AppModuleForUpdationDto model, AppModule modelRepo)
         {
             model.CreatedOn = modelRepo.CreatedOn;
+            if (modelRepo.CreatedBy != null)
+                model.CreatedBy = modelRepo.CreatedBy.Value;
             model.UpdatedOn = DateTime.Now;
+            var userId = User.Claims.FirstOrDefault(cl => cl.Type == "UserId");
+            model.UpdatedBy = new Guid(userId.Value);
+        }
+
+        private void SetCreationUserData(AppModule model)
+        {
+            var userId = User.Claims.FirstOrDefault(cl => cl.Type == "UserId");
+            model.CreatedBy = new Guid(userId.Value);
         }
 
         private IEnumerable<LinkDto> CreateLinksForAppModule(Guid id, string fields)

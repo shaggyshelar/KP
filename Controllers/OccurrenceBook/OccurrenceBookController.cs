@@ -160,12 +160,13 @@ namespace KP.Controllers.OccurrenceBook
             {
                 return BadRequest();
             }
-
+            
             var occurrenceBookEntity = Mapper.Map<MstOccurrenceBook>(occurrenceBook);
 
             //occurrenceBookEntity.OBNumber = Convert.ToString(DateTime.Now.Ticks);
             Random randomObject = new Random();
             occurrenceBookEntity.OBNumber = Convert.ToString(randomObject.Next(1, 100000));
+            SetCreationUserData(occurrenceBookEntity);
             _appRepository.AddOccurrenceBook(occurrenceBookEntity);
 
             if (!_appRepository.Save())
@@ -173,6 +174,7 @@ namespace KP.Controllers.OccurrenceBook
                 throw new Exception("Creating an occurrenceBook failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
             }
+            
             var occurrenceBookToReturn = Mapper.Map<OccurrenceBookDto>(occurrenceBookEntity);
 
             if (occurrenceBook.AssignedTO != null && occurrenceBook.AssignedTO != Guid.Empty)
@@ -385,7 +387,7 @@ namespace KP.Controllers.OccurrenceBook
         }
 
         [Route("{id}/UpdateAssignedOfficer")]
-        [HttpPut("{id}")]
+        [HttpPut("{id}/UpdateAssignedOfficer")]
         [Authorize(Policy = Permissions.OccurrenceBookUpdate)]
         public IActionResult SetAssignedTo(Guid id, [FromBody] OccurrenceBookForAssignmentDto occurrenceBook)
         {
@@ -999,7 +1001,17 @@ namespace KP.Controllers.OccurrenceBook
         private void SetItemHistoryData(OccurrenceBookForUpdationDto model, MstOccurrenceBook modelRepo)
         {
             model.CreatedOn = modelRepo.CreatedOn;
+            if (modelRepo.CreatedBy != null)
+                model.CreatedBy = modelRepo.CreatedBy.Value;
             model.UpdatedOn = DateTime.Now;
+            var userId = User.Claims.FirstOrDefault(cl => cl.Type == "UserId");
+            model.UpdatedBy = new Guid(userId.Value);
+        }
+
+        private void SetCreationUserData(MstOccurrenceBook model)
+        {
+            var userId = User.Claims.FirstOrDefault(cl => cl.Type == "UserId");
+            model.CreatedBy = new Guid(userId.Value);
         }
 
         private string CreateOccurrenceBookReviewsResourceUri(

@@ -202,6 +202,8 @@ namespace ESPL.KP.Controllers.Department
 
             var departmentEntity = Mapper.Map<MstDepartment>(department);
 
+            SetCreationUserData(departmentEntity);
+
             _appRepository.AddDepartment(departmentEntity);
 
             if (!_appRepository.Save())
@@ -433,7 +435,17 @@ namespace ESPL.KP.Controllers.Department
         private void SetItemHistoryData(DepartmentForUpdationDto model, MstDepartment modelRepo)
         {
             model.CreatedOn = modelRepo.CreatedOn;
+            if (modelRepo.CreatedBy != null)
+                model.CreatedBy = modelRepo.CreatedBy.Value;
             model.UpdatedOn = DateTime.Now;
+            var userId = User.Claims.FirstOrDefault(cl => cl.Type == "UserId");
+            model.UpdatedBy = new Guid(userId.Value);
+        }
+
+        private void SetCreationUserData(MstDepartment model)
+        {
+            var userId = User.Claims.FirstOrDefault(cl => cl.Type == "UserId");
+            model.CreatedBy = new Guid(userId.Value);
         }
 
     }
