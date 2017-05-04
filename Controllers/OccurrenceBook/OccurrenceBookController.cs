@@ -166,7 +166,6 @@ namespace KP.Controllers.OccurrenceBook
             //occurrenceBookEntity.OBNumber = Convert.ToString(DateTime.Now.Ticks);
             Random randomObject = new Random();
             occurrenceBookEntity.OBNumber = Convert.ToString(randomObject.Next(1, 100000));
-
             _appRepository.AddOccurrenceBook(occurrenceBookEntity);
 
             if (!_appRepository.Save())
@@ -174,10 +173,22 @@ namespace KP.Controllers.OccurrenceBook
                 throw new Exception("Creating an occurrenceBook failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
             }
-
             var occurrenceBookToReturn = Mapper.Map<OccurrenceBookDto>(occurrenceBookEntity);
 
-            var links = CreateLinksForOccurrenceBook(occurrenceBookToReturn.OBTypeID, null);
+            if (occurrenceBook.AssignedTO != null && occurrenceBook.AssignedTO != Guid.Empty)
+            {
+                OccurrenceBookForAssignmentDto occurrenceBookAssignment = new OccurrenceBookForAssignmentDto();
+                Mapper.Map(occurrenceBookEntity, occurrenceBookAssignment);
+                AddAssignedToHistory(occurrenceBookToReturn.OBID, occurrenceBookAssignment);
+            }
+            if (occurrenceBook.StatusID != null)
+            {
+                OccurrenceBookForStatusHistoryCreationDto occurrenceBookStatusHistory = new OccurrenceBookForStatusHistoryCreationDto();
+                Mapper.Map(occurrenceBookEntity, occurrenceBookStatusHistory);
+                AddStatusHistory(occurrenceBookToReturn.OBID, occurrenceBookStatusHistory);
+            }
+
+            var links = CreateLinksForOccurrenceBook(occurrenceBookToReturn.OBID, null);
 
             var linkedResourceToReturn = occurrenceBookToReturn.ShapeData(null)
                 as IDictionary<string, object>;
@@ -374,7 +385,7 @@ namespace KP.Controllers.OccurrenceBook
         }
 
         [Route("{id}/UpdateAssignedOfficer")]
-        [HttpPost("{id}")]
+        [HttpPut("{id}")]
         [Authorize(Policy = Permissions.OccurrenceBookUpdate)]
         public IActionResult SetAssignedTo(Guid id, [FromBody] OccurrenceBookForAssignmentDto occurrenceBook)
         {
@@ -610,12 +621,12 @@ namespace KP.Controllers.OccurrenceBook
             {
                 return BadRequest();
             }
-            var occurrenceBookFromRepo = _appRepository.GetOccurrenceBook(id);
+            // var occurrenceBookFromRepo = _appRepository.GetOccurrenceBook(id);
 
-            if (occurrenceBookFromRepo == null)
-            {
-                return NotFound();
-            }
+            // if (occurrenceBookFromRepo == null)
+            // {
+            //     return NotFound();
+            // }
 
             var occurrenceBookHistoryEntity = Mapper.Map<OccurrenceReviewHistory>(occurrenceBookReview);
             occurrenceBookHistoryEntity.OBID = id;
@@ -627,7 +638,7 @@ namespace KP.Controllers.OccurrenceBook
                 throw new Exception("Creating an occurrenceBook Review failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
             }
-            return Ok(occurrenceBookFromRepo);
+            return Ok(occurrenceBookHistoryEntity);
         }
 
 
