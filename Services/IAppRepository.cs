@@ -113,7 +113,7 @@ namespace ESPL.KP.Services
         void DeleteStatus(MstStatus status);
         void UpdateStatus(MstStatus status);
         bool StatusExists(Guid authorId);
-
+        MstStatus GetStatusByName(string statusName);
         #endregion 
 
         bool Save();
@@ -186,9 +186,9 @@ namespace ESPL.KP.Services
         void AddOccurrenceReviewHistories(OccurrenceReviewHistory occurrenceReviewHistory);
         #endregion OccurrenceReviewHistory
 
-        #region Status
+        #region Status History
         PagedList<OccurrenceStatusHistory> GetStatusHistory(OccurrenceBookStatusResourceParameters occurrenceBookStatusHistory);
         void AddOccurrenceStatusHistory(OccurrenceStatusHistory occurrenceBookStatusHistory);
-        #endregion status
+        #endregion Status History
     }
 }

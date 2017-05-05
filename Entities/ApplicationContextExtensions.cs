@@ -679,28 +679,40 @@ namespace ESPL.KP.Entities
         {
             var status = new List<MstStatus>() {
                 new MstStatus() {
-                    StatusID = new Guid("EBEED096-EA34-43E2-948E-32BB98F31401"),
-                    StatusName = "Under Review",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
-                    CreatedOn=DateTime.Now.AddHours(-6)
-                },
-                new MstStatus() {
                     StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
                     StatusName = "Open",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
-                    CreatedOn=DateTime.Now.AddHours(-6)
+                    CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedOn = DateTime.Now.AddHours(-6)
+                },
+                new MstStatus() {
+                    StatusID = new Guid("EBEED096-EA34-43E2-948E-32BB98F31401"),
+                    StatusName = "Reviewed",
+                    CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedOn = DateTime.Now.AddHours(-6)
                 },
                 new MstStatus() {
                     StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1111"),
-                    StatusName = "Solved",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
-                    CreatedOn=DateTime.Now.AddHours(-6)
+                    StatusName = "Assigned To",
+                    CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedOn = DateTime.Now.AddHours(-6)
+                },
+                new MstStatus() {
+                    StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1222"),
+                    StatusName = "In Progress",
+                    CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedOn = DateTime.Now.AddHours(-6)
                 },
                 new MstStatus() {
                     StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1221"),
                     StatusName = "In Court",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
-                    CreatedOn=DateTime.Now.AddHours(-6)
+                    CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedOn = DateTime.Now.AddHours(-6)
+                },
+                new MstStatus() {
+                    StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1223"),
+                    StatusName = "Completed",
+                    CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedOn = DateTime.Now.AddHours(-6)
                 }
             };
 
@@ -845,7 +857,7 @@ namespace ESPL.KP.Entities
                     ShortName = "DP",
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
                     CreatedOn=DateTime.Now.AddHours(-6)
-                    
+
                 },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a22f-55c269c23456"),
