@@ -513,6 +513,11 @@ namespace ESPL.KP.Services
             return _context.MstStatus.Any(a => a.StatusID == statusId && a.IsDelete == false);
         }
 
+        public MstStatus GetStatusByName(string statusName)
+        {
+            return _context.MstStatus.FirstOrDefault(a => a.StatusName == statusName && a.IsDelete == false);
+        }
+
         #endregion Status
 
 

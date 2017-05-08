@@ -191,14 +191,14 @@ namespace ESPL.KP.Entities
                    OccurrenceStatusHistoryID=new Guid("2b72f829-5195-46c3-a6a4-06f817f12345"),
                    OBID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
                    StatusID=new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
-                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7301"),
+                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                },
                new OccurrenceStatusHistory(){
                    OccurrenceStatusHistoryID=new Guid("2b72f829-5195-46c3-a6a4-06f817f23456"),
                    OBID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
                    StatusID=new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1111"),
-                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
 
                },
@@ -206,7 +206,7 @@ namespace ESPL.KP.Entities
                    OccurrenceStatusHistoryID=new Guid("2b72f829-5195-46c3-a6a4-06f817f34567"),
                    OBID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
                    StatusID=new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1221"),
-                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
 
                },
@@ -214,7 +214,7 @@ namespace ESPL.KP.Entities
                    OccurrenceStatusHistoryID=new Guid("2b72f829-5195-46c3-a6a4-06f817f45678"),
                    OBID=new Guid("411bfab2-0d44-4fb9-8835-184db90f5678"),
                    StatusID=new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
-                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
 
                }
@@ -231,98 +231,98 @@ namespace ESPL.KP.Entities
                     DesignationID = new Guid("2b72f829-5195-46c3-a6a4-06f817f11093"),
                     DesignationName = "Inspector-General",
                     DesignationCode = "IG",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDesignation() {
                     DesignationID = new Guid("f6b0d655-5afd-44e1-a1d4-5d6bec3a7c81"),
                     DesignationName = "Deputy Inspector-General",
                     DesignationCode = "DIG",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDesignation() {
                     DesignationID = new Guid("aff1592e-ba8e-4791-831c-5df49da69054"),
                     DesignationName = "Senior Assistant Inspector-General",
                     DesignationCode = "SAIG",
-                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDesignation() {
                     DesignationID = new Guid("15251460-e145-4aef-a3da-6846e881ad11"),
                     DesignationName = "Assistant Inspector-General",
                     DesignationCode = "AIG",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDesignation() {
                     DesignationID = new Guid("6aac273a-ab24-4959-8c93-6f52cfee56ff"),
                     DesignationName = "Senior Superintendent",
                     DesignationCode = "SSP",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDesignation() {
                     DesignationID = new Guid("1d45922a-a4ea-4d81-ad46-7227891199b1"),
                     DesignationName = "Superintendent",
                     DesignationCode = "SP",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDesignation() {
                     DesignationID = new Guid("836bf2d2-7eb2-454a-a298-72a9d6aea480"),
                     DesignationName = "Assistant Superintendent",
                     DesignationCode = "ASP",
-                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDesignation() {
                     DesignationID = new Guid("7e08300b-0888-4789-964c-a70686c63b1d"),
                     DesignationName = "Chief Inspector",
                     DesignationCode = "CI",
-                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDesignation() {
                     DesignationID = new Guid("b6873249-6ee2-4506-97a6-cb0d9ce14aa9"),
                     DesignationName = "Inspector",
                     DesignationCode = "PI",
-                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDesignation() {
                     DesignationID = new Guid("ae573249-6ee2-4506-97a6-cb0d9ce14ca8"),
                     DesignationName = "Senior Sergeant",
                     DesignationCode = "SSGT",
-                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDesignation() {
                     DesignationID = new Guid("1f573249-6ee2-4506-97a6-cb0d9ce14ab9"),
                     DesignationName = "Sergeant",
                     DesignationCode = "SGT",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDesignation() {
                     DesignationID = new Guid("57bf3249-6ee2-4506-97a6-cb0d9ce14896"),
                     DesignationName = "Constable",
                     DesignationCode = "CSTBL",
-                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDesignation() {
                     DesignationID = new Guid("57bf3249-6ee2-4506-97a6-cb0d9ce14897"),
                     DesignationName = "Super Admin",
                     DesignationCode = "SAdmin",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDesignation() {
                     DesignationID = new Guid("57bf3249-6ee2-4506-97a6-cb0d9ce14898"),
                     DesignationName = "Admin",
                     DesignationCode = "Admin",
-                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                   CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 }
             };
@@ -342,7 +342,7 @@ namespace ESPL.KP.Entities
                     AreaName = "Ladhri Awasi",
                     AreaCode = "LASI",
                     PinCode = "4 0122",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstArea() {
@@ -350,7 +350,7 @@ namespace ESPL.KP.Entities
                     AreaName = "Laikipia Campus",
                     AreaCode = "LKPC",
                     PinCode = "2 0330",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstArea() {
@@ -358,7 +358,7 @@ namespace ESPL.KP.Entities
                     AreaName = "Laisamis",
                     AreaCode = "LSMS",
                     PinCode = "6 0502",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
 
                 },
@@ -367,7 +367,7 @@ namespace ESPL.KP.Entities
                     AreaName = "Lamu",
                     AreaCode = "LAMU",
                     PinCode = "8 0500",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
 
                 },
@@ -376,7 +376,7 @@ namespace ESPL.KP.Entities
                     AreaName = "Lanet",
                     AreaCode = "LNET",
                     PinCode = "2 0112",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
 
                 },
@@ -385,7 +385,7 @@ namespace ESPL.KP.Entities
                     AreaName = "Langas",
                     AreaCode = "LNGS",
                     PinCode = "3 0112",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstArea() {
@@ -393,7 +393,7 @@ namespace ESPL.KP.Entities
                     AreaName = "Langata",
                     AreaCode = "LNGT",
                     PinCode = "0 0509",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstArea() {
@@ -401,7 +401,7 @@ namespace ESPL.KP.Entities
                     AreaName = "Lavington",
                     AreaCode = "LVTN",
                     PinCode = "0 0603",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstArea() {
@@ -409,7 +409,7 @@ namespace ESPL.KP.Entities
                     AreaName = "Leshau",
                     AreaCode = "LSHU",
                     PinCode = "2 0310",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstArea() {
@@ -417,7 +417,7 @@ namespace ESPL.KP.Entities
                     AreaName = "Lessos",
                     AreaCode = "LSOS",
                     PinCode = "3 0302",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstArea() {
@@ -425,7 +425,7 @@ namespace ESPL.KP.Entities
                     AreaName = "Likoni",
                     AreaCode = "LKNI",
                     PinCode = "8 0110",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstArea() {
@@ -433,7 +433,7 @@ namespace ESPL.KP.Entities
                     AreaName = "Limuru",
                     AreaCode = "LMRU",
                     PinCode = "0 0217",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
 
@@ -442,7 +442,7 @@ namespace ESPL.KP.Entities
                     AreaName = "Lita",
                     AreaCode = "LITA",
                     PinCode = "9 0109",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstArea() {
@@ -450,7 +450,7 @@ namespace ESPL.KP.Entities
                     AreaName = "Litein",
                     AreaCode = "LTEN",
                     PinCode = "2 0210",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
             };
@@ -469,56 +469,56 @@ namespace ESPL.KP.Entities
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709471111"),
                     DepartmentName = "General Service Unit (GSU)",
                     DepartmentDespcription = "A paramilitary wing to deal with situations affecting internal security and to be a reserve force to deal with special operations and civil disorders.",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709472222"),
                     DepartmentName = "Anti Stock Theft Unit",
                     DepartmentDespcription = "Anti Stock Theft Unit for stock ",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),
                     DepartmentName = "Criminal Investigation Department",
                     DepartmentDespcription = "Responsible for investigating complex cases.",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709474444"),
                     DepartmentName = "Traffic Police Department",
                     DepartmentDespcription = "Force to enforce traffic laws in the republic.",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709475555"),
                     DepartmentName = "Kenya Police College",
                     DepartmentDespcription = "Training College for Police cadets.",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709476666"),
                     DepartmentName = "Kenya Police Air Wing",
                     DepartmentDespcription = "Provides air support and surveillance to troops on ground.",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709477777"),
                     DepartmentName = "Kenya Railways Police",
                     DepartmentDespcription = "Maintaining law and order in trains and on train stations.",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709478888"),
                     DepartmentName = "Kenya Police Dog Unit",
                     DepartmentDespcription = "Sniffer dogs to detect explosives and drugs.",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
 
@@ -526,28 +526,28 @@ namespace ESPL.KP.Entities
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709479999"),
                     DepartmentName = "Tourism Police Unit",
                     DepartmentDespcription = "A department to tackle crimes related to tourists.",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709471010"),
                     DepartmentName = "Kenya Airports Police Unit",
                     DepartmentDespcription = "A department tasked with protecting airports in the republic.",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709471011"),
                     DepartmentName = "Maritime Police Unit",
                     DepartmentDespcription = "A marine police unit to secure the coastline and internal rivers.",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709471012"),
                     DepartmentName = "Diplomatic Police Unit",
                     DepartmentDespcription = "A department tasked with protecting the diplomats in the republic.",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
             };
@@ -563,37 +563,37 @@ namespace ESPL.KP.Entities
                 new MstOccurrenceType() {
                     OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf111"),
                     OBTypeName = "Carjacking",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstOccurrenceType() {
                     OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf222"),
                     OBTypeName = "Theft and banditry",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstOccurrenceType() {
                     OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf333"),
                     OBTypeName = "Ethnic violence",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstOccurrenceType() {
                     OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf444"),
                     OBTypeName = "Corruption",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstOccurrenceType() {
                     OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf555"),
                     OBTypeName = "Terrorism",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstOccurrenceType() {
                     OBTypeID = new Guid("758b1995-7f92-4d87-9588-b90800abf666"),
                     OBTypeName = "Drug abuse",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 }
             };
@@ -613,7 +613,7 @@ namespace ESPL.KP.Entities
                     ShiftName = "Regular Morning Shift",
                     StartTime = TimeSpan.FromHours(4),
                     EndTime = TimeSpan.FromHours(12),
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstShift() {
@@ -621,7 +621,7 @@ namespace ESPL.KP.Entities
                     ShiftName = "Officers Morning Shift",
                     StartTime = TimeSpan.FromHours(4),
                     EndTime = TimeSpan.FromHours(12),
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstShift() {
@@ -629,7 +629,7 @@ namespace ESPL.KP.Entities
                     ShiftName = "Regular Mid-Day Shift",
                     StartTime = TimeSpan.FromHours(12),
                     EndTime = TimeSpan.FromHours(20),
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstShift() {
@@ -637,7 +637,7 @@ namespace ESPL.KP.Entities
                     ShiftName = "Officers Mid-Day Shift",
                     StartTime = TimeSpan.FromHours(12),
                     EndTime = TimeSpan.FromHours(20),
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstShift() {
@@ -645,7 +645,7 @@ namespace ESPL.KP.Entities
                     ShiftName = "Regular Night Shift",
                     StartTime = TimeSpan.FromHours(20),
                     EndTime = TimeSpan.FromHours(4),
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstShift() {
@@ -653,7 +653,7 @@ namespace ESPL.KP.Entities
                     ShiftName = "Officers Night Shift",
                     StartTime = TimeSpan.FromHours(20),
                     EndTime = TimeSpan.FromHours(4),
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstShift() {
@@ -661,7 +661,7 @@ namespace ESPL.KP.Entities
                     ShiftName = "Officers General Shift",
                     StartTime = TimeSpan.FromHours(8),
                     EndTime = TimeSpan.FromHours(4),
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 }
             };
@@ -679,28 +679,40 @@ namespace ESPL.KP.Entities
         {
             var status = new List<MstStatus>() {
                 new MstStatus() {
-                    StatusID = new Guid("EBEED096-EA34-43E2-948E-32BB98F31401"),
-                    StatusName = "Under Review",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
-                    CreatedOn=DateTime.Now.AddHours(-6)
-                },
-                new MstStatus() {
                     StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243FDDAD"),
                     StatusName = "Open",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
-                    CreatedOn=DateTime.Now.AddHours(-6)
+                    CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
+                    CreatedOn = DateTime.Now.AddHours(-6)
+                },
+                new MstStatus() {
+                    StatusID = new Guid("EBEED096-EA34-43E2-948E-32BB98F31401"),
+                    StatusName = "Reviewed",
+                    CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
+                    CreatedOn = DateTime.Now.AddHours(-6)
                 },
                 new MstStatus() {
                     StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1111"),
-                    StatusName = "Solved",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
-                    CreatedOn=DateTime.Now.AddHours(-6)
+                    StatusName = "Assigned To",
+                    CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
+                    CreatedOn = DateTime.Now.AddHours(-6)
+                },
+                new MstStatus() {
+                    StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1222"),
+                    StatusName = "In Progress",
+                    CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
+                    CreatedOn = DateTime.Now.AddHours(-6)
                 },
                 new MstStatus() {
                     StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1221"),
                     StatusName = "In Court",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
-                    CreatedOn=DateTime.Now.AddHours(-6)
+                    CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
+                    CreatedOn = DateTime.Now.AddHours(-6)
+                },
+                new MstStatus() {
+                    StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1223"),
+                    StatusName = "Completed",
+                    CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
+                    CreatedOn = DateTime.Now.AddHours(-6)
                 }
             };
 
@@ -733,7 +745,7 @@ namespace ESPL.KP.Entities
             		AssignedComments = "Assigned to a SGT in CID",
                     AssignedTime = DateTime.Now.AddDays(4),
                     Priority = "Major",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7301"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstOccurrenceBook() {
@@ -755,7 +767,7 @@ namespace ESPL.KP.Entities
             		AssignedComments = "Assigned to SAIG in CID",
                     AssignedTime = DateTime.Now.AddHours(-5),
                     Priority = "Minor",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7301"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666"),
                     CreatedOn=DateTime.Now.AddHours(-5)
                 },
                 new MstOccurrenceBook() {
@@ -777,7 +789,7 @@ namespace ESPL.KP.Entities
             		AssignedComments = "Assigned",
                     AssignedTime = DateTime.Now.AddDays(-5),
                     Priority = "Major",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7301"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666"),
                     CreatedOn=DateTime.Now.AddHours(-4)
                 },
                 new MstOccurrenceBook() {
@@ -799,7 +811,7 @@ namespace ESPL.KP.Entities
                     Location = "Near HDFC bank",
                     AssignedTime = DateTime.Now,
                     Priority = "Criticle",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7301"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666"),
                     CreatedOn=DateTime.Now.AddHours(-5)
                 },
                 new MstOccurrenceBook() {
@@ -821,8 +833,8 @@ namespace ESPL.KP.Entities
                     Location = "Near The oval",
                     AssignedTime = DateTime.Now,
                     Priority = "Major",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7301"),
-                    UpdatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666"),
+                    UpdatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-2)
                 }
 
@@ -843,16 +855,16 @@ namespace ESPL.KP.Entities
                     Name = "Department",
                     MenuText = "Department",
                     ShortName = "DP",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
-                    
+
                 },
                 new AppModule() {
                     Id = new Guid("1325360c-8253-473a-a22f-55c269c23456"),
                     Name = "Designation",
                     MenuText = "Designation",
                     ShortName = "DS",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new AppModule() {
@@ -860,7 +872,7 @@ namespace ESPL.KP.Entities
                     Name = "Area",
                     MenuText = "Area",
                     ShortName = "AR",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new AppModule() {
@@ -868,7 +880,7 @@ namespace ESPL.KP.Entities
                     Name = "Occurrence Type",
                     MenuText = "Occurrence Type",
                     ShortName = "OT",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new AppModule() {
@@ -876,7 +888,7 @@ namespace ESPL.KP.Entities
                     Name = "Status",
                     MenuText = "Status",
                     ShortName = "ST",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new AppModule() {
@@ -884,7 +896,7 @@ namespace ESPL.KP.Entities
                     Name = "Shift",
                     MenuText = "Shift",
                     ShortName = "SF",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new AppModule() {
@@ -892,7 +904,7 @@ namespace ESPL.KP.Entities
                     Name = "Employee",
                     MenuText = "Employee",
                     ShortName = "EP",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new AppModule() {
@@ -900,7 +912,7 @@ namespace ESPL.KP.Entities
                     Name = "Occurrence Books",
                     MenuText = "Occurrence Books",
                     ShortName = "OB",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new AppModule() {
@@ -908,7 +920,7 @@ namespace ESPL.KP.Entities
                     Name = "Reports",
                     MenuText = "Reports",
                     ShortName = "RP",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new AppModule() {
@@ -916,7 +928,7 @@ namespace ESPL.KP.Entities
                     Name = "Dashboard",
                     MenuText = "Dashboard",
                     ShortName = "DB",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new AppModule() {
@@ -924,7 +936,7 @@ namespace ESPL.KP.Entities
                     Name = "Occurrence Assignment History",
                     MenuText = "Occurrence Assignment History",
                     ShortName = "OA",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new AppModule() {
@@ -932,7 +944,7 @@ namespace ESPL.KP.Entities
                     Name = "Occurrence Review History",
                     MenuText = "Occurrence Review History",
                     ShortName = "OR",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7102"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
             };
@@ -962,7 +974,7 @@ namespace ESPL.KP.Entities
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709471111"),	//GSU
             		ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90555"),			//General Officers
                     UserID= "56c385ae-ce46-41d4-b7fe-08df9aef7203",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7203"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstEmployee{
@@ -983,7 +995,7 @@ namespace ESPL.KP.Entities
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709472222"),	//ASTU
             		ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90555"),			//General Officers
                     UserID= "56c385ae-ce46-41d4-b7fe-08df9aef7202",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7203"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstEmployee{
@@ -1004,7 +1016,7 @@ namespace ESPL.KP.Entities
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56285"),			//officers morning
                     UserID= "56c385ae-ce46-41d4-b7fe-08df9aef7201",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7203"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstEmployee{
@@ -1025,7 +1037,7 @@ namespace ESPL.KP.Entities
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90222"),
                     UserID= "56c385ae-ce46-41d4-b7fe-08df9aef7303",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7203"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstEmployee{
@@ -1046,7 +1058,7 @@ namespace ESPL.KP.Entities
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90333"),			//reg night
                     UserID = "56c385ae-ce46-41d4-b7fe-08df9aef7302",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7203"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstEmployee{
@@ -1067,7 +1079,7 @@ namespace ESPL.KP.Entities
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56111"),		//reg mid day
                     UserID = "56c385ae-ce46-41d4-b7fe-08df9aef7301",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7203"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstEmployee{
@@ -1088,10 +1100,10 @@ namespace ESPL.KP.Entities
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56111"),		//reg mid day
                     UserID = "56c385ae-ce46-41d4-b7fe-08df9aef7204",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7203"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
-                                new MstEmployee{
+                new MstEmployee{
                     EmployeeID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef8888"),
                     FirstName = "Nick",
                     LastName = "jones",
@@ -1109,7 +1121,7 @@ namespace ESPL.KP.Entities
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56111"),		//reg mid day
                     UserID="56c385ae-ce46-41d4-b7fe-08df9aef7101",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7203"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                  new MstEmployee{
@@ -1130,7 +1142,7 @@ namespace ESPL.KP.Entities
             		DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),	//CID
             		ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56111"),		//reg mid day
                     UserID="56c385ae-ce46-41d4-b7fe-08df9aef7102",
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7203"),
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1111"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
 
@@ -1149,21 +1161,21 @@ namespace ESPL.KP.Entities
                     OBID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
                     AssignedTO= new Guid("56c385ae-ce46-41d4-b7fe-08df9aef4444"),
                     CreatedOn=DateTime.Now.AddHours(-1),
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7301")
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666")
                 },
                 new OccurrenceAssignmentHistory() {
                     OBAssignmentID=new Guid("56c385ae-ce46-41d4-b7fe-08df9ae23456"),
                     OBID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
                     AssignedTO= new Guid("56c385ae-ce46-41d4-b7fe-08df9aef3333"),
                     CreatedOn=DateTime.Now.AddHours(-2),
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7301")
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666")
                 },
                 new OccurrenceAssignmentHistory() {
                     OBAssignmentID=new Guid("56c385ae-ce46-41d4-b7fe-08df9ae34567"),
                     OBID=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
                     AssignedTO= new Guid("56c385ae-ce46-41d4-b7fe-08df9aef4444"),
                     CreatedOn=DateTime.Now.AddHours(-3),
-                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7301")
+                    CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666")
                 }
             };
 
@@ -1180,21 +1192,21 @@ namespace ESPL.KP.Entities
                     OBID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
                     ReveiwComments = "test review comments 1",
                     CreatedOn = DateTime.Now.AddHours(-1),
-                    CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7301")
+                    CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666")
                 },
                 new OccurrenceReviewHistory() {
                     OBReviewHistoryID = new Guid("56c385ae-ce46-41d4-b7fe-08df9ae23456"),
                     OBID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
                     ReveiwComments = "test review comments 2",
                     CreatedOn = DateTime.Now.AddHours(-2),
-                    CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7301")
+                    CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666")
                 },
                 new OccurrenceReviewHistory() {
                     OBReviewHistoryID = new Guid("56c385ae-ce46-41d4-b7fe-08df9ae34567"),
                     OBID = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef1234"),
                     ReveiwComments = "test review comments 3",
                     CreatedOn = DateTime.Now.AddHours(-3),
-                    CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef7301")
+                    CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666")
                 }
             };
 
