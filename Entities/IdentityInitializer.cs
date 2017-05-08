@@ -386,6 +386,7 @@ namespace ESPL.KP.Entities
                 //----- write
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceBookCreate, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewCreate, ClaimValue = "True" });
 
                 //----- update
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaUpdate, ClaimValue = "True" });
@@ -437,6 +438,7 @@ namespace ESPL.KP.Entities
                 //----- write
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceBookCreate, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewCreate, ClaimValue = "True" });
 
                 //----- update
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceBookUpdate, ClaimValue = "True" });
@@ -492,6 +494,7 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ShiftCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.StatusCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewCreate, ClaimValue = "True" });
 
                 //----- update
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaUpdate, ClaimValue = "True" });
@@ -553,6 +556,7 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ShiftCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsCreate, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewCreate, ClaimValue = "True" });
 
                 //----- update
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaUpdate, ClaimValue = "True" });
@@ -617,6 +621,7 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ShiftCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.StatusCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsCreate, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewCreate, ClaimValue = "True" });
 
                 //----- update
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaUpdate, ClaimValue = "True" });
@@ -679,7 +684,7 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceBookCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ShiftCreate, ClaimValue = "True" });
-
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewCreate, ClaimValue = "True" });
 
                 //----- update
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeUpdate, ClaimValue = "True" });
