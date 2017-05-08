@@ -37,7 +37,7 @@ namespace KP.Controllers.ReportsController
             _typeHelperService = typeHelperService;
         }
 
-#region Occurance Reports
+        #region Occurance Reports
         [Route("GetOccurrences")]
         [HttpGet(Name = "GetOccurrences")]
         [Authorize(Policy = Permissions.ReportsRead)]
@@ -213,6 +213,12 @@ namespace KP.Controllers.ReportsController
             return Ok(occurrenceBookFromRepo);
         }
 
+        [HttpOptions]
+        public IActionResult GetReportsOptions()
+        {
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST");
+            return Ok();
+        }
 
         //  [Route("GetOfficersStatistics")]
         // [HttpGet(Name = "GetOfficersStatistics")]
@@ -275,9 +281,9 @@ namespace KP.Controllers.ReportsController
             }
         }
 
-private string CreateOccurrenceBookResourceUri(
-                  OccurrenceStatisticsResourceParameters occurrenceReportResourceParameters,
-                  ResourceUriType type)
+        private string CreateOccurrenceBookResourceUri(
+                          OccurrenceStatisticsResourceParameters occurrenceReportResourceParameters,
+                          ResourceUriType type)
         {
             switch (type)
             {
@@ -351,7 +357,7 @@ private string CreateOccurrenceBookResourceUri(
             return links;
         }
 
-        
+
 
         private IEnumerable<LinkDto> CreateLinksForOccurrenceBook(
             OccurrenceReportResourceParameters occurrenceReportResourceParameters,
@@ -384,9 +390,9 @@ private string CreateOccurrenceBookResourceUri(
             return links;
         }
 
-         private IEnumerable<LinkDto> CreateLinksForOccurrenceBook(
-            OccurrenceStatisticsResourceParameters occurrenceReportResourceParameters,
-            bool hasNext, bool hasPrevious)
+        private IEnumerable<LinkDto> CreateLinksForOccurrenceBook(
+           OccurrenceStatisticsResourceParameters occurrenceReportResourceParameters,
+           bool hasNext, bool hasPrevious)
         {
             var links = new List<LinkDto>();
 
