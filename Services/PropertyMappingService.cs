@@ -105,6 +105,7 @@ namespace ESPL.KP.Services
      new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
      {
             { "OBID", new PropertyMappingValue(new List<string>() { "OBID" } ) },
+            { "OBTime", new PropertyMappingValue(new List<string>() { "OBTime" } ) },
             { "NatureOfOccurrence", new PropertyMappingValue(new List<string>() { "NatureOfOccurrence" } ) },
             { "CreatedOn", new PropertyMappingValue(new List<string>() { "CreatedOn" } ) },
             { "Type", new PropertyMappingValue(new List<string>() { "Type" } ) },
@@ -219,6 +220,7 @@ namespace ESPL.KP.Services
             propertyMappings.Add(new PropertyMapping<ShiftDto, MstShift>(_shiftPropertyMapping));
             propertyMappings.Add(new PropertyMapping<StatusDto, MstStatus>(_statusPropertyMapping));
             propertyMappings.Add(new PropertyMapping<OccurrenceBookDto, MstOccurrenceBook>(_occurrencBookPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<OccurrenceBookActivityDto, OccurrenceBookActivity>(_occurrencBookActivityPropertyMapping));
             propertyMappings.Add(new PropertyMapping<AppModuleDto, AppModule>(_appModulesPropertyMapping));
             propertyMappings.Add(new PropertyMapping<AppRoleDto, IdentityRole>(_esplRolesPropertyMapping));
             propertyMappings.Add(new PropertyMapping<EmployeeDto, MstEmployee>(_employeePropertyMapping));
@@ -227,6 +229,7 @@ namespace ESPL.KP.Services
             propertyMappings.Add(new PropertyMapping<OccurrenceBookReviewDto, OccurrenceReviewHistory>(_occurrenceBooksReviewPropertyMapping));
             propertyMappings.Add(new PropertyMapping<OccurrenceBookForAssignmentDto, OccurrenceAssignmentHistory>(_occurrenceBooksReviewPropertyMapping));
             propertyMappings.Add(new PropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>(_occurrenceBooksStatusPropertyMapping));
+
         }
         public Dictionary<string, PropertyMappingValue> GetPropertyMapping
             <TSource, TDestination>()
