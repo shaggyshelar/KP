@@ -533,7 +533,7 @@ namespace ESPL.KP.Services
                               select new OccurrenceBookActivity
                               {
                                   OBID = o.OBID.ToString(),
-                                  OBTime=o.OBTime,
+                                  OBNumber=o.OBNumber,
                                   NatureOfOccurrence = o.NatureOfOccurrence,
                                   CreatedOn = os.CreatedOn,
                                   Type = "Status",
@@ -546,7 +546,7 @@ namespace ESPL.KP.Services
                                   select new OccurrenceBookActivity
                                   {
                                       OBID = o.OBID.ToString(),
-                                      OBTime=o.OBTime,
+                                      OBNumber=o.OBNumber,
                                       NatureOfOccurrence = o.NatureOfOccurrence,
                                       CreatedOn = oc.CreatedOn,
                                       Type = "Comments",
@@ -560,7 +560,7 @@ namespace ESPL.KP.Services
                                   select new OccurrenceBookActivity
                                   {
                                       OBID = o.OBID.ToString(),
-                                      OBTime=o.OBTime,
+                                      OBNumber=o.OBNumber,
                                       NatureOfOccurrence = o.NatureOfOccurrence,
                                       CreatedOn = os.CreatedOn,
                                       Type = "AssignedTo",
@@ -587,6 +587,7 @@ namespace ESPL.KP.Services
                 obActivity = obActivity
                             .Where(a =>
                                 a.OBID.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                                || a.OBNumber.ToLowerInvariant().Contains(searchQueryForWhereClause)
                                 || a.NatureOfOccurrence.ToLowerInvariant().Contains(searchQueryForWhereClause)
                                 || a.Type.ToLowerInvariant().Contains(searchQueryForWhereClause)
                                 || a.Value.ToLowerInvariant().Contains(searchQueryForWhereClause)

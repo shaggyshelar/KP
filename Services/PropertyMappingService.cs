@@ -105,7 +105,7 @@ namespace ESPL.KP.Services
      new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
      {
             { "OBID", new PropertyMappingValue(new List<string>() { "OBID" } ) },
-            { "OBTime", new PropertyMappingValue(new List<string>() { "OBTime" } ) },
+            { "OBNumber", new PropertyMappingValue(new List<string>() { "OBNumber" } ) },
             { "NatureOfOccurrence", new PropertyMappingValue(new List<string>() { "NatureOfOccurrence" } ) },
             { "CreatedOn", new PropertyMappingValue(new List<string>() { "CreatedOn" } ) },
             { "Type", new PropertyMappingValue(new List<string>() { "Type" } ) },
