@@ -175,9 +175,9 @@ namespace ESPL.KP.Services
         //OccurreceStatistics GetOfficersStatistics(OccurrenceStatisticsResourceParameters occurrenceTypeResourceParameters);
         #endregion
 
-         #region OccurrenceAssignmentHistory
+        #region OccurrenceAssignmentHistory
         void AddOccurrenceAssignmentHistory(OccurrenceAssignmentHistory occurrenceBookhistory);
-        PagedList<OccurrenceAssignmentHistory> GetAssignmentHistory(OccurrenceBookAssignedToResourceParameters occurrenceBookAssignedHistory);
+        PagedList<OccurrenceAssignmentHistory> GetAssignmentHistory(Guid obid,OccurrenceBookAssignedToResourceParameters occurrenceBookAssignedHistory);
         #endregion OccurrenceAssignmentHistory
 
         #region OccurrenceReviewHistory
@@ -187,7 +187,7 @@ namespace ESPL.KP.Services
         #endregion OccurrenceReviewHistory
 
         #region Status History
-        PagedList<OccurrenceStatusHistory> GetStatusHistory(OccurrenceBookStatusResourceParameters occurrenceBookStatusHistory);
+        PagedList<OccurrenceStatusHistory> GetStatusHistory(Guid id, OccurrenceBookStatusResourceParameters occurrenceBookStatusHistory);
         void AddOccurrenceStatusHistory(OccurrenceStatusHistory occurrenceBookStatusHistory);
         #endregion Status History
     }

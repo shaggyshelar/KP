@@ -415,7 +415,7 @@ namespace KP.Controllers.OccurrenceBook
                 return BadRequest();
             }
 
-            var occurrenceBookAssignmentFromRepo = _appRepository.GetAssignmentHistory(occurrenceBookAssignedToResourceParameters);
+            var occurrenceBookAssignmentFromRepo = _appRepository.GetAssignmentHistory(id, occurrenceBookAssignedToResourceParameters);
 
             var occurrenceBookAssignedTo = Mapper.Map<IEnumerable<OccurrenceBookForAssignmentDto>>(occurrenceBookAssignmentFromRepo);
 
@@ -677,7 +677,7 @@ namespace KP.Controllers.OccurrenceBook
                 return BadRequest();
             }
 
-            var occurrenceBookStatusFromRepo = _appRepository.GetStatusHistory(occurrenceBookStatusResourceParameters);
+            var occurrenceBookStatusFromRepo = _appRepository.GetStatusHistory(id, occurrenceBookStatusResourceParameters);
 
             var occurrenceBookStatus = Mapper.Map<IEnumerable<OccurrenceBookStatusHistoryDto>>(occurrenceBookStatusFromRepo);
 
