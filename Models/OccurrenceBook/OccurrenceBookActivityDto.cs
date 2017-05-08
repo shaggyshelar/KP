@@ -11,6 +11,5 @@ namespace ESPL.KP.Models
         public string NatureOfOccurrence { get; set; }
         public string Type { get; set; }
         public string Value { get; set; }
-        public string CreatedByName { get; set; }
     }
 }
