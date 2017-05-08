@@ -86,6 +86,7 @@ namespace ESPL.KP.Services
 
         #region OccurrenceBook
         PagedList<MstOccurrenceBook> GetOccurrenceBooks(OccurrenceBookResourceParameters occurrenceTypeResourceParameters);
+        PagedList<OccurrenceBookActivity> GetOccurrenceBookActivity(OccurrenceBookResourceParameters occurrenceTypeResourceParameters);
         MstOccurrenceBook GetOccurrenceBook(Guid occurrenceTypeId);
         IEnumerable<MstOccurrenceBook> GetOccurrenceBooks(IEnumerable<Guid> occurrenceTypeIds);
         void AddOccurrenceBook(MstOccurrenceBook occurrenceType);

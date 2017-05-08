@@ -524,9 +524,56 @@ namespace ESPL.KP.Services
 
         #region OccurrenceBook
 
+        public PagedList<OccurrenceBookActivity> GetOccurrenceBookActivity(OccurrenceBookResourceParameters occurrenceBookResourceParameters)
+        {
+            var obActivity = (from o in _context.MstOccurrenceBook
+                          join os in _context.OccurrenceStatusHistory on o.OBID equals os.OBID
+                          join s in _context.MstStatus on os.StatusID equals s.StatusID
+                          join e in _context.MstEmployee on os.CreatedBy.Value equals e.EmployeeID
+                          select new OccurrenceBookActivity
+                          {
+                              OBID=o.OBID.ToString(),
+                              NatureOfOccurrence = o.NatureOfOccurrence,
+                              CreatedOn = os.CreatedOn,
+                              Type = "Status",
+                              Value = s.StatusName,
+                              CreatedByName = e.FirstName + " " + e.LastName
+                          })
+                          .Union((from o in _context.MstOccurrenceBook
+                                  join oc in _context.OccurrenceReviewHistory on o.OBID equals oc.OBID
+                                  join e in _context.MstEmployee on oc.CreatedBy.Value equals e.EmployeeID
+                                  select new OccurrenceBookActivity
+                                  {
+                                      OBID=o.OBID.ToString(),
+                                      NatureOfOccurrence = o.NatureOfOccurrence,
+                                      CreatedOn = oc.CreatedOn,
+                                      Type = "Comments",
+                                      Value = oc.ReveiwComments,
+                                      CreatedByName = e.FirstName + " " + e.LastName
+                                  }))
+                          .Union((from o in _context.MstOccurrenceBook
+                                  join os in _context.OccurrenceAssignmentHistory on o.OBID equals os.OBID
+                                  join e in _context.MstEmployee on os.CreatedBy.Value equals e.EmployeeID
+                                  join a in _context.MstEmployee on o.AssignedTO equals a.EmployeeID
+                                  select new OccurrenceBookActivity
+                                  {
+                                      OBID=o.OBID.ToString(),
+                                      NatureOfOccurrence = o.NatureOfOccurrence,
+                                      CreatedOn = os.CreatedOn,
+                                      Type = "AssignedTo",
+                                      Value = a.FirstName + " " + a.LastName,
+                                      CreatedByName = e.FirstName + " " + e.LastName
+                                  }));
+            
+            return PagedList<OccurrenceBookActivity>.Create(obActivity,occurrenceBookResourceParameters.PageNumber,
+               occurrenceBookResourceParameters.PageSize);
+        }
+
+       
+
         public PagedList<MstOccurrenceBook> GetOccurrenceBooks(OccurrenceBookResourceParameters occurrenceBookResourceParameters)
         {
-            var collectionBeforePaging =
+             var collectionBeforePaging =
                 _context.MstOccurrenceBook.Where(a => a.IsDelete == false)
                 .Include(ob => ob.MstArea)
                 .Include(ob => ob.MstDepartment)
@@ -1144,10 +1191,10 @@ namespace ESPL.KP.Services
         #region Status
         public PagedList<OccurrenceStatusHistory> GetStatusHistory(OccurrenceBookStatusResourceParameters occurrenceBookStatusHistoryParams)
         {
-           var collectionBeforePaging =
-                _context.OccurrenceStatusHistory
-                .ApplySort(occurrenceBookStatusHistoryParams.OrderBy,
-                _propertyMappingService.GetPropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>());
+            var collectionBeforePaging =
+                 _context.OccurrenceStatusHistory
+                 .ApplySort(occurrenceBookStatusHistoryParams.OrderBy,
+                 _propertyMappingService.GetPropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>());
 
             if (!string.IsNullOrEmpty(occurrenceBookStatusHistoryParams.SearchQuery))
             {
