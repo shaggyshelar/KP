@@ -9,6 +9,7 @@ namespace ESPL.KP.Entities
     public class OccurrenceBookActivity:BaseEntity
     {
         public string OBID { get; set; }
+        public DateTime OBTime { get; set; }
         public string NatureOfOccurrence { get; set; }      
         public string Type { get; set; }
         public string Value { get; set; }

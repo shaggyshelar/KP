@@ -524,7 +524,7 @@ namespace ESPL.KP.Services
 
         #region OccurrenceBook
 
-        public PagedList<OccurrenceBookActivity> GetOccurrenceBookActivity(OccurrenceBookResourceParameters occurrenceBookResourceParameters)
+        public PagedList<OccurrenceBookActivity> GetOccurrenceBookActivity(OccurrenceBookActivityResourceParameters occurrenceBookActivityResourceParameters)
         {
             var obActivity = (from o in _context.MstOccurrenceBook
                               join os in _context.OccurrenceStatusHistory on o.OBID equals os.OBID
@@ -533,6 +533,7 @@ namespace ESPL.KP.Services
                               select new OccurrenceBookActivity
                               {
                                   OBID = o.OBID.ToString(),
+                                  OBTime=o.OBTime,
                                   NatureOfOccurrence = o.NatureOfOccurrence,
                                   CreatedOn = os.CreatedOn,
                                   Type = "Status",
@@ -545,6 +546,7 @@ namespace ESPL.KP.Services
                                   select new OccurrenceBookActivity
                                   {
                                       OBID = o.OBID.ToString(),
+                                      OBTime=o.OBTime,
                                       NatureOfOccurrence = o.NatureOfOccurrence,
                                       CreatedOn = oc.CreatedOn,
                                       Type = "Comments",
@@ -558,20 +560,28 @@ namespace ESPL.KP.Services
                                   select new OccurrenceBookActivity
                                   {
                                       OBID = o.OBID.ToString(),
+                                      OBTime=o.OBTime,
                                       NatureOfOccurrence = o.NatureOfOccurrence,
                                       CreatedOn = os.CreatedOn,
                                       Type = "AssignedTo",
                                       Value = a.FirstName + " " + a.LastName,
                                       CreatedByName = e.FirstName + " " + e.LastName
-                                  })).ApplySort(occurrenceBookResourceParameters.OrderBy,
-                                   _propertyMappingService.GetPropertyMapping<OccurrenceBookActivity, OccurrenceBookActivity>());
+                                  }));
+            obActivity=obActivity.ApplySort(occurrenceBookActivityResourceParameters.OrderBy,
+               _propertyMappingService.GetPropertyMapping<OccurrenceBookActivityDto, OccurrenceBookActivity>());
             
-            //TODO Filter Logic need to implement as per rquirement
+            //Filter Logic
+            if (!string.IsNullOrEmpty(occurrenceBookActivityResourceParameters.OBID))
+            {
+                var obIDs = occurrenceBookActivityResourceParameters.OBID.Split(',');
+                obActivity = obActivity
+                    .Where(o => obIDs.Contains(o.OBID.ToString()));
+            }
 
-            if (!string.IsNullOrEmpty(occurrenceBookResourceParameters.SearchQuery))
+            if (!string.IsNullOrEmpty(occurrenceBookActivityResourceParameters.SearchQuery))
             {
                 // trim & ignore casing
-                var searchQueryForWhereClause = occurrenceBookResourceParameters.SearchQuery
+                var searchQueryForWhereClause = occurrenceBookActivityResourceParameters.SearchQuery
                     .Trim().ToLowerInvariant();
 
                 obActivity = obActivity
@@ -584,8 +594,8 @@ namespace ESPL.KP.Services
 
             }
 
-            return PagedList<OccurrenceBookActivity>.Create(obActivity, occurrenceBookResourceParameters.PageNumber,
-               occurrenceBookResourceParameters.PageSize);
+            return PagedList<OccurrenceBookActivity>.Create(obActivity, occurrenceBookActivityResourceParameters.PageNumber,
+               occurrenceBookActivityResourceParameters.PageSize);
         }
 
 
