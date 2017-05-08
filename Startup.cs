@@ -302,6 +302,7 @@ namespace ESPL.KP
                 cfg.CreateMap<ESPL.KP.Entities.MstDesignation, ESPL.KP.Models.DesignationForUpdationDto>();
 
                 cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceBook, ESPL.KP.Models.OccurrenceBookDto>();
+                cfg.CreateMap<ESPL.KP.Entities.OccurrenceBookActivity, ESPL.KP.Models.OccurrenceBookActivityDto>();
                 // .ForMember(dest => dest.Area, opt => opt.MapFrom(src =>src.MstArea))
                 // .ForMember(dest => dest.Department, opt => opt.MapFrom(src =>src.MstDepartment))
                 // .ForMember(dest => dest.Status, opt => opt.MapFrom(src =>src.MstStatus))

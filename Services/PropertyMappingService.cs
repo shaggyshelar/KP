@@ -101,6 +101,17 @@ namespace ESPL.KP.Services
             { "AssignedTime", new PropertyMappingValue(new List<string>() { "AssignedTime" } ) },
             { "Priority", new PropertyMappingValue(new List<string>() { "Priority" } ) },
      };
+     private Dictionary<string, PropertyMappingValue> _occurrencBookActivityPropertyMapping =
+     new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+     {
+            { "OBID", new PropertyMappingValue(new List<string>() { "OBID" } ) },
+            { "NatureOfOccurrence", new PropertyMappingValue(new List<string>() { "NatureOfOccurrence" } ) },
+            { "CreatedOn", new PropertyMappingValue(new List<string>() { "CreatedOn" } ) },
+            { "Type", new PropertyMappingValue(new List<string>() { "Type" } ) },
+            { "Value", new PropertyMappingValue(new List<string>() { "Value" } ) },
+            { "CreatedByName", new PropertyMappingValue(new List<string>() { "CreatedByName" } ) }
+            
+     };
 
         private Dictionary<string, PropertyMappingValue> _appModulesPropertyMapping =
            new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
