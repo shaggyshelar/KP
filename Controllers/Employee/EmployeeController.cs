@@ -163,6 +163,8 @@ namespace KP.Controllers.Employee
 
             var employeeEntity = Mapper.Map<MstEmployee>(employee);
 
+            SetCreationUserData(employeeEntity);
+
             _appRepository.AddEmployee(employeeEntity);
 
             if (!_appRepository.Save())
@@ -450,7 +452,17 @@ namespace KP.Controllers.Employee
         private void SetItemHistoryData(EmployeeForUpdationDto model, MstEmployee modelRepo)
         {
             model.CreatedOn = modelRepo.CreatedOn;
+            if (modelRepo.CreatedBy != null)
+                model.CreatedBy = modelRepo.CreatedBy.Value;
             model.UpdatedOn = DateTime.Now;
+            var userId = User.Claims.FirstOrDefault(cl => cl.Type == "UserId");
+            model.UpdatedBy = new Guid(userId.Value);
+        }
+
+        private void SetCreationUserData(MstEmployee model)
+        {
+            var userId = User.Claims.FirstOrDefault(cl => cl.Type == "UserId");
+            model.CreatedBy = new Guid(userId.Value);
         }
 
     }

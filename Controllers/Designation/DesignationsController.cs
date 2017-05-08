@@ -200,6 +200,8 @@ namespace ESPL.KP.Controllerss.Designation
 
             var DesignationEntity = Mapper.Map<MstDesignation>(Designation);
 
+            SetCreationUserData(DesignationEntity);
+
             _appRepository.AddDesignation(DesignationEntity);
 
             if (!_appRepository.Save())
@@ -429,8 +431,18 @@ namespace ESPL.KP.Controllerss.Designation
 
         private void SetItemHistoryData(DesignationForUpdationDto model, MstDesignation modelRepo)
         {
-            model.CreatedOn = modelRepo.CreatedOn;
+             model.CreatedOn = modelRepo.CreatedOn;
+            if (modelRepo.CreatedBy != null)
+                model.CreatedBy = modelRepo.CreatedBy.Value;
             model.UpdatedOn = DateTime.Now;
+            var userId = User.Claims.FirstOrDefault(cl => cl.Type == "UserId");
+            model.UpdatedBy = new Guid(userId.Value);
+        }
+
+        private void SetCreationUserData(MstDesignation model)
+        {
+            var userId = User.Claims.FirstOrDefault(cl => cl.Type == "UserId");
+            model.CreatedBy = new Guid(userId.Value);
         }
 
     }
