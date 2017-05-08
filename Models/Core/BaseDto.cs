@@ -15,5 +15,7 @@ namespace ESPL.KP.Models.Core
         public DateTime? UpdatedOn { get; set; }
         public Guid UpdatedBy { get; set; }
         public bool IsDelete { get; set; }
+        public string CreatedByName { get; set; }
+        public string UpdatedByName { get; set; }
     }
 }

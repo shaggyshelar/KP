@@ -181,7 +181,7 @@ namespace ESPL.KP.Services
         #endregion OccurrenceAssignmentHistory
 
         #region OccurrenceReviewHistory
-        PagedList<OccurrenceReviewHistory> GetOccurrenceReviewHistories(OccurrenceBookReviewResourceParameters occurrenceBookReviewResourceParameters);
+        PagedList<OccurrenceReviewHistory> GetOccurrenceReviewHistories(Guid Obid, OccurrenceBookReviewResourceParameters occurrenceBookReviewResourceParameters);
         OccurrenceReviewHistory GetReviewById(Guid occurrenceBookId, Guid reviewId);
         void AddOccurrenceReviewHistories(OccurrenceReviewHistory occurrenceReviewHistory);
         #endregion OccurrenceReviewHistory

@@ -1105,12 +1105,29 @@ namespace ESPL.KP.Services
         #endregion OccurrenceAssignmentHistory
 
         #region OccurrenceReviewHistory
-        public PagedList<OccurrenceReviewHistory> GetOccurrenceReviewHistories(OccurrenceBookReviewResourceParameters occurrenceBookReviewResourceParameters)
+        public PagedList<OccurrenceReviewHistory> GetOccurrenceReviewHistories(Guid obid, OccurrenceBookReviewResourceParameters occurrenceBookReviewResourceParameters)
         {
-            var collectionBeforePaging =
-                _context.OccurrenceReviewHistory
-                .ApplySort(occurrenceBookReviewResourceParameters.OrderBy,
-                _propertyMappingService.GetPropertyMapping<OccurrenceBookReviewDto, OccurrenceReviewHistory>());
+
+
+            var collectionBeforePaging = _context.OccurrenceReviewHistory.Where(o => o.OBID == obid)
+                    .GroupJoin(_context.MstEmployee, oc => oc.CreatedBy.Value, uc => uc.EmployeeID, (oc, uc) => new { oc = oc, uc = uc.FirstOrDefault() })
+                    .GroupJoin(_context.MstEmployee, oc => oc.oc.UpdatedBy, um => um.EmployeeID, (oc, um) => new { oc = oc, um = um.FirstOrDefault() })
+                        .Select(reviews => new OccurrenceReviewHistory()
+                        {
+                            OBReviewHistoryID = reviews.oc.oc.OBReviewHistoryID,
+                            MstOccurrenceBook = reviews.oc.oc.MstOccurrenceBook,
+                            OBID = reviews.oc.oc.OBID,
+                            ReveiwComments = reviews.oc.oc.ReveiwComments,
+                            CreatedOn = reviews.oc.oc.CreatedOn,
+                            CreatedBy = reviews.oc.oc.CreatedBy,
+                            UpdatedOn = reviews.oc.oc.UpdatedOn,
+                            UpdatedBy = reviews.oc.oc.UpdatedBy,
+                            IsDelete = reviews.oc.oc.IsDelete,
+                            CreatedByName = (string.IsNullOrEmpty(reviews.oc.uc.FirstName) ? "" : (reviews.oc.uc.FirstName + " ")) + reviews.oc.uc.LastName ?? reviews.oc.uc.LastName,
+                            UpdatedByName = (string.IsNullOrEmpty(reviews.um.FirstName) ? "" : (reviews.um.FirstName + " ")) + reviews.um.LastName,
+                        })
+                        .ApplySort(occurrenceBookReviewResourceParameters.OrderBy,
+                        _propertyMappingService.GetPropertyMapping<OccurrenceBookReviewDto, OccurrenceReviewHistory>());
 
             if (!string.IsNullOrEmpty(occurrenceBookReviewResourceParameters.SearchQuery))
             {
@@ -1131,7 +1148,24 @@ namespace ESPL.KP.Services
 
         public OccurrenceReviewHistory GetReviewById(Guid occurrenceBookId, Guid reviewId)
         {
-            return _context.OccurrenceReviewHistory.FirstOrDefault(a => a.OBReviewHistoryID == reviewId && a.OBID == occurrenceBookId);
+            var review = _context.OccurrenceReviewHistory.Where(a => a.OBReviewHistoryID == reviewId && a.OBID == occurrenceBookId)
+                    .GroupJoin(_context.MstEmployee, oc => oc.CreatedBy.Value, uc => uc.EmployeeID, (oc, uc) => new { oc = oc, uc = uc.FirstOrDefault() })
+                    .GroupJoin(_context.MstEmployee, oc => oc.oc.UpdatedBy, um => um.EmployeeID, (oc, um) => new { oc = oc, um = um.FirstOrDefault() })
+                        .Select(reviews => new OccurrenceReviewHistory()
+                        {
+                            OBReviewHistoryID = reviews.oc.oc.OBReviewHistoryID,
+                            MstOccurrenceBook = reviews.oc.oc.MstOccurrenceBook,
+                            OBID = reviews.oc.oc.OBID,
+                            ReveiwComments = reviews.oc.oc.ReveiwComments,
+                            CreatedOn = reviews.oc.oc.CreatedOn,
+                            CreatedBy = reviews.oc.oc.CreatedBy,
+                            UpdatedOn = reviews.oc.oc.UpdatedOn,
+                            UpdatedBy = reviews.oc.oc.UpdatedBy,
+                            IsDelete = reviews.oc.oc.IsDelete,
+                            CreatedByName = (string.IsNullOrEmpty(reviews.oc.uc.FirstName) ? "" : (reviews.oc.uc.FirstName + " ")) + reviews.oc.uc.LastName ?? reviews.oc.uc.LastName,
+                            UpdatedByName = (string.IsNullOrEmpty(reviews.um.FirstName) ? "" : (reviews.um.FirstName + " ")) + reviews.um.LastName,
+                        });
+            return review.FirstOrDefault();
         }
 
         public void AddOccurrenceReviewHistories(OccurrenceReviewHistory occurrenceReviewHistory)
@@ -1144,10 +1178,10 @@ namespace ESPL.KP.Services
         #region Status
         public PagedList<OccurrenceStatusHistory> GetStatusHistory(OccurrenceBookStatusResourceParameters occurrenceBookStatusHistoryParams)
         {
-           var collectionBeforePaging =
-                _context.OccurrenceStatusHistory
-                .ApplySort(occurrenceBookStatusHistoryParams.OrderBy,
-                _propertyMappingService.GetPropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>());
+            var collectionBeforePaging =
+                 _context.OccurrenceStatusHistory
+                 .ApplySort(occurrenceBookStatusHistoryParams.OrderBy,
+                 _propertyMappingService.GetPropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>());
 
             if (!string.IsNullOrEmpty(occurrenceBookStatusHistoryParams.SearchQuery))
             {

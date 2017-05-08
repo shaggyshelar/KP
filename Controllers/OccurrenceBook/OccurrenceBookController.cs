@@ -501,7 +501,7 @@ namespace KP.Controllers.OccurrenceBook
                 return BadRequest();
             }
 
-            var occurrenceBookReviewsFromRepo = _appRepository.GetOccurrenceReviewHistories(occurrenceBookReviewResourceParameters);
+            var occurrenceBookReviewsFromRepo = _appRepository.GetOccurrenceReviewHistories(id, occurrenceBookReviewResourceParameters);
 
             var occurrenceBookReviews = Mapper.Map<IEnumerable<OccurrenceBookReviewDto>>(occurrenceBookReviewsFromRepo);
 
