@@ -329,14 +329,14 @@ namespace ESPL.KP.Controllers.Core
             if (modelRepo.CreatedBy != null)
                 model.CreatedBy = modelRepo.CreatedBy.Value;
             model.UpdatedOn = DateTime.Now;
-            var userId = User.Claims.FirstOrDefault(cl => cl.Type == "UserId");
-            model.UpdatedBy = new Guid(userId.Value);
+            var EmployeeID = User.Claims.FirstOrDefault(cl => cl.Type == "EmployeeID");
+            model.UpdatedBy = new Guid(EmployeeID.Value);
         }
 
         private void SetCreationUserData(AppModule model)
         {
-            var userId = User.Claims.FirstOrDefault(cl => cl.Type == "UserId");
-            model.CreatedBy = new Guid(userId.Value);
+            var EmployeeID = User.Claims.FirstOrDefault(cl => cl.Type == "EmployeeID");
+            model.CreatedBy = new Guid(EmployeeID.Value);
         }
 
         private IEnumerable<LinkDto> CreateLinksForAppModule(Guid id, string fields)

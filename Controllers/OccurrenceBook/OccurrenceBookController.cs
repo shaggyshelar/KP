@@ -160,7 +160,7 @@ namespace KP.Controllers.OccurrenceBook
             {
                 return BadRequest();
             }
-            
+
             var occurrenceBookEntity = Mapper.Map<MstOccurrenceBook>(occurrenceBook);
 
             //occurrenceBookEntity.OBNumber = Convert.ToString(DateTime.Now.Ticks);
@@ -174,7 +174,7 @@ namespace KP.Controllers.OccurrenceBook
                 throw new Exception("Creating an occurrenceBook failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
             }
-            
+
             var occurrenceBookToReturn = Mapper.Map<OccurrenceBookDto>(occurrenceBookEntity);
 
             if (occurrenceBook.AssignedTO != null && occurrenceBook.AssignedTO != Guid.Empty)
@@ -244,30 +244,10 @@ namespace KP.Controllers.OccurrenceBook
             {
                 return BadRequest();
             }
-            // if (!_appRepository.OccurrenceBookExists(id))
-            // {
-            //     return NotFound();
-            // }
-            //Mapper.Map(source,destination);
             var occurrenceBookFromRepo = _appRepository.GetOccurrenceBook(id);
 
             if (occurrenceBookFromRepo == null)
             {
-                // var occurrenceBookAdd = Mapper.Map<MstOccurrenceBook>(occurrenceBook);
-                // occurrenceBookAdd.OBID = id;
-
-                // _appRepository.AddOccurrenceBook(occurrenceBookAdd);
-
-                // if (!_appRepository.Save())
-                // {
-                //     throw new Exception($"Upserting book {id} for author {id} failed on save.");
-                // }
-
-                // var occurrenceBookReturnVal = Mapper.Map<OccurrenceBookDto>(occurrenceBookAdd);
-
-                // return CreatedAtRoute("GetOccurrenceBook",
-                //     new { OBID = occurrenceBookReturnVal.OBID },
-                //     occurrenceBookReturnVal);
                 return NotFound();
             }
 
@@ -275,6 +255,11 @@ namespace KP.Controllers.OccurrenceBook
             if (occurrenceBookFromRepo.AssignedTO != occurrenceBook.AssignedTO)
             {
                 isAssignedToChange = true;
+                Guid _status = UpdateStatus(Status.AssignedTo);
+                if (_status != null)
+                {
+                    occurrenceBook.StatusID = _status;
+                }
             }
             if (occurrenceBookFromRepo.StatusID != occurrenceBook.StatusID)
             {
@@ -623,12 +608,6 @@ namespace KP.Controllers.OccurrenceBook
             {
                 return BadRequest();
             }
-            // var occurrenceBookFromRepo = _appRepository.GetOccurrenceBook(id);
-
-            // if (occurrenceBookFromRepo == null)
-            // {
-            //     return NotFound();
-            // }
 
             var occurrenceBookHistoryEntity = Mapper.Map<OccurrenceReviewHistory>(occurrenceBookReview);
             occurrenceBookHistoryEntity.OBID = id;
@@ -640,12 +619,19 @@ namespace KP.Controllers.OccurrenceBook
                 throw new Exception("Creating an occurrenceBook Review failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
             }
+
+            bool isUpdated = UpdateOccurrenceBookStatus(id);
+            if (!isUpdated)
+            {
+                throw new Exception("update status on review added failed on save.");
+                // return StatusCode(500, "A problem happened with handling your request.");
+            }
             return Ok(occurrenceBookHistoryEntity);
         }
 
 
         [Route("{id}/UpdateStatus")]
-        [HttpPost("{id}")]
+        [HttpPut("{id}/UpdateStatus")]
         [Authorize(Policy = Permissions.OccurrenceBookUpdate)]
         public IActionResult SetStatus(Guid id, [FromBody]OccurrenceBookForStatusHistoryCreationDto occurrenceBookStatusHistory)
         {
@@ -1004,14 +990,14 @@ namespace KP.Controllers.OccurrenceBook
             if (modelRepo.CreatedBy != null)
                 model.CreatedBy = modelRepo.CreatedBy.Value;
             model.UpdatedOn = DateTime.Now;
-            var userId = User.Claims.FirstOrDefault(cl => cl.Type == "UserId");
-            model.UpdatedBy = new Guid(userId.Value);
+            var EmployeeID = User.Claims.FirstOrDefault(cl => cl.Type == "EmployeeID");
+            model.UpdatedBy = new Guid(EmployeeID.Value);
         }
 
         private void SetCreationUserData(MstOccurrenceBook model)
         {
-            var userId = User.Claims.FirstOrDefault(cl => cl.Type == "UserId");
-            model.CreatedBy = new Guid(userId.Value);
+            var EmployeeID = User.Claims.FirstOrDefault(cl => cl.Type == "EmployeeID");
+            model.CreatedBy = new Guid(EmployeeID.Value);
         }
 
         private string CreateOccurrenceBookReviewsResourceUri(
@@ -1181,6 +1167,32 @@ namespace KP.Controllers.OccurrenceBook
                         pageSize = occurrenceBookAssignedToResourceParameters.PageSize
                     });
             }
+        }
+
+        private Guid UpdateStatus(string _status)
+        {
+            MstStatus status = _appRepository.GetStatusByName(_status);
+            return status.StatusID;
+        }
+
+        private bool UpdateOccurrenceBookStatus(Guid ID)
+        {
+            var occurrenceBookFromRepo = _appRepository.GetOccurrenceBook(ID);
+            if (occurrenceBookFromRepo != null)
+            {
+                Guid statusId = UpdateStatus(Status.Reviewed);
+                if (statusId != null && statusId != Guid.Empty)
+                {
+                    occurrenceBookFromRepo.StatusID = statusId;
+                    _appRepository.UpdateOccurrenceBook(occurrenceBookFromRepo);
+
+                    if (_appRepository.Save())
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
     }
