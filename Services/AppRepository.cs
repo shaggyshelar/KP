@@ -638,6 +638,12 @@ namespace ESPL.KP.Services
                 collectionBeforePaging = collectionBeforePaging
                     .Where(o => oBDates.Contains(o.OBTime.ToString("MM/dd/yyyy")));
             }
+            if (!string.IsNullOrEmpty(occurrenceBookResourceParameters.AssignedTo))
+            {
+                var assignedToIDs = occurrenceBookResourceParameters.AssignedTo.Split(',');
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(o => assignedToIDs.Contains(o.AssignedTO.ToString().ToLowerInvariant()));
+            }
             //Filter Ends
 
 
