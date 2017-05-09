@@ -191,5 +191,12 @@ namespace ESPL.KP.Services
         PagedList<OccurrenceStatusHistory> GetStatusHistory(Guid id, OccurrenceBookStatusResourceParameters occurrenceBookStatusHistory);
         void AddOccurrenceStatusHistory(OccurrenceStatusHistory occurrenceBookStatusHistory);
         #endregion Status History
+
+        #region Employee History
+        void AddEmployeeAreaHistory(CfgEmployeeArea employeeAreaHistory);
+        void AddEmployeeDepartmentHistory(CfgEmployeeDepartment employeeDepartmentHistory);
+        void AddEmployeeDesignationHistory(CfgEmployeeDesignation employeeDesignationHistory);
+        void AddEmployeeShiftHistory(CfgEmployeeShift employeeShiftHistory);
+        #endregion Employee History
     }
 }

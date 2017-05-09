@@ -255,6 +255,28 @@ namespace KP.Controllers.Employee
                 return NotFound();
             }
             SetItemHistoryData(employee, employeeFromRepo);
+
+            bool isAreaUpdated = false,
+                    isDepartmentUpdated = false,
+                    isDesignationUpdated = false,
+                    isShiftUpdated = false;
+            if (employee.AreaID != employeeFromRepo.AreaID)
+            {
+                isAreaUpdated = true;
+            }
+            if (employee.DesignationID != employeeFromRepo.DesignationID)
+            {
+                isDesignationUpdated = true;
+            }
+            if (employee.DepartmentID != employeeFromRepo.DepartmentID)
+            {
+                isDepartmentUpdated = true;
+            }
+            if (employee.ShiftID != employeeFromRepo.ShiftID)
+            {
+                isShiftUpdated = true;
+            }
+
             Mapper.Map(employee, employeeFromRepo);
             _appRepository.UpdateEmployee(employeeFromRepo);
             if (!_appRepository.Save())
@@ -263,7 +285,22 @@ namespace KP.Controllers.Employee
                 // return StatusCode(500, "A problem happened with handling your request.");
             }
 
-
+            if (isAreaUpdated)
+            {
+                AddEmployeeAreaHistory(id, employee);
+            }
+            if (isDesignationUpdated)
+            {
+                AddEmployeeDesignationHistory(id, employee);
+            }
+            if (isDepartmentUpdated)
+            {
+                AddEmployeeDepartmentHistory(id, employee);
+            }
+            if (isShiftUpdated)
+            {
+                AddEmployeeShiftHistory(id, employee);
+            }
             return Ok(employeeFromRepo);
         }
 
@@ -330,6 +367,35 @@ namespace KP.Controllers.Employee
             {
                 throw new Exception($"Patching  Occurrence Book {id} failed on save.");
             }
+
+            foreach (var path in patchDoc.Operations)
+            {
+                if (path.path.ToLowerInvariant().Equals("/areaid"))
+                {
+                    EmployeeForUpdationDto employeeDto = new EmployeeForUpdationDto();
+                    Mapper.Map(bookForAuthorFromRepo, employeeDto);
+                    AddEmployeeAreaHistory(id, employeeDto);
+                }
+                if (path.path.ToLowerInvariant().Equals("/departmentid"))
+                {
+                    EmployeeForUpdationDto employeeDto = new EmployeeForUpdationDto();
+                    Mapper.Map(bookForAuthorFromRepo, employeeDto);
+                    AddEmployeeDepartmentHistory(id, employeeDto);
+                }
+                if (path.path.ToLowerInvariant().Equals("/designationid"))
+                {
+                    EmployeeForUpdationDto employeeDto = new EmployeeForUpdationDto();
+                    Mapper.Map(bookForAuthorFromRepo, employeeDto);
+                    AddEmployeeDesignationHistory(id, employeeDto);
+                }
+                if (path.path.ToLowerInvariant().Equals("/shiftid"))
+                {
+                    EmployeeForUpdationDto employeeDto = new EmployeeForUpdationDto();
+                    Mapper.Map(bookForAuthorFromRepo, employeeDto);
+                    AddEmployeeShiftHistory(id, employeeDto);
+                }
+            }
+
 
             return NoContent();
         }
@@ -464,6 +530,55 @@ namespace KP.Controllers.Employee
             var EmployeeID = User.Claims.FirstOrDefault(cl => cl.Type == "EmployeeID");
             model.CreatedBy = new Guid(EmployeeID.Value);
         }
+
+        private void AddEmployeeAreaHistory(Guid employeeId, EmployeeForUpdationDto employeeDto)
+        {
+            var employeeAreaHistory = Mapper.Map<CfgEmployeeArea>(employeeDto);
+            employeeAreaHistory.EmployeeID = employeeId;
+            _appRepository.AddEmployeeAreaHistory(employeeAreaHistory);
+            if (!_appRepository.Save())
+            {
+                throw new Exception("Creating an occurrenceBook failed on save.");
+                // return StatusCode(500, "Creating an occurrenceBook failed on save.");
+            }
+        }
+
+        private void AddEmployeeDepartmentHistory(Guid id, EmployeeForUpdationDto employeeDto)
+        {
+            var employeeDepartmentHistory = Mapper.Map<CfgEmployeeDepartment>(employeeDto);
+            employeeDepartmentHistory.EmployeeID = id;
+            _appRepository.AddEmployeeDepartmentHistory(employeeDepartmentHistory);
+            if (!_appRepository.Save())
+            {
+                throw new Exception("Creating an occurrenceBook failed on save.");
+                // return StatusCode(500, "Creating an occurrenceBook failed on save.");
+            }
+        }
+
+        private void AddEmployeeDesignationHistory(Guid id, EmployeeForUpdationDto employeeDto)
+        {
+            var employeeDesignationHistory = Mapper.Map<CfgEmployeeDesignation>(employeeDto);
+            employeeDesignationHistory.EmployeeID = id;
+            _appRepository.AddEmployeeDesignationHistory(employeeDesignationHistory);
+            if (!_appRepository.Save())
+            {
+                throw new Exception("Creating an occurrenceBook failed on save.");
+                // return StatusCode(500, "Creating an occurrenceBook failed on save.");
+            }
+        }
+
+        private void AddEmployeeShiftHistory(Guid id, EmployeeForUpdationDto employeeDto)
+        {
+            var employeeDesignationHistory = Mapper.Map<CfgEmployeeShift>(employeeDto);
+            employeeDesignationHistory.EmployeeID = id;
+            _appRepository.AddEmployeeShiftHistory(employeeDesignationHistory);
+            if (!_appRepository.Save())
+            {
+                throw new Exception("Creating an occurrenceBook failed on save.");
+                // return StatusCode(500, "Creating an occurrenceBook failed on save.");
+            }
+        }
+
 
     }
 }
