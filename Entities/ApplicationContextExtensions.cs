@@ -166,6 +166,10 @@ namespace ESPL.KP.Entities
             context.MstStatus.RemoveRange(context.MstStatus);
             context.MstShift.RemoveRange(context.MstShift);
             context.AppModules.RemoveRange(context.AppModules);
+            context.CfgEmployeeArea.RemoveRange(context.CfgEmployeeArea);
+            context.CfgEmployeeDepartment.RemoveRange(context.CfgEmployeeDepartment);
+            context.CfgEmployeeDesignation.RemoveRange(context.CfgEmployeeDesignation);
+            context.CfgEmployeeShift.RemoveRange(context.CfgEmployeeShift);
             context.SaveChanges();
 
             UpdateDepartments(context);
@@ -692,7 +696,7 @@ namespace ESPL.KP.Entities
                 },
                 new MstStatus() {
                     StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1111"),
-                    StatusName = "Assigned To",
+                    StatusName = "Assigned",
                     CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn = DateTime.Now.AddHours(-6)
                 },
