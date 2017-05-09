@@ -86,6 +86,7 @@ namespace ESPL.KP.Services
 
         #region OccurrenceBook
         PagedList<MstOccurrenceBook> GetOccurrenceBooks(OccurrenceBookResourceParameters occurrenceTypeResourceParameters);
+        PagedList<OccurrenceBookActivity> GetOccurrenceBookActivity(OccurrenceBookActivityResourceParameters occurrenceBookActivityResourceParameters);
         MstOccurrenceBook GetOccurrenceBook(Guid occurrenceTypeId);
         IEnumerable<MstOccurrenceBook> GetOccurrenceBooks(IEnumerable<Guid> occurrenceTypeIds);
         void AddOccurrenceBook(MstOccurrenceBook occurrenceType);
@@ -175,20 +176,27 @@ namespace ESPL.KP.Services
         //OccurreceStatistics GetOfficersStatistics(OccurrenceStatisticsResourceParameters occurrenceTypeResourceParameters);
         #endregion
 
-         #region OccurrenceAssignmentHistory
+        #region OccurrenceAssignmentHistory
         void AddOccurrenceAssignmentHistory(OccurrenceAssignmentHistory occurrenceBookhistory);
-        PagedList<OccurrenceAssignmentHistory> GetAssignmentHistory(OccurrenceBookAssignedToResourceParameters occurrenceBookAssignedHistory);
+        PagedList<OccurrenceAssignmentHistory> GetAssignmentHistory(Guid obid,OccurrenceBookAssignedToResourceParameters occurrenceBookAssignedHistory);
         #endregion OccurrenceAssignmentHistory
 
         #region OccurrenceReviewHistory
-        PagedList<OccurrenceReviewHistory> GetOccurrenceReviewHistories(OccurrenceBookReviewResourceParameters occurrenceBookReviewResourceParameters);
+        PagedList<OccurrenceReviewHistory> GetOccurrenceReviewHistories(Guid Obid, OccurrenceBookReviewResourceParameters occurrenceBookReviewResourceParameters);
         OccurrenceReviewHistory GetReviewById(Guid occurrenceBookId, Guid reviewId);
         void AddOccurrenceReviewHistories(OccurrenceReviewHistory occurrenceReviewHistory);
         #endregion OccurrenceReviewHistory
 
         #region Status History
-        PagedList<OccurrenceStatusHistory> GetStatusHistory(OccurrenceBookStatusResourceParameters occurrenceBookStatusHistory);
+        PagedList<OccurrenceStatusHistory> GetStatusHistory(Guid id, OccurrenceBookStatusResourceParameters occurrenceBookStatusHistory);
         void AddOccurrenceStatusHistory(OccurrenceStatusHistory occurrenceBookStatusHistory);
         #endregion Status History
+
+        #region Employee History
+        void AddEmployeeAreaHistory(CfgEmployeeArea employeeAreaHistory);
+        void AddEmployeeDepartmentHistory(CfgEmployeeDepartment employeeDepartmentHistory);
+        void AddEmployeeDesignationHistory(CfgEmployeeDesignation employeeDesignationHistory);
+        void AddEmployeeShiftHistory(CfgEmployeeShift employeeShiftHistory);
+        #endregion Employee History
     }
 }
