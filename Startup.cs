@@ -214,11 +214,7 @@ namespace ESPL.KP
             IdentityInitializer identitySeeder)
         {
             loggerFactory.AddConsole();
-
             loggerFactory.AddDebug(LogLevel.Information);
-
-            //  loggerFactory.AddProvider(new NLog.Extensions.Logging.NLogLoggerProvider());
-
             loggerFactory.AddNLog();
 
             app.UseCors(cfg =>
@@ -388,13 +384,15 @@ namespace ESPL.KP
             });
 
             app.UseMvc();
-            app.UseSwagger();
-            app.UseSwaggerUi(c =>
+
+            if (env.IsDevelopment())
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });
-
-
+                app.UseSwagger();
+                app.UseSwaggerUi(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                });
+            }
         }
     }
 }
