@@ -1340,5 +1340,28 @@ namespace ESPL.KP.Services
             _context.OccurrenceStatusHistory.Add(occurrenceBookStatusHistory);
         }
         #endregion status
+
+        #region Employee History
+        public void AddEmployeeAreaHistory(CfgEmployeeArea employeeAreaHistory)
+        {
+            employeeAreaHistory.EmployeeAreaID = Guid.NewGuid();
+            _context.CfgEmployeeArea.Add(employeeAreaHistory);
+        }
+        public void AddEmployeeDepartmentHistory(CfgEmployeeDepartment employeeDepartmentHistory)
+        {
+            employeeDepartmentHistory.EmployeeDepartmentID = new Guid();
+            _context.CfgEmployeeDepartment.Add(employeeDepartmentHistory);
+        }
+        public void AddEmployeeDesignationHistory(CfgEmployeeDesignation employeeDesignationHistory)
+        {
+            employeeDesignationHistory.EmployeeDesignationID = new Guid();
+            _context.CfgEmployeeDesignation.Add(employeeDesignationHistory);
+        }
+        public void AddEmployeeShiftHistory(CfgEmployeeShift employeeShiftHistory)
+        {
+            employeeShiftHistory.EmployeeShiftID = new Guid();
+            _context.CfgEmployeeShift.Add(employeeShiftHistory);
+        }
+        #endregion Employee History
     }
 }
