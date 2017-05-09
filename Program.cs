@@ -17,7 +17,6 @@ namespace ESPL.KP
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
-                .UseUrls("http://localhost:6058")
                 .Build();
 
             host.Run();
