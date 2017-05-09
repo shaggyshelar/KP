@@ -19,17 +19,17 @@ namespace ESPL.KP.Controllers.Shift
     [Authorize]
     public class ShiftsController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
 
-        public ShiftsController(ILibraryRepository libraryRepository,
+        public ShiftsController(IAppRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
@@ -53,7 +53,7 @@ namespace ESPL.KP.Controllers.Shift
                 return BadRequest();
             }
 
-            var shiftsFromRepo = _libraryRepository.GetShifts(shiftsResourceParameters);
+            var shiftsFromRepo = _appRepository.GetShifts(shiftsResourceParameters);
 
             var shifts = Mapper.Map<IEnumerable<ShiftDto>>(shiftsFromRepo);
 
@@ -171,7 +171,7 @@ namespace ESPL.KP.Controllers.Shift
                 return BadRequest();
             }
 
-            var shiftFromRepo = _libraryRepository.GetShift(id);
+            var shiftFromRepo = _appRepository.GetShift(id);
 
             if (shiftFromRepo == null)
             {
@@ -201,9 +201,11 @@ namespace ESPL.KP.Controllers.Shift
 
             var shiftEntity = Mapper.Map<MstShift>(shift);
 
-            _libraryRepository.AddShift(shiftEntity);
+            SetCreationUserData(shiftEntity);
 
-            if (!_libraryRepository.Save())
+            _appRepository.AddShift(shiftEntity);
+
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an shift failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
@@ -226,7 +228,7 @@ namespace ESPL.KP.Controllers.Shift
         [HttpPost("{id}")]
         public IActionResult BlockShiftCreation(Guid id)
         {
-            if (_libraryRepository.ShiftExists(id))
+            if (_appRepository.ShiftExists(id))
             {
                 return new StatusCodeResult(StatusCodes.Status409Conflict);
             }
@@ -238,15 +240,16 @@ namespace ESPL.KP.Controllers.Shift
         [Authorize(Policy = Permissions.ShiftDelete)]
         public IActionResult DeleteShift(Guid id)
         {
-            var shiftFromRepo = _libraryRepository.GetShift(id);
+            var shiftFromRepo = _appRepository.GetShift(id);
             if (shiftFromRepo == null)
             {
                 return NotFound();
             }
 
-            _libraryRepository.DeleteShift(shiftFromRepo);
-
-            if (!_libraryRepository.Save())
+            //_appRepository.DeleteShift(shiftFromRepo);
+            //....... Soft Delete
+            shiftFromRepo.IsDelete = true;
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Deleting shift {id} failed on save.");
             }
@@ -262,21 +265,21 @@ namespace ESPL.KP.Controllers.Shift
             {
                 return BadRequest();
             }
-            // if (!_libraryRepository.OccurrenceBookExists(id))
+            // if (!_appRepository.OccurrenceBookExists(id))
             // {
             //     return NotFound();
             // }
             //Mapper.Map(source,destination);
-            var shiftRepo = _libraryRepository.GetShift(id);
+            var shiftRepo = _appRepository.GetShift(id);
 
             if (shiftRepo == null)
             {
                 // var shiftAdd = Mapper.Map<MstShift>(shift);
                 // shiftAdd.ShiftID = id;
 
-                // _libraryRepository.AddShift(shiftAdd);
+                // _appRepository.AddShift(shiftAdd);
 
-                // if (!_libraryRepository.Save())
+                // if (!_appRepository.Save())
                 // {
                 //     throw new Exception($"Upserting shift {id} failed on save.");
                 // }
@@ -290,8 +293,8 @@ namespace ESPL.KP.Controllers.Shift
             }
             SetItemHistoryData(shift, shiftRepo);
             Mapper.Map(shift, shiftRepo);
-            _libraryRepository.UpdateShift(shiftRepo);
-            if (!_libraryRepository.Save())
+            _appRepository.UpdateShift(shiftRepo);
+            if (!_appRepository.Save())
             {
                 throw new Exception("Updating an shift failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
@@ -311,7 +314,7 @@ namespace ESPL.KP.Controllers.Shift
                 return BadRequest();
             }
 
-            var shiftFromRepo = _libraryRepository.GetShift(id);
+            var shiftFromRepo = _appRepository.GetShift(id);
 
             if (shiftFromRepo == null)
             {
@@ -328,9 +331,9 @@ namespace ESPL.KP.Controllers.Shift
                 // var shiftToAdd = Mapper.Map<MstShift>(shiftDto);
                 // shiftToAdd.ShiftID = id;
 
-                // _libraryRepository.AddShift(shiftToAdd);
+                // _appRepository.AddShift(shiftToAdd);
 
-                // if (!_libraryRepository.Save())
+                // if (!_appRepository.Save())
                 // {
                 //     throw new Exception($"Upserting in shift {id} failed on save.");
                 // }
@@ -357,9 +360,9 @@ namespace ESPL.KP.Controllers.Shift
             SetItemHistoryData(shiftToPatch, shiftFromRepo);
             Mapper.Map(shiftToPatch, shiftFromRepo);
 
-            _libraryRepository.UpdateShift(shiftFromRepo);
+            _appRepository.UpdateShift(shiftFromRepo);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Patching  shift {id} failed on save.");
             }
@@ -445,7 +448,17 @@ namespace ESPL.KP.Controllers.Shift
         private void SetItemHistoryData(ShiftForUpdationDto model, MstShift modelRepo)
         {
             model.CreatedOn = modelRepo.CreatedOn;
+            if (modelRepo.CreatedBy != null)
+                model.CreatedBy = modelRepo.CreatedBy.Value;
             model.UpdatedOn = DateTime.Now;
+            var EmployeeID = User.Claims.FirstOrDefault(cl => cl.Type == "EmployeeID");
+            model.UpdatedBy = new Guid(EmployeeID.Value);
+        }
+
+        private void SetCreationUserData(MstShift model)
+        {
+            var EmployeeID = User.Claims.FirstOrDefault(cl => cl.Type == "EmployeeID");
+            model.CreatedBy = new Guid(EmployeeID.Value);
         }
     }
 }

@@ -18,7 +18,7 @@ using ESPL.KP.Models;
 
 namespace ESPL.KP.Services
 {
-    public interface ILibraryRepository
+    public interface IAppRepository
     {
         #region Authors
         PagedList<Author> GetAuthors(AuthorsResourceParameters authorsResourceParameters);
@@ -86,6 +86,7 @@ namespace ESPL.KP.Services
 
         #region OccurrenceBook
         PagedList<MstOccurrenceBook> GetOccurrenceBooks(OccurrenceBookResourceParameters occurrenceTypeResourceParameters);
+        PagedList<OccurrenceBookActivity> GetOccurrenceBookActivity(OccurrenceBookActivityResourceParameters occurrenceBookActivityResourceParameters);
         MstOccurrenceBook GetOccurrenceBook(Guid occurrenceTypeId);
         IEnumerable<MstOccurrenceBook> GetOccurrenceBooks(IEnumerable<Guid> occurrenceTypeIds);
         void AddOccurrenceBook(MstOccurrenceBook occurrenceType);
@@ -113,7 +114,7 @@ namespace ESPL.KP.Services
         void DeleteStatus(MstStatus status);
         void UpdateStatus(MstStatus status);
         bool StatusExists(Guid authorId);
-
+        MstStatus GetStatusByName(string statusName);
         #endregion 
 
         bool Save();
@@ -132,30 +133,30 @@ namespace ESPL.KP.Services
 
         #endregion AppModule
 
-        #region ESPLUser
+        #region AppUser
 
-        PagedList<ESPLUser> GetESPLUsers(ESPLUsersResourceParameters esplUserResourceParameters);
-        ESPLUser GetESPLUser(Guid esplUserId);
-        IEnumerable<ESPLUser> GetESPLUsers(IEnumerable<Guid> esplUserIds);
-        void AddESPLUser(ESPLUser esplUser);
-        void DeleteESPLUser(ESPLUser esplUser);
-        void UpdateESPLUser(ESPLUser esplUser);
-        bool ESPLUserExists(Guid esplUserId);
+        PagedList<AppUser> GetAppUsers(AppUsersResourceParameters esplUserResourceParameters);
+        AppUser GetAppUser(Guid esplUserId);
+        IEnumerable<AppUser> GetAppUsers(IEnumerable<Guid> esplUserIds);
+        void AddAppUser(AppUser esplUser);
+        void DeleteAppUser(AppUser esplUser);
+        void UpdateAppUser(AppUser esplUser);
+        bool AppUserExists(Guid esplUserId);
 
-        #endregion ESPLUser
+        #endregion AppUser
 
 
-        #region ESPLRole
+        #region AppRole
 
-        PagedList<IdentityRole> GetESPLRoles(ESPLRolesResourceParameters esplRoleResourceParameters);
-        IdentityRole GetESPLRole(Guid esplRoleId);
-        IEnumerable<IdentityRole> GetESPLRoles(IEnumerable<Guid> esplRoleIds);
-        void AddESPLRole(IdentityRole esplRole);
-        void DeleteESPLRole(IdentityRole esplRole);
-        void UpdateESPLRole(IdentityRole esplRole);
-        bool ESPLRoleExists(Guid esplRoleId);
+        PagedList<IdentityRole> GetAppRoles(AppRolesResourceParameters esplRoleResourceParameters);
+        IdentityRole GetAppRole(Guid esplRoleId);
+        IEnumerable<IdentityRole> GetAppRoles(IEnumerable<Guid> esplRoleIds);
+        void AddAppRole(IdentityRole esplRole);
+        void DeleteAppRole(IdentityRole esplRole);
+        void UpdateAppRole(IdentityRole esplRole);
+        bool AppRoleExists(Guid esplRoleId);
 
-        #endregion ESPLRole
+        #endregion AppRole
 
         #region Employee
         PagedList<MstEmployee> GetEmployees(EmployeesResourceParameters employeesResourceParameters);
@@ -175,8 +176,20 @@ namespace ESPL.KP.Services
         //OccurreceStatistics GetOfficersStatistics(OccurrenceStatisticsResourceParameters occurrenceTypeResourceParameters);
         #endregion
 
-         #region OccurrenceAssignmentHistory
+        #region OccurrenceAssignmentHistory
         void AddOccurrenceAssignmentHistory(OccurrenceAssignmentHistory occurrenceBookhistory);
+        PagedList<OccurrenceAssignmentHistory> GetAssignmentHistory(Guid obid,OccurrenceBookAssignedToResourceParameters occurrenceBookAssignedHistory);
         #endregion OccurrenceAssignmentHistory
+
+        #region OccurrenceReviewHistory
+        PagedList<OccurrenceReviewHistory> GetOccurrenceReviewHistories(Guid Obid, OccurrenceBookReviewResourceParameters occurrenceBookReviewResourceParameters);
+        OccurrenceReviewHistory GetReviewById(Guid occurrenceBookId, Guid reviewId);
+        void AddOccurrenceReviewHistories(OccurrenceReviewHistory occurrenceReviewHistory);
+        #endregion OccurrenceReviewHistory
+
+        #region Status History
+        PagedList<OccurrenceStatusHistory> GetStatusHistory(Guid id, OccurrenceBookStatusResourceParameters occurrenceBookStatusHistory);
+        void AddOccurrenceStatusHistory(OccurrenceStatusHistory occurrenceBookStatusHistory);
+        #endregion Status History
     }
 }

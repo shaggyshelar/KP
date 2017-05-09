@@ -19,17 +19,17 @@ namespace ESPL.KP.Controllerss.Area
     [Authorize]
     public class AreasController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
 
-        public AreasController(ILibraryRepository libraryRepository,
+        public AreasController(IAppRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
@@ -52,7 +52,7 @@ namespace ESPL.KP.Controllerss.Area
                 return BadRequest();
             }
 
-            var AreasFromRepo = _libraryRepository.GetAreas(AreasResourceParameters);
+            var AreasFromRepo = _appRepository.GetAreas(AreasResourceParameters);
 
             var Areas = Mapper.Map<IEnumerable<AreaDto>>(AreasFromRepo);
 
@@ -170,7 +170,7 @@ namespace ESPL.KP.Controllerss.Area
                 return BadRequest();
             }
 
-            var AreaFromRepo = _libraryRepository.GetArea(id);
+            var AreaFromRepo = _appRepository.GetArea(id);
 
             if (AreaFromRepo == null)
             {
@@ -200,9 +200,11 @@ namespace ESPL.KP.Controllerss.Area
 
             var AreaEntity = Mapper.Map<MstArea>(Area);
 
-            _libraryRepository.AddArea(AreaEntity);
+            SetCreationUserData(AreaEntity);
 
-            if (!_libraryRepository.Save())
+            _appRepository.AddArea(AreaEntity);
+
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an Area failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
@@ -225,7 +227,7 @@ namespace ESPL.KP.Controllerss.Area
         [HttpPost("{id}")]
         public IActionResult BlockAreaCreation(Guid id)
         {
-            if (_libraryRepository.AreaExists(id))
+            if (_appRepository.AreaExists(id))
             {
                 return new StatusCodeResult(StatusCodes.Status409Conflict);
             }
@@ -237,15 +239,15 @@ namespace ESPL.KP.Controllerss.Area
         [Authorize(Policy = Permissions.AreaDelete)]
         public IActionResult DeleteArea(Guid id)
         {
-            var AreaFromRepo = _libraryRepository.GetArea(id);
+            var AreaFromRepo = _appRepository.GetArea(id);
             if (AreaFromRepo == null)
             {
                 return NotFound();
             }
 
-            _libraryRepository.DeleteArea(AreaFromRepo);
-
-            if (!_libraryRepository.Save())
+            //....... Soft Delete
+            AreaFromRepo.IsDelete = true;
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Deleting Area {id} failed on save.");
             }
@@ -261,37 +263,17 @@ namespace ESPL.KP.Controllerss.Area
             {
                 return BadRequest();
             }
-            // if (!_libraryRepository.OccurrenceBookExists(id))
-            // {
-            //     return NotFound();
-            // }
-            //Mapper.Map(source,destination);
-            var areaRepo = _libraryRepository.GetArea(id);
+            var areaRepo = _appRepository.GetArea(id);
 
             if (areaRepo == null)
             {
                 return NotFound();
-                // var areaAdd = Mapper.Map<MstArea>(area);
-                // areaAdd.AreaID = id;
-
-                // _libraryRepository.AddArea(areaAdd);
-
-                // if (!_libraryRepository.Save())
-                // {
-                //     throw new Exception($"Upserting area {id} failed on save.");
-                // }
-
-                // var areaReturnVal = Mapper.Map<AreaDto>(areaAdd);
-
-                // return CreatedAtRoute("GetArea",
-                //     new { AreaID = areaReturnVal.AreaID },
-                //     areaReturnVal);
             }
 
             SetItemHistoryData(area, areaRepo);
             Mapper.Map(area, areaRepo);
-            _libraryRepository.UpdateArea(areaRepo);
-            if (!_libraryRepository.Save())
+            _appRepository.UpdateArea(areaRepo);
+            if (!_appRepository.Save())
             {
                 throw new Exception("Updating an area failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
@@ -311,34 +293,10 @@ namespace ESPL.KP.Controllerss.Area
                 return BadRequest();
             }
 
-            var areaFromRepo = _libraryRepository.GetArea(id);
+            var areaFromRepo = _appRepository.GetArea(id);
 
             if (areaFromRepo == null)
             {
-                // var areaDto = new AreaForCreationDto();
-                // patchDoc.ApplyTo(areaDto, ModelState);
-
-                // TryValidateModel(areaDto);
-
-                // if (!ModelState.IsValid)
-                // {
-                //     return new UnprocessableEntityObjectResult(ModelState);
-                // }
-
-                // var areaToAdd = Mapper.Map<MstArea>(areaDto);
-                // areaToAdd.AreaID = id;
-
-                // _libraryRepository.AddArea(areaToAdd);
-
-                // if (!_libraryRepository.Save())
-                // {
-                //     throw new Exception($"Upserting in area {id} failed on save.");
-                // }
-
-                // var areaToReturn = Mapper.Map<AreaDto>(areaToAdd);
-                // return CreatedAtRoute("GetArea",
-                //     new { AreaID = areaToReturn.AreaID },
-                //     areaToReturn);
                 return NotFound();
             }
 
@@ -357,9 +315,9 @@ namespace ESPL.KP.Controllerss.Area
             SetItemHistoryData(areaToPatch, areaFromRepo);
             Mapper.Map(areaToPatch, areaFromRepo);
 
-            _libraryRepository.UpdateArea(areaFromRepo);
+            _appRepository.UpdateArea(areaFromRepo);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Patching  area {id} failed on save.");
             }
@@ -440,11 +398,23 @@ namespace ESPL.KP.Controllerss.Area
             Response.Headers.Add("Allow", "GET,OPTIONS,POST");
             return Ok();
         }
+
         private void SetItemHistoryData(AreaForUpdationDto model, MstArea modelRepo)
         {
             model.CreatedOn = modelRepo.CreatedOn;
+            if (modelRepo.CreatedBy != null)
+                model.CreatedBy = modelRepo.CreatedBy.Value;
             model.UpdatedOn = DateTime.Now;
+            var EmployeeID = User.Claims.FirstOrDefault(cl => cl.Type == "EmployeeID");
+            model.UpdatedBy = new Guid(EmployeeID.Value);
         }
+
+        private void SetCreationUserData(MstArea model)
+        {
+            var EmployeeID = User.Claims.FirstOrDefault(cl => cl.Type == "EmployeeID");
+            model.CreatedBy = new Guid(EmployeeID.Value);
+        }
+
 
     }
 }

@@ -15,30 +15,34 @@ using ESPL.KP.Models.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Collections.Generic;
+using ESPL.KP.Services;
 
 namespace ESPL.KP.Controllers
 {
     public class AuthController : Controller
     {
-        private SignInManager<ESPLUser> _signInMgr;
-        private UserManager<ESPLUser> _userMgr;
-        private IPasswordHasher<ESPLUser> _hasher;
+        private SignInManager<AppUser> _signInMgr;
+        private UserManager<AppUser> _userMgr;
+        private IPasswordHasher<AppUser> _hasher;
         private IConfigurationRoot _config;
         private RoleManager<IdentityRole> _roleMgr;
+        private IAppRepository _appRepository;
 
         public AuthController(
-          SignInManager<ESPLUser> signInMgr,
-          UserManager<ESPLUser> userMgr,
-          IPasswordHasher<ESPLUser> hasher,
+          SignInManager<AppUser> signInMgr,
+          UserManager<AppUser> userMgr,
+          IPasswordHasher<AppUser> hasher,
           ILogger<AuthController> logger,
           IConfigurationRoot config,
-          RoleManager<IdentityRole> roleMgr)
+          RoleManager<IdentityRole> roleMgr,
+          IAppRepository appRepository)
         {
             _signInMgr = signInMgr;
             _userMgr = userMgr;
             _hasher = hasher;
             _config = config;
             _roleMgr = roleMgr;
+            _appRepository = appRepository;
         }
 
         [ValidateModel]
@@ -72,6 +76,9 @@ namespace ESPL.KP.Controllers
                     toSendClaims.Add(new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName));
                     toSendClaims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
                     toSendClaims.Add(new Claim("UserId", user.Id));
+                    var employee = _appRepository.GetEmployeeByUserID(new Guid(user.Id));
+                    if (employee != null)
+                        toSendClaims.Add(new Claim("EmployeeID", employee.EmployeeID.ToString()));
 
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
                     var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

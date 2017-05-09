@@ -17,11 +17,11 @@ namespace KP.Controllers.OccurrenceBook
      [Authorize]
     public class OccurrenceBookCollectionsController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
 
-        public OccurrenceBookCollectionsController(ILibraryRepository libraryRepository)
+        public OccurrenceBookCollectionsController(IAppRepository appRepository)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
         }
 
         [HttpPost]
@@ -38,10 +38,10 @@ namespace KP.Controllers.OccurrenceBook
 
             foreach (var occurrenceBook in occurrenceBookEntities)
             {
-                _libraryRepository.AddOccurrenceBook(occurrenceBook);
+                _appRepository.AddOccurrenceBook(occurrenceBook);
             }
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an occurrenceBook collection failed on save.");
             }
@@ -68,7 +68,7 @@ namespace KP.Controllers.OccurrenceBook
                 return BadRequest();
             }
 
-            var occurrenceBookEntities = _libraryRepository.GetOccurrenceBooks(ids);
+            var occurrenceBookEntities = _appRepository.GetOccurrenceBooks(ids);
 
             if (ids.Count() != occurrenceBookEntities.Count())
             {

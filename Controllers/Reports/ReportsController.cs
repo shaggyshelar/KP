@@ -21,23 +21,23 @@ namespace KP.Controllers.ReportsController
     [Authorize]
     public class ReportsController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
 
-        public ReportsController(ILibraryRepository libraryRepository,
+        public ReportsController(IAppRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
         }
 
-#region Occurance Reports
+        #region Occurance Reports
         [Route("GetOccurrences")]
         [HttpGet(Name = "GetOccurrences")]
         [Authorize(Policy = Permissions.ReportsRead)]
@@ -56,7 +56,7 @@ namespace KP.Controllers.ReportsController
                 return BadRequest();
             }
 
-            var occurrenceBookFromRepo = _libraryRepository.GetOccurrenceBooks(occurrenceReportResourceParameters);
+            var occurrenceBookFromRepo = _appRepository.GetOccurrenceBooks(occurrenceReportResourceParameters);
 
             var occurrenceBook = Mapper.Map<IEnumerable<OccurrenceReportDto>>(occurrenceBookFromRepo);
 
@@ -143,7 +143,7 @@ namespace KP.Controllers.ReportsController
                 return BadRequest();
             }
 
-            var occurrenceBookFromRepo = _libraryRepository.GetOccurrenceBooksStatistics(occurrenceBookResourceParameters);
+            var occurrenceBookFromRepo = _appRepository.GetOccurrenceBooksStatistics(occurrenceBookResourceParameters);
 
             // var occurrenceBook = Mapper.Map<IEnumerable<OccurreceStatistics>>(occurrenceBookFromRepo);
 
@@ -213,6 +213,12 @@ namespace KP.Controllers.ReportsController
             return Ok(occurrenceBookFromRepo);
         }
 
+        [HttpOptions]
+        public IActionResult GetReportsOptions()
+        {
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST");
+            return Ok();
+        }
 
         //  [Route("GetOfficersStatistics")]
         // [HttpGet(Name = "GetOfficersStatistics")]
@@ -231,7 +237,7 @@ namespace KP.Controllers.ReportsController
         //         return BadRequest();
         //     }
 
-        //     var occurrenceBookFromRepo = _libraryRepository.GetOfficersStatistics(occurrenceBookResourceParameters);
+        //     var occurrenceBookFromRepo = _appRepository.GetOfficersStatistics(occurrenceBookResourceParameters);
 
         //     return Ok(occurrenceBookFromRepo);
         // }
@@ -275,9 +281,9 @@ namespace KP.Controllers.ReportsController
             }
         }
 
-private string CreateOccurrenceBookResourceUri(
-                  OccurrenceStatisticsResourceParameters occurrenceReportResourceParameters,
-                  ResourceUriType type)
+        private string CreateOccurrenceBookResourceUri(
+                          OccurrenceStatisticsResourceParameters occurrenceReportResourceParameters,
+                          ResourceUriType type)
         {
             switch (type)
             {
@@ -351,7 +357,7 @@ private string CreateOccurrenceBookResourceUri(
             return links;
         }
 
-        
+
 
         private IEnumerable<LinkDto> CreateLinksForOccurrenceBook(
             OccurrenceReportResourceParameters occurrenceReportResourceParameters,
@@ -384,9 +390,9 @@ private string CreateOccurrenceBookResourceUri(
             return links;
         }
 
-         private IEnumerable<LinkDto> CreateLinksForOccurrenceBook(
-            OccurrenceStatisticsResourceParameters occurrenceReportResourceParameters,
-            bool hasNext, bool hasPrevious)
+        private IEnumerable<LinkDto> CreateLinksForOccurrenceBook(
+           OccurrenceStatisticsResourceParameters occurrenceReportResourceParameters,
+           bool hasNext, bool hasPrevious)
         {
             var links = new List<LinkDto>();
 

@@ -17,11 +17,11 @@ namespace ESPL.KP.Controllers.Status
     [Authorize]
     public class StatusCollectionsController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
 
-        public StatusCollectionsController(ILibraryRepository libraryRepository)
+        public StatusCollectionsController(IAppRepository appRepository)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
         }
 
         [HttpPost]
@@ -38,10 +38,10 @@ namespace ESPL.KP.Controllers.Status
 
             foreach (var status in statusEntities)
             {
-                _libraryRepository.AddStatus(status);
+                _appRepository.AddStatus(status);
             }
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an status collection failed on save.");
             }
@@ -68,7 +68,7 @@ namespace ESPL.KP.Controllers.Status
                 return BadRequest();
             }
 
-            var statusEntities = _libraryRepository.GetStatuses(ids);
+            var statusEntities = _appRepository.GetStatuses(ids);
 
             if (ids.Count() != statusEntities.Count())
             {

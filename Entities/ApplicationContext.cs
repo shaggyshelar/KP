@@ -7,9 +7,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace ESPL.KP.Entities
 {
-    public class LibraryContext : IdentityDbContext<ESPLUser>
+    public class ApplicationContext : IdentityDbContext<AppUser>
     {
-        public LibraryContext(DbContextOptions<LibraryContext> options) : base(options)
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
             Database.Migrate();
         }
@@ -49,10 +49,11 @@ namespace ESPL.KP.Entities
         public DbSet<OccurrenceStatusHistory> OccurrenceStatusHistory { get; set; }
 
         public DbSet<MstEmployee> MstEmployee { get; set; }
-        public DbSet<AppModule> AppModules { get; set; }
+        public DbSet<AppModule> AppModules { get; set; }       
 
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
+           
             foreach (var relationship in modelbuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;

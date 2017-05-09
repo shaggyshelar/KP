@@ -15,17 +15,17 @@ namespace ESPL.KP.Controllers
     [Route("api/authors")]
     public class AuthorsController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
 
-        public AuthorsController(ILibraryRepository libraryRepository,
+        public AuthorsController(IAppRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
@@ -48,7 +48,7 @@ namespace ESPL.KP.Controllers
                 return BadRequest();
             }
             
-            var authorsFromRepo = _libraryRepository.GetAuthors(authorsResourceParameters);
+            var authorsFromRepo = _appRepository.GetAuthors(authorsResourceParameters);
                               
             var authors = Mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo);
 
@@ -168,7 +168,7 @@ namespace ESPL.KP.Controllers
                 return BadRequest();
             }
 
-            var authorFromRepo = _libraryRepository.GetAuthor(id);
+            var authorFromRepo = _appRepository.GetAuthor(id);
 
             if (authorFromRepo == null)
             {
@@ -199,9 +199,9 @@ namespace ESPL.KP.Controllers
 
             var authorEntity = Mapper.Map<Author>(author);
 
-            _libraryRepository.AddAuthor(authorEntity);
+            _appRepository.AddAuthor(authorEntity);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an author failed on save.");
                // return StatusCode(500, "A problem happened with handling your request.");
@@ -237,9 +237,9 @@ namespace ESPL.KP.Controllers
 
             var authorEntity = Mapper.Map<Author>(author);
 
-            _libraryRepository.AddAuthor(authorEntity);
+            _appRepository.AddAuthor(authorEntity);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an author failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
@@ -262,7 +262,7 @@ namespace ESPL.KP.Controllers
         [HttpPost("{id}")]
         public IActionResult BlockAuthorCreation(Guid id)
         {
-            if (_libraryRepository.AuthorExists(id))
+            if (_appRepository.AuthorExists(id))
             {
                 return new StatusCodeResult(StatusCodes.Status409Conflict);
             }
@@ -273,15 +273,15 @@ namespace ESPL.KP.Controllers
         [HttpDelete("{id}", Name = "DeleteAuthor")]
         public IActionResult DeleteAuthor(Guid id)
         {
-            var authorFromRepo = _libraryRepository.GetAuthor(id);
+            var authorFromRepo = _appRepository.GetAuthor(id);
             if (authorFromRepo == null)
             {
                 return NotFound();
             }
 
-            _libraryRepository.DeleteAuthor(authorFromRepo);
+            _appRepository.DeleteAuthor(authorFromRepo);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Deleting author {id} failed on save.");
             }

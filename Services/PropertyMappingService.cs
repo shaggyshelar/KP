@@ -101,6 +101,18 @@ namespace ESPL.KP.Services
             { "AssignedTime", new PropertyMappingValue(new List<string>() { "AssignedTime" } ) },
             { "Priority", new PropertyMappingValue(new List<string>() { "Priority" } ) },
      };
+     private Dictionary<string, PropertyMappingValue> _occurrencBookActivityPropertyMapping =
+     new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+     {
+            { "OBID", new PropertyMappingValue(new List<string>() { "OBID" } ) },
+            { "OBNumber", new PropertyMappingValue(new List<string>() { "OBNumber" } ) },
+            { "NatureOfOccurrence", new PropertyMappingValue(new List<string>() { "NatureOfOccurrence" } ) },
+            { "CreatedOn", new PropertyMappingValue(new List<string>() { "CreatedOn" } ) },
+            { "Type", new PropertyMappingValue(new List<string>() { "Type" } ) },
+            { "Value", new PropertyMappingValue(new List<string>() { "Value" } ) },
+            { "CreatedByName", new PropertyMappingValue(new List<string>() { "CreatedByName" } ) }
+            
+     };
 
         private Dictionary<string, PropertyMappingValue> _appModulesPropertyMapping =
            new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
@@ -144,7 +156,7 @@ namespace ESPL.KP.Services
             { "MstShift.ShiftName", new PropertyMappingValue(new List<string>() { "MstShift.ShiftName" } ) },
             { "MstOccurrenceBooks.MstStatus.StatusName", new PropertyMappingValue(new List<string>() { "MstOccurrenceBooks.MstStatus.StatusName" } ) },
             { "MstOccurrenceBooks.MstOccurrenceType.OBTypeName", new PropertyMappingValue(new List<string>() { "MstOccurrenceBooks.MstOccurrenceType.OBTypeName" } ) },
-            { "ESPLUser.UserName", new PropertyMappingValue(new List<string>() { "ESPLUser.UserName" } ) }
+            { "AppUser.UserName", new PropertyMappingValue(new List<string>() { "AppUser.UserName" } ) }
         };
 
         private Dictionary<string, PropertyMappingValue> _occurrenceReportPropertyMapping =
@@ -169,7 +181,7 @@ namespace ESPL.KP.Services
             { "MstStatus.StatusName", new PropertyMappingValue(new List<string>() { "MstStatus.StatusName" } ) },
             { "MstDepartment.DepartmentName", new PropertyMappingValue(new List<string>() { "MstDepartment.DepartmentName" } ) },
             { "MstEmployee.FirstName", new PropertyMappingValue(new List<string>() { "MstEmployee.FirstName" } ) },
-            { "MstEmployee.ESPLUser.UserName", new PropertyMappingValue(new List<string>() { "MstEmployee.ESPLUser.UserName" } ) }
+            { "MstEmployee.AppUser.UserName", new PropertyMappingValue(new List<string>() { "MstEmployee.AppUser.UserName" } ) }
         };
 
         private Dictionary<string, PropertyMappingValue> _occurrenceStatisticsPropertyMapping =
@@ -178,11 +190,28 @@ namespace ESPL.KP.Services
                { "StatusName", new PropertyMappingValue(new List<string>() { "StatusName" } )}
           };
 
+        private Dictionary<string, PropertyMappingValue> _occurrenceBooksReviewPropertyMapping =
+        new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+        {
+               { "OBReviewHistoryID", new PropertyMappingValue(new List<string>() { "OBReviewHistoryID" } )},
+               { "OBID", new PropertyMappingValue(new List<string>() { "OBID" } )},
+                { "ReveiwComments", new PropertyMappingValue(new List<string>() { "ReveiwComments" } )},
+        };
+
+        private Dictionary<string, PropertyMappingValue> _occurrenceBooksStatusPropertyMapping =
+        new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+        {
+               { "OccurrenceStatusHistoryID", new PropertyMappingValue(new List<string>() { "OccurrenceStatusHistoryID" } )},
+               { "OBID", new PropertyMappingValue(new List<string>() { "OBID" } )},
+                { "StatusID", new PropertyMappingValue(new List<string>() { "StatusID" } )},
+                { "Comments", new PropertyMappingValue(new List<string>() { "Comments" } )},
+        };
+
         private IList<IPropertyMapping> propertyMappings = new List<IPropertyMapping>();
 
         public PropertyMappingService()
         {
-            propertyMappings.Add(new PropertyMapping<ESPLUserDto, ESPLUser>(_esplUserPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<AppUserDto, AppUser>(_esplUserPropertyMapping));
             propertyMappings.Add(new PropertyMapping<AuthorDto, Author>(_authorPropertyMapping));
             propertyMappings.Add(new PropertyMapping<DepartmentDto, MstDepartment>(_departmentPropertyMapping));
             propertyMappings.Add(new PropertyMapping<OccurrenceTypeDto, MstOccurrenceType>(_occurrenctTypePropertyMapping));
@@ -191,11 +220,16 @@ namespace ESPL.KP.Services
             propertyMappings.Add(new PropertyMapping<ShiftDto, MstShift>(_shiftPropertyMapping));
             propertyMappings.Add(new PropertyMapping<StatusDto, MstStatus>(_statusPropertyMapping));
             propertyMappings.Add(new PropertyMapping<OccurrenceBookDto, MstOccurrenceBook>(_occurrencBookPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<OccurrenceBookActivityDto, OccurrenceBookActivity>(_occurrencBookActivityPropertyMapping));
             propertyMappings.Add(new PropertyMapping<AppModuleDto, AppModule>(_appModulesPropertyMapping));
-            propertyMappings.Add(new PropertyMapping<ESPLRoleDto, IdentityRole>(_esplRolesPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<AppRoleDto, IdentityRole>(_esplRolesPropertyMapping));
             propertyMappings.Add(new PropertyMapping<EmployeeDto, MstEmployee>(_employeePropertyMapping));
             propertyMappings.Add(new PropertyMapping<OccurrenceReportDto, MstOccurrenceBook>(_occurrenceReportPropertyMapping));
             propertyMappings.Add(new PropertyMapping<Statistics, MstOccurrenceBook>(_occurrenceStatisticsPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<OccurrenceBookReviewDto, OccurrenceReviewHistory>(_occurrenceBooksReviewPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<OccurrenceBookForAssignmentDto, OccurrenceAssignmentHistory>(_occurrenceBooksReviewPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>(_occurrenceBooksStatusPropertyMapping));
+
         }
         public Dictionary<string, PropertyMappingValue> GetPropertyMapping
             <TSource, TDestination>()

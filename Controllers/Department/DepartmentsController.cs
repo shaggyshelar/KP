@@ -19,17 +19,17 @@ namespace ESPL.KP.Controllers.Department
     [Authorize]
     public class DepartmentsController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
 
-        public DepartmentsController(ILibraryRepository libraryRepository,
+        public DepartmentsController(IAppRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
@@ -54,7 +54,7 @@ namespace ESPL.KP.Controllers.Department
                 return BadRequest();
             }
 
-            var departmentsFromRepo = _libraryRepository.GetDepartments(departmentsResourceParameters);
+            var departmentsFromRepo = _appRepository.GetDepartments(departmentsResourceParameters);
 
             var departments = Mapper.Map<IEnumerable<DepartmentDto>>(departmentsFromRepo);
 
@@ -172,7 +172,7 @@ namespace ESPL.KP.Controllers.Department
                 return BadRequest();
             }
 
-            var departmentFromRepo = _libraryRepository.GetDepartment(id);
+            var departmentFromRepo = _appRepository.GetDepartment(id);
 
             if (departmentFromRepo == null)
             {
@@ -202,9 +202,11 @@ namespace ESPL.KP.Controllers.Department
 
             var departmentEntity = Mapper.Map<MstDepartment>(department);
 
-            _libraryRepository.AddDepartment(departmentEntity);
+            SetCreationUserData(departmentEntity);
 
-            if (!_libraryRepository.Save())
+            _appRepository.AddDepartment(departmentEntity);
+
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an department failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
@@ -227,7 +229,7 @@ namespace ESPL.KP.Controllers.Department
         [HttpPost("{id}")]
         public IActionResult BlockDepartmentCreation(Guid id)
         {
-            if (_libraryRepository.DepartmentExists(id))
+            if (_appRepository.DepartmentExists(id))
             {
                 return new StatusCodeResult(StatusCodes.Status409Conflict);
             }
@@ -239,15 +241,16 @@ namespace ESPL.KP.Controllers.Department
         [Authorize(Policy = Permissions.DepartmentDelete)]
         public IActionResult DeleteDepartment(Guid id)
         {
-            var departmentFromRepo = _libraryRepository.GetDepartment(id);
+            var departmentFromRepo = _appRepository.GetDepartment(id);
             if (departmentFromRepo == null)
             {
                 return NotFound();
             }
 
-            _libraryRepository.DeleteDepartment(departmentFromRepo);
-
-            if (!_libraryRepository.Save())
+            //_appRepository.DeleteDepartment(departmentFromRepo);
+            //....... Soft Delete
+            departmentFromRepo.IsDelete = true;
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Deleting department {id} failed on save.");
             }
@@ -263,12 +266,12 @@ namespace ESPL.KP.Controllers.Department
             {
                 return BadRequest();
             }
-            // if (!_libraryRepository.OccurrenceBookExists(id))
+            // if (!_appRepository.OccurrenceBookExists(id))
             // {
             //     return NotFound();
             // }
             //Mapper.Map(source,destination);
-            var departmentRepo = _libraryRepository.GetDepartment(id);
+            var departmentRepo = _appRepository.GetDepartment(id);
 
             if (departmentRepo == null)
             {
@@ -276,8 +279,8 @@ namespace ESPL.KP.Controllers.Department
             }
             SetItemHistoryData(department, departmentRepo);
             Mapper.Map(department, departmentRepo);
-            _libraryRepository.UpdateDepartment(departmentRepo);
-            if (!_libraryRepository.Save())
+            _appRepository.UpdateDepartment(departmentRepo);
+            if (!_appRepository.Save())
             {
                 throw new Exception("Updating an department failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
@@ -297,7 +300,7 @@ namespace ESPL.KP.Controllers.Department
                 return BadRequest();
             }
 
-            var departmentFromRepo = _libraryRepository.GetDepartment(id);
+            var departmentFromRepo = _appRepository.GetDepartment(id);
 
             if (departmentFromRepo == null)
             {
@@ -314,9 +317,9 @@ namespace ESPL.KP.Controllers.Department
                 // var departmentToAdd = Mapper.Map<MstDepartment>(departmentDto);
                 // departmentToAdd.DepartmentID = id;
 
-                // _libraryRepository.AddDepartment(departmentToAdd);
+                // _appRepository.AddDepartment(departmentToAdd);
 
-                // if (!_libraryRepository.Save())
+                // if (!_appRepository.Save())
                 // {
                 //     throw new Exception($"Upserting in department {id} failed on save.");
                 // }
@@ -344,9 +347,9 @@ namespace ESPL.KP.Controllers.Department
             SetItemHistoryData(departmentToPatch, departmentFromRepo);
             Mapper.Map(departmentToPatch, departmentFromRepo);
 
-            _libraryRepository.UpdateDepartment(departmentFromRepo);
+            _appRepository.UpdateDepartment(departmentFromRepo);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Patching  department {id} failed on save.");
             }
@@ -432,7 +435,17 @@ namespace ESPL.KP.Controllers.Department
         private void SetItemHistoryData(DepartmentForUpdationDto model, MstDepartment modelRepo)
         {
             model.CreatedOn = modelRepo.CreatedOn;
+            if (modelRepo.CreatedBy != null)
+                model.CreatedBy = modelRepo.CreatedBy.Value;
             model.UpdatedOn = DateTime.Now;
+            var EmployeeID = User.Claims.FirstOrDefault(cl => cl.Type == "EmployeeID");
+            model.UpdatedBy = new Guid(EmployeeID.Value);
+        }
+
+        private void SetCreationUserData(MstDepartment model)
+        {
+            var EmployeeID = User.Claims.FirstOrDefault(cl => cl.Type == "EmployeeID");
+            model.CreatedBy = new Guid(EmployeeID.Value);
         }
 
     }

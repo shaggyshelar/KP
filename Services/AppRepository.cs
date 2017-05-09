@@ -22,16 +22,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ESPL.KP.Services
 {
-    public class LibraryRepository : ILibraryRepository
+    public class AppRepository : IAppRepository
     {
-        private LibraryContext _context;
+        private Entities.ApplicationContext _context;
         private IPropertyMappingService _propertyMappingService;
         private RoleManager<IdentityRole> _roleMgr;
-        private UserManager<ESPLUser> _userMgr;
+        private UserManager<AppUser> _userMgr;
 
-        public LibraryRepository(LibraryContext context,
+        public AppRepository(Entities.ApplicationContext context,
             IPropertyMappingService propertyMappingService,
-            UserManager<ESPLUser> userMgr,
+            UserManager<AppUser> userMgr,
             RoleManager<IdentityRole> roleMgr)
         {
             _context = context;
@@ -513,23 +513,105 @@ namespace ESPL.KP.Services
             return _context.MstStatus.Any(a => a.StatusID == statusId && a.IsDelete == false);
         }
 
+        public MstStatus GetStatusByName(string statusName)
+        {
+            return _context.MstStatus.FirstOrDefault(a => a.StatusName == statusName && a.IsDelete == false);
+        }
+
         #endregion Status
 
 
 
         #region OccurrenceBook
 
+        public PagedList<OccurrenceBookActivity> GetOccurrenceBookActivity(OccurrenceBookActivityResourceParameters occurrenceBookActivityResourceParameters)
+        {
+            var obActivity = (from o in _context.MstOccurrenceBook
+                              join os in _context.OccurrenceStatusHistory on o.OBID equals os.OBID
+                              join s in _context.MstStatus on os.StatusID equals s.StatusID
+                              join e in _context.MstEmployee on os.CreatedBy.Value equals e.EmployeeID
+                              select new OccurrenceBookActivity
+                              {
+                                  OBID = o.OBID.ToString(),
+                                  OBNumber = o.OBNumber,
+                                  NatureOfOccurrence = o.NatureOfOccurrence,
+                                  CreatedOn = os.CreatedOn,
+                                  Type = "Status",
+                                  Value = s.StatusName,
+                                  CreatedByName = e.FirstName + " " + e.LastName
+                              })
+                          .Union((from o in _context.MstOccurrenceBook
+                                  join oc in _context.OccurrenceReviewHistory on o.OBID equals oc.OBID
+                                  join e in _context.MstEmployee on oc.CreatedBy.Value equals e.EmployeeID
+                                  select new OccurrenceBookActivity
+                                  {
+                                      OBID = o.OBID.ToString(),
+                                      OBNumber = o.OBNumber,
+                                      NatureOfOccurrence = o.NatureOfOccurrence,
+                                      CreatedOn = oc.CreatedOn,
+                                      Type = "Comments",
+                                      Value = oc.ReveiwComments,
+                                      CreatedByName = e.FirstName + " " + e.LastName
+                                  }))
+                          .Union((from o in _context.MstOccurrenceBook
+                                  join os in _context.OccurrenceAssignmentHistory on o.OBID equals os.OBID
+                                  join e in _context.MstEmployee on os.CreatedBy.Value equals e.EmployeeID
+                                  join a in _context.MstEmployee on o.AssignedTO equals a.EmployeeID
+                                  select new OccurrenceBookActivity
+                                  {
+                                      OBID = o.OBID.ToString(),
+                                      OBNumber = o.OBNumber,
+                                      NatureOfOccurrence = o.NatureOfOccurrence,
+                                      CreatedOn = os.CreatedOn,
+                                      Type = "AssignedTo",
+                                      Value = a.FirstName + " " + a.LastName,
+                                      CreatedByName = e.FirstName + " " + e.LastName
+                                  }));
+            obActivity = obActivity.ApplySort(occurrenceBookActivityResourceParameters.OrderBy,
+               _propertyMappingService.GetPropertyMapping<OccurrenceBookActivityDto, OccurrenceBookActivity>());
+
+            //Filter Logic
+            if (!string.IsNullOrEmpty(occurrenceBookActivityResourceParameters.OBID))
+            {
+                var obIDs = occurrenceBookActivityResourceParameters.OBID.Split(',');
+                obActivity = obActivity
+                    .Where(o => obIDs.Contains(o.OBID.ToString()));
+            }
+
+            if (!string.IsNullOrEmpty(occurrenceBookActivityResourceParameters.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = occurrenceBookActivityResourceParameters.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                obActivity = obActivity
+                            .Where(a =>
+                                a.OBID.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                                || a.OBNumber.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                                || a.NatureOfOccurrence.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                                || a.Type.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                                || a.Value.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                                || a.CreatedByName.ToLowerInvariant().Contains(searchQueryForWhereClause));
+
+            }
+
+            return PagedList<OccurrenceBookActivity>.Create(obActivity, occurrenceBookActivityResourceParameters.PageNumber,
+               occurrenceBookActivityResourceParameters.PageSize);
+        }
+
+
+
         public PagedList<MstOccurrenceBook> GetOccurrenceBooks(OccurrenceBookResourceParameters occurrenceBookResourceParameters)
         {
             var collectionBeforePaging =
-                _context.MstOccurrenceBook.Where(a => a.IsDelete == false)
-                .Include(ob => ob.MstArea)
-                .Include(ob => ob.MstDepartment)
-                .Include(ob => ob.MstOccurrenceType)
-                .Include(ob => ob.MstStatus)
-                .Include(ob => ob.MstEmployee).ThenInclude(e => e.ESPLUser)
-                .ApplySort(occurrenceBookResourceParameters.OrderBy,
-                _propertyMappingService.GetPropertyMapping<OccurrenceBookDto, MstOccurrenceBook>());
+               _context.MstOccurrenceBook.Where(a => a.IsDelete == false)
+               .Include(ob => ob.MstArea)
+               .Include(ob => ob.MstDepartment)
+               .Include(ob => ob.MstOccurrenceType)
+               .Include(ob => ob.MstStatus)
+               .Include(ob => ob.MstEmployee).ThenInclude(e => e.AppUser)
+               .ApplySort(occurrenceBookResourceParameters.OrderBy,
+               _propertyMappingService.GetPropertyMapping<OccurrenceBookDto, MstOccurrenceBook>());
 
             //Filter Implementation
             if (!string.IsNullOrEmpty(occurrenceBookResourceParameters.AreaID))
@@ -574,7 +656,9 @@ namespace ESPL.KP.Services
                         || a.MstOccurrenceType.OBTypeName.ToLowerInvariant().Contains(searchQueryForWhereClause)
                         || a.MstDepartment.DepartmentName.ToLowerInvariant().Contains(searchQueryForWhereClause)
                         || a.MstArea.AreaName.ToLowerInvariant().Contains(searchQueryForWhereClause)
-                        || a.MstStatus.StatusName.ToLowerInvariant().Contains(searchQueryForWhereClause));
+                        || a.MstStatus.StatusName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                        || a.MstEmployee.FirstName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                        || a.MstEmployee.LastName.ToLowerInvariant().Contains(searchQueryForWhereClause));
 
             }
 
@@ -591,7 +675,7 @@ namespace ESPL.KP.Services
                 .Include(ob => ob.MstDepartment)
                 .Include(ob => ob.MstOccurrenceType)
                 .Include(ob => ob.MstStatus)
-                .Include(ob => ob.MstEmployee).ThenInclude(e => e.ESPLUser)
+                .Include(ob => ob.MstEmployee).ThenInclude(e => e.AppUser)
                 .FirstOrDefault(a => a.OBID == occurrenceBookId);
         }
 
@@ -603,7 +687,7 @@ namespace ESPL.KP.Services
                 .Include(ob => ob.MstDepartment)
                 .Include(ob => ob.MstOccurrenceType)
                 .Include(ob => ob.MstStatus)
-                .Include(ob => ob.MstEmployee).ThenInclude(e => e.ESPLUser)
+                .Include(ob => ob.MstEmployee).ThenInclude(e => e.AppUser)
                 .Where(a => occurrenceBookIds.Contains(a.OBID))
                 .OrderBy(a => a.OBTime)
                 .ToList();
@@ -703,13 +787,13 @@ namespace ESPL.KP.Services
 
 
 
-        #region ESPLUser
+        #region AppUser
 
-        public PagedList<ESPLUser> GetESPLUsers(ESPLUsersResourceParameters esplUserResourceParameters)
+        public PagedList<AppUser> GetAppUsers(AppUsersResourceParameters esplUserResourceParameters)
         {
             var collectionBeforePaging =
                _userMgr.Users.ApplySort(esplUserResourceParameters.OrderBy,
-                _propertyMappingService.GetPropertyMapping<ESPLUserDto, ESPLUser>());
+                _propertyMappingService.GetPropertyMapping<AppUserDto, AppUser>());
 
             if (!string.IsNullOrEmpty(esplUserResourceParameters.SearchQuery))
             {
@@ -723,17 +807,17 @@ namespace ESPL.KP.Services
                     || a.Email.ToLowerInvariant().Contains(searchQueryForWhereClause));
             }
 
-            return PagedList<ESPLUser>.Create(collectionBeforePaging,
+            return PagedList<AppUser>.Create(collectionBeforePaging,
                 esplUserResourceParameters.PageNumber,
                 esplUserResourceParameters.PageSize);
         }
 
-        public ESPLUser GetESPLUser(Guid esplUserId)
+        public AppUser GetAppUser(Guid esplUserId)
         {
             return _userMgr.Users.FirstOrDefault(a => a.Id == esplUserId.ToString());
         }
 
-        public IEnumerable<ESPLUser> GetESPLUsers(IEnumerable<Guid> esplUserIds)
+        public IEnumerable<AppUser> GetAppUsers(IEnumerable<Guid> esplUserIds)
         {
             return _userMgr.Users.Where(a => esplUserIds.Contains(new Guid(a.Id)))
                 .OrderBy(a => a.FirstName)
@@ -741,32 +825,32 @@ namespace ESPL.KP.Services
                 .ToList();
         }
 
-        public void AddESPLUser(ESPLUser esplUser)
+        public void AddAppUser(AppUser esplUser)
         {
             _userMgr.CreateAsync(esplUser);
         }
 
-        public async void DeleteESPLUser(ESPLUser esplUser)
+        public async void DeleteAppUser(AppUser esplUser)
         {
             await _userMgr.DeleteAsync(esplUser);
         }
 
-        public void UpdateESPLUser(ESPLUser esplUser)
+        public void UpdateAppUser(AppUser esplUser)
         {
             // no code in this implementation
         }
 
-        public bool ESPLUserExists(Guid esplUserId)
+        public bool AppUserExists(Guid esplUserId)
         {
             return _userMgr.Users.Any(a => a.Id == esplUserId.ToString());
         }
 
-        #endregion ESPLUser
+        #endregion AppUser
 
 
-        #region ESPLRole
+        #region AppRole
 
-        public PagedList<IdentityRole> GetESPLRoles(ESPLRolesResourceParameters esplRoleResourceParameters)
+        public PagedList<IdentityRole> GetAppRoles(AppRolesResourceParameters esplRoleResourceParameters)
         {
             var collectionBeforePaging =
                _roleMgr.Roles.ApplySort(esplRoleResourceParameters.OrderBy,
@@ -787,39 +871,39 @@ namespace ESPL.KP.Services
                 esplRoleResourceParameters.PageSize);
         }
 
-        public IdentityRole GetESPLRole(Guid esplRoleId)
+        public IdentityRole GetAppRole(Guid esplRoleId)
         {
             return _roleMgr.Roles.FirstOrDefault(a => a.Id == esplRoleId.ToString());
         }
 
-        public IEnumerable<IdentityRole> GetESPLRoles(IEnumerable<Guid> esplRoleIds)
+        public IEnumerable<IdentityRole> GetAppRoles(IEnumerable<Guid> esplRoleIds)
         {
             return _roleMgr.Roles.Where(a => esplRoleIds.Contains(new Guid(a.Id)))
                 .OrderBy(a => a.Name)
                 .ToList();
         }
 
-        public void AddESPLRole(IdentityRole esplRole)
+        public void AddAppRole(IdentityRole esplRole)
         {
             _roleMgr.CreateAsync(esplRole);
         }
 
-        public async void DeleteESPLRole(IdentityRole esplRole)
+        public async void DeleteAppRole(IdentityRole esplRole)
         {
             await _roleMgr.DeleteAsync(esplRole);
         }
 
-        public void UpdateESPLRole(IdentityRole esplRole)
+        public void UpdateAppRole(IdentityRole esplRole)
         {
             // no code in this implementation
         }
 
-        public bool ESPLRoleExists(Guid esplRoleId)
+        public bool AppRoleExists(Guid esplRoleId)
         {
             return _roleMgr.Roles.Any(a => a.Id == esplRoleId.ToString());
         }
 
-        #endregion ESPLRole
+        #endregion AppRole
 
         #region Employee
         public PagedList<MstEmployee> GetEmployees(EmployeesResourceParameters employeesResourceParameters)
@@ -833,7 +917,7 @@ namespace ESPL.KP.Services
                 .Include(e => e.MstShift)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstStatus)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstOccurrenceType)
-                .Include(e => e.ESPLUser)
+                .Include(e => e.AppUser)
                 .ApplySort(employeesResourceParameters.OrderBy,
                 _propertyMappingService.GetPropertyMapping<EmployeeDto, MstEmployee>());
 
@@ -882,7 +966,7 @@ namespace ESPL.KP.Services
                     || a.MstDesignation.DesignationName.ToLowerInvariant().Contains(searchQueryForWhereClause)
                     || a.MstDepartment.DepartmentName.ToLowerInvariant().Contains(searchQueryForWhereClause)
                     || a.MstArea.AreaName.ToLowerInvariant().Contains(searchQueryForWhereClause)
-                    || a.ESPLUser.UserName.ToLowerInvariant().Contains(searchQueryForWhereClause));
+                    || a.AppUser.UserName.ToLowerInvariant().Contains(searchQueryForWhereClause));
 
             }
 
@@ -901,7 +985,7 @@ namespace ESPL.KP.Services
                 .Include(e => e.MstShift)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstStatus)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstOccurrenceType)
-                .Include(e => e.ESPLUser)
+                .Include(e => e.AppUser)
                 .FirstOrDefault(a => a.EmployeeID == employeeId);
         }
 
@@ -915,7 +999,7 @@ namespace ESPL.KP.Services
                 .Include(e => e.MstShift)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstStatus)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstOccurrenceType)
-                .Include(e => e.ESPLUser)
+                .Include(e => e.AppUser)
                 .FirstOrDefault(a => a.UserID == userId.ToString());
         }
 
@@ -930,7 +1014,7 @@ namespace ESPL.KP.Services
                 .Include(e => e.MstShift)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstStatus)
                 .Include(e => e.MstOccurrenceBooks).ThenInclude(ob => ob.MstOccurrenceType)
-                .Include(e => e.ESPLUser)
+                .Include(e => e.AppUser)
                 .Where(a => employeeIds.Contains(a.EmployeeID))
                 .OrderBy(a => a.FirstName)
                 .ToList();
@@ -1073,6 +1157,188 @@ namespace ESPL.KP.Services
             occurrenceBookhistory.OBAssignmentID = Guid.NewGuid();
             _context.OccurrenceAssignmentHistory.Add(occurrenceBookhistory);
         }
+
+        public PagedList<OccurrenceAssignmentHistory> GetAssignmentHistory(Guid obid, OccurrenceBookAssignedToResourceParameters occurrenceBookAssignedHistory)
+        {
+            var collectionBeforePaging =
+                            _context.OccurrenceAssignmentHistory.Where(a => a.OBID == obid)
+                            .GroupJoin(_context.MstEmployee, oc => oc.CreatedBy.Value, uc => uc.EmployeeID, (oc, uc) => new { oc = oc, uc = uc.FirstOrDefault() })
+                            .GroupJoin(_context.MstEmployee, oc => oc.oc.UpdatedBy, um => um.EmployeeID, (oc, um) => new { oc = oc, um = um.FirstOrDefault() })
+                            .Select(assignmnt => new OccurrenceAssignmentHistory()
+                            {
+                                OBAssignmentID = assignmnt.oc.oc.OBAssignmentID,
+                                MstOccurrenceBook = assignmnt.oc.oc.MstOccurrenceBook,
+                                OBID = assignmnt.oc.oc.OBID,
+                                MstEmployee = assignmnt.oc.oc.MstEmployee,
+                                AssignedTO = assignmnt.oc.oc.AssignedTO,
+
+                                CreatedOn = assignmnt.oc.oc.CreatedOn,
+                                CreatedBy = assignmnt.oc.oc.CreatedBy,
+                                UpdatedOn = assignmnt.oc.oc.UpdatedOn,
+                                UpdatedBy = assignmnt.oc.oc.UpdatedBy,
+                                IsDelete = assignmnt.oc.oc.IsDelete,
+                                CreatedByName = (string.IsNullOrEmpty(assignmnt.oc.uc.FirstName) ? "" : (assignmnt.oc.uc.FirstName + " ")) + assignmnt.oc.uc.LastName ?? assignmnt.oc.uc.LastName,
+                                UpdatedByName = (string.IsNullOrEmpty(assignmnt.um.FirstName) ? "" : (assignmnt.um.FirstName + " ")) + assignmnt.um.LastName,
+                            })
+                            .ApplySort(occurrenceBookAssignedHistory.OrderBy,
+                            _propertyMappingService.GetPropertyMapping<OccurrenceBookForAssignmentDto, OccurrenceAssignmentHistory>());
+
+
+
+            // var collectionBeforePaging =
+            //     _context.OccurrenceAssignmentHistory
+            //     .ApplySort(occurrenceBookAssignedHistory.OrderBy,
+            //     _propertyMappingService.GetPropertyMapping<OccurrenceBookForAssignmentDto, OccurrenceAssignmentHistory>());
+
+            if (!string.IsNullOrEmpty(occurrenceBookAssignedHistory.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = occurrenceBookAssignedHistory.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a =>
+                        //a.ReveiwComments.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                        a.CreatedByName.ToLowerInvariant().Contains(searchQueryForWhereClause) ||
+                        a.UpdatedByName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    );
+            }
+
+            return PagedList<OccurrenceAssignmentHistory>.Create(collectionBeforePaging,
+                occurrenceBookAssignedHistory.PageNumber,
+                occurrenceBookAssignedHistory.PageSize);
+        }
         #endregion OccurrenceAssignmentHistory
+
+        #region OccurrenceReviewHistory
+        public PagedList<OccurrenceReviewHistory> GetOccurrenceReviewHistories(Guid obid, OccurrenceBookReviewResourceParameters occurrenceBookReviewResourceParameters)
+        {
+
+
+            var collectionBeforePaging = _context.OccurrenceReviewHistory.Where(o => o.OBID == obid)
+                    .GroupJoin(_context.MstEmployee, oc => oc.CreatedBy.Value, uc => uc.EmployeeID, (oc, uc) => new { oc = oc, uc = uc.FirstOrDefault() })
+                    .GroupJoin(_context.MstEmployee, oc => oc.oc.UpdatedBy, um => um.EmployeeID, (oc, um) => new { oc = oc, um = um.FirstOrDefault() })
+                        .Select(reviews => new OccurrenceReviewHistory()
+                        {
+                            OBReviewHistoryID = reviews.oc.oc.OBReviewHistoryID,
+                            MstOccurrenceBook = reviews.oc.oc.MstOccurrenceBook,
+                            OBID = reviews.oc.oc.OBID,
+                            ReveiwComments = reviews.oc.oc.ReveiwComments,
+                            CreatedOn = reviews.oc.oc.CreatedOn,
+                            CreatedBy = reviews.oc.oc.CreatedBy,
+                            UpdatedOn = reviews.oc.oc.UpdatedOn,
+                            UpdatedBy = reviews.oc.oc.UpdatedBy,
+                            IsDelete = reviews.oc.oc.IsDelete,
+                            CreatedByName = (string.IsNullOrEmpty(reviews.oc.uc.FirstName) ? "" : (reviews.oc.uc.FirstName + " ")) + reviews.oc.uc.LastName ?? reviews.oc.uc.LastName,
+                            UpdatedByName = (string.IsNullOrEmpty(reviews.um.FirstName) ? "" : (reviews.um.FirstName + " ")) + reviews.um.LastName,
+                        })
+                        .ApplySort(occurrenceBookReviewResourceParameters.OrderBy,
+                        _propertyMappingService.GetPropertyMapping<OccurrenceBookReviewDto, OccurrenceReviewHistory>());
+
+            if (!string.IsNullOrEmpty(occurrenceBookReviewResourceParameters.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = occurrenceBookReviewResourceParameters.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a =>
+                        a.ReveiwComments.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    );
+            }
+
+            return PagedList<OccurrenceReviewHistory>.Create(collectionBeforePaging,
+                occurrenceBookReviewResourceParameters.PageNumber,
+                occurrenceBookReviewResourceParameters.PageSize);
+        }
+
+        public OccurrenceReviewHistory GetReviewById(Guid occurrenceBookId, Guid reviewId)
+        {
+            var review = _context.OccurrenceReviewHistory.Where(a => a.OBReviewHistoryID == reviewId && a.OBID == occurrenceBookId)
+                    .GroupJoin(_context.MstEmployee, oc => oc.CreatedBy.Value, uc => uc.EmployeeID, (oc, uc) => new { oc = oc, uc = uc.FirstOrDefault() })
+                    .GroupJoin(_context.MstEmployee, oc => oc.oc.UpdatedBy, um => um.EmployeeID, (oc, um) => new { oc = oc, um = um.FirstOrDefault() })
+                        .Select(reviews => new OccurrenceReviewHistory()
+                        {
+                            OBReviewHistoryID = reviews.oc.oc.OBReviewHistoryID,
+                            MstOccurrenceBook = reviews.oc.oc.MstOccurrenceBook,
+                            OBID = reviews.oc.oc.OBID,
+                            ReveiwComments = reviews.oc.oc.ReveiwComments,
+                            CreatedOn = reviews.oc.oc.CreatedOn,
+                            CreatedBy = reviews.oc.oc.CreatedBy,
+                            UpdatedOn = reviews.oc.oc.UpdatedOn,
+                            UpdatedBy = reviews.oc.oc.UpdatedBy,
+                            IsDelete = reviews.oc.oc.IsDelete,
+                            CreatedByName = (string.IsNullOrEmpty(reviews.oc.uc.FirstName) ? "" : (reviews.oc.uc.FirstName + " ")) + reviews.oc.uc.LastName ?? reviews.oc.uc.LastName,
+                            UpdatedByName = (string.IsNullOrEmpty(reviews.um.FirstName) ? "" : (reviews.um.FirstName + " ")) + reviews.um.LastName,
+                        });
+            return review.FirstOrDefault();
+        }
+
+        public void AddOccurrenceReviewHistories(OccurrenceReviewHistory occurrenceReviewHistory)
+        {
+            occurrenceReviewHistory.OBReviewHistoryID = Guid.NewGuid();
+            _context.OccurrenceReviewHistory.Add(occurrenceReviewHistory);
+        }
+        #endregion OccurrenceReviewHistory
+
+        #region Status
+        public PagedList<OccurrenceStatusHistory> GetStatusHistory(Guid id, OccurrenceBookStatusResourceParameters occurrenceBookStatusHistoryParams)
+        {
+            var collectionBeforePaging =
+                _context.OccurrenceStatusHistory
+                .ApplySort(occurrenceBookStatusHistoryParams.OrderBy,
+                _propertyMappingService.GetPropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>());
+            _context.OccurrenceStatusHistory.Where(s => s.OBID == id)
+               .GroupJoin(_context.MstEmployee, oc => oc.CreatedBy.Value, uc => uc.EmployeeID, (oc, uc) => new { oc = oc, uc = uc.FirstOrDefault() })
+               .GroupJoin(_context.MstEmployee, oc => oc.oc.UpdatedBy, um => um.EmployeeID, (oc, um) => new { oc = oc, um = um.FirstOrDefault() })
+               .Select(status => new OccurrenceStatusHistory()
+               {
+                   OccurrenceStatusHistoryID = status.oc.oc.OccurrenceStatusHistoryID,
+                   MstOccurrenceBook = status.oc.oc.MstOccurrenceBook,
+                   OBID = status.oc.oc.OBID,
+                   MstStatus = status.oc.oc.MstStatus,
+                   StatusID = status.oc.oc.StatusID,
+                   Comments = status.oc.oc.Comments,
+
+                   CreatedOn = status.oc.oc.CreatedOn,
+                   CreatedBy = status.oc.oc.CreatedBy,
+                   UpdatedOn = status.oc.oc.UpdatedOn,
+                   UpdatedBy = status.oc.oc.UpdatedBy,
+                   IsDelete = status.oc.oc.IsDelete,
+                   CreatedByName = (string.IsNullOrEmpty(status.oc.uc.FirstName) ? "" : (status.oc.uc.FirstName + " ")) + status.oc.uc.LastName ?? status.oc.uc.LastName,
+                   UpdatedByName = (string.IsNullOrEmpty(status.um.FirstName) ? "" : (status.um.FirstName + " ")) + status.um.LastName,
+               })
+            .ApplySort(occurrenceBookStatusHistoryParams.OrderBy,
+            _propertyMappingService.GetPropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>());
+
+            // var collectionBeforePaging =
+            //      _context.OccurrenceStatusHistory
+            //      .ApplySort(occurrenceBookStatusHistoryParams.OrderBy,
+            //      _propertyMappingService.GetPropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>());
+
+
+            if (!string.IsNullOrEmpty(occurrenceBookStatusHistoryParams.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = occurrenceBookStatusHistoryParams.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a =>
+                        a.Comments.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    );
+            }
+
+            return PagedList<OccurrenceStatusHistory>.Create(collectionBeforePaging,
+                occurrenceBookStatusHistoryParams.PageNumber,
+                occurrenceBookStatusHistoryParams.PageSize);
+        }
+
+        public void AddOccurrenceStatusHistory(OccurrenceStatusHistory occurrenceBookStatusHistory)
+        {
+            occurrenceBookStatusHistory.OccurrenceStatusHistoryID = Guid.NewGuid();
+            _context.OccurrenceStatusHistory.Add(occurrenceBookStatusHistory);
+        }
+        #endregion status
     }
 }

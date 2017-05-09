@@ -25,7 +25,7 @@ namespace ESPL.KP.Models
         public string NatureOfOccurrence { get; set; }
 
         public string Remark { get; set; }
-        public Guid AssignedTO { get; set; }
+        public Guid? AssignedTO { get; set; }
         public string AssignedComments { get; set; }
         public int MapZoomLevel { get; set; }
         public double Lattitude { get; set; }

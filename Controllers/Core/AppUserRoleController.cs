@@ -21,22 +21,22 @@ namespace ESPL.KP.Controllers.Core
     [Authorize(Policy = "IsSuperAdmin")]
     public class AppUserRoleController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
         private RoleManager<IdentityRole> _roleMgr;
-        private UserManager<ESPLUser> _userMgr;
+        private UserManager<AppUser> _userMgr;
 
 
-        public AppUserRoleController(ILibraryRepository libraryRepository,
+        public AppUserRoleController(IAppRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService,
-            UserManager<ESPLUser> userMgr,
+            UserManager<AppUser> userMgr,
             RoleManager<IdentityRole> roleMgr)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
@@ -48,7 +48,7 @@ namespace ESPL.KP.Controllers.Core
         [HttpHead]
         public async Task<IActionResult> GetUserRoles(Guid userId)
         {
-            var userFromDB = _libraryRepository.GetESPLUser(userId);
+            var userFromDB = _appRepository.GetAppUser(userId);
             if (userFromDB == null)
             {
                 return NotFound("User Not Found");
@@ -69,14 +69,14 @@ namespace ESPL.KP.Controllers.Core
                 return BadRequest();
             }
 
-            var userFromDB = _libraryRepository.GetESPLUser(userId);
+            var userFromDB = _appRepository.GetAppUser(userId);
             if (userFromDB == null)
             {
                 return NotFound("User Not Found");
             }
 
 
-            var roleFromDB = _libraryRepository.GetESPLRole(user.RoleId);
+            var roleFromDB = _appRepository.GetAppRole(user.RoleId);
             if (roleFromDB == null)
             {
                 return NotFound("Role Not Found");
@@ -85,7 +85,7 @@ namespace ESPL.KP.Controllers.Core
 
             await _userMgr.AddToRoleAsync(userFromDB, roleFromDB.Name);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Creating a book for author {userId} failed on save.");
             }
@@ -102,14 +102,14 @@ namespace ESPL.KP.Controllers.Core
                 return BadRequest();
             }
 
-            var userFromDB = _libraryRepository.GetESPLUser(userId);
+            var userFromDB = _appRepository.GetAppUser(userId);
             if (userFromDB == null)
             {
                 return NotFound("User Not Found");
             }
 
 
-            var roleFromDB = _libraryRepository.GetESPLRole(user.RoleId);
+            var roleFromDB = _appRepository.GetAppRole(user.RoleId);
             if (roleFromDB == null)
             {
                 return NotFound("Role Not Found");
@@ -118,7 +118,7 @@ namespace ESPL.KP.Controllers.Core
 
             await _userMgr.RemoveFromRoleAsync(userFromDB, roleFromDB.Name);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Removing user from role failed on save.");
             }
