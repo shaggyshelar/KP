@@ -166,6 +166,10 @@ namespace ESPL.KP.Entities
             context.MstStatus.RemoveRange(context.MstStatus);
             context.MstShift.RemoveRange(context.MstShift);
             context.AppModules.RemoveRange(context.AppModules);
+            context.CfgEmployeeArea.RemoveRange(context.CfgEmployeeArea);
+            context.CfgEmployeeDepartment.RemoveRange(context.CfgEmployeeDepartment);
+            context.CfgEmployeeDesignation.RemoveRange(context.CfgEmployeeDesignation);
+            context.CfgEmployeeShift.RemoveRange(context.CfgEmployeeShift);
             context.SaveChanges();
 
             UpdateDepartments(context);
