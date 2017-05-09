@@ -1,0 +1,245 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Designation",
+		"_postman_id": "999a2a74-a0e2-199c-80d3-71437dc85bec",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add New Designation",
+			"request": {
+				"url": "http://localhost:6058/api/designations",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.marvin.author.full+json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"DesignationName\" : \"Director general of police\",\n\t\"DesignationCode\" : \"DGP\",\n}"
+				},
+				"description": "Create Designation"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single Designation",
+			"request": {
+				"url": "http://localhost:6058/api/designations/15251460-E145-4AEF-A3DA-6846E881AD11",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Designation",
+			"request": {
+				"url": "http://localhost:6058/api/designations/15251460-E145-4AEF-A3DA-6846E881AD11",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Designations",
+			"request": {
+				"url": "http://localhost:6058/api/designations",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Designations (pageNumber = 1, pageSize = 5)",
+			"request": {
+				"url": "http://localhost:6058/api/designations?pageNumber=1&pageSize=5",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Designations (pageNumber = 1, pageSize = 100)",
+			"request": {
+				"url": "http://localhost:6058/api/designations?pageNumber=1&pageSize=100",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Designations (pageNumber = 2, pageSize = 5)",
+			"request": {
+				"url": "http://localhost:6058/api/designations?pageNumber=2&pageSize=8",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Designations (searchQuery = 2)",
+			"request": {
+				"url": "http://localhost:6058/api/designations?searchQuery=DCP",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Designations (orderBy = departmentsName)",
+			"request": {
+				"url": "http://localhost:6058/api/designations?orderBy=designationName",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Designations (orderBy = departmentName desc)",
+			"request": {
+				"url": "http://localhost:6058/api/designations?orderBy=designationName desc",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Designations (orderBy = departmentName desc, pageNumber = 2, pageSize = 5)",
+			"request": {
+				"url": "http://localhost:6058/api/designations?orderBy=designationName desc&pageNumber=2&pageSize=5",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Designations (fields = DesignationName)",
+			"request": {
+				"url": "http://localhost:6058/api/designations?fields=designationName",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Designations (fields = designationID)",
+			"request": {
+				"url": "http://localhost:6058/api/designations?fields=designationID",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Designations (fields = DesignationCode)",
+			"request": {
+				"url": "http://localhost:6058/api/designations?fields=designationCode",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

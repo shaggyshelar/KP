@@ -12,23 +12,26 @@ using Microsoft.AspNetCore.Http;
 using ESPL.KP.Helpers.Core;
 using ESPL.KP.Models.Core;
 using ESPL.KP.Entities.Core;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace ESPL.KP.Controllers.Core
 {
     [Route("api/appmodules")]
+    [Authorize(Policy = "IsSuperAdmin")]
     public class AppModulesController : Controller
     {
-        private ILibraryRepository _libraryRepository;
+        private IAppRepository _appRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
 
-        public AppModulesController(ILibraryRepository libraryRepository,
+        public AppModulesController(IAppRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService)
         {
-            _libraryRepository = libraryRepository;
+            _appRepository = appRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
@@ -51,7 +54,7 @@ namespace ESPL.KP.Controllers.Core
                 return BadRequest();
             }
 
-            var appModulesFromRepo = _libraryRepository.GetAppModules(appModulesResourceParameters);
+            var appModulesFromRepo = _appRepository.GetAppModules(appModulesResourceParameters);
 
             var appModules = Mapper.Map<IEnumerable<AppModuleDto>>(appModulesFromRepo);
 
@@ -168,7 +171,7 @@ namespace ESPL.KP.Controllers.Core
                 return BadRequest();
             }
 
-            var appModuleFromRepo = _libraryRepository.GetAppModule(id);
+            var appModuleFromRepo = _appRepository.GetAppModule(id);
 
             if (appModuleFromRepo == null)
             {
@@ -197,9 +200,11 @@ namespace ESPL.KP.Controllers.Core
 
             var appModuleEntity = Mapper.Map<AppModule>(appModule);
 
-            _libraryRepository.AddAppModule(appModuleEntity);
+            SetCreationUserData(appModuleEntity);
 
-            if (!_libraryRepository.Save())
+            _appRepository.AddAppModule(appModuleEntity);
+
+            if (!_appRepository.Save())
             {
                 throw new Exception("Creating an appModule failed on save.");
                 // return StatusCode(500, "A problem happened with handling your request.");
@@ -223,7 +228,7 @@ namespace ESPL.KP.Controllers.Core
         [HttpPost("{id}")]
         public IActionResult BlockAppModuleCreation(Guid id)
         {
-            if (_libraryRepository.AppModuleExists(id))
+            if (_appRepository.AppModuleExists(id))
             {
                 return new StatusCodeResult(StatusCodes.Status409Conflict);
             }
@@ -234,20 +239,104 @@ namespace ESPL.KP.Controllers.Core
         [HttpDelete("{id}", Name = "DeleteAppModule")]
         public IActionResult DeleteAppModule(Guid id)
         {
-            var appModuleFromRepo = _libraryRepository.GetAppModule(id);
+            var appModuleFromRepo = _appRepository.GetAppModule(id);
             if (appModuleFromRepo == null)
             {
                 return NotFound();
             }
 
-            _libraryRepository.DeleteAppModule(appModuleFromRepo);
+            _appRepository.DeleteAppModule(appModuleFromRepo);
 
-            if (!_libraryRepository.Save())
+            if (!_appRepository.Save())
             {
                 throw new Exception($"Deleting appModule {id} failed on save.");
             }
 
             return NoContent();
+        }
+
+        [HttpPut("{id}", Name = "UpdateAppModule")]
+        public IActionResult UpdateAppModule(Guid id, [FromBody] AppModuleForUpdationDto appModule)
+        {
+            if (appModule == null)
+            {
+                return BadRequest();
+            }
+
+            var appModuleRepo = _appRepository.GetAppModule(id);
+            if (appModuleRepo == null)
+            {
+                return NotFound();
+            }
+
+            SetItemHistoryData(appModule, appModuleRepo);
+
+            Mapper.Map(appModule, appModuleRepo);
+
+            _appRepository.UpdateAppModule(appModuleRepo);
+            if (!_appRepository.Save())
+            {
+                throw new Exception("Updating an appModule failed on save.");
+            }
+
+
+            return Ok(appModuleRepo);
+        }
+
+        [HttpPatch("{id}", Name = "PartiallyUpdateAppModule")]
+        public IActionResult PartiallyUpdateAppModule(Guid id,
+                    [FromBody] JsonPatchDocument<AppModuleForUpdationDto> patchDoc)
+        {
+            if (patchDoc == null)
+            {
+                return BadRequest();
+            }
+
+            var appModuleFromRepo = _appRepository.GetAppModule(id);
+
+            if (appModuleFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            var appModuleToPatch = Mapper.Map<AppModuleForUpdationDto>(appModuleFromRepo);
+
+            patchDoc.ApplyTo(appModuleToPatch, ModelState);
+
+            TryValidateModel(appModuleToPatch);
+
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
+
+            SetItemHistoryData(appModuleToPatch, appModuleFromRepo);
+            Mapper.Map(appModuleToPatch, appModuleFromRepo);
+
+            _appRepository.UpdateAppModule(appModuleFromRepo);
+
+            if (!_appRepository.Save())
+            {
+                throw new Exception($"Patching  appModule {id} failed on save.");
+            }
+
+            return NoContent();
+        }
+
+        private void SetItemHistoryData(AppModuleForUpdationDto model, AppModule modelRepo)
+        {
+            model.CreatedOn = modelRepo.CreatedOn;
+            if (modelRepo.CreatedBy != null)
+                model.CreatedBy = modelRepo.CreatedBy.Value;
+            model.UpdatedOn = DateTime.Now;
+            var EmployeeID = User.Claims.FirstOrDefault(cl => cl.Type == "EmployeeID");
+            model.UpdatedBy = new Guid(EmployeeID.Value);
+        }
+
+        private void SetCreationUserData(AppModule model)
+        {
+            var EmployeeID = User.Claims.FirstOrDefault(cl => cl.Type == "EmployeeID");
+            model.CreatedBy = new Guid(EmployeeID.Value);
         }
 
         private IEnumerable<LinkDto> CreateLinksForAppModule(Guid id, string fields)

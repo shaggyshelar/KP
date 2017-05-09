@@ -13,48 +13,72 @@ using ESPL.KP.Entities;
 using ESPL.KP.Filters;
 using ESPL.KP.Models.Auth;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System.Collections.Generic;
+using ESPL.KP.Services;
 
 namespace ESPL.KP.Controllers
 {
     public class AuthController : Controller
     {
-        private SignInManager<ESPLUser> _signInMgr;
-        private UserManager<ESPLUser> _userMgr;
-        private IPasswordHasher<ESPLUser> _hasher;
+        private SignInManager<AppUser> _signInMgr;
+        private UserManager<AppUser> _userMgr;
+        private IPasswordHasher<AppUser> _hasher;
         private IConfigurationRoot _config;
+        private RoleManager<IdentityRole> _roleMgr;
+        private IAppRepository _appRepository;
 
         public AuthController(
-          SignInManager<ESPLUser> signInMgr,
-          UserManager<ESPLUser> userMgr,
-          IPasswordHasher<ESPLUser> hasher,
+          SignInManager<AppUser> signInMgr,
+          UserManager<AppUser> userMgr,
+          IPasswordHasher<AppUser> hasher,
           ILogger<AuthController> logger,
-          IConfigurationRoot config)
+          IConfigurationRoot config,
+          RoleManager<IdentityRole> roleMgr,
+          IAppRepository appRepository)
         {
             _signInMgr = signInMgr;
             _userMgr = userMgr;
             _hasher = hasher;
             _config = config;
+            _roleMgr = roleMgr;
+            _appRepository = appRepository;
         }
 
         [ValidateModel]
         [HttpPost("api/auth/token")]
         public async Task<IActionResult> CreateToken([FromBody] CredentialModel model)
         {
+            if (model == null)
+            {
+                return BadRequest("Invalid Username or Password.");
+            }
+
             var user = await _userMgr.FindByNameAsync(model.UserName);
             if (user != null)
             {
                 if (_hasher.VerifyHashedPassword(user, user.PasswordHash, model.Password) == PasswordVerificationResult.Success)
                 {
                     var userClaims = await _userMgr.GetClaimsAsync(user);
-
-                    var claims = new[]
+                    var userRoles = await _userMgr.GetRolesAsync(user);
+                    var itemList = userRoles.ToList();
+                    var toSendClaims = new List<Claim>();
+                    for (int i = 0; i < itemList.Count; i++)
                     {
-                        new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                        new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName),
-                        new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
-                        new Claim(JwtRegisteredClaimNames.Email, user.Email)
-                    }.Union(userClaims);
+                        var roleFromDb = await _roleMgr.FindByNameAsync(itemList.ElementAt(i));
+                        var roleClaims = await _roleMgr.GetClaimsAsync(roleFromDb);
+                        toSendClaims.AddRange(roleClaims);
+                    }
+
+                    toSendClaims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.UserName));
+                    toSendClaims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
+                    toSendClaims.Add(new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName));
+                    toSendClaims.Add(new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName));
+                    toSendClaims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
+                    toSendClaims.Add(new Claim("UserId", user.Id));
+                    var employee = _appRepository.GetEmployeeByUserID(new Guid(user.Id));
+                    if (employee != null)
+                        toSendClaims.Add(new Claim("EmployeeID", employee.EmployeeID.ToString()));
 
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
                     var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -62,7 +86,7 @@ namespace ESPL.KP.Controllers
                     var token = new JwtSecurityToken(
                       issuer: _config["Tokens:Issuer"],
                       audience: _config["Tokens:Audience"],
-                      claims: claims,
+                      claims: toSendClaims,
                       expires: DateTime.UtcNow.AddMinutes(15),
                       signingCredentials: creds
                       );
@@ -75,7 +99,7 @@ namespace ESPL.KP.Controllers
                 }
             }
 
-            return BadRequest("Failed to generate token");
+            return BadRequest("Invalid Username or Password.");
         }
 
         [Authorize(Policy = "Auth.CanCreate")]
