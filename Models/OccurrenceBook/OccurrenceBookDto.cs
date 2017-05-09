@@ -46,6 +46,6 @@ namespace ESPL.KP.Models
 
         public MstEmployee MstEmployee { get; set; }
         
-        public OccurrencePriorities Priority { get; set; }  
+        public string Priority { get; set; }  
     }
 }
