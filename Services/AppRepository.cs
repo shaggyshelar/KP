@@ -533,7 +533,7 @@ namespace ESPL.KP.Services
                               select new OccurrenceBookActivity
                               {
                                   OBID = o.OBID.ToString(),
-                                  OBNumber=o.OBNumber,
+                                  OBNumber = o.OBNumber,
                                   NatureOfOccurrence = o.NatureOfOccurrence,
                                   CreatedOn = os.CreatedOn,
                                   Type = "Status",
@@ -546,7 +546,7 @@ namespace ESPL.KP.Services
                                   select new OccurrenceBookActivity
                                   {
                                       OBID = o.OBID.ToString(),
-                                      OBNumber=o.OBNumber,
+                                      OBNumber = o.OBNumber,
                                       NatureOfOccurrence = o.NatureOfOccurrence,
                                       CreatedOn = oc.CreatedOn,
                                       Type = "Comments",
@@ -560,16 +560,16 @@ namespace ESPL.KP.Services
                                   select new OccurrenceBookActivity
                                   {
                                       OBID = o.OBID.ToString(),
-                                      OBNumber=o.OBNumber,
+                                      OBNumber = o.OBNumber,
                                       NatureOfOccurrence = o.NatureOfOccurrence,
                                       CreatedOn = os.CreatedOn,
                                       Type = "AssignedTo",
                                       Value = a.FirstName + " " + a.LastName,
                                       CreatedByName = e.FirstName + " " + e.LastName
                                   }));
-            obActivity=obActivity.ApplySort(occurrenceBookActivityResourceParameters.OrderBy,
+            obActivity = obActivity.ApplySort(occurrenceBookActivityResourceParameters.OrderBy,
                _propertyMappingService.GetPropertyMapping<OccurrenceBookActivityDto, OccurrenceBookActivity>());
-            
+
             //Filter Logic
             if (!string.IsNullOrEmpty(occurrenceBookActivityResourceParameters.OBID))
             {
@@ -656,7 +656,9 @@ namespace ESPL.KP.Services
                         || a.MstOccurrenceType.OBTypeName.ToLowerInvariant().Contains(searchQueryForWhereClause)
                         || a.MstDepartment.DepartmentName.ToLowerInvariant().Contains(searchQueryForWhereClause)
                         || a.MstArea.AreaName.ToLowerInvariant().Contains(searchQueryForWhereClause)
-                        || a.MstStatus.StatusName.ToLowerInvariant().Contains(searchQueryForWhereClause));
+                        || a.MstStatus.StatusName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                        || a.MstEmployee.FirstName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                        || a.MstEmployee.LastName.ToLowerInvariant().Contains(searchQueryForWhereClause));
 
             }
 
