@@ -814,7 +814,7 @@ namespace ESPL.KP.Entities
                     Longitude = 73.812145,
                     Location = "Near HDFC bank",
                     AssignedTime = DateTime.Now,
-                    Priority = "Criticle",
+                    Priority = "Critical",
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666"),
                     CreatedOn=DateTime.Now.AddHours(-5)
                 },

@@ -85,7 +85,7 @@ namespace ESPL.KP.Services
             { "AreaID", new PropertyMappingValue(new List<string>() { "AreaID" } ) },
             { "OBTypeID", new PropertyMappingValue(new List<string>() { "OBTypeID" } ) },
             { "DepartmentID", new PropertyMappingValue(new List<string>() { "DepartmentID" } ) },
-            { "MstStatus", new PropertyMappingValue(new List<string>() { "MstStatus" } ) },
+            //{ "MstStatus", new PropertyMappingValue(new List<string>() { "MstStatus" } ) },
             { "StatusID", new PropertyMappingValue(new List<string>() { "StatusID" } ) },
             { "OBNumber", new PropertyMappingValue(new List<string>() { "OBNumber" } ) },
             { "OBTime", new PropertyMappingValue(new List<string>() { "OBTime" } ) },
