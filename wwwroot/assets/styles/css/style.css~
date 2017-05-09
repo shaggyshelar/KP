@@ -1,0 +1,871 @@
+@font-face {
+ font-family: 'Conv_AVENIRLTSTD-BLACK';
+ src: url('../fonts/AVENIRLTSTD-BLACK.eot');
+ src: local('?'), url('../fonts/AVENIRLTSTD-BLACK.woff') format('woff'), url('../fonts/AVENIRLTSTD-BLACK.ttf') format('truetype'), url('../fonts/AVENIRLTSTD-BLACK.svg') format('svg');
+ font-weight: normal;
+ font-style: normal;
+}
+@font-face {
+ font-family: 'Conv_AVENIRLTSTD-BLACKOBLIQUE';
+ src: url('../fonts/AVENIRLTSTD-BLACKOBLIQUE.eot');
+ src: local('?'), url('../fonts/AVENIRLTSTD-BLACKOBLIQUE.woff') format('woff'), url('../fonts/AVENIRLTSTD-BLACKOBLIQUE.ttf') format('truetype'), url('../fonts/AVENIRLTSTD-BLACKOBLIQUE.svg') format('svg');
+ font-weight: normal;
+ font-style: normal;
+}
+@font-face {
+ font-family: 'Conv_AVENIRLTSTD-BOOK';
+ src: url('../fonts/AVENIRLTSTD-BOOK.eot');
+ src: local('?'), url('../fonts/AVENIRLTSTD-BOOK.woff') format('woff'), url('../fonts/AVENIRLTSTD-BOOK.ttf') format('truetype'), url('../fonts/AVENIRLTSTD-BOOK.svg') format('svg');
+ font-weight: normal;
+ font-style: normal;
+}
+@font-face {
+ font-family: 'Conv_AVENIRLTSTD-BOOKOBLIQUE';
+ src: url('../fonts/AVENIRLTSTD-BOOKOBLIQUE.eot');
+ src: local('?'), url('../fonts/AVENIRLTSTD-BOOKOBLIQUE.woff') format('woff'), url('../fonts/AVENIRLTSTD-BOOKOBLIQUE.ttf') format('truetype'), url('../fonts/AVENIRLTSTD-BOOKOBLIQUE.svg') format('svg');
+ font-weight: normal;
+ font-style: normal;
+}
+@font-face {
+ font-family: 'Conv_AVENIRLTSTD-HEAVY';
+ src: url('../fonts/AVENIRLTSTD-HEAVY.eot');
+ src: local('?'), url('../fonts/AVENIRLTSTD-HEAVY.woff') format('woff'), url('../fonts/AVENIRLTSTD-HEAVY.ttf') format('truetype'), url('../fonts/AVENIRLTSTD-HEAVY.svg') format('svg');
+ font-weight: normal;
+ font-style: normal;
+}
+@font-face {
+ font-family: 'Conv_AVENIRLTSTD-HEAVYOBLIQUE';
+ src: url('../fonts/AVENIRLTSTD-HEAVYOBLIQUE.eot');
+ src: local('?'), url('../fonts/AVENIRLTSTD-HEAVYOBLIQUE.woff') format('woff'), url('../fonts/AVENIRLTSTD-HEAVYOBLIQUE.ttf') format('truetype'), url('../fonts/AVENIRLTSTD-HEAVYOBLIQUE.svg') format('svg');
+ font-weight: normal;
+ font-style: normal;
+}
+@font-face {
+ font-family: 'Conv_AVENIRLTSTD-LIGHT';
+ src: url('../fonts/AVENIRLTSTD-LIGHT.eot');
+ src: local('?'), url('../fonts/AVENIRLTSTD-LIGHT.woff') format('woff'), url('../fonts/AVENIRLTSTD-LIGHT.ttf') format('truetype'), url('../fonts/AVENIRLTSTD-LIGHT.svg') format('svg');
+ font-weight: normal;
+ font-style: normal;
+}
+@font-face {
+ font-family: 'Conv_AVENIRLTSTD-LIGHTOBLIQUE';
+ src: url('../fonts/AVENIRLTSTD-LIGHTOBLIQUE.eot');
+ src: local('?'), url('../fonts/AVENIRLTSTD-LIGHTOBLIQUE.woff') format('woff'), url('../fonts/AVENIRLTSTD-LIGHTOBLIQUE.ttf') format('truetype'), url('../fonts/AVENIRLTSTD-LIGHTOBLIQUE.svg') format('svg');
+ font-weight: normal;
+ font-style: normal;
+}
+
+/****************Reset CSS****************/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+    font-family: "Conv_AVENIRLTSTD-BOOK", Georgia, serif;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+h4{
+    font-weight: bold !important;
+}
+.noDisplay{
+    display: none;
+}
+/************NavBar Style**************/
+.navbar {
+    border-radius: 0px !important;
+    margin-bottom: 0px !important;
+}
+.settingIcon{
+    font-size: 20px;
+}
+.profileParent{
+    display: table;
+    padding: 10px 7px 7px 7px !important;
+}
+.profileImg{
+    display: table-cell;
+    border-radius: 50%;
+    width:30px;
+    height:auto;
+    margin-right: 3px;
+}
+.profileText{
+    display: table-cell;
+    font-size: 14px;
+    font-weight: bold;
+    vertical-align: middle;
+    padding-left: 10px;
+}
+.profileImg > img{
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+
+/************ Main-Container **************/
+.main-container{
+    background-color: #f1f2f2;
+    height: auto;
+    padding-bottom: 2rem;
+}
+.toggleNavColor{
+    background-color: #222;
+    border-color: #080808;
+}
+.whiteIconBar{
+    background-color: #fff;
+}
+
+/************ Media Query **************/
+@media only screen  and (max-width : 768px) {
+    /************************************************** Dashboard Page ***************************************************/
+    .navbar-inverse{
+        background-color: #f1f2f2 !important;
+        border-color: transparent !important;
+    }
+    .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+        border-color: #101010;
+        background-color: #222;
+    }
+    .navbar-inverse .navbar-toggle{
+        border-color: transparent !important;
+    }
+    .navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover{
+        background-color: transparent !important;
+    }
+    .navbar-inverse .navbar-toggle .icon-bar{
+        background-color: #000;
+    }
+    .cards{
+        margin-top: 3rem !important;
+    }
+    span{
+        font-size: 1.7rem !important;
+    }
+    h3{
+        font-family: "Conv_AVENIRLTSTD-HEAVY", Georgia, serif !important;
+        font-size: 3rem !important;
+    }
+    .pageName > h1{
+        font-family: "Conv_AVENIRLTSTD-HEAVY", Georgia, serif !important;
+        font-size: 2.8rem !important;
+        text-align: center;
+    }
+    /************ Scroll Stats **************/
+    .carousel-indicators{
+        position: absolute;
+        margin-bottom: 10px !important;
+        bottom: -45px !important;
+    }
+    .carousel-indicators li{
+        background-color: #c1c2c2 !important;
+        border: none !important;
+    }
+    .carousel-indicators .active{
+        background-color: #000000 !important;
+    }
+    .statCard{
+        height: 246px !important
+    }
+    /************ Job Stats **************/
+    .jobStats{
+        background-color: #fff;
+        padding: 2% 2% 0% 2%;
+        overflow: hidden;
+        height: 83%;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+    }
+    .jobStats > .row{
+        margin-top: 2rem;
+        padding: 0 2rem;
+        padding-bottom: 1rem;
+    }
+    .jobStats > .row:first-child{
+         border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .statInnerBox{
+        margin-left: ;
+    }
+    .statInnerBox > h3{
+        margin-top: 4%;
+    }
+    .statInnerBox > span{
+        display: block;
+    }
+    .jobStats .row div:nth-child(2){
+        padding-left: 3rem;
+    }
+    .jobStats .row:nth-child(2){
+        margin-top: 0rem;
+        padding-bottom: 0rem;
+    }
+    .jobStats .row:nth-child(2) div:first-child{
+        border-right: 1px solid rgba(0,0,0,0.05);
+    }
+    .jobStats .row:nth-child(2) .statInnerBox span{
+        margin-top: 2rem;
+    }
+    .jobStats .row:nth-child(2) .statInnerBox h3{
+        margin-bottom: 2rem;
+    }
+    /************ Office Stats **************/
+    .offcStats{
+        padding: 0% 2% 0% 2%;
+        background-color: #282828 !important;
+        color: #fff !important;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+    }
+    .offcStats > .row{
+        margin-top: 0rem;
+        padding: 0 2rem;
+        padding-bottom: 0rem;
+    }
+    .offcStats > .row:first-child{
+         border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .offcStats .row div:nth-child(2){
+        padding-left: 3rem;
+    }
+    .offcStats .row:nth-child(2){
+        margin-top: 0rem;
+        padding-bottom: 0rem;
+    }
+    .offcStats .row:nth-child(2) div:first-child{
+        border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .offcStats .row:nth-child(1) .statInnerBox span{
+        margin-top: 3rem;
+    }
+    .offcStats .row:nth-child(2) .statInnerBox h3{
+        margin-bottom: 2rem;
+    }
+    .offcStats .row div:first-child{
+        border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    /************ Map card **************/
+    .jobContentCard{
+        display: none;
+    }
+    .mapCard{
+        margin-top: 5rem;
+    }
+    .mapJobs{
+        position: relative;
+        height: 350px;
+        background: url(../images/map.png) no-repeat center center;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        border:6px solid #fff;
+    }
+    .mapJobs > .row{
+        position: absolute;
+        bottom: 1rem;
+        left: 2rem;
+        right: 3rem;
+        margin-top: 1rem;
+        background-color: #fff;
+        width: 97%;
+        height: 50% !important;
+    }
+    .mapJobs > .row > .col-xs-8, .mapJobs > .row > .col-xs-4{
+        padding: 0 !important;
+        height: 100%;
+        padding: 1rem !important;
+    }
+    .mapJobs > .row > .col-xs-4{
+        padding-left: 1rem !important;
+        background-color: #F3F3F3;
+        text-align: left;
+    }
+    .mapJobs > .row > .col-xs-8 > h3{
+        font-size: 1.8rem !important;
+        margin-bottom: 0 !important;
+    }
+    .mapJobs > .row > .col-xs-8 > span{
+        font-size: 1.4rem !important;
+    }
+    .mapJobs > .row > .col-xs-4 > h3{
+        font-size: 2.6rem !important;
+    }
+    .mapJobs > .row > .col-xs-4 > span{
+        font-size: 1.4rem !important;
+        font-weight: bold
+    }
+    .mapJobs > .row > .col-xs-8 > div{
+        margin-top: 6% !important;
+        font-weight: bold;
+        color: #153994;
+        font-size: 1.6rem;
+        font-family: "Conv_AVENIRLTSTD-HEAVY", Georgia, serif !important;
+    }
+    .mapJobs > .row > .col-xs-8 > div > img{
+        display: inline-block !important;
+        margin-right: 1rem !important;
+    }
+    .closeBtn{
+        position: absolute;
+        right: 3%;
+        bottom: 55%;
+        border-radius: 50% !important;
+        background-color: black;
+        width: 10%;
+        height: 10%;
+        color: #fff;
+        text-align: center;
+        padding-top: 1%;
+    }
+    .criticalJob, .majorJob, .minorJob{
+        position: absolute;
+        display: block;
+        width: 15px;    
+        height: 15px;
+        border-radius: 50%;
+    }
+    .criticalJob{
+        background-color: #BE1A21;
+        top: 3%;
+        left: 5%;
+    }
+    .criticalJob:nth-child(2){
+        top: 23%;
+        left: 25%;
+    }
+    .criticalJob:nth-child(3){
+        top: 13%;
+        left: 45%;
+    }
+    .majorJob{
+        background-color: #FA7D19;
+        left: 40%;
+        top: 35%;
+    }
+    .majorJob:nth-child(5){
+        top: 13%;
+        left: 60%;
+    }
+    .minorJob{
+        background-color: #2D8CEE;
+        top: 15%;
+        right: 13%;
+    }
+    .minorJob:nth-child(8){
+        top: 63%;
+        left: 30%;
+    }
+    .minorJob:nth-child(9){
+        top: 74%;
+        left: 64%;
+    }
+    .majorJob:nth-child(10){
+        top: 94%;
+        left: 84%;
+    }
+    .jobMarkers > .criticalJob.active {
+        -webkit-box-shadow: 0px 0px 33px 6px rgba(190,26,33,1);
+        -moz-box-shadow: 0px 0px 33px 6px rgba(190,26,33,1);
+        box-shadow: 0px 0px 33px 6px rgba(190,26,33,1);
+    }
+    .jobMarkers > .majorJob.active {
+        -webkit-box-shadow: 0px 0px 33px 6px rgba(250,125,25,1);
+        -moz-box-shadow: 0px 0px 33px 6px rgba(250,125,25,1);
+        box-shadow: 0px 0px 33px 6px rgba(250,125,25,1);
+    }
+    .jobMarkers > .minorJob.active {
+        -webkit-box-shadow: 0px 0px 33px 6px rgba(45,140,238,1);
+        -moz-box-shadow: 0px 0px 33px 6px rgba(45,140,238,1);
+        box-shadow: 0px 0px 33px 6px rgba(45,140,238,1);
+    }
+    
+    /************ Active Jobs **************/
+    .activeJobs{
+        background-color: #fff !important;
+        height: auto;
+        padding: 1rem !important;
+        overflow-x: hidden;
+    }
+    .activeJobs >  h4{
+        font-family: "Conv_AVENIRLTSTD-HEAVY", Georgia, serif !important;
+        font-size: 1rem !important;
+        color: #737373;
+        border-bottom: 1px solid #e4e4e4;
+        padding: 0rem 0rem 1rem 1rem;
+    }
+    .activeJobs > .row{
+        border-bottom: 1px dotted #b7b7b7;
+        padding: 0rem 1rem 1rem 1rem;
+        margin-bottom: 2rem;
+    }
+    .activeJobs > .row:last-child{
+        margin-bottom: 0rem;
+        border-bottom: 0px;
+    }
+    .activeJobs > .row > h5{
+        color: #454545;
+    }
+    .priorityIcon{
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background-color: #BE1A21;
+        transform: rotate(45deg);
+         -ms-transform: rotate(45deg); /* IE 9 */
+         -webkit-transform: rotate(45deg);
+        margin-right: 1rem;
+    }
+    .jobDetail > div.col-xs-8 > h4{
+        font-family: "Conv_AVENIRLTSTD-HEAVY", Georgia, serif !important;    
+        font-size: 2rem !important;
+    }
+    .statusOpen > span{
+        border: 1px solid #000;
+    }
+    .statusCourt > span{
+        background-color: #b7b7b7;
+        color: #fff;
+    }
+    .jobDetail > .statusOpen > span, .jobDetail > .statusCourt > span{
+        font-size: 1.4rem !important;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        padding: 2% 6% 2% 6%;
+        margin-top: 10px;
+        display: block;
+        text-align: center;
+    }
+    .jobOfcDetail > div.col-xs-8{
+        font-weight: bold;
+        color: #153994;
+        font-size: 1.5rem;
+        font-family: "Conv_AVENIRLTSTD-HEAVY", Georgia, serif !important;
+    }
+    .jobOfcDetail > div.col-xs-8 > img{
+        width: 7%;
+        height: auto;
+        display: inline-block !important;
+        margin-right: 1rem !important;
+    }
+    .jobOfcDetail > div.col-xs-4{
+        font-family: "Conv_AVENIRLTSTD-HEAVY", Georgia, serif !important;
+        font-size: 1.7rem;
+        font-weight: bold;
+    }
+    
+    /************ Available Officer **************/
+    .availableOfficer{
+        background-color: #fff !important;
+        height: auto;
+        padding: 2rem 2rem 2rem 2rem !important;
+        overflow-x: hidden;
+    }
+    .availableOfficer img{
+        display: inline-block;
+        width: 3rem;
+        height: auto;
+    }
+    .availableOfficer > .col-xs-8 > h5{
+        color: #454545;
+    }
+    .availableOfficer > .row{
+        border-bottom: 1px dotted #b7b7b7;
+    }
+    .availableOfficer:last-child > .row{
+        border-bottom: 0px;
+    }
+    
+    
+    /************************************************** Officer's List Page ***************************************************/
+    .officerListMainBox{
+        margin-top:20px;
+    }
+    .officer-tabs{
+        text-align:center;
+        border:none!important;
+        padding: 6px!important;
+        background: #E6E4E4;
+        border-radius:5px!important;
+    }
+    .officer-tabs li{
+        text-align:center;
+        width:50%;
+    }
+    .officer-tabs>li >a{
+        color: #000!important;
+        padding: 8px 15px!important;
+        font-size: 1.3rem!important;
+    }
+    .officer-tabs>li.active>a, .officer-tabs>li.active>a:focus, .officer-tabs>li.active>a:hover {
+        color: #fff!important;
+        cursor: pointer;
+        background-color: #082E8E!important;
+        border: none!important;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+    .separatorLine{
+        border-top: 1px solid #e6e5e5!important;
+    }
+    .searchBox{
+        background:#C9C9C9!important;
+        color:#000!important;
+        height: 40px!important;
+        box-shadow:none!important;
+        padding-left: 38px!important;
+        font-size: 1.3rem!important;
+    }
+    .searchBox:focus{
+        border-color:#C9C9C9!important;
+    }
+    .searchBox::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      color: #000!important;
+    }
+    .searchBox::-moz-placeholder { /* Firefox 19+ */
+     color: #000!important;
+    }
+    .searchBox:-ms-input-placeholder { /* IE 10+ */
+      color: #000!important;
+    }
+    .searchBox:-moz-placeholder { /* Firefox 18- */
+      color: #000!important;
+    }
+    .searchIcon{
+        position: absolute;
+        margin-top: -31px;
+        margin-left: 10px;	
+    }
+    .filterBox h5{
+        color: #000!important;
+        font-family: "Conv_AVENIRLTSTD-HEAVY", Georgia, serif !important;
+    }
+    .filterToggle{
+        background:#818181!important;
+        border-color:#818181!important;
+        font-size: 1.2rem!important;
+        padding: 4px 15px!important;
+    }
+    .filterToggle i{
+        vertical-align:middle!important;
+        font-size: 15px!important;
+    }
+    .filterDropdown{
+        float:right;
+        margin-top: -30px;
+    }
+    .filterDropdownMenu{
+        margin-left: -52px!important;
+        min-width: 130px!important;
+    }
+    .filterDropdownMenu a:hover{
+        background:#f5f5f5;
+    }
+    .mainListBox{
+        background:#fff;
+        border-radius:5px;
+        padding:10px;
+        margin-top:22px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        margin-bottom: 5.4rem;
+    }
+    .badgeImg{
+        width: 26px;
+    }
+    .noLeftPadding{
+        padding-left:0!important;
+    }
+    .noRightPadding{
+        padding-right:0!important;
+    }
+    .listcontentBox{
+        margin-left:5px;
+        margin-top: -3px;
+    }
+    .listcontentBox .officerId{
+        font-size:1.4rem!important;
+        color:#000;
+    }
+    .listcontentBox .officerName{
+        font-family: "Conv_AVENIRLTSTD-HEAVY", Georgia, serif !important;
+        font-size: 1.8rem;
+        margin-top: 2px;
+        color:#000;
+        margin-bottom: 5px;
+    }
+    .officerPostContact{
+        margin-top:1px!important;
+    }
+    .officerPostContact .post{
+        font-size: 1.3rem!important;
+        color:#48a1ec;
+    }
+    .officerPostContact .contact{
+       float: right;
+        font-size: 1.2rem!important;
+    }
+    .officerPostContact .contact i{
+        font-size: 1.3rem!important;
+        vertical-align: middle;
+        margin-top: -4px;	
+    }
+    .caseRow .assignedLabel{
+        font-family: "Conv_AVENIRLTSTD-HEAVY", Georgia, serif !important;
+        font-size: 1.3rem!important;
+        color:#082E8E!important;
+    }
+    .caseRow .caseDescr{
+        font-size: 1.2rem!important;
+    }
+    .caseRow .caseStatus{
+        color: #fff!important;
+        padding: 2px 10px;
+        font-size: 1.1rem!important;
+        border-radius: 3px;
+        font-weight: 500;
+        width: 100%;
+        text-align: center;
+    }
+    .caseRow .caseStatus.open{
+        background:#48D29F;
+    }
+    .caseRow .caseStatus.closed{
+        background:#BE1A21;
+    }
+    .caseRow .caseStatus.incourt{
+        background:#082E8E;
+    }
+    .priorityIconOfficer{
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        /*background-color: #BE1A21;*/
+        transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        margin-right: 1rem;
+        margin-top: 7px;
+        margin-left: 6px;
+        position: absolute;
+    }
+    .priorityIconOfficer.red{
+        background-color: #BE1A21;
+    }
+    .priorityIconOfficer.orange{
+        background-color: #FA7D19;
+    }
+    .priorityIconOfficer.blue{
+        background-color: #2D8CEE;
+    }
+    .dashedSeparator{
+        margin-top: 15px!important;
+        margin-bottom: 15px!important;
+        border: 0!important;
+        border-top: 1px dashed #d6d4d4!important;
+    }
+    .bottomContainer{
+        background: #C1C1C1;
+        padding: 8px;
+        position: fixed;
+        z-index: 99999999999;
+        bottom: 0;
+        width: 100%;
+    }
+    .bottomContainer button{
+        background: #BE1A21;
+        border: none!important;
+        border-radius: 5px;
+        color: #fff;
+        font-family: "Conv_AVENIRLTSTD-Light", Georgia, serif !important;
+        padding: 10px;
+        width: 100%;
+    }
+    .headerBox h5 {
+        color: #000!important;
+        font-family: "Conv_AVENIRLTSTD-HEAVY", Georgia, serif !important;
+    }
+    .updateCount {
+        background: #818181!important;
+        border-color: #818181!important;
+        font-size: 1.1rem!important;
+        padding: 4px 15px!important;
+        float: right;
+        margin-top: -28px;
+        color: #fff;
+        border-radius: 5px;
+        font-weight: 500!important;
+    }
+    .headerBox{
+        margin-top: 35px;
+    }
+    .activityTable tr td{
+        vertical-align:middle!important;
+        border:none!important;
+
+    }
+    .activityTable tr td:first-child{
+        width:20%!important;
+        text-align: center;
+    }
+    .activityTable tr td:nth-child(2){
+        width:80%!important;
+    }
+    .activityImg{
+        width: 4rem;
+    }
+    .activityTable .activityTime{
+        font-size: 1.1rem!important;
+        color:#818181!important;
+        font-family: "Conv_AVENIRLTSTD-HEAVY", Georgia, serif !important;
+    }
+    .activityDescr{
+        font-size: 1.4rem!important;
+        color:#000!important;
+        font-family: "Conv_AVENIRLTSTD-LIGHT", Georgia, serif !important;
+        margin-top: 4px;
+    }
+    .activityDescr b{
+        font-family: "Conv_AVENIRLTSTD-HEAVY", Georgia, serif !important;
+    }
+    .activityAction a{
+        font-size:1.2rem!important;
+        font-family: "Conv_AVENIRLTSTD-HEAVY", Georgia, serif !important;
+        color:#082E8E!important;
+        margin-right: 6px;
+    }
+    .activityAction a i{
+        vertical-align:middle!important;
+        font-size: 2.2rem;
+        color:#BE1A21;
+        float: right;
+    }
+    .activitySeparator{
+        margin-top: -15px!important;
+        margin-bottom: 5px!important;
+        border: 0!important;
+        border-top: 1px solid #ececec!important;
+    }
+    .italicFont{
+        font-style:italic;
+    }
+    .reportSubDiv{
+        background:#f5f5f5;
+        padding:10px;
+        border-radius:3px;
+        margin-bottom: 12px;
+    }
+    .reportSubDiv .activityTime{
+        font-size: 1.1rem!important;
+        color: #000!important;
+        font-family: "Conv_AVENIRLTSTD-LIGHT", Georgia, serif !important;
+        font-weight:600;
+    }
+    .reportSubDiv p{
+        font-size: 1.3rem!important;
+        color: #000!important;
+        font-family: "Conv_AVENIRLTSTD-LIGHT", Georgia, serif !important;
+        font-weight:600;
+        margin-top: 6px;
+    }
+    .reportSubDiv a{
+        font-size: 1.3rem!important;
+        color: #000!important;
+        font-family: "Conv_AVENIRLTSTD-HEAVY", Georgia, serif !important;
+        margin-top: 6px;
+    }
+    
+    /************************************************** Job Management Page ***************************************************/
+    .jobActivityFilterBox{
+        margin-bottom:20px;
+    }
+    .jobActivityMapBox{
+        margin-bottom:40px;
+    }
+    .activeJobs {
+        border-radius: 5px;  
+        margin-bottom: 5.4rem;
+    }
+    .cards{
+        margin-top: 2.5rem !important;
+    }
+    .closeBtn {
+        position: absolute;
+        right: 3%;
+        bottom: 55%;
+        border-radius: 50% !important;
+        background-color: black;
+        width: 35px;
+        height: 35px;
+        color: #fff;
+        text-align: center;
+        padding-top: 1.6%;
+    }
+    .mapJobs > .row > .col-xs-8 > h3 {
+        font-size: 1.5rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    .mapJobs > .row > .col-xs-8 > span {
+        font-size: 1.3rem !important;
+    }
+    .mapJobs > .row > .col-xs-8 > div {
+        font-size: 1.3rem;
+    }
+    .mapJobs > .row > .col-xs-8 > div > img {
+        width: 1.7rem;
+    }
+    .criticalJob, .majorJob, .minorJob {
+        width: 15px;
+        height: 15px;
+    }
+    .jobDetail > div.col-xs-8 > h4 {
+        font-family: "Conv_AVENIRLTSTD-HEAVY", Georgia, serif !important;
+        font-size: 1.7rem !important;
+    }
+    .jobOfcDetail > div.col-xs-4 {
+        font-family: "Conv_AVENIRLTSTD-HEAVY", Georgia, serif !important;
+        font-size: 1.4rem;
+    }
+    
+    /************************************************** Submit Complaint Page ***************************************************/
+    
+}
