@@ -524,7 +524,7 @@ namespace ESPL.KP.Services
 
         #region OccurrenceBook
 
-        public PagedList<OccurrenceBookActivity> GetOccurrenceBookActivity(OccurrenceBookResourceParameters occurrenceBookResourceParameters)
+        public PagedList<OccurrenceBookActivity> GetOccurrenceBookActivity(OccurrenceBookActivityResourceParameters occurrenceBookActivityResourceParameters)
         {
             var obActivity = (from o in _context.MstOccurrenceBook
                               join os in _context.OccurrenceStatusHistory on o.OBID equals os.OBID
@@ -533,6 +533,7 @@ namespace ESPL.KP.Services
                               select new OccurrenceBookActivity
                               {
                                   OBID = o.OBID.ToString(),
+                                  OBNumber = o.OBNumber,
                                   NatureOfOccurrence = o.NatureOfOccurrence,
                                   CreatedOn = os.CreatedOn,
                                   Type = "Status",
@@ -545,6 +546,7 @@ namespace ESPL.KP.Services
                                   select new OccurrenceBookActivity
                                   {
                                       OBID = o.OBID.ToString(),
+                                      OBNumber = o.OBNumber,
                                       NatureOfOccurrence = o.NatureOfOccurrence,
                                       CreatedOn = oc.CreatedOn,
                                       Type = "Comments",
@@ -558,15 +560,43 @@ namespace ESPL.KP.Services
                                   select new OccurrenceBookActivity
                                   {
                                       OBID = o.OBID.ToString(),
+                                      OBNumber = o.OBNumber,
                                       NatureOfOccurrence = o.NatureOfOccurrence,
                                       CreatedOn = os.CreatedOn,
                                       Type = "AssignedTo",
                                       Value = a.FirstName + " " + a.LastName,
                                       CreatedByName = e.FirstName + " " + e.LastName
                                   }));
+            obActivity = obActivity.ApplySort(occurrenceBookActivityResourceParameters.OrderBy,
+               _propertyMappingService.GetPropertyMapping<OccurrenceBookActivityDto, OccurrenceBookActivity>());
 
-            return PagedList<OccurrenceBookActivity>.Create(obActivity, occurrenceBookResourceParameters.PageNumber,
-               occurrenceBookResourceParameters.PageSize);
+            //Filter Logic
+            if (!string.IsNullOrEmpty(occurrenceBookActivityResourceParameters.OBID))
+            {
+                var obIDs = occurrenceBookActivityResourceParameters.OBID.Split(',');
+                obActivity = obActivity
+                    .Where(o => obIDs.Contains(o.OBID.ToString()));
+            }
+
+            if (!string.IsNullOrEmpty(occurrenceBookActivityResourceParameters.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = occurrenceBookActivityResourceParameters.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                obActivity = obActivity
+                            .Where(a =>
+                                a.OBID.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                                || a.OBNumber.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                                || a.NatureOfOccurrence.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                                || a.Type.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                                || a.Value.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                                || a.CreatedByName.ToLowerInvariant().Contains(searchQueryForWhereClause));
+
+            }
+
+            return PagedList<OccurrenceBookActivity>.Create(obActivity, occurrenceBookActivityResourceParameters.PageNumber,
+               occurrenceBookActivityResourceParameters.PageSize);
         }
 
 
