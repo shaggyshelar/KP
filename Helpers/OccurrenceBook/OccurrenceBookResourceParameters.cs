@@ -11,5 +11,6 @@ namespace ESPL.KP.Helpers.OccurrenceBook
         public string StatusID { get; set; }
         public string AreaID { get; set; }
         public string DepartmentID { get; set; }
+        public string AssignedTo { get; set; }
     }
 }

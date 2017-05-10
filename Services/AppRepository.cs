@@ -638,6 +638,12 @@ namespace ESPL.KP.Services
                 collectionBeforePaging = collectionBeforePaging
                     .Where(o => oBDates.Contains(o.OBTime.ToString("MM/dd/yyyy")));
             }
+            if (!string.IsNullOrEmpty(occurrenceBookResourceParameters.AssignedTo))
+            {
+                var assignedToIDs = occurrenceBookResourceParameters.AssignedTo.Split(',');
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(o => assignedToIDs.Contains(o.AssignedTO.ToString().ToLowerInvariant()));
+            }
             //Filter Ends
 
 
@@ -1091,8 +1097,8 @@ namespace ESPL.KP.Services
                                                                      group p by new { Priority = p.Priority } into g
                                                                      select new PriorityStatistics
                                                                      {
-                                                                         Priority = g.Key.Priority,
-                                                                         Count = g.Key.Priority.Count(),
+                                                                         Priority = g.Key.Priority.ToString(),
+                                                                         Count = g.Key.Priority.ToString().Count(),
                                                                      };
             int OccurrenceCount = _context.MstOccurrenceBook.Where(a => a.IsDelete == false).Count();
             #endregion Occurrence Stats
@@ -1114,7 +1120,7 @@ namespace ESPL.KP.Services
                                                                    group p by p.Priority into g
                                                                    select new PriorityStatistics
                                                                    {
-                                                                       Priority = g.Key,
+                                                                       Priority = g.Key.ToString(),
                                                                        Count = g.Count(),
                                                                    };
             int OfficersCount = _context.MstEmployee.Where(a => a.IsDelete == false).Count();
@@ -1340,5 +1346,28 @@ namespace ESPL.KP.Services
             _context.OccurrenceStatusHistory.Add(occurrenceBookStatusHistory);
         }
         #endregion status
+
+        #region Employee History
+        public void AddEmployeeAreaHistory(CfgEmployeeArea employeeAreaHistory)
+        {
+            employeeAreaHistory.EmployeeAreaID = Guid.NewGuid();
+            _context.CfgEmployeeArea.Add(employeeAreaHistory);
+        }
+        public void AddEmployeeDepartmentHistory(CfgEmployeeDepartment employeeDepartmentHistory)
+        {
+            employeeDepartmentHistory.EmployeeDepartmentID = new Guid();
+            _context.CfgEmployeeDepartment.Add(employeeDepartmentHistory);
+        }
+        public void AddEmployeeDesignationHistory(CfgEmployeeDesignation employeeDesignationHistory)
+        {
+            employeeDesignationHistory.EmployeeDesignationID = new Guid();
+            _context.CfgEmployeeDesignation.Add(employeeDesignationHistory);
+        }
+        public void AddEmployeeShiftHistory(CfgEmployeeShift employeeShiftHistory)
+        {
+            employeeShiftHistory.EmployeeShiftID = new Guid();
+            _context.CfgEmployeeShift.Add(employeeShiftHistory);
+        }
+        #endregion Employee History
     }
 }

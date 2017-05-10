@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ESPL.KP.Entities.Core;
-
+using ESPL.KP.Enums;
 namespace ESPL.KP.Entities
 {
     public static class ApplicationContextExtensions
@@ -166,6 +166,10 @@ namespace ESPL.KP.Entities
             context.MstStatus.RemoveRange(context.MstStatus);
             context.MstShift.RemoveRange(context.MstShift);
             context.AppModules.RemoveRange(context.AppModules);
+            context.CfgEmployeeArea.RemoveRange(context.CfgEmployeeArea);
+            context.CfgEmployeeDepartment.RemoveRange(context.CfgEmployeeDepartment);
+            context.CfgEmployeeDesignation.RemoveRange(context.CfgEmployeeDesignation);
+            context.CfgEmployeeShift.RemoveRange(context.CfgEmployeeShift);
             context.SaveChanges();
 
             UpdateDepartments(context);
@@ -692,7 +696,7 @@ namespace ESPL.KP.Entities
                 },
                 new MstStatus() {
                     StatusID = new Guid("853BDECF-1ED1-46C4-B200-E8BE243F1111"),
-                    StatusName = "Assigned To",
+                    StatusName = "Assigned",
                     CreatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn = DateTime.Now.AddHours(-6)
                 },
@@ -744,7 +748,7 @@ namespace ESPL.KP.Entities
                     AssignedTO = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef4444"),	//SGT
             		AssignedComments = "Assigned to a SGT in CID",
                     AssignedTime = DateTime.Now.AddDays(4),
-                    Priority = "Major",
+                    Priority = OccurrencePriorities.Major,
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
@@ -766,7 +770,7 @@ namespace ESPL.KP.Entities
                     AssignedTO = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef3333"), //SAIG
             		AssignedComments = "Assigned to SAIG in CID",
                     AssignedTime = DateTime.Now.AddHours(-5),
-                    Priority = "Minor",
+                    Priority = OccurrencePriorities.Minor,
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666"),
                     CreatedOn=DateTime.Now.AddHours(-5)
                 },
@@ -788,7 +792,7 @@ namespace ESPL.KP.Entities
                     AssignedTO =new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222"),	//DIG
             		AssignedComments = "Assigned",
                     AssignedTime = DateTime.Now.AddDays(-5),
-                    Priority = "Major",
+                    Priority = OccurrencePriorities.Minor,
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666"),
                     CreatedOn=DateTime.Now.AddHours(-4)
                 },
@@ -810,7 +814,7 @@ namespace ESPL.KP.Entities
                     Longitude = 73.812145,
                     Location = "Near HDFC bank",
                     AssignedTime = DateTime.Now,
-                    Priority = "Criticle",
+                    Priority = OccurrencePriorities.Critical,
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666"),
                     CreatedOn=DateTime.Now.AddHours(-5)
                 },
@@ -832,7 +836,7 @@ namespace ESPL.KP.Entities
                     Longitude = 73.813422,
                     Location = "Near The oval",
                     AssignedTime = DateTime.Now,
-                    Priority = "Major",
+                    Priority = OccurrencePriorities.Major,
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666"),
                     UpdatedBy = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-2)

@@ -121,7 +121,7 @@ namespace KP.Controllers.OccurrenceBook
             }
         }
 
-        
+
         [Authorize(Policy = Permissions.OccurrenceBookRead)]
         [Route("GetOccurrenceBookActivity")]
         public IActionResult GetOccurrenceBookActivity(OccurrenceBookActivityResourceParameters occurrenceBookActivityResourceParameters,
@@ -207,7 +207,7 @@ namespace KP.Controllers.OccurrenceBook
             }
         }
 
-        
+
 
         [HttpGet("{id}", Name = "GetOccurrenceBook")]
         [Authorize(Policy = Permissions.OccurrenceBookRead)]
@@ -449,7 +449,7 @@ namespace KP.Controllers.OccurrenceBook
                     Mapper.Map(bookForAuthorFromRepo, occurrenceBook);
                     AddAssignedToHistory(id, occurrenceBook);
                 }
-                else if (path.path.ToLowerInvariant().Equals("/statusid"))
+                if (path.path.ToLowerInvariant().Equals("/statusid"))
                 {
                     OccurrenceBookForStatusHistoryCreationDto occurrenceBookStatusHistory = new OccurrenceBookForStatusHistoryCreationDto();
                     Mapper.Map(bookForAuthorFromRepo, occurrenceBookStatusHistory);
@@ -696,10 +696,11 @@ namespace KP.Controllers.OccurrenceBook
             {
                 return BadRequest();
             }
+            var occurrenceBookReviewsFromRepo = _appRepository.GetOccurrenceReviewHistories(id, new OccurrenceBookReviewResourceParameters());
 
             var occurrenceBookHistoryEntity = Mapper.Map<OccurrenceReviewHistory>(occurrenceBookReview);
             occurrenceBookHistoryEntity.OBID = id;
-
+            SetCreationUserData(occurrenceBookHistoryEntity);
             _appRepository.AddOccurrenceReviewHistories(occurrenceBookHistoryEntity);
 
             if (!_appRepository.Save())
@@ -708,11 +709,14 @@ namespace KP.Controllers.OccurrenceBook
                 // return StatusCode(500, "A problem happened with handling your request.");
             }
 
-            bool isUpdated = UpdateOccurrenceBookStatus(id);
-            if (!isUpdated)
+            if (occurrenceBookReviewsFromRepo == null || occurrenceBookReviewsFromRepo.Count == 0)
             {
-                throw new Exception("update status on review added failed on save.");
-                // return StatusCode(500, "A problem happened with handling your request.");
+                bool isUpdated = UpdateOccurrenceBookStatus(id);
+                if (!isUpdated)
+                {
+                    throw new Exception("update status on review added failed on save.");
+                    // return StatusCode(500, "A problem happened with handling your request.");
+                }
             }
             return Ok(occurrenceBookHistoryEntity);
         }
@@ -1088,6 +1092,12 @@ namespace KP.Controllers.OccurrenceBook
             model.CreatedBy = new Guid(EmployeeID.Value);
         }
 
+        private void SetCreationUserData(OccurrenceReviewHistory model)
+        {
+            var EmployeeID = User.Claims.FirstOrDefault(cl => cl.Type == "EmployeeID");
+            model.CreatedBy = new Guid(EmployeeID.Value);
+        }
+
         private string CreateOccurrenceBookReviewsResourceUri(
                     OccurrenceBookReviewResourceParameters occurrenceBookReviewsResourceParameters,
                     ResourceUriType type)
@@ -1283,10 +1293,10 @@ namespace KP.Controllers.OccurrenceBook
             return false;
         }
         private object CreateLinksForOccurrenceBookActivity(
-            OccurrenceBookActivityResourceParameters occurrenceBookActivityResourceParameters, 
+            OccurrenceBookActivityResourceParameters occurrenceBookActivityResourceParameters,
             bool hasNext, bool hasPrevious)
         {
-          var links = new List<LinkDto>();
+            var links = new List<LinkDto>();
 
             // self 
             links.Add(
@@ -1339,10 +1349,10 @@ namespace KP.Controllers.OccurrenceBook
             return links;
         }
 
-        
-         private string CreateOccurrenceBookActivityResourceUri(
-            OccurrenceBookActivityResourceParameters occurrenceBookActivityResourceParameters,
-            ResourceUriType type)
+
+        private string CreateOccurrenceBookActivityResourceUri(
+           OccurrenceBookActivityResourceParameters occurrenceBookActivityResourceParameters,
+           ResourceUriType type)
         {
             switch (type)
             {
@@ -1380,7 +1390,7 @@ namespace KP.Controllers.OccurrenceBook
             }
         }
 
-        
+
 
     }
 }
