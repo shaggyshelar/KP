@@ -1097,8 +1097,8 @@ namespace ESPL.KP.Services
                                                                      group p by new { Priority = p.Priority } into g
                                                                      select new PriorityStatistics
                                                                      {
-                                                                         Priority = g.Key.Priority,
-                                                                         Count = g.Key.Priority != null ? g.Key.Priority.Count() : 0,
+                                                                         Priority = g.Key.Priority.ToString(),
+                                                                         Count = g.Key.Priority.ToString().Count(),
                                                                      };
             int OccurrenceCount = _context.MstOccurrenceBook.Where(a => a.IsDelete == false).Count();
             #endregion Occurrence Stats
@@ -1120,7 +1120,7 @@ namespace ESPL.KP.Services
                                                                    group p by p.Priority into g
                                                                    select new PriorityStatistics
                                                                    {
-                                                                       Priority = g.Key,
+                                                                       Priority = g.Key.ToString(),
                                                                        Count = g.Count(),
                                                                    };
             int OfficersCount = _context.MstEmployee.Where(a => a.IsDelete == false).Count();
