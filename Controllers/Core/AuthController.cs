@@ -87,7 +87,7 @@ namespace ESPL.KP.Controllers
                       issuer: _config["Tokens:Issuer"],
                       audience: _config["Tokens:Audience"],
                       claims: toSendClaims,
-                      expires: DateTime.UtcNow.AddMinutes(15),
+                      expires: DateTime.UtcNow.AddYears(1),
                       signingCredentials: creds
                       );
 

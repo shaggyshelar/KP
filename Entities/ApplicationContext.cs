@@ -13,10 +13,6 @@ namespace ESPL.KP.Entities
         {
             Database.Migrate();
         }
-
-        public DbSet<Author> Authors { get; set; }
-        public DbSet<Book> Books { get; set; }
-
         public DbSet<CfgEmployeeDepartment> CfgEmployeeDepartment { get; set; }
 
         public DbSet<CfgEmployeeArea> CfgEmployeeArea { get; set; }
