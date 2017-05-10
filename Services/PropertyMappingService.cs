@@ -101,9 +101,9 @@ namespace ESPL.KP.Services
             { "AssignedTime", new PropertyMappingValue(new List<string>() { "AssignedTime" } ) },
             { "Priority", new PropertyMappingValue(new List<string>() { "Priority" } ) },
      };
-     private Dictionary<string, PropertyMappingValue> _occurrencBookActivityPropertyMapping =
-     new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
-     {
+        private Dictionary<string, PropertyMappingValue> _occurrencBookActivityPropertyMapping =
+        new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+        {
             { "OBID", new PropertyMappingValue(new List<string>() { "OBID" } ) },
             { "OBNumber", new PropertyMappingValue(new List<string>() { "OBNumber" } ) },
             { "NatureOfOccurrence", new PropertyMappingValue(new List<string>() { "NatureOfOccurrence" } ) },
@@ -111,8 +111,8 @@ namespace ESPL.KP.Services
             { "Type", new PropertyMappingValue(new List<string>() { "Type" } ) },
             { "Value", new PropertyMappingValue(new List<string>() { "Value" } ) },
             { "CreatedByName", new PropertyMappingValue(new List<string>() { "CreatedByName" } ) }
-            
-     };
+
+        };
 
         private Dictionary<string, PropertyMappingValue> _appModulesPropertyMapping =
            new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
@@ -207,6 +207,22 @@ namespace ESPL.KP.Services
                 { "Comments", new PropertyMappingValue(new List<string>() { "Comments" } )},
         };
 
+        private Dictionary<string, PropertyMappingValue> _employeeShiftHistoryPropertyMapping =
+            new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+            {
+                   { "EmployeeShiftID", new PropertyMappingValue(new List<string>() { "EmployeeShiftID" } ) },
+                   { "EmployeeID", new PropertyMappingValue(new List<string>() { "EmployeeID" } ) },
+                   { "ShiftID", new PropertyMappingValue(new List<string>() { "ShiftID" } ) },
+            };
+
+        private Dictionary<string, PropertyMappingValue> _employeeDepartmentHistoryPropertyMapping =
+        new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+        {
+                   { "EmployeeDepartmentID", new PropertyMappingValue(new List<string>() { "EmployeeDepartmentID" } ) },
+                   { "EmployeeID", new PropertyMappingValue(new List<string>() { "EmployeeID" } ) },
+                   { "DepartmentID", new PropertyMappingValue(new List<string>() { "DepartmentID" } ) },
+        };
+
         private IList<IPropertyMapping> propertyMappings = new List<IPropertyMapping>();
 
         public PropertyMappingService()
@@ -229,7 +245,8 @@ namespace ESPL.KP.Services
             propertyMappings.Add(new PropertyMapping<OccurrenceBookReviewDto, OccurrenceReviewHistory>(_occurrenceBooksReviewPropertyMapping));
             propertyMappings.Add(new PropertyMapping<OccurrenceBookForAssignmentDto, OccurrenceAssignmentHistory>(_occurrenceBooksReviewPropertyMapping));
             propertyMappings.Add(new PropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>(_occurrenceBooksStatusPropertyMapping));
-
+            propertyMappings.Add(new PropertyMapping<EmployeeShiftHistoryDto, CfgEmployeeShift>(_employeeShiftHistoryPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<EmployeeDepartmentHistoryDto, CfgEmployeeDepartment>(_employeeDepartmentHistoryPropertyMapping));
         }
         public Dictionary<string, PropertyMappingValue> GetPropertyMapping
             <TSource, TDestination>()

@@ -173,6 +173,24 @@ namespace KP.Controllers.Employee
                 // return StatusCode(500, "A problem happened with handling your request.");
             }
 
+            if (employee.AreaID != null && employee.AreaID != Guid.Empty)
+            {
+                AddEmployeeAreaHistory(employeeEntity.EmployeeID, employeeEntity);
+            }
+            if (employee.DesignationID != null && employee.AreaID != Guid.Empty)
+            {
+                AddEmployeeDesignationHistory(employeeEntity.EmployeeID, employeeEntity);
+            }
+            if (employee.DepartmentID != null && employee.AreaID != Guid.Empty)
+            {
+                AddEmployeeDepartmentHistory(employeeEntity.EmployeeID, employeeEntity);
+            }
+            if (employee.ShiftID != null && employee.AreaID != Guid.Empty)
+            {
+                AddEmployeeShiftHistory(employeeEntity.EmployeeID, employeeEntity);
+            }
+
+
             var employeeToReturn = Mapper.Map<EmployeeDto>(employeeEntity);
 
             var links = CreateLinksForEmployee(employeeToReturn.EmployeeID, null);
@@ -287,19 +305,19 @@ namespace KP.Controllers.Employee
 
             if (isAreaUpdated)
             {
-                AddEmployeeAreaHistory(id, employee);
+                AddEmployeeAreaHistory(id, employeeFromRepo);
             }
             if (isDesignationUpdated)
             {
-                AddEmployeeDesignationHistory(id, employee);
+                AddEmployeeDesignationHistory(id, employeeFromRepo);
             }
             if (isDepartmentUpdated)
             {
-                AddEmployeeDepartmentHistory(id, employee);
+                AddEmployeeDepartmentHistory(id, employeeFromRepo);
             }
             if (isShiftUpdated)
             {
-                AddEmployeeShiftHistory(id, employee);
+                AddEmployeeShiftHistory(id, employeeFromRepo);
             }
             return Ok(employeeFromRepo);
         }
@@ -374,31 +392,203 @@ namespace KP.Controllers.Employee
                 {
                     EmployeeForUpdationDto employeeDto = new EmployeeForUpdationDto();
                     Mapper.Map(bookForAuthorFromRepo, employeeDto);
-                    AddEmployeeAreaHistory(id, employeeDto);
+                    AddEmployeeAreaHistory(id, bookForAuthorFromRepo);
                 }
                 if (path.path.ToLowerInvariant().Equals("/departmentid"))
                 {
                     EmployeeForUpdationDto employeeDto = new EmployeeForUpdationDto();
                     Mapper.Map(bookForAuthorFromRepo, employeeDto);
-                    AddEmployeeDepartmentHistory(id, employeeDto);
+                    AddEmployeeDepartmentHistory(id, bookForAuthorFromRepo);
                 }
                 if (path.path.ToLowerInvariant().Equals("/designationid"))
                 {
                     EmployeeForUpdationDto employeeDto = new EmployeeForUpdationDto();
                     Mapper.Map(bookForAuthorFromRepo, employeeDto);
-                    AddEmployeeDesignationHistory(id, employeeDto);
+                    AddEmployeeDesignationHistory(id, bookForAuthorFromRepo);
                 }
                 if (path.path.ToLowerInvariant().Equals("/shiftid"))
                 {
                     EmployeeForUpdationDto employeeDto = new EmployeeForUpdationDto();
                     Mapper.Map(bookForAuthorFromRepo, employeeDto);
-                    AddEmployeeShiftHistory(id, employeeDto);
+                    AddEmployeeShiftHistory(id, bookForAuthorFromRepo);
                 }
             }
 
 
             return NoContent();
         }
+
+
+        [Route("{id}/employeeShifthistory")]
+        [HttpGet("{id}/employeeShifthistory", Name = "GetEmployeeShifthistory")]
+        [Authorize(Policy = Permissions.EmployeeShiftHistoryRead)]
+        public IActionResult GetEmployeeShifthistory(Guid id, EmployeeShiftHistoryResourceParameters employeeShiftHistoryParams,
+        [FromHeader(Name = "Accept")]string mediaType)
+        {
+            if (!_propertyMappingService.ValidMappingExistsFor<EmployeeShiftHistoryDto, CfgEmployeeShift>
+               (employeeShiftHistoryParams.OrderBy))
+            {
+                return BadRequest();
+            }
+
+            if (!_typeHelperService.TypeHasProperties<EmployeeShiftHistoryDto>
+                (employeeShiftHistoryParams.Fields))
+            {
+                return BadRequest();
+            }
+            var employeeShiftHistoryFromRepo = _appRepository.GetEmployeeShiftHistory(id, employeeShiftHistoryParams);
+
+            var employeeShiftHistory = Mapper.Map<IEnumerable<EmployeeShiftHistoryDto>>(employeeShiftHistoryFromRepo);
+
+            if (mediaType == "application/vnd.marvin.hateoas+json")
+            {
+                var paginationMetadata = new
+                {
+                    totalCount = employeeShiftHistoryFromRepo.TotalCount,
+                    pageSize = employeeShiftHistoryFromRepo.PageSize,
+                    currentPage = employeeShiftHistoryFromRepo.CurrentPage,
+                    totalPages = employeeShiftHistoryFromRepo.TotalPages,
+                };
+
+                Response.Headers.Add("X-Pagination",
+                    Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+
+                var links = CreateLinksForEmployeeShiftHistory(employeeShiftHistoryParams,
+                    employeeShiftHistoryFromRepo.HasNext, employeeShiftHistoryFromRepo.HasPrevious);
+
+                var shapedEmployeeShiftHistory = employeeShiftHistory.ShapeData(employeeShiftHistoryParams.Fields);
+
+                var shapedEmployeeShiftHistoryWithLinks = shapedEmployeeShiftHistory.Select(_employeeShiftHistory =>
+                {
+                    var employeeShiftAsDictionary = _employeeShiftHistory as IDictionary<string, object>;
+                    var employeeShiftLinks = CreateLinksForEmployeeShiftHistory(
+                        (Guid)employeeShiftAsDictionary["Id"], employeeShiftHistoryParams.Fields);
+
+                    employeeShiftAsDictionary.Add("links", employeeShiftLinks);
+
+                    return employeeShiftAsDictionary;
+                });
+
+                var linkedCollectionResource = new
+                {
+                    value = shapedEmployeeShiftHistoryWithLinks,
+                    links = links
+                };
+
+                return Ok(linkedCollectionResource);
+            }
+            else
+            {
+                var previousPageLink = employeeShiftHistoryFromRepo.HasPrevious ?
+                    CreateEmployeeShiftHistoryResourceUri(employeeShiftHistoryParams,
+                    ResourceUriType.PreviousPage) : null;
+
+                var nextPageLink = employeeShiftHistoryFromRepo.HasNext ?
+                    CreateEmployeeShiftHistoryResourceUri(employeeShiftHistoryParams,
+                    ResourceUriType.NextPage) : null;
+
+                var paginationMetadata = new
+                {
+                    previousPageLink = previousPageLink,
+                    nextPageLink = nextPageLink,
+                    totalCount = employeeShiftHistoryFromRepo.TotalCount,
+                    pageSize = employeeShiftHistoryFromRepo.PageSize,
+                    currentPage = employeeShiftHistoryFromRepo.CurrentPage,
+                    totalPages = employeeShiftHistoryFromRepo.TotalPages
+                };
+
+                Response.Headers.Add("X-Pagination",
+                    Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+
+                return Ok(employeeShiftHistory.ShapeData(employeeShiftHistoryParams.Fields));
+            }
+        }
+
+        [Route("{id}/employeeDepartmentHistory")]
+        [HttpGet("{id}/employeeDepartmentHistory", Name = "GetEmployeeDepartmentHistory")]
+        [Authorize(Policy = Permissions.EmployeeDepartmentHistoryRead)]
+        public IActionResult GetEmployeeDepartmentHistory(Guid id, EmployeeDepartmentHistoryResourceParameters employeeDepartmentHistoryParams,
+        [FromHeader(Name = "Accept")]string mediaType)
+        {
+            if (!_propertyMappingService.ValidMappingExistsFor<EmployeeDepartmentHistoryDto, CfgEmployeeDepartment>
+               (employeeDepartmentHistoryParams.OrderBy))
+            {
+                return BadRequest();
+            }
+
+            if (!_typeHelperService.TypeHasProperties<EmployeeDepartmentHistoryDto>
+                (employeeDepartmentHistoryParams.Fields))
+            {
+                return BadRequest();
+            }
+            var employeeDepartmentHistoryFromRepo = _appRepository.GetEmployeeDepartmentHistory(id, employeeDepartmentHistoryParams);
+
+            var employeeDepartmentHistory = Mapper.Map<IEnumerable<EmployeeDepartmentHistoryDto>>(employeeDepartmentHistoryFromRepo);
+
+            if (mediaType == "application/vnd.marvin.hateoas+json")
+            {
+                var paginationMetadata = new
+                {
+                    totalCount = employeeDepartmentHistoryFromRepo.TotalCount,
+                    pageSize = employeeDepartmentHistoryFromRepo.PageSize,
+                    currentPage = employeeDepartmentHistoryFromRepo.CurrentPage,
+                    totalPages = employeeDepartmentHistoryFromRepo.TotalPages,
+                };
+
+                Response.Headers.Add("X-Pagination",
+                    Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+
+                var links = CreateLinksForEmployeeDepartmentHistory(employeeDepartmentHistoryParams,
+                    employeeDepartmentHistoryFromRepo.HasNext, employeeDepartmentHistoryFromRepo.HasPrevious);
+
+                var shapedEmployeeDepartmentHistory = employeeDepartmentHistory.ShapeData(employeeDepartmentHistoryParams.Fields);
+
+                var shapedEmployeeDepartmentHistoryWithLinks = shapedEmployeeDepartmentHistory.Select(_employeeDepartmentHistory =>
+                {
+                    var employeeDepartmentAsDictionary = _employeeDepartmentHistory as IDictionary<string, object>;
+                    var employeeDepartmentLinks = CreateLinksForEmployeeDepartmentHistory(
+                        (Guid)employeeDepartmentAsDictionary["Id"], employeeDepartmentHistoryParams.Fields);
+
+                    employeeDepartmentAsDictionary.Add("links", employeeDepartmentLinks);
+
+                    return employeeDepartmentAsDictionary;
+                });
+
+                var linkedCollectionResource = new
+                {
+                    value = shapedEmployeeDepartmentHistoryWithLinks,
+                    links = links
+                };
+
+                return Ok(linkedCollectionResource);
+            }
+            else
+            {
+                var previousPageLink = employeeDepartmentHistoryFromRepo.HasPrevious ?
+                    CreateEmployeeDepartmentHistoryResourceUri(employeeDepartmentHistoryParams,
+                    ResourceUriType.PreviousPage) : null;
+
+                var nextPageLink = employeeDepartmentHistoryFromRepo.HasNext ?
+                    CreateEmployeeDepartmentHistoryResourceUri(employeeDepartmentHistoryParams,
+                    ResourceUriType.NextPage) : null;
+
+                var paginationMetadata = new
+                {
+                    previousPageLink = previousPageLink,
+                    nextPageLink = nextPageLink,
+                    totalCount = employeeDepartmentHistoryFromRepo.TotalCount,
+                    pageSize = employeeDepartmentHistoryFromRepo.PageSize,
+                    currentPage = employeeDepartmentHistoryFromRepo.CurrentPage,
+                    totalPages = employeeDepartmentHistoryFromRepo.TotalPages
+                };
+
+                Response.Headers.Add("X-Pagination",
+                    Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+
+                return Ok(employeeDepartmentHistory.ShapeData(employeeDepartmentHistoryParams.Fields));
+            }
+        }
+
 
         [HttpOptions]
         public IActionResult GetEmployeeOptions()
@@ -531,9 +721,9 @@ namespace KP.Controllers.Employee
             model.CreatedBy = new Guid(EmployeeID.Value);
         }
 
-        private void AddEmployeeAreaHistory(Guid employeeId, EmployeeForUpdationDto employeeDto)
+        private void AddEmployeeAreaHistory(Guid employeeId, MstEmployee employee)
         {
-            var employeeAreaHistory = Mapper.Map<CfgEmployeeArea>(employeeDto);
+            var employeeAreaHistory = Mapper.Map<CfgEmployeeArea>(employee);
             employeeAreaHistory.EmployeeID = employeeId;
             _appRepository.AddEmployeeAreaHistory(employeeAreaHistory);
             if (!_appRepository.Save())
@@ -543,7 +733,7 @@ namespace KP.Controllers.Employee
             }
         }
 
-        private void AddEmployeeDepartmentHistory(Guid id, EmployeeForUpdationDto employeeDto)
+        private void AddEmployeeDepartmentHistory(Guid id, MstEmployee employeeDto)
         {
             var employeeDepartmentHistory = Mapper.Map<CfgEmployeeDepartment>(employeeDto);
             employeeDepartmentHistory.EmployeeID = id;
@@ -555,7 +745,7 @@ namespace KP.Controllers.Employee
             }
         }
 
-        private void AddEmployeeDesignationHistory(Guid id, EmployeeForUpdationDto employeeDto)
+        private void AddEmployeeDesignationHistory(Guid id, MstEmployee employeeDto)
         {
             var employeeDesignationHistory = Mapper.Map<CfgEmployeeDesignation>(employeeDto);
             employeeDesignationHistory.EmployeeID = id;
@@ -567,7 +757,7 @@ namespace KP.Controllers.Employee
             }
         }
 
-        private void AddEmployeeShiftHistory(Guid id, EmployeeForUpdationDto employeeDto)
+        private void AddEmployeeShiftHistory(Guid id, MstEmployee employeeDto)
         {
             var employeeDesignationHistory = Mapper.Map<CfgEmployeeShift>(employeeDto);
             employeeDesignationHistory.EmployeeID = id;
@@ -576,6 +766,202 @@ namespace KP.Controllers.Employee
             {
                 throw new Exception("Creating an occurrenceBook failed on save.");
                 // return StatusCode(500, "Creating an occurrenceBook failed on save.");
+            }
+        }
+
+        private IEnumerable<LinkDto> CreateLinksForEmployeeShiftHistory(Guid id, string fields)
+        {
+            var links = new List<LinkDto>();
+
+            if (string.IsNullOrWhiteSpace(fields))
+            {
+                links.Add(
+                    new LinkDto(_urlHelper.Link("GetEmployeeShiftHistory", new
+                    {
+                        id = id
+                    }),
+                        "self",
+                        "GET"));
+            }
+            else
+            {
+                links.Add(
+                    new LinkDto(_urlHelper.Link("GetEmployeeShiftHistory", new
+                    {
+                        id = id,
+                        fields = fields
+                    }),
+                        "self",
+                        "GET"));
+            }
+            return links;
+        }
+
+        private IEnumerable<LinkDto> CreateLinksForEmployeeShiftHistory(
+            EmployeeShiftHistoryResourceParameters employeesResourceParameters,
+            bool hasNext, bool hasPrevious)
+        {
+            var links = new List<LinkDto>();
+
+            // self
+            links.Add(
+                new LinkDto(CreateEmployeeShiftHistoryResourceUri(employeesResourceParameters,
+                        ResourceUriType.Current), "self", "GET"));
+
+            if (hasNext)
+            {
+                links.Add(
+                    new LinkDto(CreateEmployeeShiftHistoryResourceUri(employeesResourceParameters,
+                            ResourceUriType.NextPage),
+                        "nextPage", "GET"));
+            }
+
+            if (hasPrevious)
+            {
+                links.Add(
+                    new LinkDto(CreateEmployeeShiftHistoryResourceUri(employeesResourceParameters,
+                            ResourceUriType.PreviousPage),
+                        "previousPage", "GET"));
+            }
+
+            return links;
+        }
+
+        private string CreateEmployeeShiftHistoryResourceUri(
+            EmployeeShiftHistoryResourceParameters employeesResourceParameters,
+            ResourceUriType type)
+        {
+            switch (type)
+            {
+                case ResourceUriType.PreviousPage:
+                    return _urlHelper.Link("GetEmployeeShiftHistory",
+                        new
+                        {
+                            fields = employeesResourceParameters.Fields,
+                            orderBy = employeesResourceParameters.OrderBy,
+                            searchQuery = employeesResourceParameters.SearchQuery,
+                            pageNumber = employeesResourceParameters.PageNumber - 1,
+                            pageSize = employeesResourceParameters.PageSize
+                        });
+                case ResourceUriType.NextPage:
+                    return _urlHelper.Link("GetEmployeeShiftHistory",
+                        new
+                        {
+                            fields = employeesResourceParameters.Fields,
+                            orderBy = employeesResourceParameters.OrderBy,
+                            searchQuery = employeesResourceParameters.SearchQuery,
+                            pageNumber = employeesResourceParameters.PageNumber + 1,
+                            pageSize = employeesResourceParameters.PageSize
+                        });
+                case ResourceUriType.Current:
+                default:
+                    return _urlHelper.Link("GetEmployeeShiftHistory",
+                        new
+                        {
+                            fields = employeesResourceParameters.Fields,
+                            orderBy = employeesResourceParameters.OrderBy,
+                            searchQuery = employeesResourceParameters.SearchQuery,
+                            pageNumber = employeesResourceParameters.PageNumber,
+                            pageSize = employeesResourceParameters.PageSize
+                        });
+            }
+        }
+
+        private IEnumerable<LinkDto> CreateLinksForEmployeeDepartmentHistory(Guid id, string fields)
+        {
+            var links = new List<LinkDto>();
+
+            if (string.IsNullOrWhiteSpace(fields))
+            {
+                links.Add(
+                    new LinkDto(_urlHelper.Link("GetEmployeeDepartmentHistory", new
+                    {
+                        id = id
+                    }),
+                        "self",
+                        "GET"));
+            }
+            else
+            {
+                links.Add(
+                    new LinkDto(_urlHelper.Link("GetEmployeeDepartmentHistory", new
+                    {
+                        id = id,
+                        fields = fields
+                    }),
+                        "self",
+                        "GET"));
+            }
+            return links;
+        }
+
+        private IEnumerable<LinkDto> CreateLinksForEmployeeDepartmentHistory(
+            EmployeeDepartmentHistoryResourceParameters employeesResourceParameters,
+            bool hasNext, bool hasPrevious)
+        {
+            var links = new List<LinkDto>();
+
+            // self
+            links.Add(
+                new LinkDto(CreateEmployeeDepartmentHistoryResourceUri(employeesResourceParameters,
+                        ResourceUriType.Current), "self", "GET"));
+
+            if (hasNext)
+            {
+                links.Add(
+                    new LinkDto(CreateEmployeeDepartmentHistoryResourceUri(employeesResourceParameters,
+                            ResourceUriType.NextPage),
+                        "nextPage", "GET"));
+            }
+
+            if (hasPrevious)
+            {
+                links.Add(
+                    new LinkDto(CreateEmployeeDepartmentHistoryResourceUri(employeesResourceParameters,
+                            ResourceUriType.PreviousPage),
+                        "previousPage", "GET"));
+            }
+
+            return links;
+        }
+
+        private string CreateEmployeeDepartmentHistoryResourceUri(
+            EmployeeDepartmentHistoryResourceParameters employeesResourceParameters,
+            ResourceUriType type)
+        {
+            switch (type)
+            {
+                case ResourceUriType.PreviousPage:
+                    return _urlHelper.Link("GetEmployeeDepartmentHistory",
+                        new
+                        {
+                            fields = employeesResourceParameters.Fields,
+                            orderBy = employeesResourceParameters.OrderBy,
+                            searchQuery = employeesResourceParameters.SearchQuery,
+                            pageNumber = employeesResourceParameters.PageNumber - 1,
+                            pageSize = employeesResourceParameters.PageSize
+                        });
+                case ResourceUriType.NextPage:
+                    return _urlHelper.Link("GetEmployeeDepartmentHistory",
+                        new
+                        {
+                            fields = employeesResourceParameters.Fields,
+                            orderBy = employeesResourceParameters.OrderBy,
+                            searchQuery = employeesResourceParameters.SearchQuery,
+                            pageNumber = employeesResourceParameters.PageNumber + 1,
+                            pageSize = employeesResourceParameters.PageSize
+                        });
+                case ResourceUriType.Current:
+                default:
+                    return _urlHelper.Link("GetEmployeeDepartmentHistory",
+                        new
+                        {
+                            fields = employeesResourceParameters.Fields,
+                            orderBy = employeesResourceParameters.OrderBy,
+                            searchQuery = employeesResourceParameters.SearchQuery,
+                            pageNumber = employeesResourceParameters.PageNumber,
+                            pageSize = employeesResourceParameters.PageSize
+                        });
             }
         }
 
