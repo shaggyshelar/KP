@@ -1183,7 +1183,7 @@ namespace ESPL.KP.Services
                .Select(status => new OccurrenceStatusHistory()
                {
                    OccurrenceStatusHistoryID = status.oc.oc.OccurrenceStatusHistoryID,
-                   MstOccurrenceBook = status.oc.oc.MstOccurrenceBook,
+                   //MstOccurrenceBook = status.oc.oc.MstOccurrenceBook,
                    OBID = status.oc.oc.OBID,
                    MstStatus = status.oc.oc.MstStatus,
                    StatusID = status.oc.oc.StatusID,
@@ -1198,7 +1198,7 @@ namespace ESPL.KP.Services
                    UpdatedByName = (string.IsNullOrEmpty(status.um.FirstName) ? "" : (status.um.FirstName + " ")) + status.um.LastName,
                })
             .ApplySort(occurrenceBookStatusHistoryParams.OrderBy,
-            _propertyMappingService.GetPropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>());
+                        _propertyMappingService.GetPropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>());
 
             // var collectionBeforePaging =
             //      _context.OccurrenceStatusHistory
