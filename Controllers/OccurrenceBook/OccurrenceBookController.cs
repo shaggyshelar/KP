@@ -700,7 +700,7 @@ namespace KP.Controllers.OccurrenceBook
 
             var occurrenceBookHistoryEntity = Mapper.Map<OccurrenceReviewHistory>(occurrenceBookReview);
             occurrenceBookHistoryEntity.OBID = id;
-
+            SetCreationUserData(occurrenceBookHistoryEntity);
             _appRepository.AddOccurrenceReviewHistories(occurrenceBookHistoryEntity);
 
             if (!_appRepository.Save())
@@ -1087,6 +1087,12 @@ namespace KP.Controllers.OccurrenceBook
         }
 
         private void SetCreationUserData(MstOccurrenceBook model)
+        {
+            var EmployeeID = User.Claims.FirstOrDefault(cl => cl.Type == "EmployeeID");
+            model.CreatedBy = new Guid(EmployeeID.Value);
+        }
+
+        private void SetCreationUserData(OccurrenceReviewHistory model)
         {
             var EmployeeID = User.Claims.FirstOrDefault(cl => cl.Type == "EmployeeID");
             model.CreatedBy = new Guid(EmployeeID.Value);
