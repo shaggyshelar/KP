@@ -1094,11 +1094,11 @@ namespace ESPL.KP.Services
                                                                  };
             IQueryable<PriorityStatistics> OccurrencePriorityStats = from p in _context.MstOccurrenceBook
                                                                      where p.IsDelete == false
-                                                                     group p by new { Priority = p.Priority } into g
+                                                                     group p by p.Priority into g
                                                                      select new PriorityStatistics
                                                                      {
-                                                                         Priority = g.Key.Priority.ToString(),
-                                                                         Count = g.Key.Priority.ToString().Count(),
+                                                                         Priority = g.Key.ToString(),
+                                                                         Count = g.Count(),
                                                                      };
             int OccurrenceCount = _context.MstOccurrenceBook.Where(a => a.IsDelete == false).Count();
             #endregion Occurrence Stats
