@@ -22,15 +22,6 @@ namespace ESPL.KP.Services
                { "UserName", new PropertyMappingValue(new List<string>() { "UserName" } )}
           };
 
-        private Dictionary<string, PropertyMappingValue> _authorPropertyMapping =
-           new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
-           {
-               { "Id", new PropertyMappingValue(new List<string>() { "Id" } ) },
-               { "Genre", new PropertyMappingValue(new List<string>() { "Genre" } )},
-               { "Age", new PropertyMappingValue(new List<string>() { "DateOfBirth" } , true) },
-               { "Name", new PropertyMappingValue(new List<string>() { "FirstName", "LastName" }) }
-           };
-
         private Dictionary<string, PropertyMappingValue> _departmentPropertyMapping =
            new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
            {
@@ -228,7 +219,6 @@ namespace ESPL.KP.Services
         public PropertyMappingService()
         {
             propertyMappings.Add(new PropertyMapping<AppUserDto, AppUser>(_esplUserPropertyMapping));
-            propertyMappings.Add(new PropertyMapping<AuthorDto, Author>(_authorPropertyMapping));
             propertyMappings.Add(new PropertyMapping<DepartmentDto, MstDepartment>(_departmentPropertyMapping));
             propertyMappings.Add(new PropertyMapping<OccurrenceTypeDto, MstOccurrenceType>(_occurrenctTypePropertyMapping));
             propertyMappings.Add(new PropertyMapping<AreaDto, MstArea>(_areaPropertyMapping));

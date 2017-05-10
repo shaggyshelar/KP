@@ -256,17 +256,6 @@ namespace ESPL.KP
 
             AutoMapper.Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<ESPL.KP.Entities.Author, ESPL.KP.Models.AuthorDto>()
-                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src =>
-                    $"{src.FirstName} {src.LastName}"))
-                    .ForMember(dest => dest.Age, opt => opt.MapFrom(src =>
-                    src.DateOfBirth.GetCurrentAge(src.DateOfDeath)));
-                cfg.CreateMap<ESPL.KP.Entities.Book, ESPL.KP.Models.BookDto>();
-                cfg.CreateMap<ESPL.KP.Models.AuthorForCreationDto, ESPL.KP.Entities.Author>();
-                cfg.CreateMap<ESPL.KP.Models.AuthorForCreationWithDateOfDeathDto, ESPL.KP.Entities.Author>();
-                cfg.CreateMap<ESPL.KP.Models.BookForCreationDto, ESPL.KP.Entities.Book>();
-                cfg.CreateMap<ESPL.KP.Models.BookForUpdateDto, ESPL.KP.Entities.Book>();
-                cfg.CreateMap<ESPL.KP.Entities.Book, ESPL.KP.Models.BookForUpdateDto>();
                 cfg.CreateMap<ESPL.KP.Entities.Core.AppModule, ESPL.KP.Models.Core.AppModuleDto>();
                 cfg.CreateMap<ESPL.KP.Models.Core.AppModuleForCreationDto, ESPL.KP.Entities.Core.AppModule>();
                 cfg.CreateMap<KP.Models.AppModuleForUpdationDto, ESPL.KP.Entities.Core.AppModule>();
