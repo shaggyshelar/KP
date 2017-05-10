@@ -1098,7 +1098,7 @@ namespace ESPL.KP.Services
                                                                      select new PriorityStatistics
                                                                      {
                                                                          Priority = g.Key.Priority,
-                                                                         Count = g.Key.Priority.Count(),
+                                                                         Count = g.Key.Priority != null ? g.Key.Priority.Count() : 0,
                                                                      };
             int OccurrenceCount = _context.MstOccurrenceBook.Where(a => a.IsDelete == false).Count();
             #endregion Occurrence Stats
