@@ -279,7 +279,9 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceAssignmentRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewRead, ClaimValue = "True" });
-
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeShiftHistoryRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeDepartmentHistoryRead, ClaimValue = "True" });
+                
                 //----- write
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaCreate, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DepartmentCreate, ClaimValue = "True" });
@@ -382,6 +384,7 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceAssignmentRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeShiftHistoryRead, ClaimValue = "True" });
 
                 //----- write
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaCreate, ClaimValue = "True" });
@@ -434,6 +437,7 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceAssignmentRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeShiftHistoryRead, ClaimValue = "True" });
 
                 //----- write
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaCreate, ClaimValue = "True" });
@@ -486,6 +490,8 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceAssignmentRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeShiftHistoryRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeDepartmentHistoryRead, ClaimValue = "True" });
 
                 //----- write
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaCreate, ClaimValue = "True" });
@@ -550,6 +556,8 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.StatusRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.ReportsRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeShiftHistoryRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeDepartmentHistoryRead, ClaimValue = "True" });
 
                 //----- write
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaCreate, ClaimValue = "True" });
@@ -612,6 +620,8 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceAssignmentRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeShiftHistoryRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeDepartmentHistoryRead, ClaimValue = "True" });
 
                 //----- write
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaCreate, ClaimValue = "True" });
@@ -678,6 +688,8 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceAssignmentRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeShiftHistoryRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeDepartmentHistoryRead, ClaimValue = "True" });
 
                 //----- write
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaCreate, ClaimValue = "True" });
@@ -730,6 +742,8 @@ namespace ESPL.KP.Entities
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.DashboardRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceAssignmentRead, ClaimValue = "True" });
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.OccurrenceReviewRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeShiftHistoryRead, ClaimValue = "True" });
+                role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.EmployeeDepartmentHistoryRead, ClaimValue = "True" });
 
                 //----- write
                 role.Claims.Add(new IdentityRoleClaim<string>() { ClaimType = Permissions.AreaCreate, ClaimValue = "True" });

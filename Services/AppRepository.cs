@@ -1173,11 +1173,12 @@ namespace ESPL.KP.Services
         #region Status
         public PagedList<OccurrenceStatusHistory> GetStatusHistory(Guid id, OccurrenceBookStatusResourceParameters occurrenceBookStatusHistoryParams)
         {
-            var collectionBeforePaging =
-                _context.OccurrenceStatusHistory
-                .ApplySort(occurrenceBookStatusHistoryParams.OrderBy,
-                _propertyMappingService.GetPropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>());
-            _context.OccurrenceStatusHistory.Where(s => s.OBID == id)
+            // var collectionBeforePaging =
+            //     _context.OccurrenceStatusHistory
+            //     .ApplySort(occurrenceBookStatusHistoryParams.OrderBy,
+            //     _propertyMappingService.GetPropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>());
+            var collectionBeforePaging = _context.OccurrenceStatusHistory.Where(s => s.OBID == id)
+                .Include(occurrence => occurrence.MstOccurrenceBook)
                .GroupJoin(_context.MstEmployee, oc => oc.CreatedBy.Value, uc => uc.EmployeeID, (oc, uc) => new { oc = oc, uc = uc.FirstOrDefault() })
                .GroupJoin(_context.MstEmployee, oc => oc.oc.UpdatedBy, um => um.EmployeeID, (oc, um) => new { oc = oc, um = um.FirstOrDefault() })
                .Select(status => new OccurrenceStatusHistory()
@@ -1198,7 +1199,7 @@ namespace ESPL.KP.Services
                    UpdatedByName = (string.IsNullOrEmpty(status.um.FirstName) ? "" : (status.um.FirstName + " ")) + status.um.LastName,
                })
             .ApplySort(occurrenceBookStatusHistoryParams.OrderBy,
-            _propertyMappingService.GetPropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>());
+                        _propertyMappingService.GetPropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>());
 
             // var collectionBeforePaging =
             //      _context.OccurrenceStatusHistory
@@ -1251,6 +1252,95 @@ namespace ESPL.KP.Services
             employeeShiftHistory.EmployeeShiftID = new Guid();
             _context.CfgEmployeeShift.Add(employeeShiftHistory);
         }
+
+        public PagedList<CfgEmployeeShift> GetEmployeeShiftHistory(Guid id, EmployeeShiftHistoryResourceParameters employeeStatusHistoryParams)
+        {
+            var collectionBeforePaging =
+                _context.CfgEmployeeShift.Where(a => a.IsDelete == false && a.EmployeeID == id)
+                .GroupJoin(_context.MstEmployee, oc => oc.CreatedBy.Value, uc => uc.EmployeeID, (oc, uc) => new { oc = oc, uc = uc.FirstOrDefault() })
+               .GroupJoin(_context.MstEmployee, oc => oc.oc.UpdatedBy, um => um.EmployeeID, (oc, um) => new { oc = oc, um = um.FirstOrDefault() })
+               .Select(status => new CfgEmployeeShift()
+               {
+                   EmployeeShiftID = status.oc.oc.EmployeeShiftID,
+                   MstEmployee = status.oc.oc.MstEmployee,
+                   EmployeeID = status.oc.oc.EmployeeID,
+                   MstShift = status.oc.oc.MstShift,
+                   ShiftID = status.oc.oc.ShiftID,
+
+                   CreatedOn = status.oc.oc.CreatedOn,
+                   CreatedBy = status.oc.oc.CreatedBy,
+                   UpdatedOn = status.oc.oc.UpdatedOn,
+                   UpdatedBy = status.oc.oc.UpdatedBy,
+                   IsDelete = status.oc.oc.IsDelete,
+                   CreatedByName = (string.IsNullOrEmpty(status.oc.uc.FirstName) ? "" : (status.oc.uc.FirstName + " ")) + status.oc.uc.LastName ?? status.oc.uc.LastName,
+                   UpdatedByName = (string.IsNullOrEmpty(status.um.FirstName) ? "" : (status.um.FirstName + " ")) + status.um.LastName,
+               })
+                .ApplySort(employeeStatusHistoryParams.OrderBy,
+                _propertyMappingService.GetPropertyMapping<EmployeeShiftHistoryDto, CfgEmployeeShift>());
+
+            if (!string.IsNullOrEmpty(employeeStatusHistoryParams.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = employeeStatusHistoryParams.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.MstShift.ShiftName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.MstEmployee.FirstName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.MstEmployee.LastName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.CreatedByName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    );
+            }
+
+            return PagedList<CfgEmployeeShift>.Create(collectionBeforePaging,
+                employeeStatusHistoryParams.PageNumber,
+                employeeStatusHistoryParams.PageSize);
+        }
+
+        public PagedList<CfgEmployeeDepartment> GetEmployeeDepartmentHistory(Guid id, EmployeeDepartmentHistoryResourceParameters employeeDepartmentHistoryParams)
+        {
+            var collectionBeforePaging =
+                        _context.CfgEmployeeDepartment.Where(a => a.IsDelete == false && a.EmployeeID == id)
+                        .GroupJoin(_context.MstEmployee, oc => oc.CreatedBy.Value, uc => uc.EmployeeID, (oc, uc) => new { oc = oc, uc = uc.FirstOrDefault() })
+                       .GroupJoin(_context.MstEmployee, oc => oc.oc.UpdatedBy, um => um.EmployeeID, (oc, um) => new { oc = oc, um = um.FirstOrDefault() })
+                       .Select(status => new CfgEmployeeDepartment()
+                       {
+                           EmployeeDepartmentID = status.oc.oc.EmployeeDepartmentID,
+                           MstEmployee = status.oc.oc.MstEmployee,
+                           EmployeeID = status.oc.oc.EmployeeID,
+                           MstDepartment = status.oc.oc.MstDepartment,
+                           DepartmentID = status.oc.oc.DepartmentID,
+
+                           CreatedOn = status.oc.oc.CreatedOn,
+                           CreatedBy = status.oc.oc.CreatedBy,
+                           UpdatedOn = status.oc.oc.UpdatedOn,
+                           UpdatedBy = status.oc.oc.UpdatedBy,
+                           IsDelete = status.oc.oc.IsDelete,
+                           CreatedByName = (string.IsNullOrEmpty(status.oc.uc.FirstName) ? "" : (status.oc.uc.FirstName + " ")) + status.oc.uc.LastName ?? status.oc.uc.LastName,
+                           UpdatedByName = (string.IsNullOrEmpty(status.um.FirstName) ? "" : (status.um.FirstName + " ")) + status.um.LastName,
+                       })
+                        .ApplySort(employeeDepartmentHistoryParams.OrderBy,
+                        _propertyMappingService.GetPropertyMapping<EmployeeDepartmentHistoryDto, CfgEmployeeDepartment>());
+
+            if (!string.IsNullOrEmpty(employeeDepartmentHistoryParams.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = employeeDepartmentHistoryParams.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.MstDepartment.DepartmentName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.MstEmployee.FirstName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.MstEmployee.LastName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.CreatedByName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    );
+            }
+
+            return PagedList<CfgEmployeeDepartment>.Create(collectionBeforePaging,
+                employeeDepartmentHistoryParams.PageNumber,
+                employeeDepartmentHistoryParams.PageSize);
+        }
+
         #endregion Employee History
     }
 }
