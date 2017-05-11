@@ -1178,12 +1178,13 @@ namespace ESPL.KP.Services
             //     .ApplySort(occurrenceBookStatusHistoryParams.OrderBy,
             //     _propertyMappingService.GetPropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>());
             var collectionBeforePaging = _context.OccurrenceStatusHistory.Where(s => s.OBID == id)
+                .Include(occurrence => occurrence.MstOccurrenceBook)
                .GroupJoin(_context.MstEmployee, oc => oc.CreatedBy.Value, uc => uc.EmployeeID, (oc, uc) => new { oc = oc, uc = uc.FirstOrDefault() })
                .GroupJoin(_context.MstEmployee, oc => oc.oc.UpdatedBy, um => um.EmployeeID, (oc, um) => new { oc = oc, um = um.FirstOrDefault() })
                .Select(status => new OccurrenceStatusHistory()
                {
                    OccurrenceStatusHistoryID = status.oc.oc.OccurrenceStatusHistoryID,
-                   //MstOccurrenceBook = status.oc.oc.MstOccurrenceBook,
+                   MstOccurrenceBook = status.oc.oc.MstOccurrenceBook,
                    OBID = status.oc.oc.OBID,
                    MstStatus = status.oc.oc.MstStatus,
                    StatusID = status.oc.oc.StatusID,
