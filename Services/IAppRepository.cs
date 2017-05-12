@@ -176,6 +176,8 @@ namespace ESPL.KP.Services
         void AddEmployeeDepartmentHistory(CfgEmployeeDepartment employeeDepartmentHistory);
         void AddEmployeeDesignationHistory(CfgEmployeeDesignation employeeDesignationHistory);
         void AddEmployeeShiftHistory(CfgEmployeeShift employeeShiftHistory);
+        PagedList<CfgEmployeeShift> GetEmployeeShiftHistory(Guid id, EmployeeShiftHistoryResourceParameters employeeStatusHistoryParams);
+        PagedList<CfgEmployeeDepartment> GetEmployeeDepartmentHistory(Guid id, EmployeeDepartmentHistoryResourceParameters employeeDepartmentHistoryParams);
         #endregion Employee History
     }
 }
