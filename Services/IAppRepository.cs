@@ -20,27 +20,6 @@ namespace ESPL.KP.Services
 {
     public interface IAppRepository
     {
-        #region Authors
-        PagedList<Author> GetAuthors(AuthorsResourceParameters authorsResourceParameters);
-        Author GetAuthor(Guid authorId);
-        IEnumerable<Author> GetAuthors(IEnumerable<Guid> authorIds);
-        void AddAuthor(Author author);
-        void DeleteAuthor(Author author);
-        void UpdateAuthor(Author author);
-        bool AuthorExists(Guid authorId);
-
-        #endregion
-
-        #region Books
-        IEnumerable<Book> GetBooksForAuthor(Guid authorId);
-        Book GetBookForAuthor(Guid authorId, Guid bookId);
-        void AddBookForAuthor(Guid authorId, Book book);
-        void UpdateBookForAuthor(Book book);
-        void DeleteBook(Book book);
-
-        #endregion
-
-
         #region Department
         PagedList<MstDepartment> GetDepartments(DepartmentsResourceParameters departmentResourceParameters);
         MstDepartment GetDepartment(Guid departmentId);
@@ -178,7 +157,7 @@ namespace ESPL.KP.Services
 
         #region OccurrenceAssignmentHistory
         void AddOccurrenceAssignmentHistory(OccurrenceAssignmentHistory occurrenceBookhistory);
-        PagedList<OccurrenceAssignmentHistory> GetAssignmentHistory(Guid obid,OccurrenceBookAssignedToResourceParameters occurrenceBookAssignedHistory);
+        PagedList<OccurrenceAssignmentHistory> GetAssignmentHistory(Guid obid, OccurrenceBookAssignedToResourceParameters occurrenceBookAssignedHistory);
         #endregion OccurrenceAssignmentHistory
 
         #region OccurrenceReviewHistory
@@ -197,6 +176,8 @@ namespace ESPL.KP.Services
         void AddEmployeeDepartmentHistory(CfgEmployeeDepartment employeeDepartmentHistory);
         void AddEmployeeDesignationHistory(CfgEmployeeDesignation employeeDesignationHistory);
         void AddEmployeeShiftHistory(CfgEmployeeShift employeeShiftHistory);
+        PagedList<CfgEmployeeShift> GetEmployeeShiftHistory(Guid id, EmployeeShiftHistoryResourceParameters employeeStatusHistoryParams);
+        PagedList<CfgEmployeeDepartment> GetEmployeeDepartmentHistory(Guid id, EmployeeDepartmentHistoryResourceParameters employeeDepartmentHistoryParams);
         #endregion Employee History
     }
 }

@@ -64,7 +64,8 @@ namespace ESPL.KP.Helpers.Core
         public const string OccurrenceReviewRead = "OR" + "." + "R";
         public const string OccurrenceReviewCreate = "OR" + "." + "C";
         public const string OccurrenceReviewUpdate = "OR" + "." + "U";
-
-
+        
+        public const string EmployeeShiftHistoryRead = "ES" + "." + "R";
+        public const string EmployeeDepartmentHistoryRead = "ED" + "." + "R";
     }
 }

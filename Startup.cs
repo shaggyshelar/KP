@@ -256,17 +256,6 @@ namespace ESPL.KP
 
             AutoMapper.Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<ESPL.KP.Entities.Author, ESPL.KP.Models.AuthorDto>()
-                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src =>
-                    $"{src.FirstName} {src.LastName}"))
-                    .ForMember(dest => dest.Age, opt => opt.MapFrom(src =>
-                    src.DateOfBirth.GetCurrentAge(src.DateOfDeath)));
-                cfg.CreateMap<ESPL.KP.Entities.Book, ESPL.KP.Models.BookDto>();
-                cfg.CreateMap<ESPL.KP.Models.AuthorForCreationDto, ESPL.KP.Entities.Author>();
-                cfg.CreateMap<ESPL.KP.Models.AuthorForCreationWithDateOfDeathDto, ESPL.KP.Entities.Author>();
-                cfg.CreateMap<ESPL.KP.Models.BookForCreationDto, ESPL.KP.Entities.Book>();
-                cfg.CreateMap<ESPL.KP.Models.BookForUpdateDto, ESPL.KP.Entities.Book>();
-                cfg.CreateMap<ESPL.KP.Entities.Book, ESPL.KP.Models.BookForUpdateDto>();
                 cfg.CreateMap<ESPL.KP.Entities.Core.AppModule, ESPL.KP.Models.Core.AppModuleDto>();
                 cfg.CreateMap<ESPL.KP.Models.Core.AppModuleForCreationDto, ESPL.KP.Entities.Core.AppModule>();
                 cfg.CreateMap<KP.Models.AppModuleForUpdationDto, ESPL.KP.Entities.Core.AppModule>();
@@ -364,15 +353,18 @@ namespace ESPL.KP
                 cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceBook, ESPL.KP.Models.OccurrenceBookForStatusHistoryCreationDto>();
                 //    .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src =>
                 //    src.MstStatus.StatusName));
-                cfg.CreateMap<ESPL.KP.Entities.CfgEmployeeArea, ESPL.KP.Models.EmployeeForUpdationDto>();
-                cfg.CreateMap<ESPL.KP.Models.EmployeeForUpdationDto, ESPL.KP.Entities.CfgEmployeeArea>();
-                cfg.CreateMap<ESPL.KP.Entities.CfgEmployeeDepartment, ESPL.KP.Models.EmployeeForUpdationDto>();
-                cfg.CreateMap<ESPL.KP.Models.EmployeeForUpdationDto, ESPL.KP.Entities.CfgEmployeeDepartment>();
-                cfg.CreateMap<ESPL.KP.Entities.CfgEmployeeDesignation, ESPL.KP.Models.EmployeeForUpdationDto>();
-                cfg.CreateMap<ESPL.KP.Models.EmployeeForUpdationDto, ESPL.KP.Entities.CfgEmployeeDesignation>();
-                cfg.CreateMap<ESPL.KP.Entities.CfgEmployeeShift, ESPL.KP.Models.EmployeeForUpdationDto>();
-                cfg.CreateMap<ESPL.KP.Models.EmployeeForUpdationDto, ESPL.KP.Entities.CfgEmployeeShift>();
+                cfg.CreateMap<ESPL.KP.Entities.CfgEmployeeArea, ESPL.KP.Entities.MstEmployee>();
+                cfg.CreateMap<ESPL.KP.Entities.MstEmployee, ESPL.KP.Entities.CfgEmployeeArea>();
+                cfg.CreateMap<ESPL.KP.Entities.CfgEmployeeDepartment, ESPL.KP.Entities.MstEmployee>();
+                cfg.CreateMap<ESPL.KP.Entities.MstEmployee, ESPL.KP.Entities.CfgEmployeeDepartment>();
+                cfg.CreateMap<ESPL.KP.Entities.CfgEmployeeDesignation, ESPL.KP.Entities.MstEmployee>();
+                cfg.CreateMap<ESPL.KP.Entities.MstEmployee, ESPL.KP.Entities.CfgEmployeeDesignation>();
+                cfg.CreateMap<ESPL.KP.Entities.CfgEmployeeShift, ESPL.KP.Entities.MstEmployee>();
+                cfg.CreateMap<ESPL.KP.Entities.MstEmployee, ESPL.KP.Entities.CfgEmployeeShift>();
 
+
+                cfg.CreateMap<ESPL.KP.Entities.CfgEmployeeShift, ESPL.KP.Models.EmployeeShiftHistoryDto>();
+                cfg.CreateMap<ESPL.KP.Entities.CfgEmployeeDepartment, ESPL.KP.Models.EmployeeDepartmentHistoryDto>();
             });
 
             identitySeeder.Seed().Wait();
@@ -407,3 +399,4 @@ namespace ESPL.KP
         }
     }
 }
+

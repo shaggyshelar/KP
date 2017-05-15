@@ -40,123 +40,6 @@ namespace ESPL.KP.Services
             _roleMgr = roleMgr;
         }
 
-        public void AddAuthor(Author author)
-        {
-            author.Id = Guid.NewGuid();
-            _context.Authors.Add(author);
-
-            // the repository fills the id (instead of using identity columns)
-            if (author.Books.Any())
-            {
-                foreach (var book in author.Books)
-                {
-                    book.Id = Guid.NewGuid();
-                }
-            }
-        }
-
-        public void AddBookForAuthor(Guid authorId, Book book)
-        {
-            var author = GetAuthor(authorId);
-            if (author != null)
-            {
-                // if there isn't an id filled out (ie: we're not upserting),
-                // we should generate one
-                if (book.Id == null)
-                {
-                    book.Id = Guid.NewGuid();
-                }
-                author.Books.Add(book);
-            }
-        }
-
-        public bool AuthorExists(Guid authorId)
-        {
-            return _context.Authors.Any(a => a.Id == authorId);
-        }
-
-        public void DeleteAuthor(Author author)
-        {
-            _context.Authors.Remove(author);
-        }
-
-        public void DeleteBook(Book book)
-        {
-            _context.Books.Remove(book);
-        }
-
-        public Author GetAuthor(Guid authorId)
-        {
-            return _context.Authors.FirstOrDefault(a => a.Id == authorId);
-        }
-
-        public PagedList<Author> GetAuthors(
-            AuthorsResourceParameters authorsResourceParameters)
-        {
-            //var collectionBeforePaging = _context.Authors
-            //    .OrderBy(a => a.FirstName)
-            //    .ThenBy(a => a.LastName).AsQueryable();
-
-            var collectionBeforePaging =
-                _context.Authors.ApplySort(authorsResourceParameters.OrderBy,
-                _propertyMappingService.GetPropertyMapping<AuthorDto, Author>());
-
-            if (!string.IsNullOrEmpty(authorsResourceParameters.Genre))
-            {
-                // trim & ignore casing
-                var genreForWhereClause = authorsResourceParameters.Genre
-                    .Trim().ToLowerInvariant();
-                collectionBeforePaging = collectionBeforePaging
-                    .Where(a => a.Genre.ToLowerInvariant() == genreForWhereClause);
-            }
-
-            if (!string.IsNullOrEmpty(authorsResourceParameters.SearchQuery))
-            {
-                // trim & ignore casing
-                var searchQueryForWhereClause = authorsResourceParameters.SearchQuery
-                    .Trim().ToLowerInvariant();
-
-                collectionBeforePaging = collectionBeforePaging
-                    .Where(a => a.Genre.ToLowerInvariant().Contains(searchQueryForWhereClause)
-                    || a.FirstName.ToLowerInvariant().Contains(searchQueryForWhereClause)
-                    || a.LastName.ToLowerInvariant().Contains(searchQueryForWhereClause));
-            }
-
-            return PagedList<Author>.Create(collectionBeforePaging,
-                authorsResourceParameters.PageNumber,
-                authorsResourceParameters.PageSize);
-        }
-
-        public IEnumerable<Author> GetAuthors(IEnumerable<Guid> authorIds)
-        {
-            return _context.Authors.Where(a => authorIds.Contains(a.Id))
-                .OrderBy(a => a.FirstName)
-                .OrderBy(a => a.LastName)
-                .ToList();
-        }
-
-        public void UpdateAuthor(Author author)
-        {
-            // no code in this implementation
-        }
-
-        public Book GetBookForAuthor(Guid authorId, Guid bookId)
-        {
-            return _context.Books
-              .Where(b => b.AuthorId == authorId && b.Id == bookId).FirstOrDefault();
-        }
-
-        public IEnumerable<Book> GetBooksForAuthor(Guid authorId)
-        {
-            return _context.Books
-                        .Where(b => b.AuthorId == authorId).OrderBy(b => b.Title).ToList();
-        }
-
-        public void UpdateBookForAuthor(Book book)
-        {
-            // no code in this implementation
-        }
-
         public bool Save()
         {
             return (_context.SaveChanges() >= 0);
@@ -1094,11 +977,11 @@ namespace ESPL.KP.Services
                                                                  };
             IQueryable<PriorityStatistics> OccurrencePriorityStats = from p in _context.MstOccurrenceBook
                                                                      where p.IsDelete == false
-                                                                     group p by new { Priority = p.Priority } into g
+                                                                     group p by p.Priority into g
                                                                      select new PriorityStatistics
                                                                      {
-                                                                         Priority = g.Key.Priority.ToString(),
-                                                                         Count = g.Key.Priority.ToString().Count(),
+                                                                         Priority = g.Key.ToString(),
+                                                                         Count = g.Count(),
                                                                      };
             int OccurrenceCount = _context.MstOccurrenceBook.Where(a => a.IsDelete == false).Count();
             #endregion Occurrence Stats
@@ -1290,11 +1173,12 @@ namespace ESPL.KP.Services
         #region Status
         public PagedList<OccurrenceStatusHistory> GetStatusHistory(Guid id, OccurrenceBookStatusResourceParameters occurrenceBookStatusHistoryParams)
         {
-            var collectionBeforePaging =
-                _context.OccurrenceStatusHistory
-                .ApplySort(occurrenceBookStatusHistoryParams.OrderBy,
-                _propertyMappingService.GetPropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>());
-            _context.OccurrenceStatusHistory.Where(s => s.OBID == id)
+            // var collectionBeforePaging =
+            //     _context.OccurrenceStatusHistory
+            //     .ApplySort(occurrenceBookStatusHistoryParams.OrderBy,
+            //     _propertyMappingService.GetPropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>());
+            var collectionBeforePaging = _context.OccurrenceStatusHistory.Where(s => s.OBID == id)
+                .Include(occurrence => occurrence.MstOccurrenceBook)
                .GroupJoin(_context.MstEmployee, oc => oc.CreatedBy.Value, uc => uc.EmployeeID, (oc, uc) => new { oc = oc, uc = uc.FirstOrDefault() })
                .GroupJoin(_context.MstEmployee, oc => oc.oc.UpdatedBy, um => um.EmployeeID, (oc, um) => new { oc = oc, um = um.FirstOrDefault() })
                .Select(status => new OccurrenceStatusHistory()
@@ -1315,7 +1199,7 @@ namespace ESPL.KP.Services
                    UpdatedByName = (string.IsNullOrEmpty(status.um.FirstName) ? "" : (status.um.FirstName + " ")) + status.um.LastName,
                })
             .ApplySort(occurrenceBookStatusHistoryParams.OrderBy,
-            _propertyMappingService.GetPropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>());
+                        _propertyMappingService.GetPropertyMapping<OccurrenceBookStatusHistoryDto, OccurrenceStatusHistory>());
 
             // var collectionBeforePaging =
             //      _context.OccurrenceStatusHistory
@@ -1368,6 +1252,95 @@ namespace ESPL.KP.Services
             employeeShiftHistory.EmployeeShiftID = new Guid();
             _context.CfgEmployeeShift.Add(employeeShiftHistory);
         }
+
+        public PagedList<CfgEmployeeShift> GetEmployeeShiftHistory(Guid id, EmployeeShiftHistoryResourceParameters employeeStatusHistoryParams)
+        {
+            var collectionBeforePaging =
+                _context.CfgEmployeeShift.Where(a => a.IsDelete == false && a.EmployeeID == id)
+                .GroupJoin(_context.MstEmployee, oc => oc.CreatedBy.Value, uc => uc.EmployeeID, (oc, uc) => new { oc = oc, uc = uc.FirstOrDefault() })
+               .GroupJoin(_context.MstEmployee, oc => oc.oc.UpdatedBy, um => um.EmployeeID, (oc, um) => new { oc = oc, um = um.FirstOrDefault() })
+               .Select(status => new CfgEmployeeShift()
+               {
+                   EmployeeShiftID = status.oc.oc.EmployeeShiftID,
+                   MstEmployee = status.oc.oc.MstEmployee,
+                   EmployeeID = status.oc.oc.EmployeeID,
+                   MstShift = status.oc.oc.MstShift,
+                   ShiftID = status.oc.oc.ShiftID,
+
+                   CreatedOn = status.oc.oc.CreatedOn,
+                   CreatedBy = status.oc.oc.CreatedBy,
+                   UpdatedOn = status.oc.oc.UpdatedOn,
+                   UpdatedBy = status.oc.oc.UpdatedBy,
+                   IsDelete = status.oc.oc.IsDelete,
+                   CreatedByName = (string.IsNullOrEmpty(status.oc.uc.FirstName) ? "" : (status.oc.uc.FirstName + " ")) + status.oc.uc.LastName ?? status.oc.uc.LastName,
+                   UpdatedByName = (string.IsNullOrEmpty(status.um.FirstName) ? "" : (status.um.FirstName + " ")) + status.um.LastName,
+               })
+                .ApplySort(employeeStatusHistoryParams.OrderBy,
+                _propertyMappingService.GetPropertyMapping<EmployeeShiftHistoryDto, CfgEmployeeShift>());
+
+            if (!string.IsNullOrEmpty(employeeStatusHistoryParams.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = employeeStatusHistoryParams.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.MstShift.ShiftName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.MstEmployee.FirstName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.MstEmployee.LastName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.CreatedByName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    );
+            }
+
+            return PagedList<CfgEmployeeShift>.Create(collectionBeforePaging,
+                employeeStatusHistoryParams.PageNumber,
+                employeeStatusHistoryParams.PageSize);
+        }
+
+        public PagedList<CfgEmployeeDepartment> GetEmployeeDepartmentHistory(Guid id, EmployeeDepartmentHistoryResourceParameters employeeDepartmentHistoryParams)
+        {
+            var collectionBeforePaging =
+                        _context.CfgEmployeeDepartment.Where(a => a.IsDelete == false && a.EmployeeID == id)
+                        .GroupJoin(_context.MstEmployee, oc => oc.CreatedBy.Value, uc => uc.EmployeeID, (oc, uc) => new { oc = oc, uc = uc.FirstOrDefault() })
+                       .GroupJoin(_context.MstEmployee, oc => oc.oc.UpdatedBy, um => um.EmployeeID, (oc, um) => new { oc = oc, um = um.FirstOrDefault() })
+                       .Select(status => new CfgEmployeeDepartment()
+                       {
+                           EmployeeDepartmentID = status.oc.oc.EmployeeDepartmentID,
+                           MstEmployee = status.oc.oc.MstEmployee,
+                           EmployeeID = status.oc.oc.EmployeeID,
+                           MstDepartment = status.oc.oc.MstDepartment,
+                           DepartmentID = status.oc.oc.DepartmentID,
+
+                           CreatedOn = status.oc.oc.CreatedOn,
+                           CreatedBy = status.oc.oc.CreatedBy,
+                           UpdatedOn = status.oc.oc.UpdatedOn,
+                           UpdatedBy = status.oc.oc.UpdatedBy,
+                           IsDelete = status.oc.oc.IsDelete,
+                           CreatedByName = (string.IsNullOrEmpty(status.oc.uc.FirstName) ? "" : (status.oc.uc.FirstName + " ")) + status.oc.uc.LastName ?? status.oc.uc.LastName,
+                           UpdatedByName = (string.IsNullOrEmpty(status.um.FirstName) ? "" : (status.um.FirstName + " ")) + status.um.LastName,
+                       })
+                        .ApplySort(employeeDepartmentHistoryParams.OrderBy,
+                        _propertyMappingService.GetPropertyMapping<EmployeeDepartmentHistoryDto, CfgEmployeeDepartment>());
+
+            if (!string.IsNullOrEmpty(employeeDepartmentHistoryParams.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = employeeDepartmentHistoryParams.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.MstDepartment.DepartmentName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.MstEmployee.FirstName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.MstEmployee.LastName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.CreatedByName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    );
+            }
+
+            return PagedList<CfgEmployeeDepartment>.Create(collectionBeforePaging,
+                employeeDepartmentHistoryParams.PageNumber,
+                employeeDepartmentHistoryParams.PageSize);
+        }
+
         #endregion Employee History
     }
 }

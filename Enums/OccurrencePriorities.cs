@@ -2,10 +2,10 @@ namespace ESPL.KP.Enums
 {
     public enum OccurrencePriorities
     {
-        Critical,
+        Critical=1,
 
-        Major,
+        Major=2,
 
-        Minor
+        Minor=3
     }
 }
