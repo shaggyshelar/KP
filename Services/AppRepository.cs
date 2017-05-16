@@ -61,7 +61,8 @@ namespace ESPL.KP.Services
 
                 collectionBeforePaging = collectionBeforePaging
                     .Where(a => a.DepartmentName.ToLowerInvariant().Contains(searchQueryForWhereClause)
-                    || a.DepartmentDespcription.ToLowerInvariant().Contains(searchQueryForWhereClause));
+                    || (a.DepartmentDespcription!=null 
+                        && a.DepartmentDespcription.ToLowerInvariant().Contains(searchQueryForWhereClause)));
             }
 
             return PagedList<MstDepartment>.Create(collectionBeforePaging,
