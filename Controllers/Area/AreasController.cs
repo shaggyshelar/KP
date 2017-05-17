@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using ESPL.KP.DapperRepo;
 using ESPL.KP.Entities;
 using ESPL.KP.Helpers;
 using ESPL.KP.Helpers.Area;
@@ -52,7 +53,13 @@ namespace ESPL.KP.Controllerss.Area
                 return BadRequest();
             }
 
+            var _dapperRepo = new DapperRepository();
+            var DapperAreasFromRepo = _dapperRepo.GetAllAreas();
+
+
+
             var AreasFromRepo = _appRepository.GetAreas(AreasResourceParameters);
+
 
             var Areas = Mapper.Map<IEnumerable<AreaDto>>(AreasFromRepo);
 
