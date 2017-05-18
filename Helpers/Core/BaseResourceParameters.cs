@@ -6,7 +6,7 @@ namespace ESPL.KP.Helpers.Core
         public int PageNumber { get; set; } = 1;
 
         private int _pageSize = 10;
-        public int PageSize
+        public virtual int PageSize
         {
             get
             {

@@ -61,7 +61,7 @@ namespace ESPL.KP.Services
 
                 collectionBeforePaging = collectionBeforePaging
                     .Where(a => a.DepartmentName.ToLowerInvariant().Contains(searchQueryForWhereClause)
-                    || (a.DepartmentDespcription!=null 
+                    || (a.DepartmentDespcription != null
                         && a.DepartmentDespcription.ToLowerInvariant().Contains(searchQueryForWhereClause)));
             }
 
@@ -632,7 +632,7 @@ namespace ESPL.KP.Services
 
             return PagedList<AppModule>.Create(collectionBeforePaging,
                 appModuleResourceParameters.PageNumber,
-                appModuleResourceParameters.PageSize);
+                appModuleResourceParameters.PageSize == 0 ? collectionBeforePaging.Count() : appModuleResourceParameters.PageSize);
         }
 
         public AppModule GetAppModule(Guid appModuleId)
@@ -758,7 +758,7 @@ namespace ESPL.KP.Services
 
             return PagedList<IdentityRole>.Create(collectionBeforePaging,
                 esplRoleResourceParameters.PageNumber,
-                esplRoleResourceParameters.PageSize);
+                esplRoleResourceParameters.PageSize == 0 ? collectionBeforePaging.Count() : esplRoleResourceParameters.PageSize);
         }
 
         public IdentityRole GetAppRole(Guid esplRoleId)
