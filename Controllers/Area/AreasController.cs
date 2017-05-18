@@ -24,7 +24,7 @@ namespace ESPL.KP.Controllerss.Area
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
-
+        DapperRepository _dapperRepo = new DapperRepository();
         public AreasController(IAppRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
@@ -53,12 +53,10 @@ namespace ESPL.KP.Controllerss.Area
                 return BadRequest();
             }
 
-            var _dapperRepo = new DapperRepository();
-            var DapperAreasFromRepo = _dapperRepo.GetAllAreas();
 
+            var AreasFromRepo = _dapperRepo.GetAllAreas(AreasResourceParameters);
 
-
-            var AreasFromRepo = _appRepository.GetAreas(AreasResourceParameters);
+            // var AreasFromRepo = _appRepository.GetAreas(AreasResourceParameters);
 
 
             var Areas = Mapper.Map<IEnumerable<AreaDto>>(AreasFromRepo);
@@ -209,7 +207,8 @@ namespace ESPL.KP.Controllerss.Area
 
             SetCreationUserData(AreaEntity);
 
-            _appRepository.AddArea(AreaEntity);
+            _dapperRepo.AddArea(AreaEntity);
+            //_appRepository.AddArea(AreaEntity);
 
             if (!_appRepository.Save())
             {
@@ -252,12 +251,13 @@ namespace ESPL.KP.Controllerss.Area
                 return NotFound();
             }
 
+            _dapperRepo.DeleteArea(id);
             //....... Soft Delete
-            AreaFromRepo.IsDelete = true;
-            if (!_appRepository.Save())
-            {
-                throw new Exception($"Deleting Area {id} failed on save.");
-            }
+            // AreaFromRepo.IsDelete = true;
+            // if (!_appRepository.Save())
+            // {
+            //     throw new Exception($"Deleting Area {id} failed on save.");
+            // }
 
             return NoContent();
         }
@@ -279,13 +279,7 @@ namespace ESPL.KP.Controllerss.Area
 
             SetItemHistoryData(area, areaRepo);
             Mapper.Map(area, areaRepo);
-            _appRepository.UpdateArea(areaRepo);
-            if (!_appRepository.Save())
-            {
-                throw new Exception("Updating an area failed on save.");
-                // return StatusCode(500, "A problem happened with handling your request.");
-            }
-
+            _dapperRepo.UpdateArea(areaRepo);
 
             return Ok(areaRepo);
         }

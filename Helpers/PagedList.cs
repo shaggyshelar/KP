@@ -40,7 +40,18 @@ namespace ESPL.KP.Helpers
         public static PagedList<T> Create(IQueryable<T> source, int pageNumber, int pageSize)
         {
             var count = source.Count();
-            if(pageSize>0 && pageNumber>0)
+            if (pageSize > 0 && pageNumber > 0)
+            {
+                var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+                return new PagedList<T>(items, count, pageNumber, pageSize);
+            }
+            return new PagedList<T>(new List<T>(), count, pageNumber, pageSize);
+        }
+
+        public static PagedList<T> Create(List<T> source, int pageNumber, int pageSize)
+        {
+            var count = source.Count();
+            if (pageSize > 0 && pageNumber > 0)
             {
                 var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
                 return new PagedList<T>(items, count, pageNumber, pageSize);
