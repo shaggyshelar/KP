@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ESPL.KP.Helpers.Core;
 using Microsoft.AspNetCore.Authorization;
+using ESPL.KP.DapperRepositoryInterfaces;
 
 namespace ESPL.KP.Controllers.Area
 {
@@ -18,9 +19,9 @@ namespace ESPL.KP.Controllers.Area
     public class AreaCollectionsController : Controller
     {
         //Global Declaration
-        private IAppRepository _appRepository;
+        private IDapperRepository _appRepository;
         //Constructor
-        public AreaCollectionsController(IAppRepository appRepository)
+        public AreaCollectionsController(IDapperRepository appRepository)
         {
             _appRepository = appRepository;
         }
@@ -41,11 +42,6 @@ namespace ESPL.KP.Controllers.Area
             foreach (var Area in AreaEntities)
             {
                 _appRepository.AddArea(Area);
-            }
-
-            if (!_appRepository.Save())
-            {
-                throw new Exception("Creating an Area collection failed on save.");
             }
 
             var AreaCollectionToReturn = Mapper.Map<IEnumerable<AreaDto>>(AreaEntities);

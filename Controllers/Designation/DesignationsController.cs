@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Authorization;
+using ESPL.KP.DapperRepositoryInterfaces;
 
 namespace ESPL.KP.Controllerss.Designation
 {
@@ -19,12 +20,12 @@ namespace ESPL.KP.Controllerss.Designation
     [Authorize]
     public class DesignationsController : Controller
     {
-        private IAppRepository _appRepository;
+        private IDapperRepository _appRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
 
-        public DesignationsController(IAppRepository appRepository,
+        public DesignationsController(IDapperRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService)
@@ -204,12 +205,6 @@ namespace ESPL.KP.Controllerss.Designation
 
             _appRepository.AddDesignation(DesignationEntity);
 
-            if (!_appRepository.Save())
-            {
-                throw new Exception("Creating an Designation failed on save.");
-                // return StatusCode(500, "A problem happened with handling your request.");
-            }
-
             var DesignationToReturn = Mapper.Map<DesignationDto>(DesignationEntity);
 
             var links = CreateLinksForDesignation(DesignationToReturn.DesignationID, null);
@@ -245,14 +240,9 @@ namespace ESPL.KP.Controllerss.Designation
                 return NotFound();
             }
 
-            //_appRepository.DeleteDesignation(DesignationFromRepo);
             //....... Soft Delete
             DesignationFromRepo.IsDelete = true;
-
-            if (!_appRepository.Save())
-            {
-                throw new Exception($"Deleting Designation {id} failed on save.");
-            }
+            _appRepository.DeleteDesignation(id);
 
             return NoContent();
         }
@@ -265,11 +255,6 @@ namespace ESPL.KP.Controllerss.Designation
             {
                 return BadRequest();
             }
-            // if (!_appRepository.OccurrenceBookExists(id))
-            // {
-            //     return NotFound();
-            // }
-            //Mapper.Map(source,destination);
             var designationRepo = _appRepository.GetDesignation(id);
 
             if (designationRepo == null)
@@ -279,11 +264,6 @@ namespace ESPL.KP.Controllerss.Designation
             SetItemHistoryData(designation, designationRepo);
             Mapper.Map(designation, designationRepo);
             _appRepository.UpdateDesignation(designationRepo);
-            if (!_appRepository.Save())
-            {
-                throw new Exception("Updating an designation failed on save.");
-                // return StatusCode(500, "A problem happened with handling your request.");
-            }
 
 
             return Ok(designationRepo);
@@ -303,38 +283,12 @@ namespace ESPL.KP.Controllerss.Designation
 
             if (designationFromRepo == null)
             {
-                // var designationDto = new DesignationForCreationDto();
-                // patchDoc.ApplyTo(designationDto, ModelState);
-
-                // TryValidateModel(designationDto);
-
-                // if (!ModelState.IsValid)
-                // {
-                //     return new UnprocessableEntityObjectResult(ModelState);
-                // }
-
-                // var designationToAdd = Mapper.Map<MstDesignation>(designationDto);
-                // designationToAdd.DesignationID = id;
-
-                // _appRepository.AddDesignation(designationToAdd);
-
-                // if (!_appRepository.Save())
-                // {
-                //     throw new Exception($"Upserting in designation {id} failed on save.");
-                // }
-
-                // var designationToReturn = Mapper.Map<DesignationDto>(designationToAdd);
-                // return CreatedAtRoute("GetDesignation",
-                //     new { DesignationID = designationToReturn.DesignationID },
-                //     designationToReturn);
                 return NotFound();
             }
 
             var designationToPatch = Mapper.Map<DesignationForUpdationDto>(designationFromRepo);
 
             patchDoc.ApplyTo(designationToPatch, ModelState);
-
-            // patchDoc.ApplyTo(designationToPatch);
 
             TryValidateModel(designationToPatch);
 
@@ -346,11 +300,6 @@ namespace ESPL.KP.Controllerss.Designation
             Mapper.Map(designationToPatch, designationFromRepo);
 
             _appRepository.UpdateDesignation(designationFromRepo);
-
-            if (!_appRepository.Save())
-            {
-                throw new Exception($"Patching  designation {id} failed on save.");
-            }
 
             return NoContent();
         }
@@ -431,7 +380,7 @@ namespace ESPL.KP.Controllerss.Designation
 
         private void SetItemHistoryData(DesignationForUpdationDto model, MstDesignation modelRepo)
         {
-             model.CreatedOn = modelRepo.CreatedOn;
+            model.CreatedOn = modelRepo.CreatedOn;
             if (modelRepo.CreatedBy != null)
                 model.CreatedBy = modelRepo.CreatedBy.Value;
             model.UpdatedOn = DateTime.Now;

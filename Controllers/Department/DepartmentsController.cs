@@ -12,6 +12,7 @@ using ESPL.KP.Helpers.Core;
 using ESPL.KP.Helpers.Department;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Authorization;
+using ESPL.KP.DapperRepositoryInterfaces;
 
 namespace ESPL.KP.Controllers.Department
 {
@@ -19,12 +20,12 @@ namespace ESPL.KP.Controllers.Department
     [Authorize]
     public class DepartmentsController : Controller
     {
-        private IAppRepository _appRepository;
+        private IDapperRepository _appRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
 
-        public DepartmentsController(IAppRepository appRepository,
+        public DepartmentsController(IDapperRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService)
@@ -206,12 +207,6 @@ namespace ESPL.KP.Controllers.Department
 
             _appRepository.AddDepartment(departmentEntity);
 
-            if (!_appRepository.Save())
-            {
-                throw new Exception("Creating an department failed on save.");
-                // return StatusCode(500, "A problem happened with handling your request.");
-            }
-
             var departmentToReturn = Mapper.Map<DepartmentDto>(departmentEntity);
 
             var links = CreateLinksForDepartment(departmentToReturn.DepartmentID, null);
@@ -249,11 +244,7 @@ namespace ESPL.KP.Controllers.Department
 
             //_appRepository.DeleteDepartment(departmentFromRepo);
             //....... Soft Delete
-            departmentFromRepo.IsDelete = true;
-            if (!_appRepository.Save())
-            {
-                throw new Exception($"Deleting department {id} failed on save.");
-            }
+            _appRepository.DeleteDepartment(id);
 
             return NoContent();
         }
@@ -280,11 +271,6 @@ namespace ESPL.KP.Controllers.Department
             SetItemHistoryData(department, departmentRepo);
             Mapper.Map(department, departmentRepo);
             _appRepository.UpdateDepartment(departmentRepo);
-            if (!_appRepository.Save())
-            {
-                throw new Exception("Updating an department failed on save.");
-                // return StatusCode(500, "A problem happened with handling your request.");
-            }
 
 
             return Ok(departmentRepo);
@@ -304,30 +290,6 @@ namespace ESPL.KP.Controllers.Department
 
             if (departmentFromRepo == null)
             {
-                // var departmentDto = new DepartmentForCreationDto();
-                // patchDoc.ApplyTo(departmentDto, ModelState);
-
-                // TryValidateModel(departmentDto);
-
-                // if (!ModelState.IsValid)
-                // {
-                //     return new UnprocessableEntityObjectResult(ModelState);
-                // }
-
-                // var departmentToAdd = Mapper.Map<MstDepartment>(departmentDto);
-                // departmentToAdd.DepartmentID = id;
-
-                // _appRepository.AddDepartment(departmentToAdd);
-
-                // if (!_appRepository.Save())
-                // {
-                //     throw new Exception($"Upserting in department {id} failed on save.");
-                // }
-
-                // var departmentToReturn = Mapper.Map<DepartmentDto>(departmentToAdd);
-                // return CreatedAtRoute("GetDepartment",
-                //     new { DepartmentID = departmentToReturn.DepartmentID },
-                //     departmentToReturn);
                 return NotFound();
             }
 
@@ -348,11 +310,6 @@ namespace ESPL.KP.Controllers.Department
             Mapper.Map(departmentToPatch, departmentFromRepo);
 
             _appRepository.UpdateDepartment(departmentFromRepo);
-
-            if (!_appRepository.Save())
-            {
-                throw new Exception($"Patching  department {id} failed on save.");
-            }
 
             return NoContent();
         }

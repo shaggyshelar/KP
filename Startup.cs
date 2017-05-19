@@ -29,6 +29,8 @@ using System.Collections.Generic;
 using ESPL.KP.Helpers.Core;
 using System;
 using System.Reflection;
+using ESPL.KP.DapperRepositoryInterfaces;
+using ESPL.KP.DapperRepo;
 
 namespace ESPL.KP
 {
@@ -151,6 +153,7 @@ namespace ESPL.KP
 
             // register the repository
             services.AddScoped<IAppRepository, AppRepository>();
+            services.AddScoped<IDapperRepository, DapperRepository>();
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 

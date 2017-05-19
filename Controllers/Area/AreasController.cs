@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using ESPL.KP.DapperRepo;
+using ESPL.KP.DapperRepositoryInterfaces;
 using ESPL.KP.Entities;
 using ESPL.KP.Helpers;
 using ESPL.KP.Helpers.Area;
@@ -20,12 +21,11 @@ namespace ESPL.KP.Controllerss.Area
     [Authorize]
     public class AreasController : Controller
     {
-        private IAppRepository _appRepository;
+        private IDapperRepository _appRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
-        DapperRepository _dapperRepo = new DapperRepository();
-        public AreasController(IAppRepository appRepository,
+        public AreasController(IDapperRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService)
@@ -54,7 +54,7 @@ namespace ESPL.KP.Controllerss.Area
             }
 
 
-            var AreasFromRepo = _dapperRepo.GetAllAreas(AreasResourceParameters);
+            var AreasFromRepo = _appRepository.GetAllAreas(AreasResourceParameters);
 
             // var AreasFromRepo = _appRepository.GetAreas(AreasResourceParameters);
 
@@ -175,6 +175,7 @@ namespace ESPL.KP.Controllerss.Area
                 return BadRequest();
             }
 
+            //var AreaFromRepo = _appRepository.GetArea(id);
             var AreaFromRepo = _appRepository.GetArea(id);
 
             if (AreaFromRepo == null)
@@ -207,14 +208,7 @@ namespace ESPL.KP.Controllerss.Area
 
             SetCreationUserData(AreaEntity);
 
-            _dapperRepo.AddArea(AreaEntity);
-            //_appRepository.AddArea(AreaEntity);
-
-            if (!_appRepository.Save())
-            {
-                throw new Exception("Creating an Area failed on save.");
-                // return StatusCode(500, "A problem happened with handling your request.");
-            }
+            _appRepository.AddArea(AreaEntity);
 
             var AreaToReturn = Mapper.Map<AreaDto>(AreaEntity);
 
@@ -251,13 +245,7 @@ namespace ESPL.KP.Controllerss.Area
                 return NotFound();
             }
 
-            _dapperRepo.DeleteArea(id);
-            //....... Soft Delete
-            // AreaFromRepo.IsDelete = true;
-            // if (!_appRepository.Save())
-            // {
-            //     throw new Exception($"Deleting Area {id} failed on save.");
-            // }
+            _appRepository.DeleteArea(id);
 
             return NoContent();
         }
@@ -279,7 +267,7 @@ namespace ESPL.KP.Controllerss.Area
 
             SetItemHistoryData(area, areaRepo);
             Mapper.Map(area, areaRepo);
-            _dapperRepo.UpdateArea(areaRepo);
+            _appRepository.UpdateArea(areaRepo);
 
             return Ok(areaRepo);
         }
@@ -317,11 +305,6 @@ namespace ESPL.KP.Controllerss.Area
             Mapper.Map(areaToPatch, areaFromRepo);
 
             _appRepository.UpdateArea(areaFromRepo);
-
-            if (!_appRepository.Save())
-            {
-                throw new Exception($"Patching  area {id} failed on save.");
-            }
 
             return NoContent();
         }

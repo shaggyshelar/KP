@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using ESPL.KP.Helpers.Core;
+using ESPL.KP.DapperRepositoryInterfaces;
 
 namespace ESPL.KP.Controllers.Department
 {
@@ -17,9 +18,9 @@ namespace ESPL.KP.Controllers.Department
     [Authorize]
     public class DepartmentCollectionsController : Controller
     {
-        private IAppRepository _appRepository;
+        private IDapperRepository _appRepository;
 
-        public DepartmentCollectionsController(IAppRepository appRepository)
+        public DepartmentCollectionsController(IDapperRepository appRepository)
         {
             _appRepository = appRepository;
         }
@@ -39,11 +40,6 @@ namespace ESPL.KP.Controllers.Department
             foreach (var department in departmentEntities)
             {
                 _appRepository.AddDepartment(department);
-            }
-
-            if (!_appRepository.Save())
-            {
-                throw new Exception("Creating an department collection failed on save.");
             }
 
             var departmentCollectionToReturn = Mapper.Map<IEnumerable<DepartmentDto>>(departmentEntities);
