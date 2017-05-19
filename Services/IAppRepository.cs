@@ -146,6 +146,7 @@ namespace ESPL.KP.Services
         void DeleteEmployee(MstEmployee employee);
         void UpdateEmployee(MstEmployee employee);
         bool EmployeeExists(Guid authorId);
+        List<AppUser> GetUsersForEmployees();
 
         #endregion
 

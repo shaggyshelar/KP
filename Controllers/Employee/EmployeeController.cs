@@ -7,6 +7,7 @@ using ESPL.KP.Helpers;
 using ESPL.KP.Helpers.Core;
 using ESPL.KP.Helpers.Employee;
 using ESPL.KP.Models;
+using ESPL.KP.Models.Core;
 using ESPL.KP.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -589,6 +590,26 @@ namespace KP.Controllers.Employee
             }
         }
 
+        [HttpGet("userLookup", Name = "GetEmployeeUserLookups")]
+        [Authorize(Policy = "IsSuperAdmin")]
+        public IActionResult GetEmployeeUserLookups([FromHeader(Name = "Accept")]string mediaType)
+        {
+            var esplUsersFromRepo = _appRepository.GetUsersForEmployees();
+            var esplUsers = new List<AppUserDto>();
+            esplUsersFromRepo.ForEach(esplUser =>
+            {
+                esplUsers.Add(
+                new AppUserDto()
+                {
+                    Id = new Guid(esplUser.Id),
+                    FirstName = esplUser.FirstName,
+                    LastName = esplUser.LastName,
+                    Email = esplUser.Email,
+                    UserName = esplUser.UserName
+                });
+            });
+            return Ok(esplUsers);
+        }
 
         [HttpOptions]
         public IActionResult GetEmployeeOptions()
@@ -965,6 +986,6 @@ namespace KP.Controllers.Employee
             }
         }
 
-
+        
     }
 }
