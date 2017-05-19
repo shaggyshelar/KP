@@ -12,11 +12,8 @@ namespace ESPL.KP.Entities {
         [MaxLength (50)]
         public string DesignationName { get; set; }
 
+        [Required]
         [MaxLength (20)]
         public string DesignationCode { get; set; }
-        
-
-    //    public ICollection<MstEmployee> MstEmployees { get; set; }
-    //         = new List<MstEmployee>();
     }
 }

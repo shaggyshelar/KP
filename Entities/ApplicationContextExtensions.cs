@@ -326,6 +326,7 @@ namespace ESPL.KP.Entities
                 new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709471111"),
                     DepartmentName = "General Service Unit (GSU)",
+                    DepartmentCode="GSU",
                     DepartmentDespcription = "A paramilitary wing to deal with situations affecting internal security and to be a reserve force to deal with special operations and civil disorders.",
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
@@ -333,6 +334,7 @@ namespace ESPL.KP.Entities
                 new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709472222"),
                     DepartmentName = "Anti Stock Theft Unit",
+                    DepartmentCode="AST",
                     DepartmentDespcription = "Anti Stock Theft Unit for stock ",
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
@@ -340,6 +342,7 @@ namespace ESPL.KP.Entities
                 new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709473333"),
                     DepartmentName = "Criminal Investigation Department",
+                    DepartmentCode="CID",
                     DepartmentDespcription = "Responsible for investigating complex cases.",
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
@@ -347,6 +350,7 @@ namespace ESPL.KP.Entities
                 new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709474444"),
                     DepartmentName = "Traffic Police Department",
+                    DepartmentCode="TPD",
                     DepartmentDespcription = "Force to enforce traffic laws in the republic.",
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
@@ -354,6 +358,7 @@ namespace ESPL.KP.Entities
                 new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709475555"),
                     DepartmentName = "Kenya Police College",
+                    DepartmentCode="KPC",
                     DepartmentDespcription = "Training College for Police cadets.",
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
@@ -361,6 +366,7 @@ namespace ESPL.KP.Entities
                 new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709476666"),
                     DepartmentName = "Kenya Police Air Wing",
+                    DepartmentCode="KPAW",
                     DepartmentDespcription = "Provides air support and surveillance to troops on ground.",
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
@@ -368,6 +374,7 @@ namespace ESPL.KP.Entities
                 new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709477777"),
                     DepartmentName = "Kenya Railways Police",
+                    DepartmentCode="KRP",
                     DepartmentDespcription = "Maintaining law and order in trains and on train stations.",
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
@@ -375,6 +382,7 @@ namespace ESPL.KP.Entities
                 new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709478888"),
                     DepartmentName = "Kenya Police Dog Unit",
+                    DepartmentCode="KPDU",
                     DepartmentDespcription = "Sniffer dogs to detect explosives and drugs.",
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
@@ -383,6 +391,7 @@ namespace ESPL.KP.Entities
                 new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709479999"),
                     DepartmentName = "Tourism Police Unit",
+                    DepartmentCode="TPU",
                     DepartmentDespcription = "A department to tackle crimes related to tourists.",
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
@@ -390,6 +399,7 @@ namespace ESPL.KP.Entities
                 new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709471010"),
                     DepartmentName = "Kenya Airports Police Unit",
+                    DepartmentCode="KAPU",
                     DepartmentDespcription = "A department tasked with protecting airports in the republic.",
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
@@ -397,6 +407,7 @@ namespace ESPL.KP.Entities
                 new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709471011"),
                     DepartmentName = "Maritime Police Unit",
+                    DepartmentCode="MPU",
                     DepartmentDespcription = "A marine police unit to secure the coastline and internal rivers.",
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
@@ -404,6 +415,7 @@ namespace ESPL.KP.Entities
                 new MstDepartment() {
                     DepartmentID = new Guid("a1da1d8e-1111-4634-b538-a01709471012"),
                     DepartmentName = "Diplomatic Police Unit",
+                    DepartmentCode="DPU",
                     DepartmentDespcription = "A department tasked with protecting the diplomats in the republic.",
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
@@ -469,56 +481,128 @@ namespace ESPL.KP.Entities
                 new MstShift() {
                     ShiftID = new Guid("318DC4DF-684A-444F-9E5A-18BB5EED1123"),
                     ShiftName = "Regular Morning Shift",
-                    StartTime = TimeSpan.FromHours(4),
-                    EndTime = TimeSpan.FromHours(12),
+                    MondayStartTime = TimeSpan.FromHours(4),
+                    MondayEndTime = TimeSpan.FromHours(12),
+                    TuesdayStartTime = TimeSpan.FromHours(4),
+                    TuesdayEndTime = TimeSpan.FromHours(12),
+                    WednesdayStartTime = TimeSpan.FromHours(4),
+                    WednesdayEndTime = TimeSpan.FromHours(12),
+                    ThursdayStartTime = TimeSpan.FromHours(4),
+                    ThursdayEndTime = TimeSpan.FromHours(12),
+                    FridayStartTime = TimeSpan.FromHours(4),
+                    FridayEndTime = TimeSpan.FromHours(12),
+                    SaturdayStartTime = TimeSpan.FromHours(4),
+                    SaturdayEndTime = TimeSpan.FromHours(12),
+                    SundayStartTime = TimeSpan.FromHours(4),
+                    SundayEndTime = TimeSpan.FromHours(12),
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstShift() {
                     ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56285"),
                     ShiftName = "Officers Morning Shift",
-                    StartTime = TimeSpan.FromHours(4),
-                    EndTime = TimeSpan.FromHours(12),
+                    MondayStartTime = TimeSpan.FromHours(4),
+                    MondayEndTime = TimeSpan.FromHours(12),
+                    TuesdayStartTime = TimeSpan.FromHours(4),
+                    TuesdayEndTime = TimeSpan.FromHours(12),
+                    WednesdayStartTime = TimeSpan.FromHours(4),
+                    WednesdayEndTime = TimeSpan.FromHours(12),
+                    ThursdayStartTime = TimeSpan.FromHours(4),
+                    ThursdayEndTime = TimeSpan.FromHours(12),
+                    FridayStartTime = TimeSpan.FromHours(4),
+                    FridayEndTime = TimeSpan.FromHours(12),
+                    SaturdayStartTime = TimeSpan.FromHours(4),
+                    SaturdayEndTime = TimeSpan.FromHours(12),
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstShift() {
                     ShiftID = new Guid("95998825-255A-401F-AAB1-5EF4C2A56111"),
                     ShiftName = "Regular Mid-Day Shift",
-                    StartTime = TimeSpan.FromHours(12),
-                    EndTime = TimeSpan.FromHours(20),
+                    MondayStartTime = TimeSpan.FromHours(12),
+                    MondayEndTime = TimeSpan.FromHours(20),
+                    TuesdayStartTime = TimeSpan.FromHours(12),
+                    TuesdayEndTime = TimeSpan.FromHours(20),
+                    WednesdayStartTime = TimeSpan.FromHours(12),
+                    WednesdayEndTime = TimeSpan.FromHours(20),
+                    ThursdayStartTime = TimeSpan.FromHours(12),
+                    ThursdayEndTime = TimeSpan.FromHours(20),
+                    FridayStartTime = TimeSpan.FromHours(12),
+                    FridayEndTime = TimeSpan.FromHours(20),
+                    SaturdayStartTime = TimeSpan.FromHours(12),
+                    SaturdayEndTime = TimeSpan.FromHours(20),
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstShift() {
                     ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90222"),
                     ShiftName = "Officers Mid-Day Shift",
-                    StartTime = TimeSpan.FromHours(12),
-                    EndTime = TimeSpan.FromHours(20),
+                    MondayStartTime = TimeSpan.FromHours(12),
+                    MondayEndTime = TimeSpan.FromHours(20),
+                    TuesdayStartTime = TimeSpan.FromHours(12),
+                    TuesdayEndTime = TimeSpan.FromHours(20),
+                    WednesdayStartTime = TimeSpan.FromHours(12),
+                    WednesdayEndTime = TimeSpan.FromHours(20),
+                    ThursdayStartTime = TimeSpan.FromHours(12),
+                    ThursdayEndTime = TimeSpan.FromHours(20),
+                    FridayStartTime = TimeSpan.FromHours(12),
+                    FridayEndTime = TimeSpan.FromHours(20),
+                    SaturdayStartTime = TimeSpan.FromHours(12),
+                    SaturdayEndTime = TimeSpan.FromHours(20),
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstShift() {
                     ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90333"),
                     ShiftName = "Regular Night Shift",
-                    StartTime = TimeSpan.FromHours(20),
-                    EndTime = TimeSpan.FromHours(4),
+                    MondayStartTime = TimeSpan.FromHours(20),
+                    MondayEndTime = TimeSpan.FromHours(4),
+                    TuesdayStartTime = TimeSpan.FromHours(20),
+                    TuesdayEndTime = TimeSpan.FromHours(4),
+                    WednesdayStartTime = TimeSpan.FromHours(20),
+                    WednesdayEndTime = TimeSpan.FromHours(4),
+                    ThursdayStartTime = TimeSpan.FromHours(20),
+                    ThursdayEndTime = TimeSpan.FromHours(4),
+                    FridayStartTime = TimeSpan.FromHours(20),
+                    FridayEndTime = TimeSpan.FromHours(4),
+                    SaturdayStartTime = TimeSpan.FromHours(20),
+                    SaturdayEndTime = TimeSpan.FromHours(4),
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstShift() {
                     ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90444"),
                     ShiftName = "Officers Night Shift",
-                    StartTime = TimeSpan.FromHours(20),
-                    EndTime = TimeSpan.FromHours(4),
+                    MondayStartTime = TimeSpan.FromHours(20),
+                    MondayEndTime = TimeSpan.FromHours(4),
+                    TuesdayStartTime = TimeSpan.FromHours(20),
+                    TuesdayEndTime = TimeSpan.FromHours(4),
+                    WednesdayStartTime = TimeSpan.FromHours(20),
+                    WednesdayEndTime = TimeSpan.FromHours(4),
+                    ThursdayStartTime = TimeSpan.FromHours(20),
+                    ThursdayEndTime = TimeSpan.FromHours(4),
+                    FridayStartTime = TimeSpan.FromHours(20),
+                    FridayEndTime = TimeSpan.FromHours(4),
+                    SundayStartTime = TimeSpan.FromHours(20),
+                    SundayEndTime = TimeSpan.FromHours(4),
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 },
                 new MstShift() {
                     ShiftID = new Guid("B5FEDC70-D3A0-4806-BCF4-D1A30CE90555"),
                     ShiftName = "Officers General Shift",
-                    StartTime = TimeSpan.FromHours(8),
-                    EndTime = TimeSpan.FromHours(4),
+                    MondayStartTime = TimeSpan.FromHours(8),
+                    MondayEndTime = TimeSpan.FromHours(4),
+                    TuesdayStartTime = TimeSpan.FromHours(8),
+                    TuesdayEndTime = TimeSpan.FromHours(4),
+                    WednesdayStartTime = TimeSpan.FromHours(8),
+                    WednesdayEndTime = TimeSpan.FromHours(4),
+                    ThursdayStartTime = TimeSpan.FromHours(8),
+                    ThursdayEndTime = TimeSpan.FromHours(4),
+                    FridayStartTime = TimeSpan.FromHours(8),
+                    FridayEndTime = TimeSpan.FromHours(4),
+                    SaturdayStartTime = TimeSpan.FromHours(8),
+                    SaturdayEndTime = TimeSpan.FromHours(4),
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef9999"),
                     CreatedOn=DateTime.Now.AddHours(-6)
                 }
@@ -595,10 +679,6 @@ namespace ESPL.KP.Entities
                     CaseFileNumber = "1",
                     NatureOfOccurrence = "Preplanned.",
                     Remark = "total number of suspects: 4",
-                    MapZoomLevel = 11,
-                    Lattitude = 18.548026,
-                    Longitude = 73.811683,
-                    Location = "Near CSIR-URDIP",
                     AssignedTO = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef4444"),	//SGT
             		AssignedComments = "Assigned to a SGT in CID",
                     AssignedTime = DateTime.Now.AddDays(4),
@@ -617,10 +697,6 @@ namespace ESPL.KP.Entities
                     CaseFileNumber = "2",
                     NatureOfOccurrence = "Nature 2",
                     Remark = "Test Remark 2",
-                    MapZoomLevel = 11,
-                    Lattitude = 18.550335,
-                    Longitude = 73.809956,
-                    Location = "Near IARIRS Baner",
                     AssignedTO = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef3333"), //SAIG
             		AssignedComments = "Assigned to SAIG in CID",
                     AssignedTime = DateTime.Now.AddHours(-5),
@@ -639,10 +715,6 @@ namespace ESPL.KP.Entities
                     CaseFileNumber = "3",
                     NatureOfOccurrence = "Nature 3",
                     Remark = "Test Remark 3",
-                    MapZoomLevel = 11,
-                    Lattitude = 18.547787,
-                    Longitude = 73.817699,
-                    Location = "Near baner road",
                     AssignedTO =new Guid("56c385ae-ce46-41d4-b7fe-08df9aef2222"),	//DIG
             		AssignedComments = "Assigned",
                     AssignedTime = DateTime.Now.AddDays(-5),
@@ -663,10 +735,6 @@ namespace ESPL.KP.Entities
                     Remark = "Test Remark 4",
                     AssignedTO = new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666"),	//Constable
             		AssignedComments = "Test Assign to constable",
-                    MapZoomLevel = 11,
-                    Lattitude = 18.549613,
-                    Longitude = 73.812145,
-                    Location = "Near HDFC bank",
                     AssignedTime = DateTime.Now,
                     Priority = OccurrencePriorities.Critical,
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666"),
@@ -685,10 +753,6 @@ namespace ESPL.KP.Entities
                     Remark = "Test Remark 4",
                     AssignedTO =new Guid("56c385ae-ce46-41d4-b7fe-08df9aef5555"),	//Constable
             		AssignedComments = "Test Assign to constable",
-                    MapZoomLevel = 11,
-                    Lattitude = 18.551200,
-                    Longitude = 73.813422,
-                    Location = "Near The oval",
                     AssignedTime = DateTime.Now,
                     Priority = OccurrencePriorities.Major,
                     CreatedBy=new Guid("56c385ae-ce46-41d4-b7fe-08df9aef6666"),

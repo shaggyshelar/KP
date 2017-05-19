@@ -296,9 +296,7 @@ namespace ESPL.KP.Services
                     .Trim().ToLowerInvariant();
 
                 collectionBeforePaging = collectionBeforePaging
-                    .Where(a => a.ShiftName.ToLowerInvariant().Contains(searchQueryForWhereClause)
-                    || Convert.ToString(a.StartTime).ToLowerInvariant().Contains(searchQueryForWhereClause)
-                    || Convert.ToString(a.EndTime).ToLowerInvariant().Contains(searchQueryForWhereClause));
+                    .Where(a => a.ShiftName.ToLowerInvariant().Contains(searchQueryForWhereClause));
             }
 
             return PagedList<MstShift>.Create(collectionBeforePaging,

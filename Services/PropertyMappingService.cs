@@ -27,6 +27,7 @@ namespace ESPL.KP.Services
            {
                { "DepartmentID", new PropertyMappingValue(new List<string>() { "DepartmentID" } ) },
                { "DepartmentName", new PropertyMappingValue(new List<string>() { "DepartmentName" } )},
+               { "DepartmentCode", new PropertyMappingValue(new List<string>() { "DepartmentCode" } )},
                { "DepartmentDespcription", new PropertyMappingValue(new List<string>() { "DepartmentDespcription" } )}
            };
 
@@ -56,10 +57,22 @@ namespace ESPL.KP.Services
         private Dictionary<string, PropertyMappingValue> _shiftPropertyMapping =
            new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
            {
-               { "ShiftID", new PropertyMappingValue(new List<string>() { "ShiftID" } ) },
-               { "ShiftName", new PropertyMappingValue(new List<string>() { "ShiftName" } )},
-                { "StartTime", new PropertyMappingValue(new List<string>() { "StartTime" } )},
-                { "EndTime", new PropertyMappingValue(new List<string>() { "EndTime" } )},
+                { "ShiftID", new PropertyMappingValue(new List<string>() { "ShiftID" } ) },
+                { "ShiftName", new PropertyMappingValue(new List<string>() { "ShiftName" } )},
+                { "MondayStartTime", new PropertyMappingValue(new List<string>() { "MondayStartTime" } )},
+                { "MondayEndTime", new PropertyMappingValue(new List<string>() { "MondayEndTime" } )},
+                { "TuesdayStartTime", new PropertyMappingValue(new List<string>() { "TuesdayStartTime" } )},
+                { "TuesayEndTime", new PropertyMappingValue(new List<string>() { "TuesayEndTime" } )},
+                { "WednesdayStartTime", new PropertyMappingValue(new List<string>() { "WednesdayStartTime" } )},
+                { "WednesdayEndTime", new PropertyMappingValue(new List<string>() { "WednesdayEndTime" } )},
+                { "ThursdayStartTime", new PropertyMappingValue(new List<string>() { "ThursdayStartTime" } )},
+                { "ThursdayEndTime", new PropertyMappingValue(new List<string>() { "ThursdayEndTime" } )},
+                { "FridayStartTime", new PropertyMappingValue(new List<string>() { "FridayStartTime" } )},
+                { "FridayEndTime", new PropertyMappingValue(new List<string>() { "FridayEndTime" } )},
+                { "SaturdayStartTime", new PropertyMappingValue(new List<string>() { "SaturdayStartTime" } )},
+                { "SaturdayEndTime", new PropertyMappingValue(new List<string>() { "SaturdayEndTime" } )},
+                { "SundayStartTime", new PropertyMappingValue(new List<string>() { "SundayStartTime" } )},
+                { "SundayEndTime", new PropertyMappingValue(new List<string>() { "SundayEndTime" } )},
            };
 
         private Dictionary<string, PropertyMappingValue> _statusPropertyMapping =
@@ -76,7 +89,6 @@ namespace ESPL.KP.Services
             { "AreaID", new PropertyMappingValue(new List<string>() { "AreaID" } ) },
             { "OBTypeID", new PropertyMappingValue(new List<string>() { "OBTypeID" } ) },
             { "DepartmentID", new PropertyMappingValue(new List<string>() { "DepartmentID" } ) },
-            //{ "MstStatus", new PropertyMappingValue(new List<string>() { "MstStatus" } ) },
             { "StatusID", new PropertyMappingValue(new List<string>() { "StatusID" } ) },
             { "OBNumber", new PropertyMappingValue(new List<string>() { "OBNumber" } ) },
             { "OBTime", new PropertyMappingValue(new List<string>() { "OBTime" } ) },

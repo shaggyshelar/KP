@@ -292,11 +292,6 @@ namespace ESPL.KP
 
                 cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceBook, ESPL.KP.Models.OccurrenceBookDto>();
                 cfg.CreateMap<ESPL.KP.Entities.OccurrenceBookActivity, ESPL.KP.Models.OccurrenceBookActivityDto>();
-                // .ForMember(dest => dest.Area, opt => opt.MapFrom(src =>src.MstArea))
-                // .ForMember(dest => dest.Department, opt => opt.MapFrom(src =>src.MstDepartment))
-                // .ForMember(dest => dest.Status, opt => opt.MapFrom(src =>src.MstStatus))
-                // .ForMember(dest => dest.OccurrenceType, opt => opt.MapFrom(src =>src.MstOccurrenceType))
-                // .ForMember(dest=>dest.Employee, opt => opt.MapFrom(src =>src.MstEmployee));
                 cfg.CreateMap<ESPL.KP.Models.OccurrenceBookForCreationDto, ESPL.KP.Entities.MstOccurrenceBook>();
                 cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceBook, ESPL.KP.Models.OccurrenceBookForCreationDto>();
                 cfg.CreateMap<ESPL.KP.Models.OccurrenceBookForUpdationDto, ESPL.KP.Entities.MstOccurrenceBook>();
@@ -316,11 +311,6 @@ namespace ESPL.KP
 
 
                 cfg.CreateMap<ESPL.KP.Entities.MstEmployee, ESPL.KP.Models.EmployeeDto>();
-                // .ForMember(dest => dest.Area, opt => opt.MapFrom(src =>src.MstArea))
-                // .ForMember(dest => dest.Department, opt => opt.MapFrom(src =>src.MstDepartment))
-                // .ForMember(dest => dest.Designation, opt => opt.MapFrom(src =>src.MstDesignation))
-                // .ForMember(dest => dest.Shift, opt => opt.MapFrom(src =>src.MstShift))
-                // .ForMember(dest => dest.OccurrenceBooks, opt => opt.MapFrom(src =>src.MstOccurrenceBooks));
                 cfg.CreateMap<ESPL.KP.Models.EmployeeForCreationDto, ESPL.KP.Entities.MstEmployee>();
                 cfg.CreateMap<ESPL.KP.Entities.MstEmployee, ESPL.KP.Models.EmployeeForCreationDto>();
                 cfg.CreateMap<ESPL.KP.Models.EmployeeForUpdationDto, ESPL.KP.Entities.MstEmployee>();
@@ -351,8 +341,6 @@ namespace ESPL.KP
                 cfg.CreateMap<ESPL.KP.Entities.OccurrenceStatusHistory, ESPL.KP.Models.OccurrenceBookForStatusHistoryCreationDto>();
                 cfg.CreateMap<ESPL.KP.Models.OccurrenceBookForStatusHistoryCreationDto, ESPL.KP.Entities.MstOccurrenceBook>();
                 cfg.CreateMap<ESPL.KP.Entities.MstOccurrenceBook, ESPL.KP.Models.OccurrenceBookForStatusHistoryCreationDto>();
-                //    .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src =>
-                //    src.MstStatus.StatusName));
                 cfg.CreateMap<ESPL.KP.Entities.CfgEmployeeArea, ESPL.KP.Entities.MstEmployee>();
                 cfg.CreateMap<ESPL.KP.Entities.MstEmployee, ESPL.KP.Entities.CfgEmployeeArea>();
                 cfg.CreateMap<ESPL.KP.Entities.CfgEmployeeDepartment, ESPL.KP.Entities.MstEmployee>();
