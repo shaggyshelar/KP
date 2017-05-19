@@ -594,7 +594,7 @@ namespace KP.Controllers.Employee
         [Authorize(Policy = "IsSuperAdmin")]
         public IActionResult GetEmployeeUserLookups([FromHeader(Name = "Accept")]string mediaType)
         {
-            var esplUsersFromRepo = _appRepository.GetUsersForEmployees();
+            var esplUsersFromRepo = _appRepository.GetUsersWithoutEmployees();
             var esplUsers = new List<AppUserDto>();
             esplUsersFromRepo.ForEach(esplUser =>
             {
@@ -986,6 +986,6 @@ namespace KP.Controllers.Employee
             }
         }
 
-        
+
     }
 }

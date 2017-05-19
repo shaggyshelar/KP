@@ -931,7 +931,7 @@ namespace ESPL.KP.Services
             return _context.MstEmployee.Any(a => a.EmployeeID == employeeId && a.IsDelete == false);
         }
 
-        public List<AppUser> GetUsersForEmployees()
+        public List<AppUser> GetUsersWithoutEmployees()
         {
             var collectionBeforePaging =
                _userMgr.Users.Where(u => !_context.MstEmployee.Any(e => e.UserID == u.Id)).ToList();
