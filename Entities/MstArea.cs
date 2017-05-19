@@ -12,15 +12,11 @@ namespace ESPL.KP.Entities {
         [MaxLength (50)]
         public string AreaName { get; set; }
 
+        [Required]
         [MaxLength (20)]
         public string AreaCode { get; set; }
 
         [MaxLength (20)]
         public string PinCode { get; set; }
-
-        // public ICollection<MstOccurrenceBook> MstOccurrenceBooks { get; set; } 
-        //     = new List<MstOccurrenceBook> ();
-        // public ICollection<MstEmployee> MstEmployees { get; set; }
-        //     = new List<MstEmployee>();
     }
 }

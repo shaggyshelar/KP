@@ -11,8 +11,5 @@ namespace ESPL.KP.Entities {
         [Required]
         [MaxLength (50)]
         public string StatusName { get; set; }
-
-        // public ICollection<MstOccurrenceBook> MstOccurrenceBooks { get; set; } = new List<MstOccurrenceBook> ();
-        
     }
 }

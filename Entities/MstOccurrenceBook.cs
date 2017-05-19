@@ -13,7 +13,7 @@ namespace ESPL.KP.Entities
 
         [ForeignKey("AreaID")]
         public MstArea MstArea { get; set; }
-        public Guid AreaID { get; set; }
+        public Guid? AreaID { get; set; }
 
         [ForeignKey("OBTypeID")]
         public MstOccurrenceType MstOccurrenceType { get; set; }
@@ -21,7 +21,7 @@ namespace ESPL.KP.Entities
 
         [ForeignKey("DepartmentID")]
         public MstDepartment MstDepartment { get; set; }
-        public Guid DepartmentID { get; set; }
+        public Guid? DepartmentID { get; set; }
 
         [ForeignKey("StatusID")]
         public MstStatus MstStatus { get; set; }
@@ -34,11 +34,11 @@ namespace ESPL.KP.Entities
         [Required]
         public DateTime OBTime { get; set; }
 
-        [Required]
         [MaxLength(50)]
         public string CaseFileNumber { get; set; }
 
         [Required]
+        [MaxLength (1000)]
         public string NatureOfOccurrence { get; set; }
 
         [MaxLength(50)]
@@ -49,17 +49,8 @@ namespace ESPL.KP.Entities
         public Guid? AssignedTO { get; set; }
 
         [MaxLength(500)]
-        public string AssignedComments { get; set; }
-
-        public int MapZoomLevel { get; set; }
-        public double Lattitude { get; set; }
-        public double Longitude { get; set; }
-        public string Location { get; set; }
+        public string AssignedComments { get; set; }        
         public DateTime? AssignedTime {get; set;}
-        public OccurrencePriorities Priority { get; set; }  
-
-        // public ICollection<OccurrenceAssignmentHistory> OccurrenceAssignmentHistory { get; set; } = new List<OccurrenceAssignmentHistory>();
-
-        // public virtual ICollection<OccurrenceReviewHistory> OccurrenceReveiwHistories { get; set; } = new List<OccurrenceReviewHistory>();
+        public OccurrencePriorities? Priority { get; set; }
     }
 }

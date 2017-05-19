@@ -19,7 +19,7 @@ namespace ESPL.KP.Entities
         [MaxLength(50)]
         public string LastName { get; set; }
         
-        [Required]
+        
         [MaxLength(50)]
         public string EmployeeCode { get; set; }
 
@@ -40,11 +40,9 @@ namespace ESPL.KP.Entities
         
         [MaxLength(20)]
         public string ResidencePhone { get; set; }
-
-        [Required]
+        
         public DateTime OrganizationJoiningDate { get; set; }
-
-        [Required]
+        
         public DateTime ServiceJoiningDate { get; set; }
 
         [Required]
@@ -56,19 +54,19 @@ namespace ESPL.KP.Entities
 
         [ForeignKey ("AreaID")]
         public MstArea MstArea { get; set; }
-        public Guid AreaID { get; set; }
+        public Guid? AreaID { get; set; }
 
         [ForeignKey ("DepartmentID")]
         public MstDepartment MstDepartment { get; set; }
-        public Guid DepartmentID { get; set; }
+        public Guid? DepartmentID { get; set; }
 
         [ForeignKey ("DesignationID")]
         public MstDesignation MstDesignation { get; set; }
-        public Guid DesignationID { get; set; }
+        public Guid? DesignationID { get; set; }
 
         [ForeignKey("ShiftID")]
         public MstShift MstShift { get; set; }
-        public Guid ShiftID { get; set; }
+        public Guid? ShiftID { get; set; }
 
         [ForeignKey ("UserID")]
         public AppUser AppUser { get; set; }
@@ -77,14 +75,7 @@ namespace ESPL.KP.Entities
 
         public ICollection<MstOccurrenceBook> MstOccurrenceBooks { get; set; } 
             = new List<MstOccurrenceBook> ();
-        //  public ICollection<CfgEmployeeShift> CfgEmployeeShift { get; set; } 
-        //     = new List<CfgEmployeeShift> ();
-        // public ICollection<CfgEmployeeArea> CfgEmployeeArea { get; set; } 
-        //     = new List<CfgEmployeeArea> ();
-        // public ICollection<CfgEmployeeDesignation> CfgEmployeeDesignation { get; set; } 
-        //     = new List<CfgEmployeeDesignation> ();
-        //  public ICollection<CfgEmployeeDepartment> CfgEmployeeDepartments { get; set; } 
-        //     = new List<CfgEmployeeDepartment> ();
+       
 
     }
 }
