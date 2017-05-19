@@ -4,6 +4,6 @@ namespace ESPL.KP.Helpers.Department
 {
     public class DepartmentsResourceParameters : BaseResourceParameters
     {
-        public string OrderBy { get; set; } = "DepartmentName";
+        public string OrderBy { get; set; } = "DepartmentName";        
     }
 }
