@@ -1,9 +1,8 @@
 using System;
-using KP.Domain.Common;
 
-namespace KP.Domain.Department
+namespace KP.Service.Department
 {
-    public class Department : BaseEntity
+    public class DepartmentDto
     {
         public Guid DepartmentID { get; set; }
         public string DepartmentName { get; set; }

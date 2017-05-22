@@ -1,10 +1,12 @@
+using KP.Domain.Department;
+using Microsoft.EntityFrameworkCore;
 
 namespace KP.Application.Interfaces
 {
     public interface IDatabaseService
     {
-        //IDbSet<Department> Customers { get; set; }
+        DbSet<Department> Departments { get; set; }
 
-        //void Save();
+        void Save();
     }
 }
