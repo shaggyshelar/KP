@@ -122,6 +122,14 @@ namespace ESPL.KP.Controllers.Department
             }
         }
 
+        [HttpGet("LookUp", Name = "GetDepartmentAsLookUp")]
+        
+        [Authorize(Policy = Permissions.DepartmentRead)]
+        public IActionResult GetDepartmentAsLookUp([FromHeader(Name = "Accept")] string mediaType)
+        {
+            return Ok(_appRepository.GetDepartmentAsLookUp());
+        }
+
         private string CreateDepartmentsResourceUri(
             DepartmentsResourceParameters departmentsResourceParameters,
             ResourceUriType type)

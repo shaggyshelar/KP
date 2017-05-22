@@ -28,6 +28,7 @@ namespace ESPL.KP.Services
         void DeleteDepartment(MstDepartment department);
         void UpdateDepartment(MstDepartment department);
         bool DepartmentExists(Guid authorId);
+        IEnumerable<LookUpItem> GetDepartmentAsLookUp();
 
         #endregion
 
@@ -39,6 +40,7 @@ namespace ESPL.KP.Services
         void DeleteArea(MstArea Area);
         void UpdateArea(MstArea Area);
         bool AreaExists(Guid authorId);
+        IEnumerable<LookUpItem> GetAreaAsLookUp();
 
         #endregion
 
@@ -50,6 +52,7 @@ namespace ESPL.KP.Services
         void DeleteDesignation(MstDesignation Designation);
         void UpdateDesignation(MstDesignation Designation);
         bool DesignationExists(Guid authorId);
+        IEnumerable<LookUpItem> GetDesignationAsLookUp();
 
         #endregion
 
@@ -61,6 +64,7 @@ namespace ESPL.KP.Services
         void DeleteOccurrenceType(MstOccurrenceType occurrenceType);
         void UpdateOccurrenceType(MstOccurrenceType occurrenceType);
         bool OccurrenceTypeExists(Guid occurrenceTypeId);
+        IEnumerable<LookUpItem> GetOccurrenceTypeAsLookUp();
         #endregion
 
         #region OccurrenceBook
@@ -82,6 +86,7 @@ namespace ESPL.KP.Services
         void DeleteShift(MstShift shift);
         void UpdateShift(MstShift shift);
         bool ShiftExists(Guid authorId);
+        IEnumerable<LookUpItem> GetShiftAsLookUp();
 
         #endregion
 
@@ -94,6 +99,7 @@ namespace ESPL.KP.Services
         void UpdateStatus(MstStatus status);
         bool StatusExists(Guid authorId);
         MstStatus GetStatusByName(string statusName);
+        IEnumerable<LookUpItem> GetStatusAsLookUp();
         #endregion 
 
         bool Save();
@@ -147,6 +153,8 @@ namespace ESPL.KP.Services
         void UpdateEmployee(MstEmployee employee);
         bool EmployeeExists(Guid authorId);
         List<AppUser> GetUsersWithoutEmployees();
+        IEnumerable<LookUpItem> GetEmployeeAsLookUp();
+        
 
         #endregion
 

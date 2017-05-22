@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ESPL.KP.Controllerss.Area
+namespace ESPL.KP.Controllers.Area
 {
     [Route("api/areas")]
     [Authorize]
@@ -119,6 +119,15 @@ namespace ESPL.KP.Controllerss.Area
                 return Ok(Areas.ShapeData(AreasResourceParameters.Fields));
             }
         }
+
+        [HttpGet("LookUp", Name = "GetAreasAsLookUp")]
+        
+        [Authorize(Policy = Permissions.AreaRead)]
+        public IActionResult GetAreasAsLookUp([FromHeader(Name = "Accept")] string mediaType)
+        {
+            return Ok(_appRepository.GetAreaAsLookUp());
+        }
+        
 
         private string CreateAreasResourceUri(
             AreasResourceParameters AreasResourceParameters,
