@@ -14,7 +14,6 @@ using KP.Common.Helpers;
 namespace KP.Service.Department
 {
     [Route("api/departments")]
-    [Authorize]
     public class DepartmentsController : Controller
     {
         private IAppRepository _appRepository;
@@ -96,16 +95,6 @@ namespace KP.Service.Department
               new LinkDto(_urlHelper.Link("DeleteDepartment", new { id = id }),
               "delete_department",
               "DELETE"));
-
-            links.Add(
-              new LinkDto(_urlHelper.Link("CreateBookForDepartment", new { departmentId = id }),
-              "create_book_for_department",
-              "POST"));
-
-            links.Add(
-               new LinkDto(_urlHelper.Link("GetBooksForDepartment", new { departmentId = id }),
-               "books",
-               "GET"));
 
             return links;
         }
