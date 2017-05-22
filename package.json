@@ -1,0 +1,20 @@
+{
+  "name": "kp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "kp.sln",
+  "scripts": {
+    "test": "npm test",
+    "reset": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shaggyshelar/KP.git"
+  },
+  "author": "Sagar Shelar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shaggyshelar/KP/issues"
+  },
+  "homepage": "https://github.com/shaggyshelar/KP#readme"
+}
