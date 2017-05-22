@@ -1,10 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\KP.Common\KP.Common.csproj" />
     <ProjectReference Include="..\KP.Application\KP.Application.csproj" />
-    <ProjectReference Include="..\KP.Infrastructure\KP.Infrastructure.csproj" />
-    <ProjectReference Include="..\KP.Persistence\KP.Persistence.csproj" />
+    <ProjectReference Include="..\KP.Common\KP.Common.csproj" />
+    <ProjectReference Include="..\KP.Domain\KP.Domain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

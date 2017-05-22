@@ -1,4 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\KP.Common\KP.Common.csproj" />
+    <ProjectReference Include="..\KP.Domain\KP.Domain.csproj" />
+  </ItemGroup>
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
