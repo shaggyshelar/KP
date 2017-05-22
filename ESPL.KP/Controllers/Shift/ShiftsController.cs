@@ -121,6 +121,13 @@ namespace ESPL.KP.Controllers.Shift
             }
         }
 
+        [HttpGet("LookUp", Name = "GetShiftAsLookUp")]        
+        [Authorize(Policy = Permissions.ShiftRead)]
+        public IActionResult GetShiftAsLookUp([FromHeader(Name = "Accept")] string mediaType)
+        {
+            return Ok(_appRepository.GetShiftAsLookUp());
+        }
+
         private string CreateShiftsResourceUri(
             ShiftsResourceParameters shiftsResourceParameters,
             ResourceUriType type)

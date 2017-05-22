@@ -121,6 +121,13 @@ namespace ESPL.KP.Controllers.Status
             }
         }
 
+        [HttpGet("LookUp", Name = "GetStatusAsLookUp")]        
+        [Authorize(Policy = Permissions.StatusRead)]
+        public IActionResult GetStatusAsLookUp([FromHeader(Name = "Accept")] string mediaType)
+        {
+            return Ok(_appRepository.GetStatusAsLookUp());
+        }
+
         private string CreateStatusesResourceUri(
             StatusesResourceParameters statusesResourceParameters,
             ResourceUriType type)

@@ -121,6 +121,13 @@ namespace ESPL.KP.Controllers.OccurrenceType
             }
         }
 
+        [HttpGet("LookUp", Name = "GetOccurrenceTypeAsLookUp")]        
+        [Authorize(Policy = Permissions.OccurrenceTypeRead)]
+        public IActionResult GetOccurrenceTypeAsLookUp([FromHeader(Name = "Accept")] string mediaType)
+        {
+            return Ok(_appRepository.GetOccurrenceTypeAsLookUp());
+        }
+
         private string CreateOccurrenceTypeResourceUri(
             OccurrenceTypeResourceParameters occurrenceTypeResourceParameters,
             ResourceUriType type)
