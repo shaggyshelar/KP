@@ -118,7 +118,7 @@ namespace KP.Controllers.Employee
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");.
+                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
 
                 return Ok(employee.ShapeData(employeesResourceParameters.Fields));
             }
@@ -598,7 +598,7 @@ namespace KP.Controllers.Employee
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
                 Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
-                
+
                 return Ok(employeeDepartmentHistory.ShapeData(employeeDepartmentHistoryParams.Fields));
             }
         }
