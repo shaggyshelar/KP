@@ -250,6 +250,12 @@ namespace ESPL.KP.Controllers.Core
             return NoContent();
         }
 
+        [HttpGet("LookUp", Name = "GetAppRoleAsLookUp")]
+        public IActionResult GetAppRoleAsLookUp([FromHeader(Name = "Accept")] string mediaType)
+        {
+            return Ok(_appRepository.GetAppRolesAsLookUp());
+        }
+
         private IEnumerable<LinkDto> CreateLinksForAppRole(Guid id, string fields)
         {
             var links = new List<LinkDto>();

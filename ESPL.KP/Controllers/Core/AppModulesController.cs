@@ -323,6 +323,12 @@ namespace ESPL.KP.Controllers.Core
             return NoContent();
         }
 
+        [HttpGet("LookUp", Name = "GetAppModulesAsLookUp")]
+        public IActionResult GetAppModulesAsLookUp([FromHeader(Name = "Accept")] string mediaType)
+        {
+            return Ok(_appRepository.GetAppModulesAsLookUp());
+        }
+
         private void SetItemHistoryData(AppModuleForUpdationDto model, AppModule modelRepo)
         {
             model.CreatedOn = modelRepo.CreatedOn;

@@ -113,8 +113,9 @@ namespace ESPL.KP.Services
         void DeleteAppModule(AppModule appModule);
         void UpdateAppModule(AppModule appModule);
         bool AppModuleExists(Guid appModuleId);
-
+        
         bool AppModuleExists(string appModuleName);
+        IEnumerable<LookUpItem> GetAppModulesAsLookUp();
 
         #endregion AppModule
 
@@ -140,7 +141,7 @@ namespace ESPL.KP.Services
         void DeleteAppRole(IdentityRole esplRole);
         void UpdateAppRole(IdentityRole esplRole);
         bool AppRoleExists(Guid esplRoleId);
-
+        IEnumerable<LookUpItem> GetAppRolesAsLookUp();
         #endregion AppRole
 
         #region Employee
@@ -152,9 +153,9 @@ namespace ESPL.KP.Services
         void DeleteEmployee(MstEmployee employee);
         void UpdateEmployee(MstEmployee employee);
         bool EmployeeExists(Guid authorId);
-        List<AppUser> GetUsersWithoutEmployees();
+        IEnumerable<LookUpItem> GetUsersWithoutEmployees();
         IEnumerable<LookUpItem> GetEmployeeAsLookUp();
-        
+
 
         #endregion
 
