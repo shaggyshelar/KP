@@ -70,6 +70,18 @@ namespace ESPL.KP.Services
                 departmentResourceParameters.PageSize);
         }
 
+        public IEnumerable<LookUpItem> GetDepartmentAsLookUp()
+        {
+            return (from a in _context.MstDepartment
+                    where a.IsDelete == false
+                    select new LookUpItem
+                    {
+                        ID = a.DepartmentID,
+                        Name = a.DepartmentName
+                    }).ToList();
+
+        }
+
         public MstDepartment GetDepartment(Guid departmentId)
         {
             return _context.MstDepartment.FirstOrDefault(a => a.DepartmentID == departmentId && a.IsDelete == false);
@@ -127,6 +139,17 @@ namespace ESPL.KP.Services
             return PagedList<MstArea>.Create(collectionBeforePaging,
                 AreaResourceParameters.PageNumber,
                 AreaResourceParameters.PageSize);
+        }
+        public IEnumerable<LookUpItem> GetAreaAsLookUp()
+        {
+            return (from a in _context.MstArea
+                    where a.IsDelete == false
+                    select new LookUpItem
+                    {
+                        ID = a.AreaID,
+                        Name = a.AreaName
+                    }).ToList();
+
         }
 
         public MstArea GetArea(Guid AreaId)
@@ -188,6 +211,18 @@ namespace ESPL.KP.Services
                 DesignationResourceParameters.PageSize);
         }
 
+        public IEnumerable<LookUpItem> GetDesignationAsLookUp()
+        {
+            return (from a in _context.MstDesignation
+                    where a.IsDelete == false
+                    select new LookUpItem
+                    {
+                        ID = a.DesignationID,
+                        Name = a.DesignationName
+                    }).ToList();
+
+        }
+
         public MstDesignation GetDesignation(Guid DesignationId)
         {
             return _context.MstDesignation.FirstOrDefault(a => a.DesignationID == DesignationId && a.IsDelete == false);
@@ -244,6 +279,18 @@ namespace ESPL.KP.Services
             return PagedList<MstOccurrenceType>.Create(collectionBeforePaging,
                 occurrenceTypeResourceParameters.PageNumber,
                 occurrenceTypeResourceParameters.PageSize);
+        }
+
+        public IEnumerable<LookUpItem> GetOccurrenceTypeAsLookUp()
+        {
+            return (from a in _context.MstOccurrenceType
+                    where a.IsDelete == false
+                    select new LookUpItem
+                    {
+                        ID = a.OBTypeID,
+                        Name = a.OBTypeName
+                    }).ToList();
+
         }
 
         public MstOccurrenceType GetOccurrenceType(Guid occurrenceTypeId)
@@ -304,6 +351,18 @@ namespace ESPL.KP.Services
                 shiftResourceParameters.PageSize);
         }
 
+        public IEnumerable<LookUpItem> GetShiftAsLookUp()
+        {
+            return (from a in _context.MstShift
+                    where a.IsDelete == false
+                    select new LookUpItem
+                    {
+                        ID = a.ShiftID,
+                        Name = a.ShiftName
+                    }).ToList();
+
+        }
+
         public MstShift GetShift(Guid shiftId)
         {
             return _context.MstShift.FirstOrDefault(a => a.ShiftID == shiftId && a.IsDelete == false);
@@ -360,6 +419,17 @@ namespace ESPL.KP.Services
             return PagedList<MstStatus>.Create(collectionBeforePaging,
                 statusResourceParameters.PageNumber,
                 statusResourceParameters.PageSize);
+        }
+
+         public IEnumerable<LookUpItem> GetStatusAsLookUp()
+        {
+            return (from a in _context.MstStatus
+                    where a.IsDelete == false
+                    select new LookUpItem
+                    {
+                        ID = a.StatusID,
+                        Name = a.StatusName
+                    }).ToList();
         }
 
         public MstStatus GetStatus(Guid statusId)
@@ -863,6 +933,23 @@ namespace ESPL.KP.Services
                 employeesResourceParameters.PageSize);
         }
 
+        public IEnumerable<LookUpItem> GetEmployeeAsLookUp()
+        {
+            return (from a in _context.MstEmployee
+                    where a.IsDelete == false
+                    select new LookUpItem
+                    {
+                        ID = a.EmployeeID,
+                        Name = a.FirstName + " " + a.LastName
+                    }).ToList();
+        }
+        
+        public IEnumerable<MstShift> GetEmployee(IEnumerable<Guid> shiftIds)
+        {
+            return _context.MstShift.Where(a => shiftIds.Contains(a.ShiftID) && a.IsDelete == false)
+                .OrderBy(a => a.ShiftName)
+                .ToList();
+        }
         public MstEmployee GetEmployee(Guid employeeId)
         {
             return _context.MstEmployee

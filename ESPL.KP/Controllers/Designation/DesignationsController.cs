@@ -120,6 +120,13 @@ namespace ESPL.KP.Controllerss.Designation
             }
         }
 
+        [HttpGet("LookUp", Name = "GetDesignationAsLookUp")]        
+        [Authorize(Policy = Permissions.DesignationRead)]
+        public IActionResult GetDesignationAsLookUp([FromHeader(Name = "Accept")] string mediaType)
+        {
+            return Ok(_appRepository.GetDesignationAsLookUp());
+        }
+
         private string CreateDesignationsResourceUri(
             DesignationsResourceParameters DesignationsResourceParameters,
             ResourceUriType type)

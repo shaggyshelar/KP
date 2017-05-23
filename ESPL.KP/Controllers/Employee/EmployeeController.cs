@@ -122,6 +122,13 @@ namespace KP.Controllers.Employee
             }
         }
 
+        [HttpGet("LookUp", Name = "GetEmployeeAsLookUp")]        
+        [Authorize(Policy = Permissions.EmployeeRead)]
+        public IActionResult GetEmployeeAsLookUp([FromHeader(Name = "Accept")] string mediaType)
+        {
+            return Ok(_appRepository.GetEmployeeAsLookUp());
+        }
+
         [HttpGet("{id}", Name = "GetEmployee")]
         [Authorize(Policy = Permissions.EmployeeRead)]
         public IActionResult GetEmployee(Guid id, [FromQuery] string fields)
