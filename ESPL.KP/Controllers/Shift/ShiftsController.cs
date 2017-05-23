@@ -69,6 +69,7 @@ namespace ESPL.KP.Controllers.Shift
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
 
                 var links = CreateLinksForShifts(shiftsResourceParameters,
                     shiftsFromRepo.HasNext, shiftsFromRepo.HasPrevious);
@@ -116,7 +117,8 @@ namespace ESPL.KP.Controllers.Shift
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-
+                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                
                 return Ok(shifts.ShapeData(shiftsResourceParameters.Fields));
             }
         }

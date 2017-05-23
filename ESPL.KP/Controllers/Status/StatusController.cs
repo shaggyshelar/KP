@@ -69,6 +69,7 @@ namespace ESPL.KP.Controllers.Status
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
 
                 var links = CreateLinksForStatuses(statusesResourceParameters,
                     statusesFromRepo.HasNext, statusesFromRepo.HasPrevious);
@@ -116,7 +117,8 @@ namespace ESPL.KP.Controllers.Status
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-
+                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                
                 return Ok(statuses.ShapeData(statusesResourceParameters.Fields));
             }
         }

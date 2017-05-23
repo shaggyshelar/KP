@@ -70,6 +70,7 @@ namespace ESPL.KP.Controllers.Core
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
 
                 var links = CreateLinksForAppModules(appModulesResourceParameters,
                     appModulesFromRepo.HasNext, appModulesFromRepo.HasPrevious);
@@ -117,7 +118,8 @@ namespace ESPL.KP.Controllers.Core
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-
+                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                
                 return Ok(appModules.ShapeData(appModulesResourceParameters.Fields));
             }
         }
