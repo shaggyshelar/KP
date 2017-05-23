@@ -597,25 +597,12 @@ namespace KP.Controllers.Employee
             }
         }
 
-        [HttpGet("userLookup", Name = "GetEmployeeUserLookups")]
+        [HttpGet("UserLookUp", Name = "GetEmployeeUserLookups")]
         [Authorize(Policy = "IsSuperAdmin")]
         public IActionResult GetEmployeeUserLookups([FromHeader(Name = "Accept")]string mediaType)
         {
             var esplUsersFromRepo = _appRepository.GetUsersWithoutEmployees();
-            var esplUsers = new List<AppUserDto>();
-            esplUsersFromRepo.ForEach(esplUser =>
-            {
-                esplUsers.Add(
-                new AppUserDto()
-                {
-                    Id = new Guid(esplUser.Id),
-                    FirstName = esplUser.FirstName,
-                    LastName = esplUser.LastName,
-                    Email = esplUser.Email,
-                    UserName = esplUser.UserName
-                });
-            });
-            return Ok(esplUsers);
+            return Ok(esplUsersFromRepo);
         }
 
         [HttpOptions]

@@ -421,7 +421,7 @@ namespace ESPL.KP.Services
                 statusResourceParameters.PageSize);
         }
 
-         public IEnumerable<LookUpItem> GetStatusAsLookUp()
+        public IEnumerable<LookUpItem> GetStatusAsLookUp()
         {
             return (from a in _context.MstStatus
                     where a.IsDelete == false
@@ -741,6 +741,18 @@ namespace ESPL.KP.Services
             return _context.AppModules.Any(a => a.ShortName == appModuleName);
         }
 
+        public IEnumerable<LookUpItem> GetAppModulesAsLookUp()
+        {
+            return _context.AppModules
+                .Where(a => a.IsDelete == false)
+                .Select(a => new LookUpItem()
+                {
+                    ID = a.Id,
+                    Name = a.Name
+                });
+
+        }
+
         #endregion AppModule
 
 
@@ -861,6 +873,15 @@ namespace ESPL.KP.Services
             return _roleMgr.Roles.Any(a => a.Id == esplRoleId.ToString());
         }
 
+        public IEnumerable<LookUpItem> GetAppRolesAsLookUp()
+        {
+            return _roleMgr.Roles.Select(r => new LookUpItem()
+            {
+                ID = new Guid(r.Id),
+                Name = r.Name
+            }).ToList();
+
+        }
         #endregion AppRole
 
         #region Employee
@@ -943,7 +964,7 @@ namespace ESPL.KP.Services
                         Name = a.FirstName + " " + a.LastName
                     }).ToList();
         }
-        
+
         public IEnumerable<MstShift> GetEmployee(IEnumerable<Guid> shiftIds)
         {
             return _context.MstShift.Where(a => shiftIds.Contains(a.ShiftID) && a.IsDelete == false)
@@ -1016,11 +1037,12 @@ namespace ESPL.KP.Services
             return _context.MstEmployee.Any(a => a.EmployeeID == employeeId && a.IsDelete == false);
         }
 
-        public List<AppUser> GetUsersWithoutEmployees()
+        public IEnumerable<LookUpItem> GetUsersWithoutEmployees()
         {
-            var collectionBeforePaging =
-               _userMgr.Users.Where(u => !_context.MstEmployee.Any(e => e.UserID == u.Id)).ToList();
-            return collectionBeforePaging;
+            return _userMgr.Users
+                .Where(u => !_context.MstEmployee.Any(e => e.UserID == u.Id))
+                .Select(u => new LookUpItem() { ID = new Guid(u.Id), Name = u.UserName })
+                .ToList();
         }
 
         #endregion Employee
