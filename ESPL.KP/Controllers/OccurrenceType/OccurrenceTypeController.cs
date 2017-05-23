@@ -69,6 +69,7 @@ namespace ESPL.KP.Controllers.OccurrenceType
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
 
                 var links = CreateLinksForOccurrenceType(occurrenceTypeResourceParameters,
                     occurrenceTypeFromRepo.HasNext, occurrenceTypeFromRepo.HasPrevious);
@@ -116,7 +117,8 @@ namespace ESPL.KP.Controllers.OccurrenceType
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-
+                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                
                 return Ok(occurrenceType.ShapeData(occurrenceTypeResourceParameters.Fields));
             }
         }
