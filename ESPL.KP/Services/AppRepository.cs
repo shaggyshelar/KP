@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using ESPL.KP.Helpers.Reports;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace ESPL.KP.Services
 {
@@ -853,12 +854,12 @@ namespace ESPL.KP.Services
                 .ToList();
         }
 
-        public void AddAppRole(IdentityRole esplRole)
+        public async Task AddAppRole(IdentityRole esplRole)
         {
-            _roleMgr.CreateAsync(esplRole);
+            await _roleMgr.CreateAsync(esplRole);
         }
 
-        public async void DeleteAppRole(IdentityRole esplRole)
+        public async Task DeleteAppRole(IdentityRole esplRole)
         {
             await _roleMgr.DeleteAsync(esplRole);
         }
