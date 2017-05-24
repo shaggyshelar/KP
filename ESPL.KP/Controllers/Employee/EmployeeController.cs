@@ -70,7 +70,7 @@ namespace KP.Controllers.Employee
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                Response.Headers.Add("Access-Control-Expose-Headers", "ETag, X-Pagination");
 
                 var links = CreateLinksForEmployee(employeesResourceParameters,
                     employeeFromRepo.HasNext, employeeFromRepo.HasPrevious);
@@ -118,7 +118,7 @@ namespace KP.Controllers.Employee
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                Response.Headers.Add("Access-Control-Expose-Headers", "ETag, X-Pagination");
 
                 return Ok(employee.ShapeData(employeesResourceParameters.Fields));
             }
@@ -462,7 +462,7 @@ namespace KP.Controllers.Employee
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                Response.Headers.Add("Access-Control-Expose-Headers", "ETag, X-Pagination");
 
                 var links = CreateLinksForEmployeeShiftHistory(employeeShiftHistoryParams,
                     employeeShiftHistoryFromRepo.HasNext, employeeShiftHistoryFromRepo.HasPrevious);
@@ -510,7 +510,7 @@ namespace KP.Controllers.Employee
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                Response.Headers.Add("Access-Control-Expose-Headers", "ETag, X-Pagination");
 
                 return Ok(employeeShiftHistory.ShapeData(employeeShiftHistoryParams.Fields));
             }
@@ -549,7 +549,7 @@ namespace KP.Controllers.Employee
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                Response.Headers.Add("Access-Control-Expose-Headers", "ETag, X-Pagination");
 
                 var links = CreateLinksForEmployeeDepartmentHistory(employeeDepartmentHistoryParams,
                     employeeDepartmentHistoryFromRepo.HasNext, employeeDepartmentHistoryFromRepo.HasPrevious);
@@ -597,7 +597,7 @@ namespace KP.Controllers.Employee
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                Response.Headers.Add("Access-Control-Expose-Headers", "ETag, X-Pagination");
 
                 return Ok(employeeDepartmentHistory.ShapeData(employeeDepartmentHistoryParams.Fields));
             }

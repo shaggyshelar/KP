@@ -69,7 +69,7 @@ namespace KP.Controllers.OccurrenceBook
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                Response.Headers.Add("Access-Control-Expose-Headers", "ETag, X-Pagination");
 
                 var links = CreateLinksForOccurrenceBook(occurrenceBookResourceParameters,
                     occurrenceBookFromRepo.HasNext, occurrenceBookFromRepo.HasPrevious);
@@ -117,7 +117,7 @@ namespace KP.Controllers.OccurrenceBook
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                Response.Headers.Add("Access-Control-Expose-Headers", "ETag, X-Pagination");
 
                 return Ok(occurrenceBook.ShapeData(occurrenceBookResourceParameters.Fields));
             }
@@ -157,7 +157,7 @@ namespace KP.Controllers.OccurrenceBook
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                Response.Headers.Add("Access-Control-Expose-Headers", "ETag, X-Pagination");
 
                 var links = CreateLinksForOccurrenceBookActivity(occurrenceBookActivityResourceParameters,
                     occurrenceBookActivityFromRepo.HasNext, occurrenceBookActivityFromRepo.HasPrevious);
@@ -205,7 +205,7 @@ namespace KP.Controllers.OccurrenceBook
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                Response.Headers.Add("Access-Control-Expose-Headers", "ETag, X-Pagination");
 
                 return Ok(occurrenceBookActivity.ShapeData(occurrenceBookActivityResourceParameters.Fields));
             }
@@ -523,7 +523,7 @@ namespace KP.Controllers.OccurrenceBook
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                Response.Headers.Add("Access-Control-Expose-Headers", "ETag, X-Pagination");
 
                 var links = CreateLinksForOccurrenceBookAssignedHistory(occurrenceBookAssignedToResourceParameters,
                     occurrenceBookAssignmentFromRepo.HasNext, occurrenceBookAssignmentFromRepo.HasPrevious);
@@ -571,7 +571,7 @@ namespace KP.Controllers.OccurrenceBook
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                Response.Headers.Add("Access-Control-Expose-Headers", "ETag, X-Pagination");
 
                 return Ok(occurrenceBookAssignedTo.ShapeData(occurrenceBookAssignedToResourceParameters.Fields));
             }
@@ -611,7 +611,7 @@ namespace KP.Controllers.OccurrenceBook
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                Response.Headers.Add("Access-Control-Expose-Headers", "ETag, X-Pagination");
 
                 var links = CreateLinksForOccurrenceBookReviews(occurrenceBookReviewResourceParameters,
                     occurrenceBookReviewsFromRepo.HasNext, occurrenceBookReviewsFromRepo.HasPrevious);
@@ -659,7 +659,7 @@ namespace KP.Controllers.OccurrenceBook
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                Response.Headers.Add("Access-Control-Expose-Headers", "ETag, X-Pagination");
 
                 return Ok(occurrenceBookReviews.ShapeData(occurrenceBookReviewResourceParameters.Fields));
             }
@@ -793,7 +793,7 @@ namespace KP.Controllers.OccurrenceBook
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                Response.Headers.Add("Access-Control-Expose-Headers", "ETag, X-Pagination");
 
                 var links = CreateLinksForOccurrenceBookStatusHistory(occurrenceBookStatusResourceParameters,
                         occurrenceBookStatusFromRepo.HasNext, occurrenceBookStatusFromRepo.HasPrevious);
@@ -840,7 +840,7 @@ namespace KP.Controllers.OccurrenceBook
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                Response.Headers.Add("Access-Control-Expose-Headers", "ETag, X-Pagination");
                 
                 return Ok(occurrenceBookStatus.ShapeData(occurrenceBookStatusResourceParameters.Fields));
             }
