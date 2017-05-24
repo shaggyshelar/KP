@@ -15,6 +15,7 @@ using ESPL.KP.Helpers.Employee;
 using ESPL.KP.Helpers.Reports;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using ESPL.KP.Models;
+using System.Threading.Tasks;
 
 namespace ESPL.KP.Services
 {
@@ -137,8 +138,8 @@ namespace ESPL.KP.Services
         PagedList<IdentityRole> GetAppRoles(AppRolesResourceParameters esplRoleResourceParameters);
         IdentityRole GetAppRole(Guid esplRoleId);
         IEnumerable<IdentityRole> GetAppRoles(IEnumerable<Guid> esplRoleIds);
-        void AddAppRole(IdentityRole esplRole);
-        void DeleteAppRole(IdentityRole esplRole);
+        Task AddAppRole(IdentityRole esplRole);
+        Task DeleteAppRole(IdentityRole esplRole);
         void UpdateAppRole(IdentityRole esplRole);
         bool AppRoleExists(Guid esplRoleId);
         IEnumerable<LookUpItem> GetAppRolesAsLookUp();

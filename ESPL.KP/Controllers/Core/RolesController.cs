@@ -116,7 +116,7 @@ namespace ESPL.KP.Controllers.Core
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
                 Response.Headers.Add("Access-Control-Expose-Headers", "ETag, X-Pagination");
-                
+
                 return Ok(esplRoles);
             }
         }
@@ -190,7 +190,7 @@ namespace ESPL.KP.Controllers.Core
         }
 
         [HttpPost(Name = "CreateAppRole")]
-        public IActionResult CreateAppRole([FromBody] AppRoleForCreationDto esplRole)
+        public async Task<IActionResult> CreateAppRole([FromBody] AppRoleForCreationDto esplRole)
         {
             if (esplRole == null)
             {
@@ -199,13 +199,13 @@ namespace ESPL.KP.Controllers.Core
 
             var esplRoleEntity = Mapper.Map<IdentityRole>(esplRole);
 
-            _appRepository.AddAppRole(esplRoleEntity);
+            await _appRepository.AddAppRole(esplRoleEntity);
 
-            if (!_appRepository.Save())
-            {
-                throw new Exception("Creating an esplRole failed on save.");
-                // return StatusCode(500, "A problem happened with handling your request.");
-            }
+            // if (!_appRepository.Save())
+            // {
+            //     throw new Exception("Creating an esplRole failed on save.");
+            //     // return StatusCode(500, "A problem happened with handling your request.");
+            // }
 
             var esplRoleToReturn = Mapper.Map<AppRoleDto>(esplRoleEntity);
 
@@ -234,7 +234,7 @@ namespace ESPL.KP.Controllers.Core
         }
 
         [HttpDelete("{id}", Name = "DeleteAppRole")]
-        public IActionResult DeleteAppRole(Guid id)
+        public async Task<IActionResult> DeleteAppRole(Guid id)
         {
             var esplRoleFromRepo = _appRepository.GetAppRole(id);
             if (esplRoleFromRepo == null)
@@ -242,12 +242,12 @@ namespace ESPL.KP.Controllers.Core
                 return NotFound();
             }
 
-            _appRepository.DeleteAppRole(esplRoleFromRepo);
+            await _appRepository.DeleteAppRole(esplRoleFromRepo);
 
-            if (!_appRepository.Save())
-            {
-                throw new Exception($"Deleting esplRole {id} failed on save.");
-            }
+            // if (!_appRepository.Save())
+            // {
+            //     throw new Exception($"Deleting esplRole {id} failed on save.");
+            // }
 
             return NoContent();
         }
