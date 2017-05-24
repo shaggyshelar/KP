@@ -72,7 +72,7 @@ namespace KP.Controllers.ReportsController
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                Response.Headers.Add("Access-Control-Expose-Headers", "ETag, X-Pagination");
 
                 var links = CreateLinksForOccurrenceBook(occurrenceReportResourceParameters,
                     occurrenceBookFromRepo.HasNext, occurrenceBookFromRepo.HasPrevious);
@@ -120,7 +120,7 @@ namespace KP.Controllers.ReportsController
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                Response.Headers.Add("Access-Control-Expose-Headers", "ETag, X-Pagination");
                 
                 return Ok(occurrenceBook.ShapeData(occurrenceReportResourceParameters.Fields));
                 //return Ok(occurrenceBook);

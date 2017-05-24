@@ -70,7 +70,7 @@ namespace ESPL.KP.Controllers.Department
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                Response.Headers.Add("Access-Control-Expose-Headers", "ETag, X-Pagination");
                 var links = CreateLinksForDepartments(departmentsResourceParameters,
                     departmentsFromRepo.HasNext, departmentsFromRepo.HasPrevious);
 
@@ -117,7 +117,7 @@ namespace ESPL.KP.Controllers.Department
 
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-                Response.Headers.Add("Access-Control-Expose-Headers", "X-Pagination");
+                Response.Headers.Add("Access-Control-Expose-Headers", "ETag, X-Pagination");
                 
                 return Ok(departments.ShapeData(departmentsResourceParameters.Fields));
             }
