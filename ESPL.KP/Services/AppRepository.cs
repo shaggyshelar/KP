@@ -796,12 +796,12 @@ namespace ESPL.KP.Services
                 .ToList();
         }
 
-        public void AddAppUser(AppUser esplUser)
+        public async Task AddAppUser(AppUser esplUser)
         {
-            _userMgr.CreateAsync(esplUser);
+            await _userMgr.CreateAsync(esplUser);
         }
 
-        public async void DeleteAppUser(AppUser esplUser)
+        public async Task DeleteAppUser(AppUser esplUser)
         {
             await _userMgr.DeleteAsync(esplUser);
         }

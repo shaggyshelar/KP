@@ -125,8 +125,8 @@ namespace ESPL.KP.Services
         PagedList<AppUser> GetAppUsers(AppUsersResourceParameters esplUserResourceParameters);
         AppUser GetAppUser(Guid esplUserId);
         IEnumerable<AppUser> GetAppUsers(IEnumerable<Guid> esplUserIds);
-        void AddAppUser(AppUser esplUser);
-        void DeleteAppUser(AppUser esplUser);
+        Task AddAppUser(AppUser esplUser);
+        Task DeleteAppUser(AppUser esplUser);
         void UpdateAppUser(AppUser esplUser);
         bool AppUserExists(Guid esplUserId);
 
