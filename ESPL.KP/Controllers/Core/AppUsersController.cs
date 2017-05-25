@@ -125,7 +125,7 @@ namespace ESPL.KP.Controllers.Core
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
                 Response.Headers.Add("Access-Control-Expose-Headers", "ETag, X-Pagination");
-                
+
                 return Ok(esplUsers);
             }
         }
@@ -199,7 +199,7 @@ namespace ESPL.KP.Controllers.Core
         }
 
         [HttpPost(Name = "CreateAppUser")]
-        public IActionResult CreateAppUser([FromBody] AppUserForCreationDto esplUser)
+        public async Task<IActionResult> CreateAppUser([FromBody] AppUserForCreationDto esplUser)
         {
             if (esplUser == null)
             {
@@ -208,13 +208,13 @@ namespace ESPL.KP.Controllers.Core
 
             var esplUserEntity = Mapper.Map<AppUser>(esplUser);
 
-            _appRepository.AddAppUser(esplUserEntity);
+            await _appRepository.AddAppUser(esplUserEntity);
 
-            if (!_appRepository.Save())
-            {
-                throw new Exception("Creating an esplUser failed on save.");
-                // return StatusCode(500, "A problem happened with handling your request.");
-            }
+            // if (!_appRepository.Save())
+            // {
+            //     throw new Exception("Creating an esplUser failed on save.");
+            //     // return StatusCode(500, "A problem happened with handling your request.");
+            // }
 
             var esplUserToReturn = Mapper.Map<AppUserDto>(esplUserEntity);
 
@@ -243,7 +243,7 @@ namespace ESPL.KP.Controllers.Core
         }
 
         [HttpDelete("{id}", Name = "DeleteAppUser")]
-        public IActionResult DeleteAppUser(Guid id)
+        public async Task<IActionResult> DeleteAppUser(Guid id)
         {
             var esplUserFromRepo = _appRepository.GetAppUser(id);
             if (esplUserFromRepo == null)
@@ -251,12 +251,12 @@ namespace ESPL.KP.Controllers.Core
                 return NotFound();
             }
 
-            _appRepository.DeleteAppUser(esplUserFromRepo);
+            await _appRepository.DeleteAppUser(esplUserFromRepo);
 
-            if (!_appRepository.Save())
-            {
-                throw new Exception($"Deleting esplUser {id} failed on save.");
-            }
+            // if (!_appRepository.Save())
+            // {
+            //     throw new Exception($"Deleting esplUser {id} failed on save.");
+            // }
 
             return NoContent();
         }
