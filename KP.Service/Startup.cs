@@ -23,6 +23,8 @@ using System.Collections.Generic;
 using System;
 using System.Reflection;
 using KP.Common.Services;
+using KP.Persistence;
+using KP.Domain.Users;
 
 namespace KP.Service
 {
@@ -50,9 +52,9 @@ namespace KP.Service
             // appSettings (note: use this during development; in a production environment,
             // it's better to store the connection string in an environment variable)
             var connectionString = Configuration["connectionStrings:libraryDBConnectionString"];
-            //services.AddDbContext<Entities.ApplicationContext>(o => o.UseSqlServer(connectionString));
-            //services.AddTransient<IdentityInitializer>();
-            //services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<Entities.ApplicationContext>();
+            services.AddDbContext<ApplicationContext>(o => o.UseSqlServer(connectionString));
+            services.AddTransient<IdentityInitializer>();
+            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>();
             services.Configure<IdentityOptions>(config =>
             {
                 config.Cookies.ApplicationCookie.Events =
@@ -178,7 +180,8 @@ namespace KP.Service
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory, ApplicationContext libraryContext,
+            IdentityInitializer identitySeeder)
         {
             loggerFactory.AddConsole();
             loggerFactory.AddDebug(LogLevel.Information);
@@ -219,8 +222,8 @@ namespace KP.Service
                 //cfg.CreateMap<ESPL.KP.Entities.MstDepartment, ESPL.KP.Models.DepartmentDto>();
             });
 
-            // identitySeeder.Seed().Wait();
-            // libraryContext.EnsureSeedDataForContext();
+            identitySeeder.Seed().Wait();
+            libraryContext.EnsureSeedDataForContext();
             app.UseIpRateLimiting();
             app.UseHttpCacheHeaders();
             app.UseDefaultFiles();
