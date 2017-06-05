@@ -7,7 +7,7 @@
         {
             "taskName": "build",
             "args": [
-                "${workspaceRoot}\\ESPL.KP.csproj"
+                "${workspaceRoot}\\KP.Service\\KP.Service.csproj"
             ],
             "isBuildCommand": true,
             "problemMatcher": "$msCompile"

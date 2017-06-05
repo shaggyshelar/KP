@@ -1,10 +1,10 @@
 namespace KP.Common.Enums
 {
-    public static class Permissions
+    public enum Permission
     {
-        public const string DepartmentRead = "DP" + "." + "R";
-        public const string DepartmentCreate = "DP" + "." + "C";
-        public const string DepartmentUpdate = "DP" + "." + "U";
-        public const string DepartmentDelete = "DP" + "." + "D";
+        C,
+        R,
+        U,
+        D
     }
 }
