@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using KP.Application.Departments;
 using KP.Common.Services;
 using KP.Service.Department;
 

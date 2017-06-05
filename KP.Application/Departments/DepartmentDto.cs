@@ -1,6 +1,6 @@
 using System;
 
-namespace KP.Service.Department
+namespace KP.Application.Departments
 {
     public class DepartmentDto
     {

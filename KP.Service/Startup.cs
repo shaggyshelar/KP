@@ -25,6 +25,8 @@ using System.Reflection;
 using KP.Common.Services;
 using KP.Persistence;
 using KP.Domain.Users;
+using KP.Application.Interfaces;
+using KP.Application.Departments;
 
 namespace KP.Service
 {
@@ -52,7 +54,7 @@ namespace KP.Service
             // appSettings (note: use this during development; in a production environment,
             // it's better to store the connection string in an environment variable)
             var connectionString = Configuration["connectionStrings:libraryDBConnectionString"];
-            services.AddDbContext<ApplicationContext>(o => o.UseSqlServer(connectionString));
+            services.AddDbContext<ApplicationContext>(o => o.UseSqlServer(connectionString, b => b.MigrationsAssembly("KP.Service")));
             services.AddTransient<IdentityInitializer>();
             services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>();
             services.Configure<IdentityOptions>(config =>
@@ -129,7 +131,7 @@ namespace KP.Service
             });
 
             // register the repository
-            //services.AddScoped<IAppRepository, AppRepository>();
+            services.AddScoped<IAppRepository, AppRepository>();
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
@@ -219,7 +221,7 @@ namespace KP.Service
 
             AutoMapper.Mapper.Initialize(cfg =>
             {
-                //cfg.CreateMap<ESPL.KP.Entities.MstDepartment, ESPL.KP.Models.DepartmentDto>();
+                cfg.CreateMap<KP.Domain.Department.Department, DepartmentDto>();
             });
 
             identitySeeder.Seed().Wait();
