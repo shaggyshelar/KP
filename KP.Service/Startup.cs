@@ -27,6 +27,7 @@ using KP.Persistence;
 using KP.Domain.Users;
 using KP.Application.Interfaces;
 using KP.Application.Departments;
+using KP.Common;
 
 namespace KP.Service
 {
@@ -56,6 +57,7 @@ namespace KP.Service
             var connectionString = Configuration["connectionStrings:libraryDBConnectionString"];
             services.AddDbContext<ApplicationContext>(o => o.UseSqlServer(connectionString, b => b.MigrationsAssembly("KP.Service")));
             services.AddTransient<IdentityInitializer>();
+            services.AddTransient<Microsoft.EntityFrameworkCore.DbContext, ApplicationContext>();
             services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>();
             services.Configure<IdentityOptions>(config =>
             {
@@ -144,6 +146,8 @@ namespace KP.Service
 
             services.AddTransient<IPropertyMappingService, PropertyMappingService>();
             services.AddTransient<ITypeHelperService, TypeHelperService>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
             services.AddHttpCacheHeaders(
                 (expirationModelOptions)
                 =>

@@ -10,6 +10,8 @@ using KP.Application.Interfaces;
 using KP.Common.Services;
 using KP.Application.Departments;
 using KP.Common.Helpers;
+using KP.Persistence;
+using KP.Common;
 
 namespace KP.Service.Department
 {
@@ -21,15 +23,19 @@ namespace KP.Service.Department
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
 
+        private IGenericRepository<KP.Domain.Department.Department> _repo;
+
         public DepartmentsController(IAppRepository appRepository,
             IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
-            ITypeHelperService typeHelperService)
+            ITypeHelperService typeHelperService,
+            IGenericRepository<KP.Domain.Department.Department> repo)
         {
             _appRepository = appRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
+            _repo = repo;
         }
 
         private string CreateDepartmentsResourceUri(
@@ -148,6 +154,8 @@ namespace KP.Service.Department
             {
                 return BadRequest();
             }
+
+            var depsFromRepo = _repo.All();
 
             var departmentsFromRepo = _appRepository.GetDepartments(departmentsResourceParameters);
 
