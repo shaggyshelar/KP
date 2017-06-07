@@ -38,104 +38,6 @@ namespace KP.Service.Department
             _repo = repo;
         }
 
-        private string CreateDepartmentsResourceUri(
-            DepartmentsResourceParameters departmentsResourceParameters,
-            ResourceUriType type)
-        {
-            switch (type)
-            {
-                case ResourceUriType.PreviousPage:
-                    return _urlHelper.Link("GetDepartments",
-                      new
-                      {
-                          fields = departmentsResourceParameters.Fields,
-                          orderBy = departmentsResourceParameters.OrderBy,
-                          searchQuery = departmentsResourceParameters.SearchQuery,
-                          pageNumber = departmentsResourceParameters.PageNumber - 1,
-                          pageSize = departmentsResourceParameters.PageSize
-                      });
-                case ResourceUriType.NextPage:
-                    return _urlHelper.Link("GetDepartments",
-                      new
-                      {
-                          fields = departmentsResourceParameters.Fields,
-                          orderBy = departmentsResourceParameters.OrderBy,
-                          searchQuery = departmentsResourceParameters.SearchQuery,
-                          pageNumber = departmentsResourceParameters.PageNumber + 1,
-                          pageSize = departmentsResourceParameters.PageSize
-                      });
-                case ResourceUriType.Current:
-                default:
-                    return _urlHelper.Link("GetDepartments",
-                    new
-                    {
-                        fields = departmentsResourceParameters.Fields,
-                        orderBy = departmentsResourceParameters.OrderBy,
-                        searchQuery = departmentsResourceParameters.SearchQuery,
-                        pageNumber = departmentsResourceParameters.PageNumber,
-                        pageSize = departmentsResourceParameters.PageSize
-                    });
-            }
-        }
-
-        private IEnumerable<LinkDto> CreateLinksForDepartment(Guid id, string fields)
-        {
-            var links = new List<LinkDto>();
-
-            if (string.IsNullOrWhiteSpace(fields))
-            {
-                links.Add(
-                  new LinkDto(_urlHelper.Link("GetDepartment", new { id = id }),
-                  "self",
-                  "GET"));
-            }
-            else
-            {
-                links.Add(
-                  new LinkDto(_urlHelper.Link("GetDepartment", new { id = id, fields = fields }),
-                  "self",
-                  "GET"));
-            }
-
-            links.Add(
-              new LinkDto(_urlHelper.Link("DeleteDepartment", new { id = id }),
-              "delete_department",
-              "DELETE"));
-
-            return links;
-        }
-
-        private IEnumerable<LinkDto> CreateLinksForDepartments(
-            DepartmentsResourceParameters departmentsResourceParameters,
-            bool hasNext, bool hasPrevious)
-        {
-            var links = new List<LinkDto>();
-
-            // self 
-            links.Add(
-               new LinkDto(CreateDepartmentsResourceUri(departmentsResourceParameters,
-               ResourceUriType.Current)
-               , "self", "GET"));
-
-            if (hasNext)
-            {
-                links.Add(
-                  new LinkDto(CreateDepartmentsResourceUri(departmentsResourceParameters,
-                  ResourceUriType.NextPage),
-                  "nextPage", "GET"));
-            }
-
-            if (hasPrevious)
-            {
-                links.Add(
-                    new LinkDto(CreateDepartmentsResourceUri(departmentsResourceParameters,
-                    ResourceUriType.PreviousPage),
-                    "previousPage", "GET"));
-            }
-
-            return links;
-        }
-
 
         [HttpGet(Name = "GetDepartments")]
         [HttpHead]
@@ -191,16 +93,17 @@ namespace KP.Service.Department
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
 
-                var links = CreateLinksForDepartments(departmentsResourceParameters,
-                    departmentsFromRepo.HasNext, departmentsFromRepo.HasPrevious);
+                var links = Utilities.CreateLinks(departmentsResourceParameters,
+                    departmentsFromRepo.HasNext, departmentsFromRepo.HasPrevious, _urlHelper, "Department");
 
                 var shapedDepartments = departments.ShapeData(departmentsResourceParameters.Fields);
 
                 var shapedDepartmentsWithLinks = shapedDepartments.Select(department =>
                 {
                     var departmentAsDictionary = department as IDictionary<string, object>;
-                    var departmentLinks = CreateLinksForDepartment(
-                        (Guid)departmentAsDictionary["Id"], departmentsResourceParameters.Fields);
+                    var departmentLinks = Utilities.CreateLinks(
+                        (Guid)departmentAsDictionary["Id"], departmentsResourceParameters.Fields,
+                        _urlHelper, "Department");
 
                     departmentAsDictionary.Add("links", departmentLinks);
 
@@ -218,12 +121,12 @@ namespace KP.Service.Department
             else
             {
                 var previousPageLink = departmentsFromRepo.HasPrevious ?
-                    CreateDepartmentsResourceUri(departmentsResourceParameters,
-                    ResourceUriType.PreviousPage) : null;
+                    Utilities.CreateResourceUri(departmentsResourceParameters,
+                    ResourceUriType.PreviousPage, _urlHelper, "GetDepartments") : null;
 
                 var nextPageLink = departmentsFromRepo.HasNext ?
-                    CreateDepartmentsResourceUri(departmentsResourceParameters,
-                    ResourceUriType.NextPage) : null;
+                    Utilities.CreateResourceUri(departmentsResourceParameters,
+                    ResourceUriType.NextPage, _urlHelper, "GetDepartments") : null;
 
                 var paginationMetadata = new
                 {

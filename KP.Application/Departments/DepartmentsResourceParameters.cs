@@ -4,6 +4,6 @@ namespace KP.Application.Departments
 {
     public class DepartmentsResourceParameters : BaseResourceParameters
     {
-        public string OrderBy { get; set; } = "DepartmentName";        
+        public override string OrderBy { get; set; } = "DepartmentName";
     }
 }
