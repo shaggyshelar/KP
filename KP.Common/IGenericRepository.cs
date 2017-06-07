@@ -22,6 +22,6 @@ namespace KP.Common
 
         void Insert(TEntity entity);
 
-        void Update(TEntity entity);
+        bool Update(TEntity entity);
     }
 }

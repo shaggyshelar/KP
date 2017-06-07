@@ -66,11 +66,12 @@ namespace KP.Persistence
             _context.SaveChanges();
         }
 
-        public void Update(TEntity entity)
+        public bool Update(TEntity entity)
         {
             _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
+            return (_context.SaveChanges() >= 0);
         }
 
         public void Delete(Guid id)

@@ -120,8 +120,6 @@ namespace KP.Service.Department
             }
 
             var departmentFromRepo = _repo.FindByKey(id);
-            //var departmentFromRepo = _appRepository.GetDepartment(id);
-
             if (departmentFromRepo == null)
             {
                 return NotFound();
@@ -138,5 +136,26 @@ namespace KP.Service.Department
 
             return Ok(linkedResourceToReturn);
         }
+
+        [HttpDelete("{id}", Name = "DeleteDepartment")]
+        public IActionResult DeleteDepartment(Guid id)
+        {
+            var departmentFromRepo = _repo.FindByKey(id);
+            if (departmentFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            //_appRepository.DeleteDepartment(departmentFromRepo);
+            //....... Soft Delete
+            departmentFromRepo.IsDelete = true;
+            if (!_repo.Update(departmentFromRepo))
+            {
+                throw new Exception($"Deleting department {id} failed on save.");
+            }
+
+            return NoContent();
+        }
+
     }
 }
