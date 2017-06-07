@@ -20,12 +20,12 @@ namespace KP.Common.Helpers
         public static string CreateResourceUri(
             BaseResourceParameters resourceParameters,
             ResourceUriType type, IUrlHelper _urlHelper,
-            string methodName)
+            string entityName)
         {
             switch (type)
             {
                 case ResourceUriType.PreviousPage:
-                    return _urlHelper.Link(methodName,
+                    return _urlHelper.Link(string.Format("Get{0}", entityName),
                       new
                       {
                           fields = resourceParameters.Fields,
@@ -35,7 +35,7 @@ namespace KP.Common.Helpers
                           pageSize = resourceParameters.PageSize
                       });
                 case ResourceUriType.NextPage:
-                    return _urlHelper.Link(methodName,
+                    return _urlHelper.Link(string.Format("Get{0}", entityName),
                       new
                       {
                           fields = resourceParameters.Fields,
@@ -46,7 +46,7 @@ namespace KP.Common.Helpers
                       });
                 case ResourceUriType.Current:
                 default:
-                    return _urlHelper.Link(methodName,
+                    return _urlHelper.Link(string.Format("Get{0}", entityName),
                     new
                     {
                         fields = resourceParameters.Fields,

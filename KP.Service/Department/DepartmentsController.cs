@@ -41,7 +41,6 @@ namespace KP.Service.Department
 
         [HttpGet(Name = "GetDepartments")]
         [HttpHead]
-        //[Authorize(Policy = "DP.R")]
         public IActionResult GetDepartments(DepartmentsResourceParameters departmentsResourceParameters,
             [FromHeader(Name = "Accept")] string mediaType)
         {
@@ -76,72 +75,38 @@ namespace KP.Service.Department
                 departmentsResourceParameters.PageNumber,
                 departmentsResourceParameters.PageSize);
 
-            //var departmentsFromRepo = _appRepository.GetDepartments(departmentsResourceParameters);
-
             var departments = Mapper.Map<IEnumerable<DepartmentDto>>(departmentsFromRepo);
+            var shapedDepartments = departments.ShapeData(departmentsResourceParameters.Fields);
 
             if (mediaType == "application/vnd.marvin.hateoas+json")
             {
-                var paginationMetadata = new
-                {
-                    totalCount = departmentsFromRepo.TotalCount,
-                    pageSize = departmentsFromRepo.PageSize,
-                    currentPage = departmentsFromRepo.CurrentPage,
-                    totalPages = departmentsFromRepo.TotalPages,
-                };
-
+                var paginationMetadata = departmentsFromRepo.GetHateosMetadata();
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
 
                 var links = Utilities.CreateLinks(departmentsResourceParameters,
                     departmentsFromRepo.HasNext, departmentsFromRepo.HasPrevious, _urlHelper, "Department");
-
-                var shapedDepartments = departments.ShapeData(departmentsResourceParameters.Fields);
-
-                var shapedDepartmentsWithLinks = shapedDepartments.Select(department =>
-                {
-                    var departmentAsDictionary = department as IDictionary<string, object>;
-                    var departmentLinks = Utilities.CreateLinks(
-                        (Guid)departmentAsDictionary["Id"], departmentsResourceParameters.Fields,
-                        _urlHelper, "Department");
-
-                    departmentAsDictionary.Add("links", departmentLinks);
-
-                    return departmentAsDictionary;
-                });
-
                 var linkedCollectionResource = new
                 {
-                    value = shapedDepartmentsWithLinks,
+                    value = shapedDepartments.Select(department =>
+                        {
+                            var departmentAsDictionary = department as IDictionary<string, object>;
+                            var departmentLinks = Utilities.CreateLinks(
+                                (Guid)departmentAsDictionary["Id"], departmentsResourceParameters.Fields,
+                                _urlHelper, "Department");
+                            departmentAsDictionary.Add("links", departmentLinks);
+                            return departmentAsDictionary;
+                        }),
                     links = links
                 };
-
                 return Ok(linkedCollectionResource);
             }
             else
             {
-                var previousPageLink = departmentsFromRepo.HasPrevious ?
-                    Utilities.CreateResourceUri(departmentsResourceParameters,
-                    ResourceUriType.PreviousPage, _urlHelper, "GetDepartments") : null;
-
-                var nextPageLink = departmentsFromRepo.HasNext ?
-                    Utilities.CreateResourceUri(departmentsResourceParameters,
-                    ResourceUriType.NextPage, _urlHelper, "GetDepartments") : null;
-
-                var paginationMetadata = new
-                {
-                    previousPageLink = previousPageLink,
-                    nextPageLink = nextPageLink,
-                    totalCount = departmentsFromRepo.TotalCount,
-                    pageSize = departmentsFromRepo.PageSize,
-                    currentPage = departmentsFromRepo.CurrentPage,
-                    totalPages = departmentsFromRepo.TotalPages
-                };
-
+                var paginationMetadata = departmentsFromRepo.GetMetadata(departmentsResourceParameters, _urlHelper);
                 Response.Headers.Add("X-Pagination",
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-
-                return Ok(departments.ShapeData(departmentsResourceParameters.Fields));
+                return Ok(shapedDepartments);
             }
         }
     }
