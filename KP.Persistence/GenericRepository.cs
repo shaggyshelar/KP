@@ -24,6 +24,11 @@ namespace KP.Persistence
             return _dbSet.AsNoTracking().ToList();
         }
 
+        public IQueryable<TEntity> Query()
+        {
+            return _dbSet.AsNoTracking();
+        }
+
         public IEnumerable<TEntity> AllInclude
         (params Expression<Func<TEntity, object>>[] includeProperties)
         {

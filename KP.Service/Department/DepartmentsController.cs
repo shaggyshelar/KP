@@ -155,9 +155,26 @@ namespace KP.Service.Department
                 return BadRequest();
             }
 
-            var depsFromRepo = _repo.All();
+            var collectionBeforePaging =
+                _repo.Query().Where(a => a.IsDelete == false).ApplySort(departmentsResourceParameters.OrderBy,
+                _propertyMappingService.GetPropertyMapping<DepartmentDto, KP.Domain.Department.Department>());
 
-            var departmentsFromRepo = _appRepository.GetDepartments(departmentsResourceParameters);
+            if (!string.IsNullOrEmpty(departmentsResourceParameters.SearchQuery))
+            {
+                var searchQueryForWhereClause = departmentsResourceParameters.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.DepartmentName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || (a.DepartmentDespcription != null
+                        && a.DepartmentDespcription.ToLowerInvariant().Contains(searchQueryForWhereClause)));
+            }
+
+            var departmentsFromRepo = PagedList<KP.Domain.Department.Department>.Create(collectionBeforePaging,
+                departmentsResourceParameters.PageNumber,
+                departmentsResourceParameters.PageSize);
+
+            //var departmentsFromRepo = _appRepository.GetDepartments(departmentsResourceParameters);
 
             var departments = Mapper.Map<IEnumerable<DepartmentDto>>(departmentsFromRepo);
 

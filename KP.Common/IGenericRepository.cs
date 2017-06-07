@@ -8,6 +8,8 @@ namespace KP.Common
     public interface IGenericRepository<TEntity> where TEntity : class
     {
         IEnumerable<TEntity> All();
+        
+        IQueryable<TEntity> Query();
 
         IEnumerable<TEntity> AllInclude(params Expression<Func<TEntity, object>>[] includeProperties);
 
