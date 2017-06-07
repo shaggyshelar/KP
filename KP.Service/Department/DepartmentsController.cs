@@ -109,5 +109,34 @@ namespace KP.Service.Department
                 return Ok(shapedDepartments);
             }
         }
+
+        [HttpGet("{id}", Name = "GetDepartment")]
+        public IActionResult GetDepartment(Guid id, [FromQuery] string fields)
+        {
+            if (!_typeHelperService.TypeHasProperties<DepartmentDto>
+              (fields))
+            {
+                return BadRequest();
+            }
+
+            var departmentFromRepo = _repo.FindByKey(id);
+            //var departmentFromRepo = _appRepository.GetDepartment(id);
+
+            if (departmentFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            var department = Mapper.Map<DepartmentDto>(departmentFromRepo);
+
+            var links = Utilities.CreateLinks(id, fields, _urlHelper, "Department");
+
+            var linkedResourceToReturn = department.ShapeData(fields)
+                as IDictionary<string, object>;
+
+            linkedResourceToReturn.Add("links", links);
+
+            return Ok(linkedResourceToReturn);
+        }
     }
 }
