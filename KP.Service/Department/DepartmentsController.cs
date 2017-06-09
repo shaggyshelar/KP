@@ -18,20 +18,17 @@ namespace KP.Service.Department
     [Route("api/departments")]
     public class DepartmentsController : Controller
     {
-        private IAppRepository _appRepository;
         private IUrlHelper _urlHelper;
         private IPropertyMappingService _propertyMappingService;
         private ITypeHelperService _typeHelperService;
 
         private IGenericRepository<KP.Domain.Department.Department> _repo;
 
-        public DepartmentsController(IAppRepository appRepository,
-            IUrlHelper urlHelper,
+        public DepartmentsController(IUrlHelper urlHelper,
             IPropertyMappingService propertyMappingService,
             ITypeHelperService typeHelperService,
             IGenericRepository<KP.Domain.Department.Department> repo)
         {
-            _appRepository = appRepository;
             _urlHelper = urlHelper;
             _propertyMappingService = propertyMappingService;
             _typeHelperService = typeHelperService;
@@ -155,6 +152,72 @@ namespace KP.Service.Department
             }
 
             return NoContent();
+        }
+
+        [HttpPut("{id}", Name = "UpdateDepartment")]
+        public IActionResult UpdateDepartment(Guid id, [FromBody] DepartmentForUpdationDto department)
+        {
+            if (department == null)
+            {
+                return BadRequest();
+            }
+            var departmentRepo = _repo.FindByKey(id);
+
+            if (departmentRepo == null)
+            {
+                return NotFound();
+            }
+
+            Mapper.Map(department, departmentRepo);
+            if (!_repo.Update(departmentRepo))
+            {
+                throw new Exception("Updating an department failed on save.");
+            }
+
+            return Ok(departmentRepo);
+        }
+
+        [HttpPatch("{id}", Name = "PartiallyUpdateDepartment")]
+        public IActionResult PartiallyUpdateDepartment(Guid id,
+                    [FromBody] JsonPatchDocument<DepartmentForUpdationDto> patchDoc)
+        {
+            if (patchDoc == null)
+            {
+                return BadRequest();
+            }
+
+            var departmentFromRepo = _repo.FindByKey(id);
+
+            if (departmentFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            var departmentToPatch = Mapper.Map<DepartmentForUpdationDto>(departmentFromRepo);
+            patchDoc.ApplyTo(departmentToPatch, ModelState);
+
+            TryValidateModel(departmentToPatch);
+
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
+
+            Mapper.Map(departmentToPatch, departmentFromRepo);
+
+            if (!_repo.Update(departmentFromRepo))
+            {
+                throw new Exception($"Patching  department {id} failed on save.");
+            }
+
+            return NoContent();
+        }
+
+        [HttpOptions]
+        public IActionResult GetDepartmentsOptions()
+        {
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST");
+            return Ok();
         }
 
     }
